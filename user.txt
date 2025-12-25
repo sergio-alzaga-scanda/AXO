@@ -1,0 +1,61 @@
+Te mando el usuario y password para SD
+
+Usuario:  help_desk
+Password: H3lpD3sk69
+
+
+1E8FD6E9-33F0-41C2-9D27-B2B86FD040B0
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+de acuerdo con esta documentacion 
+https://www.manageengine.com/products/service-desk/sdpod-v3-api/getting-started/api-index.html
+necestio que primero se consulte los request que estan abiertos, los debes de asiganar a estos tecnicos 
+Technician Name ( First Name )	Login Name
+Alejandro Cempoalteca Argenis (MX)	acempoalteca.ext
+Daniel Mejia Zamorano (MX)	dmejiaz.ext
+Iker Michel Castañeda Sanchez (MX)	icastanedas.ext
+José Francisco Estrada Godínez (MX)	jestradag.ext
+Juan Carlos López Moreno (MX)	jlopezm.ext
+Luis Angel Sandoval Sevilla (MX)	lsandovals.ext
+Liliam Cruz Galindo (MX)	lcruzg.ext
+Maria Fernanda Lopez Trejo (MX)	mlopezt.ext
+Pedro Daniel Mendez Mora (MX)	pmendezm.ext
+Raul Cortez Vargas (MX)	rcortezv.ext
+Russbelly Silva Nicolás (MX)	rsilva.ext
+Salvado Valenzuela Vazquez (MX)	svalenzuelav.ext
+
+haciendo una secuencia supon que en la primer busqueda hay 20 tickets, entonces se asigna el primero a alejando y el segundo a Daniel y asi vas uno y uno, a escepcion de Maria Fernanda Lopez Trejo que es nueva y en cada vuelta se asigana un ticket a ella y a la siguiente vuelta no y a la siguiente si y asi continua, 
+
+en cada ticket debes de actualizar el status a asiganado y el tecnico al cual se asigno, crea una tabla my sql para los tecnicos para que los pueda consultar y saber a quien le toca la asiganacion y otra tabla donde se guarden el id del ticket y a quien fue asignado, la fecha y hora 
+
+todo esto debe de hacerse desde una api Flask que haga la cosulta a las apis de la documentacion y actualice el status y el tecnico asignado, solo debe de tomar en cuenta los tickets que estan abiertos o no asignados, la consulta de los tickets 

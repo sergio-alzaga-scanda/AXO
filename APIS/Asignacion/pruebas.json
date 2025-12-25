@@ -1,0 +1,48 @@
+{
+  "info": {
+    "_postman_id": "c85783f8-4767-4ca3-af27-d30aeaab6209",
+    "name": "ServiceDesk AutoAssign API",
+    "description": "Colección para probar la API de asignación automática de tickets en ServiceDesk.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Procesar ticket individual",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/procesar_ticket/{{ticket_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["procesar_ticket", "{{ticket_id}}"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Procesar todos los tickets abiertos",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/procesar_todos",
+          "host": ["{{base_url}}"],
+          "path": ["procesar_todos"]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:5000",
+      "type": "string"
+    },
+    {
+      "key": "ticket_id",
+      "value": "1234567",
+      "type": "string"
+    }
+  ]
+}
