@@ -1,0 +1,608 @@
+2026-01-13 12:54:46,519 [INFO] === Iniciando aplicación Flask Voiceflow ===
+2026-01-13 12:54:46,552 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.70:5000
+2026-01-13 12:54:46,553 [INFO] [33mPress CTRL+C to quit[0m
+2026-01-13 12:54:46,554 [INFO]  * Restarting with stat
+2026-01-13 12:54:47,058 [INFO] === Iniciando aplicación Flask Voiceflow ===
+2026-01-13 12:54:47,073 [WARNING]  * Debugger is active!
+2026-01-13 12:54:47,078 [INFO]  * Debugger PIN: 769-582-936
+2026-01-13 12:56:20,446 [INFO] === Iniciando aplicación Flask Voiceflow ===
+2026-01-13 12:56:20,463 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.70:5000
+2026-01-13 12:56:20,463 [INFO] [33mPress CTRL+C to quit[0m
+2026-01-13 12:56:20,464 [INFO]  * Restarting with stat
+2026-01-13 12:56:20,763 [INFO] === Iniciando aplicación Flask Voiceflow ===
+2026-01-13 12:56:20,770 [WARNING]  * Debugger is active!
+2026-01-13 12:56:20,773 [INFO]  * Debugger PIN: 769-582-936
+2026-01-13 12:56:57,678 [INFO] ==> Iniciando procesamiento con filtro='All', project_id='693afada764078aca74405a7'
+2026-01-13 12:56:58,672 [INFO] [Voiceflow API] URL: https://api.voiceflow.com/v2/transcripts/693afada764078aca74405a7?range=All
+2026-01-13 12:56:58,672 [INFO] [Voiceflow API] Status: 401
+2026-01-13 12:56:58,673 [ERROR] [Voiceflow API] Error 401: Unauthorized
+2026-01-13 12:56:58,673 [ERROR] [HTTPError] 401 Client Error: Unauthorized for url: https://api.voiceflow.com/v2/transcripts/693afada764078aca74405a7?range=All
+2026-01-13 12:56:58,674 [INFO] 127.0.0.1 - - [13/Jan/2026 12:56:58] "[35m[1mGET /procesar_transcripts?range=All HTTP/1.1[0m" 500 -
+2026-01-13 12:57:14,056 [INFO] ==> Iniciando procesamiento con filtro='Today', project_id='693afada764078aca74405a7'
+2026-01-13 12:57:14,730 [INFO] [Voiceflow API] URL: https://api.voiceflow.com/v2/transcripts/693afada764078aca74405a7?range=Today
+2026-01-13 12:57:14,731 [INFO] [Voiceflow API] Status: 401
+2026-01-13 12:57:14,731 [ERROR] [Voiceflow API] Error 401: Unauthorized
+2026-01-13 12:57:14,732 [ERROR] [HTTPError] 401 Client Error: Unauthorized for url: https://api.voiceflow.com/v2/transcripts/693afada764078aca74405a7?range=Today
+2026-01-13 12:57:14,733 [INFO] 127.0.0.1 - - [13/Jan/2026 12:57:14] "[35m[1mGET /procesar_transcripts HTTP/1.1[0m" 500 -
+2026-01-13 12:57:36,762 [INFO] ==> Iniciando procesamiento con filtro='Today', project_id='693afada764078aca74405a7'
+2026-01-13 12:57:37,508 [INFO] [Voiceflow API] URL: https://api.voiceflow.com/v2/transcripts/693afada764078aca74405a7?range=Today
+2026-01-13 12:57:37,508 [INFO] [Voiceflow API] Status: 401
+2026-01-13 12:57:37,508 [ERROR] [Voiceflow API] Error 401: Unauthorized
+2026-01-13 12:57:37,509 [ERROR] [HTTPError] 401 Client Error: Unauthorized for url: https://api.voiceflow.com/v2/transcripts/693afada764078aca74405a7?range=Today
+2026-01-13 12:57:37,510 [INFO] 127.0.0.1 - - [13/Jan/2026 12:57:37] "[35m[1mGET /procesar_transcripts HTTP/1.1[0m" 500 -
+2026-01-13 12:57:56,667 [INFO] 127.0.0.1 - - [13/Jan/2026 12:57:56] "[33mGET /procesar_todos_gpt HTTP/1.1[0m" 404 -
+2026-01-13 12:59:56,729 [INFO] 127.0.0.1 - - [13/Jan/2026 12:59:56] "[33mGET /procesar_todos_gpt HTTP/1.1[0m" 404 -
+2026-01-13 13:00:06,420 [INFO]  * Detected change in 'c:\\wamp64\\www\\transcripciones\\info_mensaje.py', reloading
+2026-01-13 13:00:06,458 [INFO]  * Restarting with stat
+2026-01-13 13:00:06,818 [INFO] === Iniciando aplicación Flask Voiceflow ===
+2026-01-13 13:00:06,826 [WARNING]  * Debugger is active!
+2026-01-13 13:00:06,829 [INFO]  * Debugger PIN: 769-582-936
+2026-01-13 13:01:28,781 [INFO] === Iniciando aplicación Flask Voiceflow ===
+2026-01-13 13:01:28,797 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.70:5000
+2026-01-13 13:01:28,797 [INFO] [33mPress CTRL+C to quit[0m
+2026-01-13 13:01:28,798 [INFO]  * Restarting with stat
+2026-01-13 13:01:29,098 [INFO] === Iniciando aplicación Flask Voiceflow ===
+2026-01-13 13:01:29,106 [WARNING]  * Debugger is active!
+2026-01-13 13:01:29,109 [INFO]  * Debugger PIN: 769-582-936
+2026-01-13 13:01:55,052 [INFO] 127.0.0.1 - - [13/Jan/2026 13:01:55] "[33mGET /procesar_transcripts?range=All%20time HTTP/1.1[0m" 404 -
+2026-01-13 13:01:56,795 [INFO] 127.0.0.1 - - [13/Jan/2026 13:01:56] "[33mGET /procesar_todos_gpt HTTP/1.1[0m" 404 -
+2026-01-13 13:02:21,061 [INFO] === Iniciando aplicación Flask Voiceflow ===
+2026-01-13 13:02:21,077 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.70:5000
+2026-01-13 13:02:21,077 [INFO] [33mPress CTRL+C to quit[0m
+2026-01-13 13:02:21,078 [INFO]  * Restarting with stat
+2026-01-13 13:02:21,372 [INFO] === Iniciando aplicación Flask Voiceflow ===
+2026-01-13 13:02:21,382 [WARNING]  * Debugger is active!
+2026-01-13 13:02:21,384 [INFO]  * Debugger PIN: 769-582-936
+2026-01-13 13:02:35,420 [INFO]  * Detected change in 'c:\\wamp64\\www\\transcripciones\\info_mensaje.py', reloading
+2026-01-13 13:02:35,453 [INFO]  * Restarting with stat
+2026-01-13 13:02:35,779 [INFO] === Iniciando aplicación Flask Voiceflow ===
+2026-01-13 13:02:35,788 [WARNING]  * Debugger is active!
+2026-01-13 13:02:35,790 [INFO]  * Debugger PIN: 769-582-936
+2026-01-13 13:02:42,657 [INFO] ==> Iniciando procesamiento con filtro='All time', project_id='693afada764078aca74405a7'
+2026-01-13 13:02:43,535 [INFO] [Voiceflow API] URL: https://api.voiceflow.com/v2/transcripts/693afada764078aca74405a7?range=All time
+2026-01-13 13:02:43,535 [INFO] [Voiceflow API] Status: 200
+2026-01-13 13:02:43,536 [INFO] [Voiceflow API] Transcripts obtenidos: 15 registros
+2026-01-13 13:02:43,538 [INFO] [Procesando] ID=6952dd6ba0e9b6dc447ae194 | SessionID=ohfgpmxmnv6koelg23qhf5kt | Nombre=
+2026-01-13 13:02:45,483 [INFO] [HTML API] SessionID: ohfgpmxmnv6koelg23qhf5kt | Status: 200
+2026-01-13 13:02:45,484 [INFO] [HTML API] URL: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=ohfgpmxmnv6koelg23qhf5kt&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 13:02:45,643 [INFO] [DB] Insertado ID=6952dd6ba0e9b6dc447ae194, longitud HTML=27390, usuario=
+2026-01-13 13:02:45,644 [INFO] [Procesando] ID=693afbee6e46a92b18002c44 | SessionID=1403462 | Nombre=Servicios Administrados de TI
+2026-01-13 13:02:46,893 [INFO] [HTML API] SessionID: 1403462 | Status: 200
+2026-01-13 13:02:46,893 [INFO] [HTML API] URL: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=1403462&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 13:02:46,905 [INFO] [DB] Insertado ID=693afbee6e46a92b18002c44, longitud HTML=68962, usuario=Servicios Administrados de TI
+2026-01-13 13:02:46,906 [INFO] [Procesando] ID=69445f88166b26d09bae15f5 | SessionID=vfrc1nj716q1lhdkzuogfslf | Nombre=
+2026-01-13 13:02:47,945 [INFO] [HTML API] SessionID: vfrc1nj716q1lhdkzuogfslf | Status: 200
+2026-01-13 13:02:47,947 [INFO] [HTML API] URL: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=vfrc1nj716q1lhdkzuogfslf&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 13:02:47,960 [INFO] [DB] Insertado ID=69445f88166b26d09bae15f5, longitud HTML=24662, usuario=
+2026-01-13 13:02:47,961 [INFO] [Procesando] ID=69445fc0166b26d09baeb2e7 | SessionID=scsu3xd42jj7fyq9th0dligx | Nombre=
+2026-01-13 13:02:48,760 [INFO] [HTML API] SessionID: scsu3xd42jj7fyq9th0dligx | Status: 200
+2026-01-13 13:02:48,761 [INFO] [HTML API] URL: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=scsu3xd42jj7fyq9th0dligx&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 13:02:48,773 [INFO] [DB] Insertado ID=69445fc0166b26d09baeb2e7, longitud HTML=3641, usuario=
+2026-01-13 13:02:48,773 [INFO] [Procesando] ID=694430f8166b26d09b2da15b | SessionID=nx09ua85ykj1357j1a5p9d8f | Nombre=
+2026-01-13 13:02:50,032 [INFO] [HTML API] SessionID: nx09ua85ykj1357j1a5p9d8f | Status: 200
+2026-01-13 13:02:50,033 [INFO] [HTML API] URL: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=nx09ua85ykj1357j1a5p9d8f&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 13:02:50,045 [INFO] [DB] Insertado ID=694430f8166b26d09b2da15b, longitud HTML=32712, usuario=
+2026-01-13 13:02:50,046 [INFO] [Procesando] ID=693b19d26e46a92b18575d3e | SessionID=hpxinlxl6c130iuwejpa5abs | Nombre=
+2026-01-13 13:02:51,831 [INFO] [HTML API] SessionID: hpxinlxl6c130iuwejpa5abs | Status: 200
+2026-01-13 13:02:51,832 [INFO] [HTML API] URL: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=hpxinlxl6c130iuwejpa5abs&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 13:02:51,856 [INFO] [DB] Insertado ID=693b19d26e46a92b18575d3e, longitud HTML=151423, usuario=
+2026-01-13 13:02:51,856 [INFO] [Procesando] ID=69445907166b26d09b9d1630 | SessionID=v7g1whbot3lrr8qt9dlme90f | Nombre=
+2026-01-13 13:02:53,144 [INFO] [HTML API] SessionID: v7g1whbot3lrr8qt9dlme90f | Status: 200
+2026-01-13 13:02:53,145 [INFO] [HTML API] URL: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=v7g1whbot3lrr8qt9dlme90f&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 13:02:53,155 [INFO] [DB] Insertado ID=69445907166b26d09b9d1630, longitud HTML=3618, usuario=
+2026-01-13 13:02:53,155 [INFO] [Procesando] ID=694451cc166b26d09b898ade | SessionID=w4pu6aamfavzlrbd268xngln | Nombre=
+2026-01-13 13:02:54,337 [INFO] [HTML API] SessionID: w4pu6aamfavzlrbd268xngln | Status: 200
+2026-01-13 13:02:54,338 [INFO] [HTML API] URL: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=w4pu6aamfavzlrbd268xngln&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 13:02:54,348 [INFO] [DB] Insertado ID=694451cc166b26d09b898ade, longitud HTML=3633, usuario=
+2026-01-13 13:02:54,348 [INFO] [Procesando] ID=69406273d01a9557a83310d8 | SessionID=pj1zfkw1wlg1aq79ilh6rnfo | Nombre=
+2026-01-13 13:02:55,408 [INFO] [HTML API] SessionID: pj1zfkw1wlg1aq79ilh6rnfo | Status: 200
+2026-01-13 13:02:55,409 [INFO] [HTML API] URL: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=pj1zfkw1wlg1aq79ilh6rnfo&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 13:02:55,417 [INFO] [DB] Insertado ID=69406273d01a9557a83310d8, longitud HTML=10695, usuario=
+2026-01-13 13:02:55,418 [INFO] [Procesando] ID=69406213d01a9557a831f3eb | SessionID=hj6wus4l77iuqwh0l0f9w3f0 | Nombre=
+2026-01-13 13:02:56,489 [INFO] [HTML API] SessionID: hj6wus4l77iuqwh0l0f9w3f0 | Status: 200
+2026-01-13 13:02:56,489 [INFO] [HTML API] URL: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=hj6wus4l77iuqwh0l0f9w3f0&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 13:02:56,496 [INFO] [DB] Insertado ID=69406213d01a9557a831f3eb, longitud HTML=21217, usuario=
+2026-01-13 13:02:56,496 [INFO] [Procesando] ID=69405325b9a3ea289ec5c28f | SessionID=vhyvvlzyauwdqfj6hcpbipc8 | Nombre=
+2026-01-13 13:02:57,356 [INFO] [HTML API] SessionID: vhyvvlzyauwdqfj6hcpbipc8 | Status: 200
+2026-01-13 13:02:57,356 [INFO] [HTML API] URL: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=vhyvvlzyauwdqfj6hcpbipc8&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 13:02:57,364 [INFO] [DB] Insertado ID=69405325b9a3ea289ec5c28f, longitud HTML=3636, usuario=
+2026-01-13 13:02:57,365 [INFO] [Procesando] ID=693b18326e46a92b1852944c | SessionID=n6kqa4ymjb86zkk67u4jah0s | Nombre=
+2026-01-13 13:02:58,479 [INFO] [HTML API] SessionID: n6kqa4ymjb86zkk67u4jah0s | Status: 200
+2026-01-13 13:02:58,480 [INFO] [HTML API] URL: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=n6kqa4ymjb86zkk67u4jah0s&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 13:02:58,494 [INFO] [DB] Insertado ID=693b18326e46a92b1852944c, longitud HTML=79619, usuario=
+2026-01-13 13:02:58,494 [INFO] [Procesando] ID=693c24566e46a92b1893a10e | SessionID=fs1fk1kxw1h6mtjw2igrxmho | Nombre=
+2026-01-13 13:02:59,457 [INFO] [HTML API] SessionID: fs1fk1kxw1h6mtjw2igrxmho | Status: 200
+2026-01-13 13:02:59,458 [INFO] [HTML API] URL: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=fs1fk1kxw1h6mtjw2igrxmho&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 13:02:59,468 [INFO] [DB] Insertado ID=693c24566e46a92b1893a10e, longitud HTML=17744, usuario=
+2026-01-13 13:02:59,469 [INFO] [Procesando] ID=693c243e6e46a92b18935ff5 | SessionID=km260x7l90rbnynwvmdyrl4f | Nombre=
+2026-01-13 13:03:00,590 [INFO] [HTML API] SessionID: km260x7l90rbnynwvmdyrl4f | Status: 200
+2026-01-13 13:03:00,591 [INFO] [HTML API] URL: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=km260x7l90rbnynwvmdyrl4f&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 13:03:00,607 [INFO] [DB] Insertado ID=693c243e6e46a92b18935ff5, longitud HTML=35287, usuario=
+2026-01-13 13:03:00,607 [INFO] [Procesando] ID=693b17f86e46a92b1851f2bb | SessionID=azoetxne63oywmruke1caxx6 | Nombre=
+2026-01-13 13:03:01,500 [INFO] [HTML API] SessionID: azoetxne63oywmruke1caxx6 | Status: 200
+2026-01-13 13:03:01,500 [INFO] [HTML API] URL: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=azoetxne63oywmruke1caxx6&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 13:03:01,506 [INFO] [DB] Insertado ID=693b17f86e46a92b1851f2bb, longitud HTML=14231, usuario=
+2026-01-13 13:03:01,506 [INFO] ==> Proceso completado. Insertados: 15 | Actualizados: 0
+2026-01-13 13:03:01,507 [INFO] 127.0.0.1 - - [13/Jan/2026 13:03:01] "GET /procesar_transcripts?range=All%20time HTTP/1.1" 200 -
+2026-01-13 13:03:11,018 [INFO] ==> Iniciando procesamiento con filtro='All time', project_id='693afada764078aca74405a7'
+2026-01-13 13:03:11,756 [INFO] [Voiceflow API] URL: https://api.voiceflow.com/v2/transcripts/693afada764078aca74405a7?range=All time
+2026-01-13 13:03:11,757 [INFO] [Voiceflow API] Status: 200
+2026-01-13 13:03:11,758 [INFO] [Voiceflow API] Transcripts obtenidos: 15 registros
+2026-01-13 13:03:11,762 [INFO] [Procesando] ID=6952dd6ba0e9b6dc447ae194 | SessionID=ohfgpmxmnv6koelg23qhf5kt | Nombre=
+2026-01-13 13:03:13,740 [INFO] [HTML API] SessionID: ohfgpmxmnv6koelg23qhf5kt | Status: 200
+2026-01-13 13:03:13,741 [INFO] [HTML API] URL: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=ohfgpmxmnv6koelg23qhf5kt&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 13:03:13,750 [INFO] [DB] Sin cambios para ID=6952dd6ba0e9b6dc447ae194
+2026-01-13 13:03:13,751 [INFO] [Procesando] ID=693afbee6e46a92b18002c44 | SessionID=1403462 | Nombre=Servicios Administrados de TI
+2026-01-13 13:03:15,120 [INFO] [HTML API] SessionID: 1403462 | Status: 200
+2026-01-13 13:03:15,120 [INFO] [HTML API] URL: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=1403462&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 13:03:15,128 [INFO] [DB] Sin cambios para ID=693afbee6e46a92b18002c44
+2026-01-13 13:03:15,128 [INFO] [Procesando] ID=69445f88166b26d09bae15f5 | SessionID=vfrc1nj716q1lhdkzuogfslf | Nombre=
+2026-01-13 13:03:16,605 [INFO] [HTML API] SessionID: vfrc1nj716q1lhdkzuogfslf | Status: 200
+2026-01-13 13:03:16,606 [INFO] [HTML API] URL: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=vfrc1nj716q1lhdkzuogfslf&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 13:03:16,614 [INFO] [DB] Sin cambios para ID=69445f88166b26d09bae15f5
+2026-01-13 13:03:16,614 [INFO] [Procesando] ID=69445fc0166b26d09baeb2e7 | SessionID=scsu3xd42jj7fyq9th0dligx | Nombre=
+2026-01-13 13:03:17,552 [INFO] [HTML API] SessionID: scsu3xd42jj7fyq9th0dligx | Status: 200
+2026-01-13 13:03:17,553 [INFO] [HTML API] URL: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=scsu3xd42jj7fyq9th0dligx&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 13:03:17,556 [INFO] [DB] Sin cambios para ID=69445fc0166b26d09baeb2e7
+2026-01-13 13:03:17,557 [INFO] [Procesando] ID=694430f8166b26d09b2da15b | SessionID=nx09ua85ykj1357j1a5p9d8f | Nombre=
+2026-01-13 13:03:18,536 [INFO] [HTML API] SessionID: nx09ua85ykj1357j1a5p9d8f | Status: 200
+2026-01-13 13:03:18,536 [INFO] [HTML API] URL: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=nx09ua85ykj1357j1a5p9d8f&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 13:03:18,542 [INFO] [DB] Sin cambios para ID=694430f8166b26d09b2da15b
+2026-01-13 13:03:18,542 [INFO] [Procesando] ID=693b19d26e46a92b18575d3e | SessionID=hpxinlxl6c130iuwejpa5abs | Nombre=
+2026-01-13 13:03:20,263 [INFO] [HTML API] SessionID: hpxinlxl6c130iuwejpa5abs | Status: 200
+2026-01-13 13:03:20,263 [INFO] [HTML API] URL: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=hpxinlxl6c130iuwejpa5abs&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 13:03:20,268 [INFO] [DB] Sin cambios para ID=693b19d26e46a92b18575d3e
+2026-01-13 13:03:20,269 [INFO] [Procesando] ID=69445907166b26d09b9d1630 | SessionID=v7g1whbot3lrr8qt9dlme90f | Nombre=
+2026-01-13 13:03:21,197 [INFO] [HTML API] SessionID: v7g1whbot3lrr8qt9dlme90f | Status: 200
+2026-01-13 13:03:21,197 [INFO] [HTML API] URL: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=v7g1whbot3lrr8qt9dlme90f&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 13:03:21,200 [INFO] [DB] Sin cambios para ID=69445907166b26d09b9d1630
+2026-01-13 13:03:21,200 [INFO] [Procesando] ID=694451cc166b26d09b898ade | SessionID=w4pu6aamfavzlrbd268xngln | Nombre=
+2026-01-13 13:03:22,105 [INFO] [HTML API] SessionID: w4pu6aamfavzlrbd268xngln | Status: 200
+2026-01-13 13:03:22,105 [INFO] [HTML API] URL: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=w4pu6aamfavzlrbd268xngln&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 13:03:22,110 [INFO] [DB] Sin cambios para ID=694451cc166b26d09b898ade
+2026-01-13 13:03:22,111 [INFO] [Procesando] ID=69406273d01a9557a83310d8 | SessionID=pj1zfkw1wlg1aq79ilh6rnfo | Nombre=
+2026-01-13 13:03:23,338 [INFO] [HTML API] SessionID: pj1zfkw1wlg1aq79ilh6rnfo | Status: 200
+2026-01-13 13:03:23,339 [INFO] [HTML API] URL: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=pj1zfkw1wlg1aq79ilh6rnfo&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 13:03:23,346 [INFO] [DB] Sin cambios para ID=69406273d01a9557a83310d8
+2026-01-13 13:03:23,346 [INFO] [Procesando] ID=69406213d01a9557a831f3eb | SessionID=hj6wus4l77iuqwh0l0f9w3f0 | Nombre=
+2026-01-13 13:03:24,547 [INFO] [HTML API] SessionID: hj6wus4l77iuqwh0l0f9w3f0 | Status: 200
+2026-01-13 13:03:24,548 [INFO] [HTML API] URL: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=hj6wus4l77iuqwh0l0f9w3f0&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 13:03:24,556 [INFO] [DB] Sin cambios para ID=69406213d01a9557a831f3eb
+2026-01-13 13:03:24,557 [INFO] [Procesando] ID=69405325b9a3ea289ec5c28f | SessionID=vhyvvlzyauwdqfj6hcpbipc8 | Nombre=
+2026-01-13 13:03:25,619 [INFO] [HTML API] SessionID: vhyvvlzyauwdqfj6hcpbipc8 | Status: 200
+2026-01-13 13:03:25,620 [INFO] [HTML API] URL: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=vhyvvlzyauwdqfj6hcpbipc8&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 13:03:25,627 [INFO] [DB] Sin cambios para ID=69405325b9a3ea289ec5c28f
+2026-01-13 13:03:25,627 [INFO] [Procesando] ID=693b18326e46a92b1852944c | SessionID=n6kqa4ymjb86zkk67u4jah0s | Nombre=
+2026-01-13 13:03:26,914 [INFO] [HTML API] SessionID: n6kqa4ymjb86zkk67u4jah0s | Status: 200
+2026-01-13 13:03:26,914 [INFO] [HTML API] URL: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=n6kqa4ymjb86zkk67u4jah0s&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 13:03:26,918 [INFO] [DB] Sin cambios para ID=693b18326e46a92b1852944c
+2026-01-13 13:03:26,918 [INFO] [Procesando] ID=693c24566e46a92b1893a10e | SessionID=fs1fk1kxw1h6mtjw2igrxmho | Nombre=
+2026-01-13 13:03:28,041 [INFO] [HTML API] SessionID: fs1fk1kxw1h6mtjw2igrxmho | Status: 200
+2026-01-13 13:03:28,041 [INFO] [HTML API] URL: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=fs1fk1kxw1h6mtjw2igrxmho&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 13:03:28,045 [INFO] [DB] Sin cambios para ID=693c24566e46a92b1893a10e
+2026-01-13 13:03:28,046 [INFO] [Procesando] ID=693c243e6e46a92b18935ff5 | SessionID=km260x7l90rbnynwvmdyrl4f | Nombre=
+2026-01-13 13:03:29,126 [INFO] [HTML API] SessionID: km260x7l90rbnynwvmdyrl4f | Status: 200
+2026-01-13 13:03:29,127 [INFO] [HTML API] URL: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=km260x7l90rbnynwvmdyrl4f&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 13:03:29,132 [INFO] [DB] Sin cambios para ID=693c243e6e46a92b18935ff5
+2026-01-13 13:03:29,133 [INFO] [Procesando] ID=693b17f86e46a92b1851f2bb | SessionID=azoetxne63oywmruke1caxx6 | Nombre=
+2026-01-13 13:03:30,289 [INFO] [HTML API] SessionID: azoetxne63oywmruke1caxx6 | Status: 200
+2026-01-13 13:03:30,290 [INFO] [HTML API] URL: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=azoetxne63oywmruke1caxx6&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 13:03:30,295 [INFO] [DB] Sin cambios para ID=693b17f86e46a92b1851f2bb
+2026-01-13 13:03:30,295 [INFO] ==> Proceso completado. Insertados: 0 | Actualizados: 0
+2026-01-13 13:03:30,296 [INFO] 127.0.0.1 - - [13/Jan/2026 13:03:30] "GET /procesar_transcripts?range=All%20time HTTP/1.1" 200 -
+2026-01-13 13:44:15,695 [INFO] === Iniciando aplicación Flask Voiceflow ===
+2026-01-13 13:44:15,736 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.70:5000
+2026-01-13 13:44:15,736 [INFO] [33mPress CTRL+C to quit[0m
+2026-01-13 13:44:15,738 [INFO]  * Restarting with stat
+2026-01-13 13:44:16,068 [INFO] === Iniciando aplicación Flask Voiceflow ===
+2026-01-13 13:44:16,078 [WARNING]  * Debugger is active!
+2026-01-13 13:44:16,080 [INFO]  * Debugger PIN: 769-582-936
+2026-01-13 13:44:21,854 [INFO] === Iniciando aplicación Flask Voiceflow ===
+2026-01-13 13:44:21,877 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.70:5000
+2026-01-13 13:44:21,877 [INFO] [33mPress CTRL+C to quit[0m
+2026-01-13 13:44:21,878 [INFO]  * Restarting with stat
+2026-01-13 13:44:22,223 [INFO] === Iniciando aplicación Flask Voiceflow ===
+2026-01-13 13:44:22,232 [WARNING]  * Debugger is active!
+2026-01-13 13:44:22,234 [INFO]  * Debugger PIN: 769-582-936
+2026-01-13 13:45:13,819 [INFO] ==> Iniciando procesamiento con filtro='All time', project_id='693afada764078aca74405a7'
+2026-01-13 13:45:15,205 [INFO] [Voiceflow API] URL: https://api.voiceflow.com/v2/transcripts/693afada764078aca74405a7?range=All time
+2026-01-13 13:45:15,206 [INFO] [Voiceflow API] Status: 200
+2026-01-13 13:45:15,206 [INFO] [Voiceflow API] Transcripts obtenidos: 15 registros
+2026-01-13 13:45:15,208 [INFO] [Procesando] ID=6952dd6ba0e9b6dc447ae194 | SessionID=ohfgpmxmnv6koelg23qhf5kt | Nombre=
+2026-01-13 13:45:17,249 [INFO] [HTML API] SessionID: ohfgpmxmnv6koelg23qhf5kt | Status: 200
+2026-01-13 13:45:17,250 [INFO] [HTML API] URL: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=ohfgpmxmnv6koelg23qhf5kt&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 13:45:17,380 [INFO] [DB] Sin cambios para ID=6952dd6ba0e9b6dc447ae194
+2026-01-13 13:45:17,380 [INFO] [Procesando] ID=693afbee6e46a92b18002c44 | SessionID=1403462 | Nombre=Servicios Administrados de TI
+2026-01-13 13:45:19,287 [INFO] [HTML API] SessionID: 1403462 | Status: 200
+2026-01-13 13:45:19,288 [INFO] [HTML API] URL: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=1403462&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 13:45:19,297 [INFO] [DB] Sin cambios para ID=693afbee6e46a92b18002c44
+2026-01-13 13:45:19,297 [INFO] [Procesando] ID=69445f88166b26d09bae15f5 | SessionID=vfrc1nj716q1lhdkzuogfslf | Nombre=
+2026-01-13 13:45:20,464 [INFO] [HTML API] SessionID: vfrc1nj716q1lhdkzuogfslf | Status: 200
+2026-01-13 13:45:20,465 [INFO] [HTML API] URL: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=vfrc1nj716q1lhdkzuogfslf&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 13:45:20,473 [INFO] [DB] Sin cambios para ID=69445f88166b26d09bae15f5
+2026-01-13 13:45:20,474 [INFO] [Procesando] ID=69445fc0166b26d09baeb2e7 | SessionID=scsu3xd42jj7fyq9th0dligx | Nombre=
+2026-01-13 13:45:21,567 [INFO] [HTML API] SessionID: scsu3xd42jj7fyq9th0dligx | Status: 200
+2026-01-13 13:45:21,568 [INFO] [HTML API] URL: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=scsu3xd42jj7fyq9th0dligx&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 13:45:21,572 [INFO] [DB] Sin cambios para ID=69445fc0166b26d09baeb2e7
+2026-01-13 13:45:21,573 [INFO] [Procesando] ID=694430f8166b26d09b2da15b | SessionID=nx09ua85ykj1357j1a5p9d8f | Nombre=
+2026-01-13 13:45:23,150 [INFO] [HTML API] SessionID: nx09ua85ykj1357j1a5p9d8f | Status: 200
+2026-01-13 13:45:23,150 [INFO] [HTML API] URL: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=nx09ua85ykj1357j1a5p9d8f&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 13:45:23,154 [INFO] [DB] Sin cambios para ID=694430f8166b26d09b2da15b
+2026-01-13 13:45:23,155 [INFO] [Procesando] ID=693b19d26e46a92b18575d3e | SessionID=hpxinlxl6c130iuwejpa5abs | Nombre=
+2026-01-13 13:45:24,647 [INFO] [HTML API] SessionID: hpxinlxl6c130iuwejpa5abs | Status: 200
+2026-01-13 13:45:24,648 [INFO] [HTML API] URL: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=hpxinlxl6c130iuwejpa5abs&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 13:45:24,652 [INFO] [DB] Sin cambios para ID=693b19d26e46a92b18575d3e
+2026-01-13 13:45:24,652 [INFO] [Procesando] ID=69445907166b26d09b9d1630 | SessionID=v7g1whbot3lrr8qt9dlme90f | Nombre=
+2026-01-13 13:45:25,536 [INFO] [HTML API] SessionID: v7g1whbot3lrr8qt9dlme90f | Status: 200
+2026-01-13 13:45:25,537 [INFO] [HTML API] URL: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=v7g1whbot3lrr8qt9dlme90f&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 13:45:25,541 [INFO] [DB] Sin cambios para ID=69445907166b26d09b9d1630
+2026-01-13 13:45:25,542 [INFO] [Procesando] ID=694451cc166b26d09b898ade | SessionID=w4pu6aamfavzlrbd268xngln | Nombre=
+2026-01-13 13:45:26,444 [INFO] [HTML API] SessionID: w4pu6aamfavzlrbd268xngln | Status: 200
+2026-01-13 13:45:26,445 [INFO] [HTML API] URL: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=w4pu6aamfavzlrbd268xngln&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 13:45:26,448 [INFO] [DB] Sin cambios para ID=694451cc166b26d09b898ade
+2026-01-13 13:45:26,448 [INFO] [Procesando] ID=69406273d01a9557a83310d8 | SessionID=pj1zfkw1wlg1aq79ilh6rnfo | Nombre=
+2026-01-13 13:45:27,353 [INFO] [HTML API] SessionID: pj1zfkw1wlg1aq79ilh6rnfo | Status: 200
+2026-01-13 13:45:27,353 [INFO] [HTML API] URL: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=pj1zfkw1wlg1aq79ilh6rnfo&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 13:45:27,356 [INFO] [DB] Sin cambios para ID=69406273d01a9557a83310d8
+2026-01-13 13:45:27,357 [INFO] [Procesando] ID=69406213d01a9557a831f3eb | SessionID=hj6wus4l77iuqwh0l0f9w3f0 | Nombre=
+2026-01-13 13:45:28,673 [INFO] [HTML API] SessionID: hj6wus4l77iuqwh0l0f9w3f0 | Status: 200
+2026-01-13 13:45:28,673 [INFO] [HTML API] URL: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=hj6wus4l77iuqwh0l0f9w3f0&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 13:45:28,676 [INFO] [DB] Sin cambios para ID=69406213d01a9557a831f3eb
+2026-01-13 13:45:28,677 [INFO] [Procesando] ID=69405325b9a3ea289ec5c28f | SessionID=vhyvvlzyauwdqfj6hcpbipc8 | Nombre=
+2026-01-13 13:45:30,031 [INFO] [HTML API] SessionID: vhyvvlzyauwdqfj6hcpbipc8 | Status: 200
+2026-01-13 13:45:30,032 [INFO] [HTML API] URL: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=vhyvvlzyauwdqfj6hcpbipc8&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 13:45:30,035 [INFO] [DB] Sin cambios para ID=69405325b9a3ea289ec5c28f
+2026-01-13 13:45:30,036 [INFO] [Procesando] ID=693b18326e46a92b1852944c | SessionID=n6kqa4ymjb86zkk67u4jah0s | Nombre=
+2026-01-13 13:45:31,712 [INFO] [HTML API] SessionID: n6kqa4ymjb86zkk67u4jah0s | Status: 200
+2026-01-13 13:45:31,712 [INFO] [HTML API] URL: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=n6kqa4ymjb86zkk67u4jah0s&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 13:45:31,717 [INFO] [DB] Sin cambios para ID=693b18326e46a92b1852944c
+2026-01-13 13:45:31,717 [INFO] [Procesando] ID=693c24566e46a92b1893a10e | SessionID=fs1fk1kxw1h6mtjw2igrxmho | Nombre=
+2026-01-13 13:45:32,610 [INFO] [HTML API] SessionID: fs1fk1kxw1h6mtjw2igrxmho | Status: 200
+2026-01-13 13:45:32,610 [INFO] [HTML API] URL: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=fs1fk1kxw1h6mtjw2igrxmho&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 13:45:32,616 [INFO] [DB] Sin cambios para ID=693c24566e46a92b1893a10e
+2026-01-13 13:45:32,616 [INFO] [Procesando] ID=693c243e6e46a92b18935ff5 | SessionID=km260x7l90rbnynwvmdyrl4f | Nombre=
+2026-01-13 13:45:33,597 [INFO] [HTML API] SessionID: km260x7l90rbnynwvmdyrl4f | Status: 200
+2026-01-13 13:45:33,597 [INFO] [HTML API] URL: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=km260x7l90rbnynwvmdyrl4f&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 13:45:33,601 [INFO] [DB] Sin cambios para ID=693c243e6e46a92b18935ff5
+2026-01-13 13:45:33,602 [INFO] [Procesando] ID=693b17f86e46a92b1851f2bb | SessionID=azoetxne63oywmruke1caxx6 | Nombre=
+2026-01-13 13:45:34,612 [INFO] [HTML API] SessionID: azoetxne63oywmruke1caxx6 | Status: 200
+2026-01-13 13:45:34,612 [INFO] [HTML API] URL: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=azoetxne63oywmruke1caxx6&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 13:45:34,615 [INFO] [DB] Sin cambios para ID=693b17f86e46a92b1851f2bb
+2026-01-13 13:45:34,615 [INFO] ==> Proceso completado. Insertados: 0 | Actualizados: 0
+2026-01-13 13:45:34,616 [INFO] 127.0.0.1 - - [13/Jan/2026 13:45:34] "GET /procesar_transcripts?range=All%20time HTTP/1.1" 200 -
+2026-01-13 13:45:54,006 [INFO] 127.0.0.1 - - [13/Jan/2026 13:45:54] "[33mGET /procesar_todos_gpt HTTP/1.1[0m" 404 -
+2026-01-13 13:47:54,070 [INFO] 127.0.0.1 - - [13/Jan/2026 13:47:54] "[33mGET /procesar_todos_gpt HTTP/1.1[0m" 404 -
+2026-01-13 13:49:54,138 [INFO] 127.0.0.1 - - [13/Jan/2026 13:49:54] "[33mGET /procesar_todos_gpt HTTP/1.1[0m" 404 -
+2026-01-13 13:50:46,464 [INFO]  * Detected change in 'c:\\wamp64\\www\\transcripciones\\info_mensaje.py', reloading
+2026-01-13 13:50:46,500 [INFO]  * Restarting with stat
+2026-01-13 13:50:46,841 [INFO] === Iniciando aplicación Flask Voiceflow con Paginación ===
+2026-01-13 13:50:46,851 [WARNING]  * Debugger is active!
+2026-01-13 13:50:46,853 [INFO]  * Debugger PIN: 769-582-936
+2026-01-13 13:51:01,159 [INFO] ==> Iniciando procesamiento con filtro='All time', project_id='693afada764078aca74405a7'
+2026-01-13 13:51:01,160 [INFO] [Voiceflow API] Iniciando recolección de transcripts. Filtro: All time
+2026-01-13 13:51:01,981 [INFO] [Voiceflow API] Página 1: Recibidos 15 registros
+2026-01-13 13:51:01,982 [INFO] [Voiceflow API] Total acumulado final: 15 registros
+2026-01-13 13:51:01,985 [INFO] [Procesando] ID=6952dd6ba0e9b6dc447ae194 | SessionID=ohfgpmxmnv6koelg23qhf5kt | Nombre=
+2026-01-13 13:51:03,305 [INFO] [HTML API] SessionID: ohfgpmxmnv6koelg23qhf5kt | Status: 200
+2026-01-13 13:51:03,413 [INFO] [DB] Sin cambios significativos (diff<25) para ID=6952dd6ba0e9b6dc447ae194
+2026-01-13 13:51:03,414 [INFO] [Procesando] ID=693afbee6e46a92b18002c44 | SessionID=1403462 | Nombre=Servicios Administrados de TI
+2026-01-13 13:51:04,690 [INFO] [HTML API] SessionID: 1403462 | Status: 200
+2026-01-13 13:51:04,700 [INFO] [DB] Sin cambios significativos (diff<25) para ID=693afbee6e46a92b18002c44
+2026-01-13 13:51:04,700 [INFO] [Procesando] ID=69445f88166b26d09bae15f5 | SessionID=vfrc1nj716q1lhdkzuogfslf | Nombre=
+2026-01-13 13:51:05,903 [INFO] [HTML API] SessionID: vfrc1nj716q1lhdkzuogfslf | Status: 200
+2026-01-13 13:51:05,909 [INFO] [DB] Sin cambios significativos (diff<25) para ID=69445f88166b26d09bae15f5
+2026-01-13 13:51:05,910 [INFO] [Procesando] ID=69445fc0166b26d09baeb2e7 | SessionID=scsu3xd42jj7fyq9th0dligx | Nombre=
+2026-01-13 13:51:07,093 [INFO] [HTML API] SessionID: scsu3xd42jj7fyq9th0dligx | Status: 200
+2026-01-13 13:51:07,099 [INFO] [DB] Sin cambios significativos (diff<25) para ID=69445fc0166b26d09baeb2e7
+2026-01-13 13:51:07,100 [INFO] [Procesando] ID=694430f8166b26d09b2da15b | SessionID=nx09ua85ykj1357j1a5p9d8f | Nombre=
+2026-01-13 13:51:08,450 [INFO] [HTML API] SessionID: nx09ua85ykj1357j1a5p9d8f | Status: 200
+2026-01-13 13:51:08,458 [INFO] [DB] Sin cambios significativos (diff<25) para ID=694430f8166b26d09b2da15b
+2026-01-13 13:51:08,459 [INFO] [Procesando] ID=693b19d26e46a92b18575d3e | SessionID=hpxinlxl6c130iuwejpa5abs | Nombre=
+2026-01-13 13:51:10,433 [INFO] [HTML API] SessionID: hpxinlxl6c130iuwejpa5abs | Status: 200
+2026-01-13 13:51:10,444 [INFO] [DB] Sin cambios significativos (diff<25) para ID=693b19d26e46a92b18575d3e
+2026-01-13 13:51:10,446 [INFO] [Procesando] ID=69445907166b26d09b9d1630 | SessionID=v7g1whbot3lrr8qt9dlme90f | Nombre=
+2026-01-13 13:51:11,586 [INFO] [HTML API] SessionID: v7g1whbot3lrr8qt9dlme90f | Status: 200
+2026-01-13 13:51:11,596 [INFO] [DB] Sin cambios significativos (diff<25) para ID=69445907166b26d09b9d1630
+2026-01-13 13:51:11,597 [INFO] [Procesando] ID=694451cc166b26d09b898ade | SessionID=w4pu6aamfavzlrbd268xngln | Nombre=
+2026-01-13 13:51:12,834 [INFO] [HTML API] SessionID: w4pu6aamfavzlrbd268xngln | Status: 200
+2026-01-13 13:51:12,839 [INFO] [DB] Sin cambios significativos (diff<25) para ID=694451cc166b26d09b898ade
+2026-01-13 13:51:12,840 [INFO] [Procesando] ID=69406273d01a9557a83310d8 | SessionID=pj1zfkw1wlg1aq79ilh6rnfo | Nombre=
+2026-01-13 13:51:13,935 [INFO] [HTML API] SessionID: pj1zfkw1wlg1aq79ilh6rnfo | Status: 200
+2026-01-13 13:51:13,942 [INFO] [DB] Sin cambios significativos (diff<25) para ID=69406273d01a9557a83310d8
+2026-01-13 13:51:13,942 [INFO] [Procesando] ID=69406213d01a9557a831f3eb | SessionID=hj6wus4l77iuqwh0l0f9w3f0 | Nombre=
+2026-01-13 13:51:15,012 [INFO] [HTML API] SessionID: hj6wus4l77iuqwh0l0f9w3f0 | Status: 200
+2026-01-13 13:51:15,020 [INFO] [DB] Sin cambios significativos (diff<25) para ID=69406213d01a9557a831f3eb
+2026-01-13 13:51:15,020 [INFO] [Procesando] ID=69405325b9a3ea289ec5c28f | SessionID=vhyvvlzyauwdqfj6hcpbipc8 | Nombre=
+2026-01-13 13:51:16,224 [INFO] [HTML API] SessionID: vhyvvlzyauwdqfj6hcpbipc8 | Status: 200
+2026-01-13 13:51:16,230 [INFO] [DB] Sin cambios significativos (diff<25) para ID=69405325b9a3ea289ec5c28f
+2026-01-13 13:51:16,230 [INFO] [Procesando] ID=693b18326e46a92b1852944c | SessionID=n6kqa4ymjb86zkk67u4jah0s | Nombre=
+2026-01-13 13:51:17,304 [INFO] [HTML API] SessionID: n6kqa4ymjb86zkk67u4jah0s | Status: 200
+2026-01-13 13:51:17,314 [INFO] [DB] Sin cambios significativos (diff<25) para ID=693b18326e46a92b1852944c
+2026-01-13 13:51:17,314 [INFO] [Procesando] ID=693c24566e46a92b1893a10e | SessionID=fs1fk1kxw1h6mtjw2igrxmho | Nombre=
+2026-01-13 13:51:18,244 [INFO] [HTML API] SessionID: fs1fk1kxw1h6mtjw2igrxmho | Status: 200
+2026-01-13 13:51:18,250 [INFO] [DB] Sin cambios significativos (diff<25) para ID=693c24566e46a92b1893a10e
+2026-01-13 13:51:18,250 [INFO] [Procesando] ID=693c243e6e46a92b18935ff5 | SessionID=km260x7l90rbnynwvmdyrl4f | Nombre=
+2026-01-13 13:51:19,626 [INFO] [HTML API] SessionID: km260x7l90rbnynwvmdyrl4f | Status: 200
+2026-01-13 13:51:19,633 [INFO] [DB] Sin cambios significativos (diff<25) para ID=693c243e6e46a92b18935ff5
+2026-01-13 13:51:19,633 [INFO] [Procesando] ID=693b17f86e46a92b1851f2bb | SessionID=azoetxne63oywmruke1caxx6 | Nombre=
+2026-01-13 13:51:35,883 [INFO] [HTML API] SessionID: azoetxne63oywmruke1caxx6 | Status: 502
+2026-01-13 13:51:35,883 [ERROR] [HTML API] HTTPError para sessionID azoetxne63oywmruke1caxx6: 502 Server Error: BAD GATEWAY for url: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=azoetxne63oywmruke1caxx6&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 13:51:35,885 [WARNING] [Procesar] No se obtuvo historial o HTML válido para sessionID azoetxne63oywmruke1caxx6
+2026-01-13 13:51:35,885 [INFO] ==> Proceso completado. Ins: 0 | Upd: 0 | Fail: 1
+2026-01-13 13:51:35,885 [INFO] 127.0.0.1 - - [13/Jan/2026 13:51:35] "GET /procesar_transcripts?range=All%20time HTTP/1.1" 200 -
+2026-01-13 13:51:54,203 [INFO] 127.0.0.1 - - [13/Jan/2026 13:51:54] "[33mGET /procesar_todos_gpt HTTP/1.1[0m" 404 -
+2026-01-13 13:53:54,269 [INFO] 127.0.0.1 - - [13/Jan/2026 13:53:54] "[33mGET /procesar_todos_gpt HTTP/1.1[0m" 404 -
+2026-01-13 14:02:19,715 [INFO] === Iniciando aplicación Flask Voiceflow con Paginación ===
+2026-01-13 14:02:19,732 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.70:5000
+2026-01-13 14:02:19,732 [INFO] [33mPress CTRL+C to quit[0m
+2026-01-13 14:02:19,733 [INFO]  * Restarting with stat
+2026-01-13 14:02:20,020 [INFO] === Iniciando aplicación Flask Voiceflow con Paginación ===
+2026-01-13 14:02:20,030 [WARNING]  * Debugger is active!
+2026-01-13 14:02:20,032 [INFO]  * Debugger PIN: 769-582-936
+2026-01-13 14:02:24,242 [INFO] ==> Iniciando procesamiento con filtro='Last 30 days', project_id='693afada764078aca74405a7'
+2026-01-13 14:02:24,242 [INFO] [Voiceflow API] Iniciando recolección de transcripts. Filtro: Last 30 days
+2026-01-13 14:02:25,058 [INFO] [Voiceflow API] Página 1: Recibidos 11 registros
+2026-01-13 14:02:25,058 [INFO] [Voiceflow API] Total acumulado final: 11 registros
+2026-01-13 14:02:25,062 [INFO] [Procesando] ID=6952dd6ba0e9b6dc447ae194 | SessionID=ohfgpmxmnv6koelg23qhf5kt | Nombre=
+2026-01-13 14:02:28,071 [INFO] [HTML API] SessionID: ohfgpmxmnv6koelg23qhf5kt | Status: 200
+2026-01-13 14:02:28,151 [INFO] [DB] Sin cambios significativos (diff<25) para ID=6952dd6ba0e9b6dc447ae194
+2026-01-13 14:02:28,152 [INFO] [Procesando] ID=693afbee6e46a92b18002c44 | SessionID=1403462 | Nombre=Servicios Administrados de TI
+2026-01-13 14:02:29,786 [INFO] [HTML API] SessionID: 1403462 | Status: 200
+2026-01-13 14:02:29,794 [INFO] [DB] Sin cambios significativos (diff<25) para ID=693afbee6e46a92b18002c44
+2026-01-13 14:02:29,795 [INFO] [Procesando] ID=69445f88166b26d09bae15f5 | SessionID=vfrc1nj716q1lhdkzuogfslf | Nombre=
+2026-01-13 14:02:30,838 [INFO] [HTML API] SessionID: vfrc1nj716q1lhdkzuogfslf | Status: 200
+2026-01-13 14:02:30,844 [INFO] [DB] Sin cambios significativos (diff<25) para ID=69445f88166b26d09bae15f5
+2026-01-13 14:02:30,845 [INFO] [Procesando] ID=69445fc0166b26d09baeb2e7 | SessionID=scsu3xd42jj7fyq9th0dligx | Nombre=
+2026-01-13 14:02:32,104 [INFO] [HTML API] SessionID: scsu3xd42jj7fyq9th0dligx | Status: 200
+2026-01-13 14:02:32,109 [INFO] [DB] Sin cambios significativos (diff<25) para ID=69445fc0166b26d09baeb2e7
+2026-01-13 14:02:32,109 [INFO] [Procesando] ID=694430f8166b26d09b2da15b | SessionID=nx09ua85ykj1357j1a5p9d8f | Nombre=
+2026-01-13 14:02:33,793 [INFO] [HTML API] SessionID: nx09ua85ykj1357j1a5p9d8f | Status: 200
+2026-01-13 14:02:33,802 [INFO] [DB] Sin cambios significativos (diff<25) para ID=694430f8166b26d09b2da15b
+2026-01-13 14:02:33,803 [INFO] [Procesando] ID=693b19d26e46a92b18575d3e | SessionID=hpxinlxl6c130iuwejpa5abs | Nombre=
+2026-01-13 14:02:35,228 [INFO] [HTML API] SessionID: hpxinlxl6c130iuwejpa5abs | Status: 200
+2026-01-13 14:02:35,236 [INFO] [DB] Sin cambios significativos (diff<25) para ID=693b19d26e46a92b18575d3e
+2026-01-13 14:02:35,236 [INFO] [Procesando] ID=69445907166b26d09b9d1630 | SessionID=v7g1whbot3lrr8qt9dlme90f | Nombre=
+2026-01-13 14:02:36,047 [INFO] [HTML API] SessionID: v7g1whbot3lrr8qt9dlme90f | Status: 200
+2026-01-13 14:02:36,052 [INFO] [DB] Sin cambios significativos (diff<25) para ID=69445907166b26d09b9d1630
+2026-01-13 14:02:36,053 [INFO] [Procesando] ID=694451cc166b26d09b898ade | SessionID=w4pu6aamfavzlrbd268xngln | Nombre=
+2026-01-13 14:02:37,170 [INFO] [HTML API] SessionID: w4pu6aamfavzlrbd268xngln | Status: 200
+2026-01-13 14:02:37,174 [INFO] [DB] Sin cambios significativos (diff<25) para ID=694451cc166b26d09b898ade
+2026-01-13 14:02:37,175 [INFO] [Procesando] ID=69406273d01a9557a83310d8 | SessionID=pj1zfkw1wlg1aq79ilh6rnfo | Nombre=
+2026-01-13 14:02:38,227 [INFO] [HTML API] SessionID: pj1zfkw1wlg1aq79ilh6rnfo | Status: 200
+2026-01-13 14:02:38,232 [INFO] [DB] Sin cambios significativos (diff<25) para ID=69406273d01a9557a83310d8
+2026-01-13 14:02:38,233 [INFO] [Procesando] ID=69406213d01a9557a831f3eb | SessionID=hj6wus4l77iuqwh0l0f9w3f0 | Nombre=
+2026-01-13 14:02:39,392 [INFO] [HTML API] SessionID: hj6wus4l77iuqwh0l0f9w3f0 | Status: 200
+2026-01-13 14:02:39,397 [INFO] [DB] Sin cambios significativos (diff<25) para ID=69406213d01a9557a831f3eb
+2026-01-13 14:02:39,398 [INFO] [Procesando] ID=69405325b9a3ea289ec5c28f | SessionID=vhyvvlzyauwdqfj6hcpbipc8 | Nombre=
+2026-01-13 14:02:40,360 [INFO] [HTML API] SessionID: vhyvvlzyauwdqfj6hcpbipc8 | Status: 200
+2026-01-13 14:02:40,366 [INFO] [DB] Sin cambios significativos (diff<25) para ID=69405325b9a3ea289ec5c28f
+2026-01-13 14:02:40,367 [INFO] ==> Proceso completado. Ins: 0 | Upd: 0 | Fail: 0
+2026-01-13 14:02:40,368 [INFO] 127.0.0.1 - - [13/Jan/2026 14:02:40] "GET /procesar_transcripts?range=Last%2030%20days HTTP/1.1" 200 -
+2026-01-13 14:02:54,208 [INFO] ==> Iniciando procesamiento con filtro='Last 7 Days', project_id='693afada764078aca74405a7'
+2026-01-13 14:02:54,208 [INFO] [Voiceflow API] Iniciando recolección de transcripts. Filtro: Last 7 Days
+2026-01-13 14:02:55,089 [INFO] [Voiceflow API] Página 1 vacía. Fin de recolección.
+2026-01-13 14:02:55,090 [INFO] [Voiceflow API] Total acumulado final: 0 registros
+2026-01-13 14:02:55,092 [INFO] ==> Proceso completado. Ins: 0 | Upd: 0 | Fail: 0
+2026-01-13 14:02:55,093 [INFO] 127.0.0.1 - - [13/Jan/2026 14:02:55] "GET /procesar_transcripts?range=Last%207%20Days HTTP/1.1" 200 -
+2026-01-13 14:02:58,112 [INFO] ==> Iniciando procesamiento con filtro='Today', project_id='693afada764078aca74405a7'
+2026-01-13 14:02:58,112 [INFO] [Voiceflow API] Iniciando recolección de transcripts. Filtro: Today
+2026-01-13 14:03:01,604 [INFO] [Voiceflow API] Página 1 vacía. Fin de recolección.
+2026-01-13 14:03:01,604 [INFO] [Voiceflow API] Total acumulado final: 0 registros
+2026-01-13 14:03:01,605 [INFO] ==> Proceso completado. Ins: 0 | Upd: 0 | Fail: 0
+2026-01-13 14:03:01,605 [INFO] 127.0.0.1 - - [13/Jan/2026 14:03:01] "GET /procesar_transcripts?range=Today HTTP/1.1" 200 -
+2026-01-13 17:00:32,763 [INFO] === Iniciando aplicación Flask Voiceflow con Paginación ===
+2026-01-13 17:00:32,816 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.70:5000
+2026-01-13 17:00:32,816 [INFO] [33mPress CTRL+C to quit[0m
+2026-01-13 17:00:32,817 [INFO]  * Restarting with stat
+2026-01-13 17:00:33,214 [INFO] === Iniciando aplicación Flask Voiceflow con Paginación ===
+2026-01-13 17:00:33,235 [WARNING]  * Debugger is active!
+2026-01-13 17:00:33,240 [INFO]  * Debugger PIN: 769-582-936
+2026-01-13 17:00:38,315 [INFO] ==> Iniciando procesamiento con filtro='Last 30 days', project_id='693afada764078aca74405a7'
+2026-01-13 17:00:38,315 [INFO] [Voiceflow API] Iniciando recolección de transcripts. Filtro: Last 30 days
+2026-01-13 17:00:39,181 [INFO] [Voiceflow API] Página 1: Recibidos 11 registros
+2026-01-13 17:00:39,181 [INFO] [Voiceflow API] Total acumulado final: 11 registros
+2026-01-13 17:00:39,183 [INFO] [Procesando] ID=6952dd6ba0e9b6dc447ae194 | SessionID=ohfgpmxmnv6koelg23qhf5kt | Nombre=
+2026-01-13 17:00:41,771 [INFO] [HTML API] SessionID: ohfgpmxmnv6koelg23qhf5kt | Status: 502
+2026-01-13 17:00:41,771 [ERROR] [HTML API] HTTPError para sessionID ohfgpmxmnv6koelg23qhf5kt: 502 Server Error: BAD GATEWAY for url: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=ohfgpmxmnv6koelg23qhf5kt&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 17:00:41,774 [WARNING] [Procesar] No se obtuvo historial o HTML válido para sessionID ohfgpmxmnv6koelg23qhf5kt
+2026-01-13 17:00:41,774 [INFO] [Procesando] ID=693afbee6e46a92b18002c44 | SessionID=1403462 | Nombre=Servicios Administrados de TI
+2026-01-13 17:00:42,852 [INFO] [HTML API] SessionID: 1403462 | Status: 502
+2026-01-13 17:00:42,852 [ERROR] [HTML API] HTTPError para sessionID 1403462: 502 Server Error: BAD GATEWAY for url: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=1403462&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 17:00:42,854 [WARNING] [Procesar] No se obtuvo historial o HTML válido para sessionID 1403462
+2026-01-13 17:00:42,855 [INFO] [Procesando] ID=69445f88166b26d09bae15f5 | SessionID=vfrc1nj716q1lhdkzuogfslf | Nombre=
+2026-01-13 17:00:43,918 [INFO] [HTML API] SessionID: vfrc1nj716q1lhdkzuogfslf | Status: 502
+2026-01-13 17:00:43,919 [ERROR] [HTML API] HTTPError para sessionID vfrc1nj716q1lhdkzuogfslf: 502 Server Error: BAD GATEWAY for url: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=vfrc1nj716q1lhdkzuogfslf&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 17:00:43,921 [WARNING] [Procesar] No se obtuvo historial o HTML válido para sessionID vfrc1nj716q1lhdkzuogfslf
+2026-01-13 17:00:43,921 [INFO] [Procesando] ID=69445fc0166b26d09baeb2e7 | SessionID=scsu3xd42jj7fyq9th0dligx | Nombre=
+2026-01-13 17:00:44,795 [INFO] [HTML API] SessionID: scsu3xd42jj7fyq9th0dligx | Status: 502
+2026-01-13 17:00:44,796 [ERROR] [HTML API] HTTPError para sessionID scsu3xd42jj7fyq9th0dligx: 502 Server Error: BAD GATEWAY for url: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=scsu3xd42jj7fyq9th0dligx&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 17:00:44,799 [WARNING] [Procesar] No se obtuvo historial o HTML válido para sessionID scsu3xd42jj7fyq9th0dligx
+2026-01-13 17:00:44,800 [INFO] [Procesando] ID=694430f8166b26d09b2da15b | SessionID=nx09ua85ykj1357j1a5p9d8f | Nombre=
+2026-01-13 17:00:45,620 [INFO] [HTML API] SessionID: nx09ua85ykj1357j1a5p9d8f | Status: 502
+2026-01-13 17:00:45,621 [ERROR] [HTML API] HTTPError para sessionID nx09ua85ykj1357j1a5p9d8f: 502 Server Error: BAD GATEWAY for url: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=nx09ua85ykj1357j1a5p9d8f&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 17:00:45,623 [WARNING] [Procesar] No se obtuvo historial o HTML válido para sessionID nx09ua85ykj1357j1a5p9d8f
+2026-01-13 17:00:45,624 [INFO] [Procesando] ID=693b19d26e46a92b18575d3e | SessionID=hpxinlxl6c130iuwejpa5abs | Nombre=
+2026-01-13 17:00:46,405 [INFO] [HTML API] SessionID: hpxinlxl6c130iuwejpa5abs | Status: 502
+2026-01-13 17:00:46,406 [ERROR] [HTML API] HTTPError para sessionID hpxinlxl6c130iuwejpa5abs: 502 Server Error: BAD GATEWAY for url: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=hpxinlxl6c130iuwejpa5abs&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 17:00:46,408 [WARNING] [Procesar] No se obtuvo historial o HTML válido para sessionID hpxinlxl6c130iuwejpa5abs
+2026-01-13 17:00:46,408 [INFO] [Procesando] ID=69445907166b26d09b9d1630 | SessionID=v7g1whbot3lrr8qt9dlme90f | Nombre=
+2026-01-13 17:00:47,359 [INFO] [HTML API] SessionID: v7g1whbot3lrr8qt9dlme90f | Status: 502
+2026-01-13 17:00:47,360 [ERROR] [HTML API] HTTPError para sessionID v7g1whbot3lrr8qt9dlme90f: 502 Server Error: BAD GATEWAY for url: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=v7g1whbot3lrr8qt9dlme90f&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 17:00:47,361 [WARNING] [Procesar] No se obtuvo historial o HTML válido para sessionID v7g1whbot3lrr8qt9dlme90f
+2026-01-13 17:00:47,362 [INFO] [Procesando] ID=694451cc166b26d09b898ade | SessionID=w4pu6aamfavzlrbd268xngln | Nombre=
+2026-01-13 17:00:48,117 [INFO] [HTML API] SessionID: w4pu6aamfavzlrbd268xngln | Status: 502
+2026-01-13 17:00:48,118 [ERROR] [HTML API] HTTPError para sessionID w4pu6aamfavzlrbd268xngln: 502 Server Error: BAD GATEWAY for url: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=w4pu6aamfavzlrbd268xngln&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 17:00:48,120 [WARNING] [Procesar] No se obtuvo historial o HTML válido para sessionID w4pu6aamfavzlrbd268xngln
+2026-01-13 17:00:48,120 [INFO] [Procesando] ID=69406273d01a9557a83310d8 | SessionID=pj1zfkw1wlg1aq79ilh6rnfo | Nombre=
+2026-01-13 17:00:48,874 [INFO] [HTML API] SessionID: pj1zfkw1wlg1aq79ilh6rnfo | Status: 502
+2026-01-13 17:00:48,875 [ERROR] [HTML API] HTTPError para sessionID pj1zfkw1wlg1aq79ilh6rnfo: 502 Server Error: BAD GATEWAY for url: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=pj1zfkw1wlg1aq79ilh6rnfo&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 17:00:48,876 [WARNING] [Procesar] No se obtuvo historial o HTML válido para sessionID pj1zfkw1wlg1aq79ilh6rnfo
+2026-01-13 17:00:48,877 [INFO] [Procesando] ID=69406213d01a9557a831f3eb | SessionID=hj6wus4l77iuqwh0l0f9w3f0 | Nombre=
+2026-01-13 17:00:49,740 [INFO] [HTML API] SessionID: hj6wus4l77iuqwh0l0f9w3f0 | Status: 502
+2026-01-13 17:00:49,741 [ERROR] [HTML API] HTTPError para sessionID hj6wus4l77iuqwh0l0f9w3f0: 502 Server Error: BAD GATEWAY for url: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=hj6wus4l77iuqwh0l0f9w3f0&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 17:00:49,743 [WARNING] [Procesar] No se obtuvo historial o HTML válido para sessionID hj6wus4l77iuqwh0l0f9w3f0
+2026-01-13 17:00:49,744 [INFO] [Procesando] ID=69405325b9a3ea289ec5c28f | SessionID=vhyvvlzyauwdqfj6hcpbipc8 | Nombre=
+2026-01-13 17:00:50,520 [INFO] [HTML API] SessionID: vhyvvlzyauwdqfj6hcpbipc8 | Status: 502
+2026-01-13 17:00:50,520 [ERROR] [HTML API] HTTPError para sessionID vhyvvlzyauwdqfj6hcpbipc8: 502 Server Error: BAD GATEWAY for url: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=vhyvvlzyauwdqfj6hcpbipc8&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 17:00:50,522 [WARNING] [Procesar] No se obtuvo historial o HTML válido para sessionID vhyvvlzyauwdqfj6hcpbipc8
+2026-01-13 17:00:50,522 [INFO] ==> Proceso completado. Ins: 0 | Upd: 0 | Fail: 11
+2026-01-13 17:00:50,523 [INFO] 127.0.0.1 - - [13/Jan/2026 17:00:50] "GET /procesar_transcripts?range=Last%2030%20days HTTP/1.1" 200 -
+2026-01-13 17:01:36,240 [INFO] 127.0.0.1 - - [13/Jan/2026 17:01:36] "[33mGET /procesar_todos_gpt HTTP/1.1[0m" 404 -
+2026-01-13 17:02:40,293 [INFO] ==> Iniciando procesamiento con filtro='All time', project_id='693afada764078aca74405a7'
+2026-01-13 17:02:40,294 [INFO] [Voiceflow API] Iniciando recolección de transcripts. Filtro: All time
+2026-01-13 17:02:41,576 [INFO] [Voiceflow API] Página 1: Recibidos 15 registros
+2026-01-13 17:02:41,577 [INFO] [Voiceflow API] Total acumulado final: 15 registros
+2026-01-13 17:02:41,579 [INFO] [Procesando] ID=6952dd6ba0e9b6dc447ae194 | SessionID=ohfgpmxmnv6koelg23qhf5kt | Nombre=
+2026-01-13 17:02:44,497 [INFO] [HTML API] SessionID: ohfgpmxmnv6koelg23qhf5kt | Status: 502
+2026-01-13 17:02:44,498 [ERROR] [HTML API] HTTPError para sessionID ohfgpmxmnv6koelg23qhf5kt: 502 Server Error: BAD GATEWAY for url: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=ohfgpmxmnv6koelg23qhf5kt&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 17:02:44,500 [WARNING] [Procesar] No se obtuvo historial o HTML válido para sessionID ohfgpmxmnv6koelg23qhf5kt
+2026-01-13 17:02:44,500 [INFO] [Procesando] ID=693afbee6e46a92b18002c44 | SessionID=1403462 | Nombre=Servicios Administrados de TI
+2026-01-13 17:02:45,330 [INFO] [HTML API] SessionID: 1403462 | Status: 502
+2026-01-13 17:02:45,330 [ERROR] [HTML API] HTTPError para sessionID 1403462: 502 Server Error: BAD GATEWAY for url: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=1403462&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 17:02:45,332 [WARNING] [Procesar] No se obtuvo historial o HTML válido para sessionID 1403462
+2026-01-13 17:02:45,332 [INFO] [Procesando] ID=69445f88166b26d09bae15f5 | SessionID=vfrc1nj716q1lhdkzuogfslf | Nombre=
+2026-01-13 17:02:46,252 [INFO] [HTML API] SessionID: vfrc1nj716q1lhdkzuogfslf | Status: 502
+2026-01-13 17:02:46,252 [ERROR] [HTML API] HTTPError para sessionID vfrc1nj716q1lhdkzuogfslf: 502 Server Error: BAD GATEWAY for url: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=vfrc1nj716q1lhdkzuogfslf&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 17:02:46,253 [WARNING] [Procesar] No se obtuvo historial o HTML válido para sessionID vfrc1nj716q1lhdkzuogfslf
+2026-01-13 17:02:46,255 [INFO] [Procesando] ID=69445fc0166b26d09baeb2e7 | SessionID=scsu3xd42jj7fyq9th0dligx | Nombre=
+2026-01-13 17:02:47,057 [INFO] [HTML API] SessionID: scsu3xd42jj7fyq9th0dligx | Status: 502
+2026-01-13 17:02:47,057 [ERROR] [HTML API] HTTPError para sessionID scsu3xd42jj7fyq9th0dligx: 502 Server Error: BAD GATEWAY for url: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=scsu3xd42jj7fyq9th0dligx&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 17:02:47,058 [WARNING] [Procesar] No se obtuvo historial o HTML válido para sessionID scsu3xd42jj7fyq9th0dligx
+2026-01-13 17:02:47,058 [INFO] [Procesando] ID=694430f8166b26d09b2da15b | SessionID=nx09ua85ykj1357j1a5p9d8f | Nombre=
+2026-01-13 17:02:47,992 [INFO] [HTML API] SessionID: nx09ua85ykj1357j1a5p9d8f | Status: 502
+2026-01-13 17:02:47,992 [ERROR] [HTML API] HTTPError para sessionID nx09ua85ykj1357j1a5p9d8f: 502 Server Error: BAD GATEWAY for url: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=nx09ua85ykj1357j1a5p9d8f&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 17:02:47,995 [WARNING] [Procesar] No se obtuvo historial o HTML válido para sessionID nx09ua85ykj1357j1a5p9d8f
+2026-01-13 17:02:47,995 [INFO] [Procesando] ID=693b19d26e46a92b18575d3e | SessionID=hpxinlxl6c130iuwejpa5abs | Nombre=
+2026-01-13 17:02:48,891 [INFO] [HTML API] SessionID: hpxinlxl6c130iuwejpa5abs | Status: 502
+2026-01-13 17:02:48,891 [ERROR] [HTML API] HTTPError para sessionID hpxinlxl6c130iuwejpa5abs: 502 Server Error: BAD GATEWAY for url: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=hpxinlxl6c130iuwejpa5abs&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 17:02:48,893 [WARNING] [Procesar] No se obtuvo historial o HTML válido para sessionID hpxinlxl6c130iuwejpa5abs
+2026-01-13 17:02:48,893 [INFO] [Procesando] ID=69445907166b26d09b9d1630 | SessionID=v7g1whbot3lrr8qt9dlme90f | Nombre=
+2026-01-13 17:02:50,750 [INFO] [HTML API] SessionID: v7g1whbot3lrr8qt9dlme90f | Status: 502
+2026-01-13 17:02:50,751 [ERROR] [HTML API] HTTPError para sessionID v7g1whbot3lrr8qt9dlme90f: 502 Server Error: BAD GATEWAY for url: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=v7g1whbot3lrr8qt9dlme90f&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 17:02:50,753 [WARNING] [Procesar] No se obtuvo historial o HTML válido para sessionID v7g1whbot3lrr8qt9dlme90f
+2026-01-13 17:02:50,754 [INFO] [Procesando] ID=694451cc166b26d09b898ade | SessionID=w4pu6aamfavzlrbd268xngln | Nombre=
+2026-01-13 17:02:51,966 [INFO] [HTML API] SessionID: w4pu6aamfavzlrbd268xngln | Status: 502
+2026-01-13 17:02:51,967 [ERROR] [HTML API] HTTPError para sessionID w4pu6aamfavzlrbd268xngln: 502 Server Error: BAD GATEWAY for url: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=w4pu6aamfavzlrbd268xngln&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 17:02:51,969 [WARNING] [Procesar] No se obtuvo historial o HTML válido para sessionID w4pu6aamfavzlrbd268xngln
+2026-01-13 17:02:51,970 [INFO] [Procesando] ID=69406273d01a9557a83310d8 | SessionID=pj1zfkw1wlg1aq79ilh6rnfo | Nombre=
+2026-01-13 17:02:52,860 [INFO] [HTML API] SessionID: pj1zfkw1wlg1aq79ilh6rnfo | Status: 502
+2026-01-13 17:02:52,861 [ERROR] [HTML API] HTTPError para sessionID pj1zfkw1wlg1aq79ilh6rnfo: 502 Server Error: BAD GATEWAY for url: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=pj1zfkw1wlg1aq79ilh6rnfo&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 17:02:52,864 [WARNING] [Procesar] No se obtuvo historial o HTML válido para sessionID pj1zfkw1wlg1aq79ilh6rnfo
+2026-01-13 17:02:52,865 [INFO] [Procesando] ID=69406213d01a9557a831f3eb | SessionID=hj6wus4l77iuqwh0l0f9w3f0 | Nombre=
+2026-01-13 17:02:53,727 [INFO] [HTML API] SessionID: hj6wus4l77iuqwh0l0f9w3f0 | Status: 502
+2026-01-13 17:02:53,728 [ERROR] [HTML API] HTTPError para sessionID hj6wus4l77iuqwh0l0f9w3f0: 502 Server Error: BAD GATEWAY for url: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=hj6wus4l77iuqwh0l0f9w3f0&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 17:02:53,731 [WARNING] [Procesar] No se obtuvo historial o HTML válido para sessionID hj6wus4l77iuqwh0l0f9w3f0
+2026-01-13 17:02:53,732 [INFO] [Procesando] ID=69405325b9a3ea289ec5c28f | SessionID=vhyvvlzyauwdqfj6hcpbipc8 | Nombre=
+2026-01-13 17:02:56,122 [INFO] [HTML API] SessionID: vhyvvlzyauwdqfj6hcpbipc8 | Status: 502
+2026-01-13 17:02:56,123 [ERROR] [HTML API] HTTPError para sessionID vhyvvlzyauwdqfj6hcpbipc8: 502 Server Error: BAD GATEWAY for url: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=vhyvvlzyauwdqfj6hcpbipc8&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 17:02:56,126 [WARNING] [Procesar] No se obtuvo historial o HTML válido para sessionID vhyvvlzyauwdqfj6hcpbipc8
+2026-01-13 17:02:56,127 [INFO] [Procesando] ID=693b18326e46a92b1852944c | SessionID=n6kqa4ymjb86zkk67u4jah0s | Nombre=
+2026-01-13 17:02:57,990 [INFO] [HTML API] SessionID: n6kqa4ymjb86zkk67u4jah0s | Status: 502
+2026-01-13 17:02:57,990 [ERROR] [HTML API] HTTPError para sessionID n6kqa4ymjb86zkk67u4jah0s: 502 Server Error: BAD GATEWAY for url: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=n6kqa4ymjb86zkk67u4jah0s&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 17:02:57,992 [WARNING] [Procesar] No se obtuvo historial o HTML válido para sessionID n6kqa4ymjb86zkk67u4jah0s
+2026-01-13 17:02:57,992 [INFO] [Procesando] ID=693c24566e46a92b1893a10e | SessionID=fs1fk1kxw1h6mtjw2igrxmho | Nombre=
+2026-01-13 17:02:59,190 [INFO] [HTML API] SessionID: fs1fk1kxw1h6mtjw2igrxmho | Status: 502
+2026-01-13 17:02:59,190 [ERROR] [HTML API] HTTPError para sessionID fs1fk1kxw1h6mtjw2igrxmho: 502 Server Error: BAD GATEWAY for url: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=fs1fk1kxw1h6mtjw2igrxmho&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 17:02:59,192 [WARNING] [Procesar] No se obtuvo historial o HTML válido para sessionID fs1fk1kxw1h6mtjw2igrxmho
+2026-01-13 17:02:59,192 [INFO] [Procesando] ID=693c243e6e46a92b18935ff5 | SessionID=km260x7l90rbnynwvmdyrl4f | Nombre=
+2026-01-13 17:03:00,486 [INFO] [HTML API] SessionID: km260x7l90rbnynwvmdyrl4f | Status: 502
+2026-01-13 17:03:00,487 [ERROR] [HTML API] HTTPError para sessionID km260x7l90rbnynwvmdyrl4f: 502 Server Error: BAD GATEWAY for url: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=km260x7l90rbnynwvmdyrl4f&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 17:03:00,489 [WARNING] [Procesar] No se obtuvo historial o HTML válido para sessionID km260x7l90rbnynwvmdyrl4f
+2026-01-13 17:03:00,489 [INFO] [Procesando] ID=693b17f86e46a92b1851f2bb | SessionID=azoetxne63oywmruke1caxx6 | Nombre=
+2026-01-13 17:03:01,894 [INFO] [HTML API] SessionID: azoetxne63oywmruke1caxx6 | Status: 502
+2026-01-13 17:03:01,896 [ERROR] [HTML API] HTTPError para sessionID azoetxne63oywmruke1caxx6: 502 Server Error: BAD GATEWAY for url: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=azoetxne63oywmruke1caxx6&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 17:03:01,897 [WARNING] [Procesar] No se obtuvo historial o HTML válido para sessionID azoetxne63oywmruke1caxx6
+2026-01-13 17:03:01,898 [INFO] ==> Proceso completado. Ins: 0 | Upd: 0 | Fail: 15
+2026-01-13 17:03:01,898 [INFO] 127.0.0.1 - - [13/Jan/2026 17:03:01] "GET /procesar_transcripts?range=All%20time HTTP/1.1" 200 -
+2026-01-13 17:03:36,304 [INFO] 127.0.0.1 - - [13/Jan/2026 17:03:36] "[33mGET /procesar_todos_gpt HTTP/1.1[0m" 404 -
+2026-01-13 17:05:36,372 [INFO] 127.0.0.1 - - [13/Jan/2026 17:05:36] "[33mGET /procesar_todos_gpt HTTP/1.1[0m" 404 -
+2026-01-13 17:07:36,434 [INFO] 127.0.0.1 - - [13/Jan/2026 17:07:36] "[33mGET /procesar_todos_gpt HTTP/1.1[0m" 404 -
+2026-01-13 17:09:36,495 [INFO] 127.0.0.1 - - [13/Jan/2026 17:09:36] "[33mGET /procesar_todos_gpt HTTP/1.1[0m" 404 -
+2026-01-13 17:11:36,564 [INFO] 127.0.0.1 - - [13/Jan/2026 17:11:36] "[33mGET /procesar_todos_gpt HTTP/1.1[0m" 404 -
+2026-01-13 17:13:36,630 [INFO] 127.0.0.1 - - [13/Jan/2026 17:13:36] "[33mGET /procesar_todos_gpt HTTP/1.1[0m" 404 -
+2026-01-13 17:15:36,691 [INFO] 127.0.0.1 - - [13/Jan/2026 17:15:36] "[33mGET /procesar_todos_gpt HTTP/1.1[0m" 404 -
+2026-01-13 18:45:37,960 [INFO] === Iniciando aplicación Flask Voiceflow con Paginación ===
+2026-01-13 18:45:38,009 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.70:5000
+2026-01-13 18:45:38,009 [INFO] [33mPress CTRL+C to quit[0m
+2026-01-13 18:45:38,011 [INFO]  * Restarting with stat
+2026-01-13 18:45:38,324 [INFO] === Iniciando aplicación Flask Voiceflow con Paginación ===
+2026-01-13 18:45:38,332 [WARNING]  * Debugger is active!
+2026-01-13 18:45:38,334 [INFO]  * Debugger PIN: 769-582-936
+2026-01-13 18:45:42,014 [INFO] ==> Iniciando procesamiento con filtro='Last 30 days', project_id='693afada764078aca74405a7'
+2026-01-13 18:45:42,014 [INFO] [Voiceflow API] Iniciando recolección de transcripts. Filtro: Last 30 days
+2026-01-13 18:45:42,863 [INFO] [Voiceflow API] Página 1: Recibidos 11 registros
+2026-01-13 18:45:42,863 [INFO] [Voiceflow API] Total acumulado final: 11 registros
+2026-01-13 18:45:42,865 [INFO] [Procesando] ID=6952dd6ba0e9b6dc447ae194 | SessionID=ohfgpmxmnv6koelg23qhf5kt | Nombre=
+2026-01-13 18:45:44,160 [INFO] [HTML API] SessionID: ohfgpmxmnv6koelg23qhf5kt | Status: 502
+2026-01-13 18:45:44,161 [ERROR] [HTML API] HTTPError para sessionID ohfgpmxmnv6koelg23qhf5kt: 502 Server Error: BAD GATEWAY for url: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=ohfgpmxmnv6koelg23qhf5kt&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 18:45:44,164 [WARNING] [Procesar] No se obtuvo historial o HTML válido para sessionID ohfgpmxmnv6koelg23qhf5kt
+2026-01-13 18:45:44,164 [INFO] [Procesando] ID=693afbee6e46a92b18002c44 | SessionID=1403462 | Nombre=Servicios Administrados de TI
+2026-01-13 18:45:45,327 [INFO] [HTML API] SessionID: 1403462 | Status: 502
+2026-01-13 18:45:45,327 [ERROR] [HTML API] HTTPError para sessionID 1403462: 502 Server Error: BAD GATEWAY for url: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=1403462&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 18:45:45,329 [WARNING] [Procesar] No se obtuvo historial o HTML válido para sessionID 1403462
+2026-01-13 18:45:45,330 [INFO] [Procesando] ID=69445f88166b26d09bae15f5 | SessionID=vfrc1nj716q1lhdkzuogfslf | Nombre=
+2026-01-13 18:45:46,030 [INFO] [HTML API] SessionID: vfrc1nj716q1lhdkzuogfslf | Status: 502
+2026-01-13 18:45:46,031 [ERROR] [HTML API] HTTPError para sessionID vfrc1nj716q1lhdkzuogfslf: 502 Server Error: BAD GATEWAY for url: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=vfrc1nj716q1lhdkzuogfslf&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 18:45:46,033 [WARNING] [Procesar] No se obtuvo historial o HTML válido para sessionID vfrc1nj716q1lhdkzuogfslf
+2026-01-13 18:45:46,034 [INFO] [Procesando] ID=69445fc0166b26d09baeb2e7 | SessionID=scsu3xd42jj7fyq9th0dligx | Nombre=
+2026-01-13 18:45:46,746 [INFO] [HTML API] SessionID: scsu3xd42jj7fyq9th0dligx | Status: 502
+2026-01-13 18:45:46,747 [ERROR] [HTML API] HTTPError para sessionID scsu3xd42jj7fyq9th0dligx: 502 Server Error: BAD GATEWAY for url: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=scsu3xd42jj7fyq9th0dligx&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 18:45:46,750 [WARNING] [Procesar] No se obtuvo historial o HTML válido para sessionID scsu3xd42jj7fyq9th0dligx
+2026-01-13 18:45:46,750 [INFO] [Procesando] ID=694430f8166b26d09b2da15b | SessionID=nx09ua85ykj1357j1a5p9d8f | Nombre=
+2026-01-13 18:45:47,602 [INFO] [HTML API] SessionID: nx09ua85ykj1357j1a5p9d8f | Status: 502
+2026-01-13 18:45:47,603 [ERROR] [HTML API] HTTPError para sessionID nx09ua85ykj1357j1a5p9d8f: 502 Server Error: BAD GATEWAY for url: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=nx09ua85ykj1357j1a5p9d8f&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 18:45:47,604 [WARNING] [Procesar] No se obtuvo historial o HTML válido para sessionID nx09ua85ykj1357j1a5p9d8f
+2026-01-13 18:45:47,604 [INFO] [Procesando] ID=693b19d26e46a92b18575d3e | SessionID=hpxinlxl6c130iuwejpa5abs | Nombre=
+2026-01-13 18:45:48,543 [INFO] [HTML API] SessionID: hpxinlxl6c130iuwejpa5abs | Status: 502
+2026-01-13 18:45:48,544 [ERROR] [HTML API] HTTPError para sessionID hpxinlxl6c130iuwejpa5abs: 502 Server Error: BAD GATEWAY for url: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=hpxinlxl6c130iuwejpa5abs&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 18:45:48,546 [WARNING] [Procesar] No se obtuvo historial o HTML válido para sessionID hpxinlxl6c130iuwejpa5abs
+2026-01-13 18:45:48,546 [INFO] [Procesando] ID=69445907166b26d09b9d1630 | SessionID=v7g1whbot3lrr8qt9dlme90f | Nombre=
+2026-01-13 18:45:49,435 [INFO] [HTML API] SessionID: v7g1whbot3lrr8qt9dlme90f | Status: 502
+2026-01-13 18:45:49,435 [ERROR] [HTML API] HTTPError para sessionID v7g1whbot3lrr8qt9dlme90f: 502 Server Error: BAD GATEWAY for url: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=v7g1whbot3lrr8qt9dlme90f&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 18:45:49,436 [WARNING] [Procesar] No se obtuvo historial o HTML válido para sessionID v7g1whbot3lrr8qt9dlme90f
+2026-01-13 18:45:49,436 [INFO] [Procesando] ID=694451cc166b26d09b898ade | SessionID=w4pu6aamfavzlrbd268xngln | Nombre=
+2026-01-13 18:45:50,263 [INFO] [HTML API] SessionID: w4pu6aamfavzlrbd268xngln | Status: 502
+2026-01-13 18:45:50,264 [ERROR] [HTML API] HTTPError para sessionID w4pu6aamfavzlrbd268xngln: 502 Server Error: BAD GATEWAY for url: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=w4pu6aamfavzlrbd268xngln&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 18:45:50,265 [WARNING] [Procesar] No se obtuvo historial o HTML válido para sessionID w4pu6aamfavzlrbd268xngln
+2026-01-13 18:45:50,267 [INFO] [Procesando] ID=69406273d01a9557a83310d8 | SessionID=pj1zfkw1wlg1aq79ilh6rnfo | Nombre=
+2026-01-13 18:45:51,022 [INFO] [HTML API] SessionID: pj1zfkw1wlg1aq79ilh6rnfo | Status: 502
+2026-01-13 18:45:51,023 [ERROR] [HTML API] HTTPError para sessionID pj1zfkw1wlg1aq79ilh6rnfo: 502 Server Error: BAD GATEWAY for url: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=pj1zfkw1wlg1aq79ilh6rnfo&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 18:45:51,027 [WARNING] [Procesar] No se obtuvo historial o HTML válido para sessionID pj1zfkw1wlg1aq79ilh6rnfo
+2026-01-13 18:45:51,028 [INFO] [Procesando] ID=69406213d01a9557a831f3eb | SessionID=hj6wus4l77iuqwh0l0f9w3f0 | Nombre=
+2026-01-13 18:45:51,829 [INFO] [HTML API] SessionID: hj6wus4l77iuqwh0l0f9w3f0 | Status: 502
+2026-01-13 18:45:51,830 [ERROR] [HTML API] HTTPError para sessionID hj6wus4l77iuqwh0l0f9w3f0: 502 Server Error: BAD GATEWAY for url: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=hj6wus4l77iuqwh0l0f9w3f0&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 18:45:51,834 [WARNING] [Procesar] No se obtuvo historial o HTML válido para sessionID hj6wus4l77iuqwh0l0f9w3f0
+2026-01-13 18:45:51,834 [INFO] [Procesando] ID=69405325b9a3ea289ec5c28f | SessionID=vhyvvlzyauwdqfj6hcpbipc8 | Nombre=
+2026-01-13 18:45:52,600 [INFO] [HTML API] SessionID: vhyvvlzyauwdqfj6hcpbipc8 | Status: 502
+2026-01-13 18:45:52,601 [ERROR] [HTML API] HTTPError para sessionID vhyvvlzyauwdqfj6hcpbipc8: 502 Server Error: BAD GATEWAY for url: https://proy020.kenos-atom.com/reimpresion/voiceflow/conversacion_html?sessionID=vhyvvlzyauwdqfj6hcpbipc8&projectID=693afada764078aca74405a7&VFAPIKey=VF.DM.6966925738c8fb5bdf6bcd81.v2Jtuu2nYTUzbK69
+2026-01-13 18:45:52,604 [WARNING] [Procesar] No se obtuvo historial o HTML válido para sessionID vhyvvlzyauwdqfj6hcpbipc8
+2026-01-13 18:45:52,605 [INFO] ==> Proceso completado. Ins: 0 | Upd: 0 | Fail: 11
+2026-01-13 18:45:52,607 [INFO] 127.0.0.1 - - [13/Jan/2026 18:45:52] "GET /procesar_transcripts?range=Last%2030%20days HTTP/1.1" 200 -
+2026-01-13 18:45:58,593 [INFO] 127.0.0.1 - - [13/Jan/2026 18:45:58] "[33mGET /procesar_todos_gpt HTTP/1.1[0m" 404 -
