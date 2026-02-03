@@ -6,3 +6,9 @@ MYSQL_PORT = 3307
 MYSQL_USER = "root"
 MYSQL_PASSWORD = ""
 MYSQL_DB = "axo"
+
+# MYSQL_HOST = "158.23.137.150"
+# MYSQL_PORT = 3306
+# MYSQL_USER = "root"
+# MYSQL_PASSWORD = "Melco154.,"
+# MYSQL_DB = "axo"
