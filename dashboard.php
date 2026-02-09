@@ -6,7 +6,7 @@ require_once 'funciones.php';
 
 actualizarEstadosTecnicos($conn);
 
-// Traemos técnicos y sus horarios empaquetados en JSON
+// 1. Obtener Técnicos y Horarios
 $sql = "SELECT t.*, 
         CONCAT('[', GROUP_CONCAT(
             CONCAT('{\"dia\":\"', h.dia_semana, '\",\"entrada\":\"', h.hora_entrada, '\",\"salida\":\"', h.hora_salida, '\",\"ini_comida\":\"', h.inicio_comida, '\",\"fin_comida\":\"', h.fin_comida, '\"}')
@@ -19,7 +19,20 @@ $sql = "SELECT t.*,
 $stmt = $conn->query($sql);
 $tecnicos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// Mapeo de días para mostrar en la tabla y modal
+// 2. Consulta Estado del Servicio (API)
+$stmtServ = $conn->query("SELECT activo FROM configuracion_servicio WHERE id = 1");
+$servicioData = $stmtServ->fetch(PDO::FETCH_ASSOC);
+$servicioActivo = $servicioData ? $servicioData['activo'] : 0;
+
+// 3. Contadores de Tickets
+// Tickets de HOY
+$stmtHoy = $conn->query("SELECT COUNT(*) as total FROM tickets_asignados WHERE fecha_asignacion >= CURDATE()"); 
+$ticketsHoy = $stmtHoy->fetch(PDO::FETCH_ASSOC)['total'];
+
+// Tickets TOTALES (Histórico)
+$stmtTotal = $conn->query("SELECT COUNT(*) as total FROM tickets_asignados"); 
+$ticketsTotal = $stmtTotal->fetch(PDO::FETCH_ASSOC)['total'];
+
 $diasSemana = ['Mon'=>'Lunes', 'Tue'=>'Martes', 'Wed'=>'Miércoles', 'Thu'=>'Jueves', 'Fri'=>'Viernes', 'Sat'=>'Sábado', 'Sun'=>'Domingo'];
 $diasCortos = ['Mon'=>'Lun', 'Tue'=>'Mar', 'Wed'=>'Mié', 'Thu'=>'Jue', 'Fri'=>'Vie', 'Sat'=>'Sáb', 'Sun'=>'Dom'];
 ?>
@@ -30,24 +43,44 @@ $diasCortos = ['Mon'=>'Lun', 'Tue'=>'Mar', 'Wed'=>'Mié', 'Thu'=>'Jue', 'Fri'=>'
     <title>Gestión de Técnicos</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-        <div class="container">
+        <div class="container-fluid px-4">
             <span class="navbar-brand">Sistema AXO</span>
+            
+            <div class="d-flex align-items-center ms-3">
+                <div class="form-check form-switch text-white">
+                    <input class="form-check-input" type="checkbox" id="switchServicio" <?= $servicioActivo ? 'checked' : '' ?> style="cursor: pointer;">
+                    <label class="form-check-label ms-2" for="switchServicio" id="lblServicio">
+                        <?= $servicioActivo ? 'Servicio: ON' : 'Servicio: OFF' ?>
+                    </label>
+                </div>
+            </div>
+
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
+
+            <div class="collapse navbar-collapse ms-4" id="navbarNav">
                 <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="dashboard.php">Técnicos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="plantillas.php">Plantillas</a>
-                    </li>
+                    <li class="nav-item"><a class="nav-link active" href="dashboard.php">Técnicos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="plantillas.php">Plantillas</a></li>
                 </ul>
-                <div class="d-flex text-white align-items-center">
+                
+                <div class="d-flex text-white me-4">
+                    <div class="border px-3 py-1 rounded me-2 text-center">
+                        <small class="d-block text-white-50" style="font-size: 0.75rem;">HOY</small>
+                        <strong><?= $ticketsHoy ?></strong> <i class="bi bi-ticket-perforated"></i>
+                    </div>
+                    <div class="border px-3 py-1 rounded text-center bg-secondary bg-opacity-25">
+                        <small class="d-block text-white-50" style="font-size: 0.75rem;">TOTAL HISTÓRICO</small>
+                        <strong><?= $ticketsTotal ?></strong> <i class="bi bi-database"></i>
+                    </div>
+                </div>
+
+                <div class="d-flex text-white align-items-center border-start ps-3">
                     <span class="me-3">Hola, <?= $_SESSION['nombre'] ?></span>
                     <a href="logout.php" class="btn btn-outline-light btn-sm">Salir</a>
                 </div>
@@ -55,7 +88,7 @@ $diasCortos = ['Mon'=>'Lun', 'Tue'=>'Mar', 'Wed'=>'Mié', 'Thu'=>'Jue', 'Fri'=>'
         </div>
     </nav>
 
-    <div class="container">
+    <div class="container-fluid px-4">
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h2>Listado de Técnicos</h2>
             <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalTecnico" onclick="limpiarFormulario()">
@@ -84,41 +117,36 @@ $diasCortos = ['Mon'=>'Lun', 'Tue'=>'Mar', 'Wed'=>'Mié', 'Thu'=>'Jue', 'Fri'=>'
                             <small class="text-muted"><?= $t['usuario_login'] ?></small>
                         </td>
                         <td>
-    <?php 
-        $horarios = json_decode($t['horarios_json'] ?? '[]', true);
-        if (is_array($horarios) && count($horarios) > 0) {
-            // Ordenar los días para que salgan Lun, Mar, Mie... y no desordenados
-            $ordenDias = ['Mon'=>1, 'Tue'=>2, 'Wed'=>3, 'Thu'=>4, 'Fri'=>5, 'Sat'=>6, 'Sun'=>7];
-            usort($horarios, function($a, $b) use ($ordenDias) {
-                return $ordenDias[$a['dia']] <=> $ordenDias[$b['dia']];
-            });
+                            <?php 
+                                $horarios = json_decode($t['horarios_json'] ?? '[]', true);
+                                if (is_array($horarios) && count($horarios) > 0) {
+                                    $ordenDias = ['Mon'=>1, 'Tue'=>2, 'Wed'=>3, 'Thu'=>4, 'Fri'=>5, 'Sat'=>6, 'Sun'=>7];
+                                    usort($horarios, function($a, $b) use ($ordenDias) {
+                                        return $ordenDias[$a['dia']] <=> $ordenDias[$b['dia']];
+                                    });
 
-            foreach ($horarios as $h) {
-                if (isset($h['dia']) && isset($diasCortos[$h['dia']])) {
-                    // Formatear horas para quitar los segundos (09:00:00 -> 09:00)
-                    $ent = substr($h['entrada'], 0, 5);
-                    $sal = substr($h['salida'], 0, 5);
-                    $iniC = substr($h['ini_comida'], 0, 5);
-                    $finC = substr($h['fin_comida'], 0, 5);
+                                    foreach ($horarios as $h) {
+                                        if (isset($h['dia']) && isset($diasCortos[$h['dia']])) {
+                                            $ent = substr($h['entrada'], 0, 5);
+                                            $sal = substr($h['salida'], 0, 5);
+                                            $iniC = substr($h['ini_comida'], 0, 5);
+                                            $finC = substr($h['fin_comida'], 0, 5);
+                                            $info = "<b>Entrada:</b> $ent - $sal<br><b>Comida:</b> $iniC - $finC";
 
-                    // Crear el contenido del tooltip (HTML)
-                    $info = "<b>Entrada:</b> $ent - $sal<br><b>Comida:</b> $iniC - $finC";
-
-                    // Renderizar el Badge con Tooltip
-                    echo "<span class='badge bg-info text-dark me-1 mb-1' 
-                                data-bs-toggle='tooltip' 
-                                data-bs-html='true' 
-                                title='$info' 
-                                style='cursor: pointer;'>
-                            " . $diasCortos[$h['dia']] . "
-                          </span>";
-                }
-            }
-        } else {
-            echo "<span class='text-muted small'>Sin horario</span>";
-        }
-    ?>
-</td>
+                                            echo "<span class='badge bg-info text-dark me-1 mb-1' 
+                                                        data-bs-toggle='tooltip' 
+                                                        data-bs-html='true' 
+                                                        title='$info' 
+                                                        style='cursor: pointer;'>
+                                                    " . $diasCortos[$h['dia']] . "
+                                                  </span>";
+                                        }
+                                    }
+                                } else {
+                                    echo "<span class='text-muted small'>Sin horario</span>";
+                                }
+                            ?>
+                        </td>
                         <td>
                             <?php if($t['activo'] == 1): ?>
                                 <span class="badge bg-success">Activo (En turno)</span>
@@ -176,40 +204,23 @@ $diasCortos = ['Mon'=>'Lun', 'Tue'=>'Mar', 'Wed'=>'Mié', 'Thu'=>'Jue', 'Fri'=>'
                         </div>
 
                         <hr>
-                        <h6>Configuración de Horarios y Comidas</h6>
-                        <p class="small text-muted">Selecciona el día para configurar sus horas. El sistema inactiva al técnico 20 min antes de su comida.</p>
-
+                        <h6>Configuración de Horarios</h6>
                         <div class="table-responsive">
                             <table class="table table-sm table-borderless align-middle">
                                 <thead>
                                     <tr class="text-center small">
-                                        <th width="5%"></th>
-                                        <th width="10%">Día</th>
-                                        <th>Entrada</th>
-                                        <th>Salida</th>
-                                        <th>Inicio Comida</th>
-                                        <th>Fin Comida</th>
+                                        <th width="5%"></th><th width="10%">Día</th><th>Entrada</th><th>Salida</th><th>Ini. Comida</th><th>Fin Comida</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php foreach($diasSemana as $key => $label): ?>
                                     <tr>
-                                        <td>
-                                            <input type="checkbox" class="form-check-input dia-toggle" name="dias[<?= $key ?>]" value="1" data-dia="<?= $key ?>">
-                                        </td>
+                                        <td><input type="checkbox" class="form-check-input dia-toggle" name="dias[<?= $key ?>]" value="1" data-dia="<?= $key ?>"></td>
                                         <td><strong><?= $label ?></strong></td>
-                                        <td>
-                                            <input type="time" name="h_entrada[<?= $key ?>]" id="entrada_<?= $key ?>" class="form-control form-control-sm inputs-<?= $key ?>" disabled required>
-                                        </td>
-                                        <td>
-                                            <input type="time" name="h_salida[<?= $key ?>]" id="salida_<?= $key ?>" class="form-control form-control-sm inputs-<?= $key ?>" disabled required>
-                                        </td>
-                                        <td>
-                                            <input type="time" name="h_ini_comida[<?= $key ?>]" id="ini_comida_<?= $key ?>" class="form-control form-control-sm inputs-<?= $key ?>" disabled required>
-                                        </td>
-                                        <td>
-                                            <input type="time" name="h_fin_comida[<?= $key ?>]" id="fin_comida_<?= $key ?>" class="form-control form-control-sm inputs-<?= $key ?>" disabled required>
-                                        </td>
+                                        <td><input type="time" name="h_entrada[<?= $key ?>]" id="entrada_<?= $key ?>" class="form-control form-control-sm inputs-<?= $key ?>" disabled required></td>
+                                        <td><input type="time" name="h_salida[<?= $key ?>]" id="salida_<?= $key ?>" class="form-control form-control-sm inputs-<?= $key ?>" disabled required></td>
+                                        <td><input type="time" name="h_ini_comida[<?= $key ?>]" id="ini_comida_<?= $key ?>" class="form-control form-control-sm inputs-<?= $key ?>" disabled required></td>
+                                        <td><input type="time" name="h_fin_comida[<?= $key ?>]" id="fin_comida_<?= $key ?>" class="form-control form-control-sm inputs-<?= $key ?>" disabled required></td>
                                     </tr>
                                     <?php endforeach; ?>
                                 </tbody>
@@ -225,15 +236,15 @@ $diasCortos = ['Mon'=>'Lun', 'Tue'=>'Mar', 'Wed'=>'Mié', 'Thu'=>'Jue', 'Fri'=>'
     </div>
 
     <div class="modal fade" id="modalHistorial" tabindex="-1">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header bg-info text-white">
-                    <h5 class="modal-title">Historial de: <span id="historialNombre" class="fw-bold"></span></h5>
+                    <h5 class="modal-title">Historial: <span id="historialNombre" class="fw-bold"></span></h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
                     <div class="table-responsive">
-                        <table class="table table-sm table-bordered table-hover">
+                        <table id="tablaHistorial" class="table table-striped table-bordered" style="width:100%">
                             <thead class="table-light">
                                 <tr>
                                     <th>ID Ticket</th>
@@ -243,8 +254,7 @@ $diasCortos = ['Mon'=>'Lun', 'Tue'=>'Mar', 'Wed'=>'Mié', 'Thu'=>'Jue', 'Fri'=>'
                                 </tr>
                             </thead>
                             <tbody id="tablaHistorialBody">
-                                <tr><td colspan="4" class="text-center">Cargando...</td></tr>
-                            </tbody>
+                                </tbody>
                         </table>
                     </div>
                 </div>
@@ -255,21 +265,44 @@ $diasCortos = ['Mon'=>'Lun', 'Tue'=>'Mar', 'Wed'=>'Mié', 'Thu'=>'Jue', 'Fri'=>'
         </div>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
     <script>
-    // Inicializar todos los tooltips de la página
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl)
-    })
-</script>
-    <script>
-        // --- FUNCIONES PARA HISTORIAL ---
+        // --- Tooltips ---
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        });
+
+        // --- Switch Servicio ---
+        document.getElementById('switchServicio').addEventListener('change', function() {
+            let estado = this.checked ? 1 : 0;
+            let label = document.getElementById('lblServicio');
+            fetch('cambiar_estado.php', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                body: 'activo=' + estado
+            })
+            .then(response => response.text())
+            .then(data => {
+                label.innerText = estado ? 'Servicio: ON' : 'Servicio: OFF';
+            });
+        });
+
+        // --- Historial DataTable ---
         function verHistorial(nombreTecnico) {
             const modal = new bootstrap.Modal(document.getElementById('modalHistorial'));
             document.getElementById('historialNombre').innerText = nombreTecnico;
-            document.getElementById('tablaHistorialBody').innerHTML = '<tr><td colspan="4" class="text-center">Cargando datos...</td></tr>';
             modal.show();
+
+            // Limpiar tabla antes de cargar
+            if ($.fn.DataTable.isDataTable('#tablaHistorial')) {
+                $('#tablaHistorial').DataTable().clear().destroy();
+            }
+            document.getElementById('tablaHistorialBody').innerHTML = '<tr><td colspan="4" class="text-center">Cargando...</td></tr>';
 
             const formData = new FormData();
             formData.append('nombre', nombreTecnico);
@@ -281,14 +314,17 @@ $diasCortos = ['Mon'=>'Lun', 'Tue'=>'Mar', 'Wed'=>'Mié', 'Thu'=>'Jue', 'Fri'=>'
             .then(response => response.text())
             .then(html => {
                 document.getElementById('tablaHistorialBody').innerHTML = html;
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                document.getElementById('tablaHistorialBody').innerHTML = '<tr><td colspan="4" class="text-danger text-center">Error al cargar historial</td></tr>';
+                // Inicializar DataTable
+                $('#tablaHistorial').DataTable({
+                    language: { url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json" },
+                    order: [[ 3, "desc" ]],
+                    pageLength: 5,
+                    lengthMenu: [5, 10, 25]
+                });
             });
         }
 
-        // --- LÓGICA DE CHECKBOXES EN FORMULARIO ---
+        // --- Formulario Técnico ---
         document.querySelectorAll('.dia-toggle').forEach(chk => {
             chk.addEventListener('change', function() {
                 const dia = this.getAttribute('data-dia');
@@ -297,11 +333,9 @@ $diasCortos = ['Mon'=>'Lun', 'Tue'=>'Mar', 'Wed'=>'Mié', 'Thu'=>'Jue', 'Fri'=>'
             });
         });
 
-        // --- LIMPIAR FORMULARIO (NUEVO TÉCNICO) ---
         function limpiarFormulario() {
             document.getElementById('id').value = '';
             document.querySelector('form').reset();
-            // Desmarcar todos y deshabilitar inputs
             document.querySelectorAll('.dia-toggle').forEach(chk => {
                 chk.checked = false;
                 chk.dispatchEvent(new Event('change'));
@@ -309,34 +343,25 @@ $diasCortos = ['Mon'=>'Lun', 'Tue'=>'Mar', 'Wed'=>'Mié', 'Thu'=>'Jue', 'Fri'=>'
             document.getElementById('modalTitulo').innerText = 'Nuevo Técnico';
         }
 
-        // --- EDITAR TÉCNICO (CARGAR DATOS EXISTENTES) ---
         function editar(t) {
-            limpiarFormulario(); // Reset previo
+            limpiarFormulario();
             const modal = new bootstrap.Modal(document.getElementById('modalTecnico'));
             
-            // Datos básicos
             document.getElementById('id').value = t.id;
             document.getElementById('nombre').value = t.nombre;
             document.getElementById('usuario_login').value = t.usuario_login;
             document.getElementById('correo').value = t.correo;
             document.getElementById('id_sistema').value = t.id_sistema;
 
-            // Datos de Horarios (Parsear JSON)
             if (t.horarios_json) {
                 try {
-                    let jsonClean = t.horarios_json;
-                    const horarios = JSON.parse(jsonClean);
-
+                    const horarios = JSON.parse(t.horarios_json);
                     horarios.forEach(h => {
-                        // h = {dia: "Mon", entrada: "08:00", ...}
                         if(h && h.dia) {
-                            // Encontrar el checkbox correspondiente
                             const chk = document.querySelector(`.dia-toggle[data-dia="${h.dia}"]`);
                             if(chk) {
                                 chk.checked = true;
-                                chk.dispatchEvent(new Event('change')); // Habilita inputs visualmente
-                                
-                                // Llenar valores
+                                chk.dispatchEvent(new Event('change'));
                                 document.getElementById(`entrada_${h.dia}`).value = h.entrada;
                                 document.getElementById(`salida_${h.dia}`).value = h.salida;
                                 document.getElementById(`ini_comida_${h.dia}`).value = h.ini_comida;
@@ -344,11 +369,8 @@ $diasCortos = ['Mon'=>'Lun', 'Tue'=>'Mar', 'Wed'=>'Mié', 'Thu'=>'Jue', 'Fri'=>'
                             }
                         }
                     });
-                } catch(e) {
-                    console.error("Error parseando horarios", e);
-                }
+                } catch(e) {}
             }
-
             document.getElementById('modalTitulo').innerText = 'Editar Técnico';
             modal.show();
         }

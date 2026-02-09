@@ -1,10 +1,11 @@
 <?php
+// plantillas.php
 session_start();
 if (!isset($_SESSION['user_id'])) { header("Location: index.php"); exit; }
 require_once 'db.php';
 
 // Obtener plantillas
-$stmt = $conn->query("SELECT * FROM plantillas_incidentes");
+$stmt = $conn->query("SELECT * FROM plantillas_incidentes WHERE status = 1");
 $plantillas = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
@@ -17,24 +18,13 @@ $plantillas = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-        <div class="container">
-            <span class="navbar-brand">Sistema AXO</span>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Sistema AXO</a>
+            <div class="collapse navbar-collapse">
                 <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="dashboard.php">Técnicos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="plantillas.php">Plantillas</a>
-                    </li>
+                    <li class="nav-item"><a class="nav-link" href="dashboard.php">Técnicos</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="plantillas.php">Plantillas</a></li>
                 </ul>
-                <div class="d-flex text-white align-items-center">
-                    <span class="me-3">Hola, <?= $_SESSION['nombre'] ?></span>
-                    <a href="logout.php" class="btn btn-outline-light btn-sm">Salir</a>
-                </div>
             </div>
         </div>
     </nav>
@@ -53,12 +43,9 @@ $plantillas = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <tr>
                         <th>ID</th>
                         <th>Plantilla</th>
-                        <th>Categoría</th>
-                        <th>Subcat.</th>
-                        <th>Artículo</th>
-                        <th>Grupo</th>
-                        <th>Origen</th>
-                        <th>ID Grp</th>
+                        <th>Sitio</th>
+                        <th>Tipo</th>
+                        <th>Técnico Default</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -67,19 +54,12 @@ $plantillas = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <tr>
                         <td><?= $p['id'] ?></td>
                         <td><?= $p['plantilla_incidente'] ?></td>
-                        <td><?= $p['categoria'] ?></td>
-                        <td><?= $p['subcategoria'] ?></td>
-                        <td><?= $p['articulo'] ?></td>
-                        <td><?= $p['grupo'] ?></td>
-                        <td><?= $p['origen'] ?></td>
-                        <td><?= $p['id_grupo'] ?></td>
-                        <td style="width: 100px;">
-                            <button class="btn btn-warning btn-sm py-0" onclick='editar(<?= json_encode($p) ?>)'>
-                                <i class="bi bi-pencil"></i>
-                            </button>
-                            <a href="eliminar_plantilla.php?id=<?= $p['id'] ?>" class="btn btn-danger btn-sm py-0" onclick="return confirm('¿Eliminar plantilla?')">
-                                <i class="bi bi-trash"></i>
-                            </a>
+                        <td><?= $p['sitio'] ?></td>
+                        <td><?= $p['tipo_solicitud'] ?></td>
+                        <td><?= $p['tencifo_default'] ?></td>
+                        <td>
+                            <button class="btn btn-warning btn-sm" onclick='editar(<?= json_encode($p) ?>)'><i class="bi bi-pencil"></i></button>
+                            <a href="eliminar_plantilla.php?id=<?= $p['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('¿Eliminar?')"><i class="bi bi-trash"></i></a>
                         </td>
                     </tr>
                     <?php endforeach; ?>
@@ -99,40 +79,66 @@ $plantillas = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <div class="modal-body">
                         <input type="hidden" name="id" id="id">
                         
-                        <div class="mb-2">
-                            <label>Nombre Plantilla</label>
-                            <input type="text" name="plantilla_incidente" id="plantilla_incidente" class="form-control" required>
-                        </div>
-                        
-                        <div class="row">
-                            <div class="col-md-6 mb-2">
+                        <div class="row g-2">
+                            <div class="col-md-12">
+                                <label>Plantilla Incidente</label>
+                                <input type="text" name="plantilla_incidente" id="plantilla_incidente" class="form-control" required>
+                            </div>
+                            
+                            <div class="col-md-6">
                                 <label>Categoría</label>
-                                <input type="text" name="categoria" id="categoria" class="form-control">
+                                <input type="text" name="categoria" id="categoria" class="form-control" required>
                             </div>
-                            <div class="col-md-6 mb-2">
+                            <div class="col-md-6">
                                 <label>Subcategoría</label>
-                                <input type="text" name="subcategoria" id="subcategoria" class="form-control">
+                                <input type="text" name="subcategoria" id="subcategoria" class="form-control" required>
                             </div>
-                        </div>
 
-                        <div class="mb-2">
-                            <label>Artículo</label>
-                            <input type="text" name="articulo" id="articulo" class="form-control">
-                        </div>
+                            <div class="col-md-6">
+                                <label>Artículo</label>
+                                <input type="text" name="articulo" id="articulo" class="form-control" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Sitio</label>
+                                <input type="text" name="sitio" id="sitio" class="form-control" required>
+                            </div>
 
-                        <div class="row">
-                            <div class="col-md-4 mb-2">
+                            <div class="col-md-4">
                                 <label>Grupo</label>
-                                <input type="text" name="grupo" id="grupo" class="form-control">
+                                <input type="text" name="grupo" id="grupo" class="form-control" required>
                             </div>
-                            <div class="col-md-4 mb-2">
-                                <label>Origen</label>
-                                <input type="text" name="origen" id="origen" class="form-control">
-                            </div>
-                            <div class="col-md-4 mb-2">
-                                <label>ID Grupo (Num)</label>
+                            <div class="col-md-4">
+                                <label>ID Grupo</label>
                                 <input type="number" name="id_grupo" id="id_grupo" class="form-control" required>
                             </div>
+                            <div class="col-md-4">
+                                <label>Origen</label>
+                                <input type="text" name="origen" id="origen" class="form-control" required>
+                            </div>
+
+                            <div class="col-md-12">
+                                <label>Descripción (Palabras clave)</label>
+                                <textarea name="descripcion" id="descripcion" class="form-control" required rows="2"></textarea>
+                            </div>
+                            
+
+                            <div class="col-md-4">
+                                <label>Tipo Solicitud</label>
+                                <input type="text" name="tipo_solicitud" id="tipo_solicitud" required class="form-control">
+                            </div>
+                            <div class="col-md-4">
+    <label>Tipo de Asignación</label>
+    <select name="asigna_tenico" id="asigna_tenico" class="form-select" required>
+        <option value="0" selected>Usar Técnico Default</option>
+        <option value="1">Asignación Automática</option>
+    </select>
+</div>
+                            <div class="col-md-4">
+                                <label>Técnico Default</label>
+                                <input type="text" name="tencifo_default" id="tencifo_default" class="form-control">
+                            </div>
+                            
+                            <input type="hidden" name="status" id="status" value="1">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -151,16 +157,22 @@ $plantillas = $stmt->fetchAll(PDO::FETCH_ASSOC);
             document.getElementById('modalTitulo').innerText = 'Nueva Plantilla';
         }
 
-        function editar(datos) {
+        function editar(p) {
             const modal = new bootstrap.Modal(document.getElementById('modalPlantilla'));
-            document.getElementById('id').value = datos.id;
-            document.getElementById('plantilla_incidente').value = datos.plantilla_incidente;
-            document.getElementById('categoria').value = datos.categoria;
-            document.getElementById('subcategoria').value = datos.subcategoria;
-            document.getElementById('articulo').value = datos.articulo;
-            document.getElementById('grupo').value = datos.grupo;
-            document.getElementById('origen').value = datos.origen;
-            document.getElementById('id_grupo').value = datos.id_grupo;
+            document.getElementById('id').value = p.id;
+            document.getElementById('status').value = p.status;
+            document.getElementById('plantilla_incidente').value = p.plantilla_incidente;
+            document.getElementById('categoria').value = p.categoria;
+            document.getElementById('subcategoria').value = p.subcategoria;
+            document.getElementById('articulo').value = p.articulo;
+            document.getElementById('grupo').value = p.grupo;
+            document.getElementById('sitio').value = p.sitio;
+            document.getElementById('origen').value = p.origen;
+            document.getElementById('id_grupo').value = p.id_grupo;
+            document.getElementById('descripcion').value = p.descripcion;
+            document.getElementById('tipo_solicitud').value = p.tipo_solicitud;
+            document.getElementById('asigna_tenico').value = p.asigna_tenico;
+            document.getElementById('tencifo_default').value = p.tencifo_default;
 
             document.getElementById('modalTitulo').innerText = 'Editar Plantilla';
             modal.show();

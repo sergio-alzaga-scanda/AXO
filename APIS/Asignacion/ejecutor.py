@@ -13,7 +13,7 @@ def hacer_peticion():
     """
     Función para hacer la petición al endpoint
     """
-    url = "http://127.0.0.1:5000/procesar_todos_gpt"
+    url = "http://158.23.137.150:8087/procesar_todos_gpt"
     
     try:
         logging.info(f"Haciendo petición a {url}")
