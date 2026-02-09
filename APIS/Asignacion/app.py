@@ -1580,7 +1580,8 @@ def endpoint_procesar_todos_gpt():
             "total_tickets": total_tickets,
             "procesados": procesados,
             "no_procesados": no_procesados,
-            "tickets_asignados_ids": tickets_asignados
+            "tickets_asignados_ids": tickets_asignados,
+            "Estado" : "Activo"
         },
         "detalles": resultados
     })
