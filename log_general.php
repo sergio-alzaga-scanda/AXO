@@ -134,6 +134,26 @@ $logs = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
     <script>
+         // --- Tooltips ---
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        });
+
+        // --- Switch Servicio ---
+        document.getElementById('switchServicio').addEventListener('change', function() {
+            let estado = this.checked ? 1 : 0;
+            let label = document.getElementById('lblServicio');
+            fetch('cambiar_estado.php', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                body: 'activo=' + estado
+            })
+            .then(response => response.text())
+            .then(data => {
+                label.innerText = estado ? 'Servicio: ON' : 'Servicio: OFF';
+            });
+        });
         $(document).ready(function() {
             $('#tablaLogs').DataTable({
                 language: { url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json" },
