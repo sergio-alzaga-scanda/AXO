@@ -1576,7 +1576,7 @@ def endpoint_procesar_todos_gpt():
     print(f"{'='*100}")
     
     return jsonify({
-        "resumen": {
+        "resumen 1": {
             "total_tickets": total_tickets,
             "procesados": procesados,
             "no_procesados": no_procesados,
