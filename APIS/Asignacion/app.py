@@ -1533,7 +1533,7 @@ def endpoint_procesar_ticket_gpt(id_ticket):
 def endpoint_procesar_todos_gpt():
     """Procesa todos los tickets usando GPT-4o"""
     print(f"\n{'='*100}")
-    print(f"🚀 INICIANDO PROCESAMIENTO MASIVO DE TICKETS CON GPT-4o")
+    print(f"🚀 INICIANDO PROCESAMIENTO MASIVO DE TICKETS CON GPT-4o Prueba general")
     print(f"   ⏰ Hora: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print(f"{'='*100}")
     
