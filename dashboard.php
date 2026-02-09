@@ -67,6 +67,7 @@ $diasCortos = ['Mon'=>'Lun', 'Tue'=>'Mar', 'Wed'=>'Mié', 'Thu'=>'Jue', 'Fri'=>'
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item"><a class="nav-link active" href="dashboard.php">Técnicos</a></li>
                     <li class="nav-item"><a class="nav-link" href="plantillas.php">Plantillas</a></li>
+                    <li class="nav-item"><a class="nav-link " href="log_general.php">Auditoría</a></li>
                 </ul>
                 
                 <div class="d-flex text-white me-4">

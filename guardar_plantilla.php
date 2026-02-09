@@ -1,6 +1,7 @@
 <?php
-// guardar_plantilla.php
+session_start();
 require_once 'db.php';
+require_once 'funciones.php'; // Incluir funciones
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // 1. Recolección de variables (Mapeo exacto con los 'name' del HTML)
@@ -44,7 +45,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $asigna, 
                 $tec_default
             ]);
-            
+            // NUEVO: Log
+        registrarAccion($conn, $_SESSION['user_id'], $_SESSION['nombre'], 'CREAR_PLANTILLA', "Creó plantilla: $plantilla");
         } else {
             // --- ACTUALIZAR ---
             $sql = "UPDATE plantillas_incidentes SET 
@@ -80,7 +82,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $tec_default, 
                 $id // El ID va al final para el WHERE
             ]);
-        }
+        // NUEVO: Log
+        registrarAccion($conn, $_SESSION['user_id'], $_SESSION['nombre'], 'EDITAR_PLANTILLA', "Editó plantilla ID: $id ($plantilla)");
+    }
         
         header("Location: plantillas.php");
         exit;

@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once 'db.php';
+require_once 'funciones.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $usuario = $_POST['usuario'];

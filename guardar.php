@@ -1,6 +1,7 @@
 <?php
-// guardar.php
+session_start();
 require_once 'db.php';
+require_once 'funciones.php'; // Incluir funciones
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $id = $_POST['id'];
@@ -21,6 +22,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $stmt = $conn->prepare($sql);
             $stmt->execute([$nombre, $usuario, $pass, $correo, $id_sis]);
             $id = $conn->lastInsertId();
+            $id = $conn->lastInsertId(); // Obtener ID del nuevo
+        
+        // NUEVO: Log
+        registrarAccion($conn, $_SESSION['user_id'], $_SESSION['nombre'], 'CREAR_TECNICO', "Creó al técnico: $nombre");
         } else {
             // ACTUALIZAR TÉCNICO
             if (empty($pass)) {
@@ -32,6 +37,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
             $stmt = $conn->prepare($sql);
             $stmt->execute($params);
+            // NUEVO: Log
+        registrarAccion($conn, $_SESSION['user_id'], $_SESSION['nombre'], 'EDITAR_TECNICO', "Actualizó datos del técnico ID: $id ($nombre)");
         }
 
         // --- MANEJO DE HORARIOS ---
@@ -57,6 +64,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $stmtHorario->execute([$id, $dia, $entrada, $salida, $ini_comida, $fin_comida]);
                 }
             }
+            registrarAccion($conn, $_SESSION['user_id'], $_SESSION['nombre'], 'REGISTRO DE HORARIOS', "Actualizó datos del técnico ID: $id ");
+      
         }
 
         $conn->commit();

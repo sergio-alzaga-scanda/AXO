@@ -1,6 +1,7 @@
 <?php
-// obtener_historial.php
+session_start();
 require_once 'db.php';
+require_once 'funciones.php'; // Incluir funciones
 
 if (isset($_POST['nombre'])) {
     $nombre_tecnico = $_POST['nombre'];

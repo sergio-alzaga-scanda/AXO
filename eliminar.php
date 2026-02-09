@@ -1,5 +1,7 @@
 <?php
+session_start();
 require_once 'db.php';
+require_once 'funciones.php'; // Incluir funciones
 
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
@@ -17,7 +19,9 @@ if (isset($_GET['id'])) {
         // Si hay error, lo mostramos en pantalla para saber qué pasa
         die("Error al eliminar: " . $e->getMessage());
     }
+    registrarAccion($conn, $_SESSION['user_id'], $_SESSION['nombre'], 'ELIMINAR_TECNICO', "Eliminó al técnico ID: $id");
 }
+
 
 header("Location: dashboard.php");
 exit;

@@ -29,4 +29,15 @@ function actualizarEstadosTecnicos($conn) {
     $stmt = $conn->prepare($sql);
     $stmt->execute();
 }
+// En funciones.php (al final del archivo)
+
+function registrarAccion($conn, $usuario_id, $usuario_nombre, $accion, $descripcion) {
+    try {
+        $stmt = $conn->prepare("INSERT INTO historial_acciones (usuario_id, usuario_nombre, accion, descripcion) VALUES (?, ?, ?, ?)");
+        $stmt->execute([$usuario_id, $usuario_nombre, $accion, $descripcion]);
+    } catch (PDOException $e) {
+        // Opcional: Manejar error silenciosamente para no interrumpir el flujo principal
+        // error_log("Error al registrar log: " . $e->getMessage());
+    }
+}
 ?>
