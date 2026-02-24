@@ -35,21 +35,13 @@ class ServiceDeskAPI {
                     "template" => ["name" => $data['plantilla_incidente']],
                     "resolution" => [
                             "content" => "Ticket creado y cerrado automáticamente."
-                        ],
-                   
+                        ],       
                     "group" => ["id" => "11706"], 
-                    
-                    // Descomenta la siguiente línea SOLO si estás 100% seguro de que el grupo 107795 pertenece al sitio 20. 
-                    // Si no, es mejor omitirlo para evitar el error 4001.
-                    // "site" => ["id" => "20"], 
 
                     "udf_fields" => [
                         "udf_pick_2114" => ["name" => "A PIE DE CALLE", "id" => "8428"],
                         "udf_pick_27" => ["name" => "TOMMY", "id" => "9925"]
                     ],
-                    
-                    // CRÍTICO: Al crear, el ticket debe nacer Abierto (1). 
-                    // Si lo mandas como Cerrado (3) aquí, la API marcará error.
                     "status" => ["id" => "3"] 
                 ]
             ];
@@ -79,7 +71,6 @@ class ServiceDeskAPI {
                 return [
                     "status" => "success",
                     "servicedesk_id" => $request_id,
-                    "respuesta_crear" => $res_crear,
                     "message" => "Ticket creado con plantilla y cerrado con éxito"
                 ];
             }
