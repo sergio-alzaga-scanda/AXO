@@ -68,7 +68,14 @@ $diasCortos = ['Mon'=>'Lun', 'Tue'=>'Mar', 'Wed'=>'Mié', 'Thu'=>'Jue', 'Fri'=>'
                     <li class="nav-item"><a class="nav-link active" href="dashboard.php">Técnicos</a></li>
                     <li class="nav-item"><a class="nav-link" href="plantillas.php">Plantillas</a></li>
                     <li class="nav-item"><a class="nav-link " href="log_general.php">Auditoría</a></li>
+                    <li class="nav-item"><a class="nav-link" href="reportes.php">Reportes <i class="bi bi-bar-chart-line"></i></a></li>
                 </ul>
+                
+                <!-- Reloj del Sistema -->
+                <div class="d-flex align-items-center text-white me-4 br-print-hide">
+                    <i class="bi bi-clock me-2 text-info"></i>
+                    <span id="relojSistema" class="fw-bold" style="font-family: monospace; font-size: 1.1rem; letter-spacing: 1px;">00:00:00</span>
+                </div>
                 
                 <div class="d-flex text-white me-4">
                     <div class="border px-3 py-1 rounded me-2 text-center">
@@ -375,6 +382,17 @@ $diasCortos = ['Mon'=>'Lun', 'Tue'=>'Mar', 'Wed'=>'Mié', 'Thu'=>'Jue', 'Fri'=>'
             document.getElementById('modalTitulo').innerText = 'Editar Técnico';
             modal.show();
         }
+        // --- Reloj del Sistema ---
+        function actualizarReloj() {
+            const ahora = new Date();
+            const horas = String(ahora.getHours()).padStart(2, '0');
+            const minutos = String(ahora.getMinutes()).padStart(2, '0');
+            const segundos = String(ahora.getSeconds()).padStart(2, '0');
+            const spanReloj = document.getElementById('relojSistema');
+            if(spanReloj) spanReloj.innerText = `${horas}:${minutos}:${segundos}`;
+        }
+        setInterval(actualizarReloj, 1000);
+        actualizarReloj();
     </script>
 </body>
 </html>
