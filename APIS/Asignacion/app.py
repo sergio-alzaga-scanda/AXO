@@ -150,8 +150,33 @@ inicializar_tablas_si_no_existen()
 # FUNCIONES AUXILIARES MEJORADAS
 # ===================================================================
 def obtener_info_tiempo_actual():
-    """Obtiene la hora actual y el día de la semana actual en inglés corto"""
-    ahora = datetime.now()
+    """Obtiene la hora actual de CDMX mediante API (con fallback local) y el día de la semana actual en inglés corto"""
+    ahora = datetime.now() # Fallback por defecto
+    
+    try:
+        # Intentar obtener la hora exacta de la Ciudad de México desde la API
+        response = requests.get("https://timeapi.io/api/Time/current/zone?timeZone=America/Mexico_City", timeout=5)
+        response.raise_for_status()
+        data = response.json()
+        
+        # Parsear la fecha y hora devuelta por la API
+        # Ejemplo: "2026-03-05T19:13:37.4979845"
+        fecha_hora_str = data.get("dateTime", "")
+        if fecha_hora_str:
+            # Tomamos hasta los milisegundos para evitar errores de parseo con la precisión completa (cortamos en el punto si existe más allá de microsegundos, o similar)
+            # Para evitar pelear con el formato de milisegundos variable de .NET, usamos Fromisoformat truncando la 'Z' si la tuviera o usando los campos del JSON.
+            # Mejor usar los campos separados provistos por la API para construir el datetime con más seguridad:
+            ahora = datetime(
+                year=data.get("year", ahora.year),
+                month=data.get("month", ahora.month),
+                day=data.get("day", ahora.day),
+                hour=data.get("hour", ahora.hour),
+                minute=data.get("minute", ahora.minute),
+                second=data.get("second", data.get("seconds", ahora.second))
+            )
+    except Exception as e:
+        print(f"⚠️ Aviso: No se pudo obtener la hora de CDMX de la API ({e}). Usando hora local del servidor.")
+
     hora_actual = ahora.time()
     
     mapeo_dias = {
