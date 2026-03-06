@@ -26,15 +26,28 @@ class ServiceDeskAPI {
 
     public function ejecutar($id_plantilla, $nombre_usuario, $descripcion_usuario, $id_empleado, $accion) {
         try {
-            // 2. Consultar la información de la plantilla incluyendo id_grupo
-            $stmt = $this->pdo->prepare("SELECT plantilla_incidente, descripcion, id_grupo FROM plantillas_incidentes WHERE id = ?");
-            $stmt->execute([$id_plantilla]);
-            $data = $stmt->fetch(PDO::FETCH_ASSOC);
-
-            if (!$data) {
-                return ["status" => "error", "message" => "ID de plantilla no encontrado en DB local"];
-            }
+            $plantilla_nombre = null;
+            $plantilla_descripcion = "";
+            $id_grupo = "954"; // Default fallback para grupo si no hay plantilla
             
+            // Si el usuario envía la plantilla, buscamos en DB
+            if ($id_plantilla) {
+                // 2. Consultar la información de la plantilla incluyendo id_grupo
+                $stmt = $this->pdo->prepare("SELECT plantilla_incidente, descripcion, id_grupo FROM plantillas_incidentes WHERE id = ?");
+                $stmt->execute([$id_plantilla]);
+                $data = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+                if ($data) {
+                    $plantilla_nombre = $data['plantilla_incidente'];
+                    $plantilla_descripcion = $data['descripcion'];
+                    if (!empty($data['id_grupo'])) {
+                        $id_grupo = $data['id_grupo'];
+                    }
+                } else {
+                    return ["status" => "error", "message" => "ID de plantilla proporcionado no encontrado en DB local"];
+                }
+            }
+
             // 3. Obtener Técnico Disponible (lógica similar a app.py)
             $id_tecnico_disponible = $this->obtenerTecnicoDisponible();
             
@@ -49,28 +62,38 @@ class ServiceDeskAPI {
             // 4. Preparar la Descripción Combinada
             $full_description = "<b>Solicitado por:</b> " . htmlspecialchars($nombre_usuario) . "<br><br>";
             $full_description .= "<b>Descripción del Usuario:</b><br>" . nl2br(htmlspecialchars($descripcion_usuario)) . "<br><br>";
-            $full_description .= "<b>Descripción de la Plantilla:</b><br>" . $data['descripcion'];
+            
+            if ($plantilla_descripcion) {
+                $full_description .= "<b>Descripción de la Plantilla:</b><br>" . $plantilla_descripcion;
+            }
             
             if ($accion === "cerrar") {
                 $full_description = "<b>[Ticket generado y cerrado automáticamente]</b><br><br>" . $full_description;
             }
             
+            // El Asunto es genérico si no hay plantilla
+            $subject_final = $plantilla_nombre ? $plantilla_nombre : "Ticket generado vía API";
+
             // 5. Preparar el JSON simplificado Base
             $status_id = ($accion === "cerrar") ? "3" : "1"; // 3=Resuelto/Cerrado, 1=Abierto
 
             $request_data = [
-                "subject" => $data['plantilla_incidente'],
+                "subject" => $subject_final,
                 "description" => $full_description,
                 "requester" => ["id" => $id_empleado], // El solicitante real
                 "technician" => ["id" => $id_tecnico_disponible], // Técnico asignado dinámicamente
-                "template" => ["name" => $data['plantilla_incidente']],
-                "group" => ["id" => $data['id_grupo'] ?? "954"], // Default fallback
+                "group" => ["id" => $id_grupo], 
                 "udf_fields" => [
                     "udf_pick_2114" => ["name" => "A PIE DE CALLE", "id" => "8428"],
                     "udf_pick_27" => ["name" => "TOMMY", "id" => "9925"]
                 ],
                 "status" => ["id" => $status_id] 
             ];
+
+            // Si hay plantilla encontrada, la incluimos
+            if ($plantilla_nombre) {
+                $request_data["template"] = ["name" => $plantilla_nombre];
+            }
 
             // Si se va a cerrar, anexamos el resolution
             if ($accion === "cerrar") {
@@ -107,6 +130,7 @@ class ServiceDeskAPI {
 
                 // 7. Registrar en tu tabla de log local
                 $log = $this->pdo->prepare("INSERT INTO tickets_automatizados (id_plantilla_origen, request_id_servicedesk, status_final) VALUES (?, ?, ?)");
+                // $id_plantilla puede ser null
                 $log->execute([$id_plantilla, $request_id, $status_final]);
 
                 return [
@@ -156,18 +180,17 @@ class ServiceDeskAPI {
 }
 
 // 8. Receptar Parámetros Dinámicos (GET o POST)
-// Ejemplo de uso: crea_tickets.php?id_plantilla=3901&nombre=Juan%20Perez&descripcion=No%20puedo%20entrar&id_empleado=74404&accion=abrir
+// Ejemplo de uso: crea_tickets.php?nombre=Juan%20Perez&descripcion=No%20puedo%20entrar&id_empleado=74404&accion=abrir
 
+// Hacemos id_plantilla opcional.
 $id_plantilla = $_REQUEST['id_plantilla'] ?? null;
+// El resto de parámetros...
 $nombre = $_REQUEST['nombre'] ?? 'Usuario Sistema';
 $descripcion = $_REQUEST['descripcion'] ?? 'Sin descripción adicional';
 $id_empleado = $_REQUEST['id_empleado'] ?? '74404'; // Pide default
 $accion = $_REQUEST['accion'] ?? 'abrir'; // 'cerrar' o 'abrir'
 
-if ($id_plantilla) {
-    // Asumo que la variable $conn (tu conexión PDO) está definida en el archivo bd.php
-    $api = new ServiceDeskAPI($conn); 
-    echo json_encode($api->ejecutar($id_plantilla, $nombre, $descripcion, $id_empleado, $accion), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-} else {
-    echo json_encode(["status" => "error", "message" => "Se requiere id_plantilla"]);
-}
+// Ya no es forzoso el id_plantilla
+// Asumo que la variable $conn (tu conexión PDO) está definida en el archivo bd.php
+$api = new ServiceDeskAPI($conn); 
+echo json_encode($api->ejecutar($id_plantilla, $nombre, $descripcion, $id_empleado, $accion), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
