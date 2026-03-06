@@ -67,7 +67,7 @@ class ServiceDeskAPI {
                 $full_description .= "<b>Descripción de la Plantilla:</b><br>" . $plantilla_descripcion;
             }
             
-            if ($accion === "cerrar") {
+            if ($accion === "2") {
                 $full_description = "<b>[Ticket generado y cerrado automáticamente]</b><br><br>" . $full_description;
             }
             
@@ -75,7 +75,7 @@ class ServiceDeskAPI {
             $subject_final = $plantilla_nombre ? $plantilla_nombre : "Ticket generado vía API";
 
             // 5. Preparar el JSON simplificado Base
-            $status_id = ($accion === "cerrar") ? "3" : "1"; // 3=Resuelto/Cerrado, 1=Abierto
+            $status_id = ($accion === "2") ? "3" : "1"; // 3=Resuelto/Cerrado, 1=Abierto
 
             $request_data = [
                 "subject" => $subject_final,
@@ -96,7 +96,7 @@ class ServiceDeskAPI {
             }
 
             // Si se va a cerrar, anexamos el resolution
-            if ($accion === "cerrar") {
+            if ($accion === "2") {
                 $request_data["resolution"] = [
                     "content" => "Ticket creado y cerrado automáticamente a petición del sistema."
                 ];
@@ -111,7 +111,7 @@ class ServiceDeskAPI {
             if ($request_id) {
                 
                 // Si la acción es cerrar, ejecutamos el PUT para forzar el cierre completo
-                if ($accion === "cerrar") {
+                if ($accion === "2") {
                     $payload_cierre = [
                         "request" => [
                             "closure_info" => [
@@ -123,9 +123,9 @@ class ServiceDeskAPI {
                     ];
 
                     $res_cierre = $this->call("PUT", "requests/{$request_id}/close", $payload_cierre);
-                    $status_final = 'Cerrado Automáticamente';
+                    $status_final = '2'; // 2 = Cerrado
                 } else {
-                    $status_final = 'Creado Abierto';
+                    $status_final = '1'; // 1 = Abierto
                 }
 
                 // 7. Registrar en tu tabla de log local
@@ -137,7 +137,7 @@ class ServiceDeskAPI {
                     "status" => "success",
                     "servicedesk_id" => $request_id,
                     "tecnico_asignado" => $id_tecnico_disponible,
-                    "message" => "Ticket " . ($accion === "cerrar" ? "creado y cerrado" : "creado (abierto)") . " con éxito"
+                    "message" => "Ticket " . ($accion === "2" ? "creado y cerrado" : "creado (abierto)") . " con éxito"
                 ];
             }
 
@@ -180,7 +180,7 @@ class ServiceDeskAPI {
 }
 
 // 8. Receptar Parámetros Dinámicos (GET o POST)
-// Ejemplo de uso: crea_tickets.php?nombre=Juan%20Perez&descripcion=No%20puedo%20entrar&id_empleado=74404&accion=abrir
+// Ejemplo de uso: crea_tickets.php?nombre=Juan%20Perez&descripcion=No%20puedo%20entrar&id_empleado=74404&accion=1
 
 // Hacemos id_plantilla opcional.
 $id_plantilla = $_REQUEST['id_plantilla'] ?? null;
@@ -188,7 +188,7 @@ $id_plantilla = $_REQUEST['id_plantilla'] ?? null;
 $nombre = $_REQUEST['nombre'] ?? 'Usuario Sistema';
 $descripcion = $_REQUEST['descripcion'] ?? 'Sin descripción adicional';
 $id_empleado = $_REQUEST['id_empleado'] ?? '74404'; // Pide default
-$accion = $_REQUEST['accion'] ?? 'abrir'; // 'cerrar' o 'abrir'
+$accion = $_REQUEST['accion'] ?? '1'; // '2' = cerrar o '1' = abrir
 
 // Ya no es forzoso el id_plantilla
 // Asumo que la variable $conn (tu conexión PDO) está definida en el archivo bd.php
