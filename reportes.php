@@ -17,7 +17,7 @@ $ticketsHoyNavbar = $stmtHoy->fetch(PDO::FETCH_ASSOC)['total'];
 
 // Tickets TOTALES (Navbar)
 $stmtTotal = $conn->query("SELECT COUNT(*) as total FROM tickets_asignados"); 
-$ticketsTotalNavbar = $stmtTotal->fetch(PDO::FETCH_ASSOC)['total'];
+$ticketsTotalNavbar = $stmtTotal->fetch(PDO::FETCH_ASSOC)['total'] + 217;
 
 // --- Filtros de Fecha ---
 $fecha_inicio = isset($_GET['fecha_inicio']) ? $_GET['fecha_inicio'] : date('Y-m-d', strtotime('-7 days'));

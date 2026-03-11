@@ -31,7 +31,7 @@ $ticketsHoy = $stmtHoy->fetch(PDO::FETCH_ASSOC)['total'];
 
 // Tickets TOTALES (Histórico)
 $stmtTotal = $conn->query("SELECT COUNT(*) as total FROM tickets_asignados"); 
-$ticketsTotal = $stmtTotal->fetch(PDO::FETCH_ASSOC)['total'];
+$ticketsTotal = $stmtTotal->fetch(PDO::FETCH_ASSOC)['total'] + 217;
 
 ?>
 <?php

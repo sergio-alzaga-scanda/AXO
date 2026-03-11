@@ -31,7 +31,7 @@ $ticketsHoy = $stmtHoy->fetch(PDO::FETCH_ASSOC)['total'];
 
 // Tickets TOTALES (Histórico)
 $stmtTotal = $conn->query("SELECT COUNT(*) as total FROM tickets_asignados"); 
-$ticketsTotal = $stmtTotal->fetch(PDO::FETCH_ASSOC)['total'];
+$ticketsTotal = $stmtTotal->fetch(PDO::FETCH_ASSOC)['total'] + 217;
 
 $diasSemana = ['Mon'=>'Lunes', 'Tue'=>'Martes', 'Wed'=>'Miércoles', 'Thu'=>'Jueves', 'Fri'=>'Viernes', 'Sat'=>'Sábado', 'Sun'=>'Domingo'];
 $diasCortos = ['Mon'=>'Lun', 'Tue'=>'Mar', 'Wed'=>'Mié', 'Thu'=>'Jue', 'Fri'=>'Vie', 'Sat'=>'Sáb', 'Sun'=>'Dom'];
