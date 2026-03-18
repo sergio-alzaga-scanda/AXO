@@ -41,6 +41,34 @@ def inicializar_tablas_si_no_existen():
     """Crea todas las tablas necesarias si no existen"""
     tablas = [
         {
+            "nombre": "sd_password_resets",
+            "sql": """
+                CREATE TABLE IF NOT EXISTS sd_password_resets (
+                    id BIGINT NOT NULL AUTO_INCREMENT,
+                    request_id VARCHAR(255) NULL,
+                    subject VARCHAR(500) NULL,
+                    short_description LONGTEXT NULL,
+                    status VARCHAR(100) NULL,
+                    created_time DATETIME NULL,
+                    requester_name VARCHAR(255) NULL,
+                    requester_email VARCHAR(255) NULL,
+                    site VARCHAR(255) NULL,
+                    group_name VARCHAR(255) NULL,
+                    extracted_name VARCHAR(255) NULL,
+                    extracted_employee_number VARCHAR(100) NULL,
+                    procesado_en DATETIME NULL,
+                    rpa_result LONGTEXT NULL,
+                    rpa_error LONGTEXT NULL,
+                    inserted_at DATETIME NULL,
+                    raw_text_cleaned LONGTEXT NULL,
+                    extraction_status VARCHAR(100) NULL,
+                    confidence_score DECIMAL(5,2) NULL,
+                    procesado TINYINT(1) NULL,
+                    PRIMARY KEY (id)
+                )
+            """
+        },
+        {
             "nombre": "log_estado_tecnicos",
             "sql": """
                 CREATE TABLE IF NOT EXISTS log_estado_tecnicos (
@@ -1357,6 +1385,80 @@ def actualizar_ticket_con_tecnico(id_ticket, tecnico, plantilla=None):
 # ===================================================================
 # PROCESAR TICKET INDIVIDUAL
 # ===================================================================
+def procesar_reseteo_password(id_ticket, plantilla_nombre, descripcion, articulo, grupo, status, requester_name):
+    if plantilla_nombre != "Reseteo de Password SSFF":
+        return
+        
+    print(f"\n🔑 PROCESANDO RESETEO DE PASSWORD SSFF PARA TICKET #{id_ticket}")
+    
+    # 1. Extraer número de empleado usando regex (buscamos números entre 5 y 7 dígitos)
+    matches = re.findall(r'\b\d{5,7}\b', descripcion)
+    if not matches:
+        # Intento fallback buscar cualquier secuencia de números
+        matches = re.findall(r'\d+', descripcion)
+        
+    extracted_number = matches[0] if matches else None
+    
+    if not extracted_number:
+        print("   ⚠️ No se encontró número de empleado en la descripción.")
+        return
+        
+    print(f"   🎯 Número extraído: {extracted_number}")
+    
+    # 2. Lógica para formatear a 7 dígitos y determinar cuántos registros insertar
+    numeros_a_insertar = []
+    longitud = len(extracted_number)
+    
+    if longitud >= 7:
+        numeros_a_insertar.append(extracted_number)
+    elif longitud == 6:
+        numeros_a_insertar.append("0" + extracted_number)
+        numeros_a_insertar.append(extracted_number + "0")
+    elif longitud == 5:
+        numeros_a_insertar.append("0" + extracted_number + "0")
+    else:
+        numeros_a_insertar.append(extracted_number.zfill(7))
+        
+    # 3. Guardar en la base de datos `sd_password_resets`
+    try:
+        conexion = get_connection()
+        cursor = conexion.cursor()
+        
+        for num in numeros_a_insertar:
+            sql = """
+                INSERT INTO sd_password_resets (
+                    request_id, subject, short_description, status, created_time,
+                    requester_name, requester_email, site, group_name, extracted_name,
+                    extracted_employee_number, inserted_at, raw_text_cleaned, 
+                    extraction_status, procesado
+                ) VALUES (
+                    %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s
+                )
+            """
+            cursor.execute(sql, (
+                id_ticket,
+                articulo,
+                descripcion[:60000],
+                status,
+                datetime.now(),
+                requester_name,
+                None,
+                "602",
+                grupo,
+                requester_name,
+                num,
+                datetime.now(),
+                descripcion[:60000],
+                "Éxito" if extracted_number else "Fallido",
+                0
+            ))
+            print(f"   ✅ Guardado en sd_password_resets empleado: {num}")
+            
+        conexion.commit()
+        conexion.close()
+    except Exception as e:
+        print(f"   ❌ Error al insertar en sd_password_resets: {str(e)}")
+
 # ===================================================================
 # PROCESAR TICKET INDIVIDUAL (LÓGICA CORREGIDA)
 # ===================================================================
@@ -1400,6 +1502,19 @@ def procesar_ticket_con_tecnico_gpt(id_ticket):
     
     if not plantilla:
         return {"ticket": id_ticket, "mensaje": "No se encontró plantilla", "procesado": False}
+
+    # ==============================================================================
+    # PASO 1.5: PROCESAMIENTO CUSTOM (RESETEO PASSWORD SSFF)
+    # ==============================================================================
+    procesar_reseteo_password(
+        id_ticket=id_ticket,
+        plantilla_nombre=plantilla.get("plantilla_incidente"),
+        descripcion=descripcion_limpia,
+        articulo=articulo,
+        grupo=plantilla.get("grupo", ""),
+        status=estado,
+        requester_name=origen
+    )
 
     # ==============================================================================
     # PASO 2: LOGICA DE ASIGNACIÓN
