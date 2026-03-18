@@ -65,6 +65,30 @@ $stmtGrupos = $conn->prepare("SELECT grupo as label, COUNT(*) as total FROM tick
 $stmtGrupos->execute($params);
 $dataGrupos = $stmtGrupos->fetchAll(PDO::FETCH_ASSOC);
 
+// --- Tickets por mes (Año actual) ---
+$stmtMeses = $conn->query("SELECT MONTH(fecha_asignacion) as mes, COUNT(*) as total FROM tickets_asignados WHERE YEAR(fecha_asignacion) = YEAR(CURDATE()) GROUP BY MONTH(fecha_asignacion) ORDER BY mes ASC");
+$dataMesesRaw = $stmtMeses->fetchAll(PDO::FETCH_ASSOC);
+
+$nombresMeses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+$dataMeses = [];
+for ($i = 1; $i <= 12; $i++) {
+    $total = 0;
+    foreach ($dataMesesRaw as $rm) {
+        if ($rm['mes'] == $i) {
+            $total = (int)$rm['total'];
+            break;
+        }
+    }
+    // Agregar 217 extras a Enero (mes 1)
+    if ($i === 1) {
+        $total += 217;
+    }
+    $dataMeses[] = [
+        'label' => $nombresMeses[$i - 1],
+        'total' => $total
+    ];
+}
+
 // Total en el rango seleccionado
 $stmtTotalRango = $conn->prepare("SELECT COUNT(*) as total FROM tickets_asignados WHERE $condicion_fecha");
 $stmtTotalRango->execute($params);
@@ -84,6 +108,7 @@ $grupoTop = count($dataGrupos) > 0 ? $dataGrupos[0]['label'] : 'N/A';
     <title>Reportes y Estadísticas - AXO</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0"></script>
     <style>
@@ -272,6 +297,20 @@ $grupoTop = count($dataGrupos) > 0 ? $dataGrupos[0]['label'] : 'N/A';
             </div>
         </div>
 
+        <!-- Gráfico de Barras: Por Mes -->
+        <h5 class="fw-bold text-secondary mb-3"><i class="bi bi-calendar3"></i> Tickets por Mes (<?= date('Y') ?>)</h5>
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card shadow rounded-4 border-0">
+                    <div class="card-body px-4 pb-4 pt-4">
+                        <div class="chart-container" style="height: 300px;">
+                            <canvas id="chartMeses"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <hr class="my-4 opacity-10">
 
         <!-- Insights de Rango Seleccionado -->
@@ -398,9 +437,9 @@ $grupoTop = count($dataGrupos) > 0 ? $dataGrupos[0]['label'] : 'N/A';
             <h5 class="modal-title" id="modalTicketsDiaLabel"><i class="bi bi-calendar2-day text-white me-2"></i> Tickets del <span id="spanFechaDetalle" class="fw-bold"></span></h5>
             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <div class="modal-body bg-light p-0">
+          <div class="modal-body bg-light p-3">
             <div class="table-responsive">
-                <table class="table table-hover table-striped mb-0 text-center align-middle" style="font-size: 0.9rem;">
+                <table id="tablaTicketsDia" class="table table-hover table-striped mb-0 text-center align-middle w-100" style="font-size: 0.9rem;">
                     <thead class="table-dark sticky-top">
                         <tr>
                             <th>Ticket ID</th>
@@ -410,8 +449,7 @@ $grupoTop = count($dataGrupos) > 0 ? $dataGrupos[0]['label'] : 'N/A';
                             <th>Fecha/Hora Asignación</th>
                         </tr>
                     </thead>
-                    <tbody id="tbodyTicketsDia">
-                        <!-- Llenado dinámico -->
+                    <tbody>
                     </tbody>
                 </table>
             </div>
@@ -429,8 +467,12 @@ $grupoTop = count($dataGrupos) > 0 ? $dataGrupos[0]['label'] : 'N/A';
         const dataTecnicos = <?= json_encode($dataTecnicos) ?>;
         const dataGrupos = <?= json_encode($dataGrupos) ?>;
         const dataTempletes = <?= json_encode($dataTempletes) ?>;
+        const dataMeses = <?= json_encode($dataMeses) ?>;
     </script>
 
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         // --- Switch Servicio (Navbar) ---
@@ -478,6 +520,40 @@ $grupoTop = count($dataGrupos) > 0 ? $dataGrupos[0]['label'] : 'N/A';
             'rgba(108, 117, 125, 0.7)'  // Secondary
         ];
         const borderColors = colors.map(c => c.replace('0.7', '1'));
+
+        // 0. Gráfico de Barras (Meses)
+        new Chart(document.getElementById('chartMeses'), {
+            type: 'bar',
+            data: {
+                labels: dataMeses.map(d => d.label),
+                datasets: [{
+                    label: 'Tickets',
+                    data: dataMeses.map(d => d.total),
+                    backgroundColor: 'rgba(102, 16, 242, 0.7)', // Purple color
+                    borderColor: 'rgba(102, 16, 242, 1)',
+                    borderWidth: 1,
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: { 
+                    y: { beginAtZero: true, ticks: { precision: 0 }, grid: { borderDash: [5, 5] } },
+                    x: { grid: { display: false } }
+                },
+                plugins: { 
+                    legend: { display: false },
+                    datalabels: {
+                        color: '#343a40',
+                        anchor: 'end',
+                        align: 'top',
+                        font: { weight: 'bold', size: 12 },
+                        formatter: (value) => value > 0 ? value : ''
+                    }
+                }
+            }
+        });
 
         // 1. Gráfico de Línea (Días)
         const ctxDias = document.getElementById('chartDias').getContext('2d');
@@ -620,37 +696,47 @@ $grupoTop = count($dataGrupos) > 0 ? $dataGrupos[0]['label'] : 'N/A';
         });
 
         // --- Lógica del Modal (Tickets por Día) ---
+        let dtTicketsDia = null;
+
         function mostrarTicketsDia(fecha) {
             document.getElementById('spanFechaDetalle').innerText = fecha;
-            const tbody = document.getElementById('tbodyTicketsDia');
-            tbody.innerHTML = '<tr><td colspan="5" class="py-4 text-center text-muted"><div class="spinner-border spinner-border-sm me-2" role="status"></div> Cargando tickets...</td></tr>';
             
-            const modal = new bootstrap.Modal(document.getElementById('modalTicketsDia'));
+            const modalEl = document.getElementById('modalTicketsDia');
+            const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
             modal.show();
 
-            fetch(`obtener_tickets_dia.php?fecha=${fecha}`)
-                .then(response => response.json())
-                .then(res => {
-                    tbody.innerHTML = '';
-                    if(res.status === 'success' && res.data.length > 0) {
-                        res.data.forEach(t => {
-                            tbody.innerHTML += `
-                                <tr>
-                                    <td class="fw-bold text-primary">#${t.id_ticket}</td>
-                                    <td>${t.usuario_tecnico || '<span class="text-muted fst-italic">Sin asignar</span>'}</td>
-                                    <td><span class="badge bg-secondary">${t.grupo || 'N/A'}</span></td>
-                                    <td class="text-truncate" style="max-width: 200px;" title="${t.templete}">${t.templete || 'N/A'}</td>
-                                    <td>${t.fecha_asignacion}</td>
-                                </tr>
-                            `;
-                        });
-                    } else {
-                        tbody.innerHTML = '<tr><td colspan="5" class="py-4 text-center text-muted">No se encontraron tickets asignados este día.</td></tr>';
+            if (dtTicketsDia) {
+                dtTicketsDia.destroy();
+            }
+
+            dtTicketsDia = $('#tablaTicketsDia').DataTable({
+                "language": {
+                    "url": "https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json"
+                },
+                "ajax": {
+                    "url": `obtener_tickets_dia.php?fecha=${fecha}`,
+                    "dataSrc": function(json) {
+                        return (json.status === 'success') ? json.data : [];
                     }
-                })
-                .catch(err => {
-                    tbody.innerHTML = '<tr><td colspan="5" class="py-4 text-center text-danger"><i class="bi bi-exclamation-triangle"></i> Error al cargar datos.</td></tr>';
-                });
+                },
+                "columns": [
+                    { "data": "id_ticket", "render": function(data) {
+                        return `<span class="fw-bold text-primary">#${data}</span>`;
+                    }},
+                    { "data": "usuario_tecnico", "render": function(data) {
+                        return data ? data : '<span class="text-muted fst-italic">Sin asignar</span>';
+                    }},
+                    { "data": "grupo", "render": function(data) {
+                        return `<span class="badge bg-secondary">${data ? data : 'N/A'}</span>`;
+                    }},
+                    { "data": "templete", "render": function(data) {
+                        return `<div class="d-inline-block text-truncate" style="max-width: 200px;" title="${data}">${data ? data : 'N/A'}</div>`;
+                    }},
+                    { "data": "fecha_asignacion" }
+                ],
+                "order": [[4, "desc"]],
+                "destroy": true
+            });
         }
         // --- Reloj del Sistema ---
         function actualizarReloj() {

@@ -5,7 +5,7 @@ from datetime import datetime
 
 # --- CONFIGURACIÓN DE URLS ---
 URL_ESTADO = "http://158.23.137.150:8086/api_servicio.php"
-URL_PROCESAR = "http://158.23.137.150:8087/procesar_todos_gpt"
+URL_PROCESAR = "http://127.0.0.1:5000/procesar_todos_gpt"
 
 # Configurar logging
 logging.basicConfig(

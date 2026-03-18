@@ -12,7 +12,7 @@ class ServiceDeskAPI {
     public function __construct($db_connection) {
         $this->pdo = $db_connection;
     }
-    
+    //12024 id de la pantilla de pruebas
     // Función adaptada de app.py para obtener el siguiente técnico disponible
     private function obtenerTecnicoDisponible() {
         // En tu esquema original, 'tecnicos' tiene id, nombre, activo, id_sistema, etc.

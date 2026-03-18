@@ -1294,7 +1294,7 @@ def actualizar_ticket_con_tecnico(id_ticket, tecnico, plantilla=None):
                 },
                 "template": {
                     "id": "4",
-                    "name": plantilla.get("plantilla_incidente", "Default Request")
+                    "name": plantilla.get("plantilla_incidente")
                 },
                 "request_type": {
                     "name": "Requerimiento",
