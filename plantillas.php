@@ -152,10 +152,14 @@ $plantillas = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body">
-                        <input type="hidden" name="id" id="id">
+                        <input type="hidden" name="id_original" id="id_original">
                         
                         <div class="row g-2">
-                            <div class="col-md-12">
+                            <div class="col-md-3">
+                                <label class="fw-bold text-primary">ID en servicedesk</label>
+                                <input type="number" name="id" id="id" class="form-control border-primary" required>
+                            </div>
+                            <div class="col-md-9">
                                 <label>Plantilla Incidente</label>
                                 <input type="text" name="plantilla_incidente" id="plantilla_incidente" class="form-control" required>
                             </div>
@@ -248,6 +252,7 @@ $plantillas = $stmt->fetchAll(PDO::FETCH_ASSOC);
         });
         function limpiarFormulario() {
             document.getElementById('id').value = '';
+            document.getElementById('id_original').value = '';
             document.querySelector('form').reset();
             document.getElementById('modalTitulo').innerText = 'Nueva Plantilla';
         }
@@ -255,6 +260,7 @@ $plantillas = $stmt->fetchAll(PDO::FETCH_ASSOC);
         function editar(p) {
             const modal = new bootstrap.Modal(document.getElementById('modalPlantilla'));
             document.getElementById('id').value = p.id;
+            document.getElementById('id_original').value = p.id;
             document.getElementById('status').value = p.status;
             document.getElementById('plantilla_incidente').value = p.plantilla_incidente;
             document.getElementById('categoria').value = p.categoria;

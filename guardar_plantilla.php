@@ -6,6 +6,7 @@ require_once 'funciones.php'; // Incluir funciones
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // 1. Recolección de variables (Mapeo exacto con los 'name' del HTML)
     $id = $_POST['id'] ?? null;
+    $id_original = $_POST['id_original'] ?? null;
     $status = $_POST['status'] ?? 1;
     $plantilla = $_POST['plantilla_incidente'];
     $categoria = $_POST['categoria'];
@@ -23,14 +24,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $tec_default = $_POST['tencifo_default']; // Nota: Mantenemos tu nombre de columna 'tencifo_default'
 
     try {
-        if (empty($id)) {
-            // --- INSERTAR (13 campos + status) ---
+        if (empty($id_original)) {
+            // --- INSERTAR (14 campos: ID + 13 + status) ---
             $sql = "INSERT INTO plantillas_incidentes 
-                    (status, plantilla_incidente, categoria, subcategoria, articulo, grupo, sitio, origen, id_grupo, descripcion, tipo_solicitud, asigna_tenico, tencifo_default) 
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    (id, status, plantilla_incidente, categoria, subcategoria, articulo, grupo, sitio, origen, id_grupo, descripcion, tipo_solicitud, asigna_tenico, tencifo_default) 
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             
             $stmt = $conn->prepare($sql);
             $stmt->execute([
+                $id,
                 $status, 
                 $plantilla, 
                 $categoria, 
@@ -50,6 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         } else {
             // --- ACTUALIZAR ---
             $sql = "UPDATE plantillas_incidentes SET 
+                    id=?,
                     status=?, 
                     plantilla_incidente=?, 
                     categoria=?, 
@@ -67,6 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             
             $stmt = $conn->prepare($sql);
             $stmt->execute([
+                $id,
                 $status, 
                 $plantilla, 
                 $categoria, 
@@ -80,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $tipo, 
                 $asigna, 
                 $tec_default, 
-                $id // El ID va al final para el WHERE
+                $id_original // El ID original va al final para el WHERE
             ]);
         // NUEVO: Log
         registrarAccion($conn, $_SESSION['user_id'], $_SESSION['nombre'], 'EDITAR_PLANTILLA', "Editó plantilla ID: $id ($plantilla)");
