@@ -193,10 +193,11 @@ $grupoTop = count($dataGrupos) > 0 ? $dataGrupos[0]['label'] : 'N/A';
 
             <div class="collapse navbar-collapse ms-4" id="navbarNav">
                 <ul class="navbar-nav me-auto">
-                    <li class="nav-item"><a class="nav-link" href="dashboard.php">Técnicos</a></li>
-                    <li class="nav-item"><a class="nav-link" href="plantillas.php">Plantillas</a></li>
-                    <li class="nav-item"><a class="nav-link" href="log_general.php">Auditoría</a></li>
+                    <li class="nav-item"><a class="nav-link" href="dashboard.php">Técnicos <i class="bi bi-people"></i></a></li>
+                    <li class="nav-item"><a class="nav-link" href="plantillas.php">Plantillas <i class="bi bi-file-earmark-text"></i></a></li>
+                    <li class="nav-item"><a class="nav-link" href="log_general.php">Auditoría <i class="bi bi-shield-check"></i></a></li>
                     <li class="nav-item"><a class="nav-link active" href="reportes.php">Reportes <i class="bi bi-bar-chart-line"></i></a></li>
+                    <li class="nav-item"><a class="nav-link" href="reporte_teams.php">Bot Teams <i class="bi bi-robot"></i></a></li>
                 </ul>
                 
                 <!-- Reloj del Sistema -->

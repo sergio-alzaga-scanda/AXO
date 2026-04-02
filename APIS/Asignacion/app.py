@@ -10,8 +10,15 @@ import math
 import openai
 import traceback
 import os
+import pytz
 
 app = Flask(__name__)
+
+def obtener_datetime_cdmx():
+    """Retorna el datetime actual en la zona horaria de Ciudad de México sin tzinfo."""
+    tz_cdmx = pytz.timezone('America/Mexico_City')
+    return datetime.now(tz_cdmx).replace(tzinfo=None)
+
 
 BASE_URL = "https://servicedesk.grupoaxo.com/api/v3/"
 API_KEY = "423CEBBE-E849-4D17-9CA3-CD6AB3319401"
@@ -178,40 +185,13 @@ inicializar_tablas_si_no_existen()
 # FUNCIONES AUXILIARES MEJORADAS
 # ===================================================================
 def obtener_info_tiempo_actual():
-    """Obtiene la hora actual de CDMX mediante API (con fallback local) y el día de la semana actual en inglés corto"""
-    ahora = datetime.now() # Fallback por defecto
-    
-    try:
-        # Intentar obtener la hora exacta de la Ciudad de México desde la API
-        response = requests.get("https://timeapi.io/api/Time/current/zone?timeZone=America/Mexico_City", timeout=5)
-        response.raise_for_status()
-        data = response.json()
-        
-        # Parsear la fecha y hora devuelta por la API
-        # Ejemplo: "2026-03-05T19:13:37.4979845"
-        fecha_hora_str = data.get("dateTime", "")
-        if fecha_hora_str:
-            # Tomamos hasta los milisegundos para evitar errores de parseo con la precisión completa (cortamos en el punto si existe más allá de microsegundos, o similar)
-            # Para evitar pelear con el formato de milisegundos variable de .NET, usamos Fromisoformat truncando la 'Z' si la tuviera o usando los campos del JSON.
-            # Mejor usar los campos separados provistos por la API para construir el datetime con más seguridad:
-            ahora = datetime(
-                year=data.get("year", ahora.year),
-                month=data.get("month", ahora.month),
-                day=data.get("day", ahora.day),
-                hour=data.get("hour", ahora.hour),
-                minute=data.get("minute", ahora.minute),
-                second=data.get("second", data.get("seconds", ahora.second))
-            )
-    except Exception as e:
-        print(f"⚠️ Aviso: No se pudo obtener la hora de CDMX de la API ({e}). Usando hora local del servidor.")
-
+    """Obtiene la hora actual de CDMX mediante pytz y el día de la semana actual en inglés corto"""
+    ahora = obtener_datetime_cdmx()
     hora_actual = ahora.time()
-    
     mapeo_dias = {
         0: "Mon", 1: "Tue", 2: "Wed", 3: "Thu", 
         4: "Fri", 5: "Sat", 6: "Sun"
     }
-    
     dia_actual = mapeo_dias[ahora.weekday()]
     return hora_actual, dia_actual
 
@@ -253,7 +233,7 @@ def esta_dentro_rango_horario(hora_verificar, hora_inicio, hora_fin):
 def restar_minutos(objeto_tiempo, minutos):
     """Resta minutos a un objeto time"""
     tiempo_convertido = convertir_a_tiempo(objeto_tiempo)
-    fecha_temporal = datetime.combine(datetime.today(), tiempo_convertido)
+    fecha_temporal = datetime.combine(obtener_datetime_cdmx(), tiempo_convertido)
     nueva_fecha = fecha_temporal - timedelta(minutes=minutos)
     return nueva_fecha.time()
 
@@ -355,7 +335,8 @@ def actualizar_estado_tecnicos_por_horario():
             return True
         
         actualizados = 0
-        for (id_tecnico,) in tecnicos_activos:
+        for fila_tecnico in tecnicos_activos:
+            id_tecnico = fila_tecnico['id']
             # Obtener horario del técnico para el día actual
             cursor_horario = conexion.cursor(pymysql.cursors.DictCursor)
             cursor_horario.execute("""
@@ -436,7 +417,7 @@ def actualizar_estado_tecnicos_por_horario():
                         INSERT INTO log_estado_tecnicos 
                         (id_tecnico, estado_asistencia, razon_cambio, fecha_cambio) 
                         VALUES (%s, %s, %s, %s)
-                    """, (id_tecnico, nuevo_estado, razon, datetime.now()))
+                    """, (id_tecnico, nuevo_estado, razon, obtener_datetime_cdmx()))
                 except Exception as log_error:
                     pass
                 
@@ -536,14 +517,14 @@ def analizar_con_gpt(asunto_ticket, descripcion_ticket, plantillas_disponibles):
 
 🔍 **PLANTILLAS DISPONIBLES:**
 {plantillas_texto}
-
 📊 **INSTRUCCIONES DE ANÁLISIS:**
 {"1. El ASUNTO es GENÉRICO, así que ANALIZA PRINCIPALMENTE LA DESCRIPCIÓN (90% importancia)" if asunto_es_generico else "1. Analiza el ASUNTO primero (70% importancia), luego la descripción (30%)"}
-2. Busca coincidencias ESPECÍFICAS entre el ticket y las plantillas
-3. Si no hay suficiente evidencia, NO selecciones ninguna plantilla
-4. Sé exigente: no forces relaciones que no existen claramente
+2. Busca coincidencias asociativas y semánticas (ej. "SSFF" = "SuccessFactors", "contraseña" o "acceso" = "password").
+3. Presta atención especial a los requerimientos de "desbloqueo de cuenta", "reseteo de password" o "creación de usuario", enlazándolos con la plantilla del sistema correspondiente (ej. SSFF, SAP, Active Directory).
+4. Si las palabras no son idénticas pero el contexto resuelve la misma solicitud, selecciona la plantilla.
+5. Si definitivamente no hay relación con ninguna plantilla, responde con null.
 
-¿Qué plantilla es la más adecuada? Responde con el JSON solicitado."""
+¿Qué plantilla es la más adecuada? Responde ÚNICAMENTE con el formato JSON solicitado."""
 
         response = client.chat.completions.create(
             model=GPT_CONFIG["deployment"],
@@ -707,9 +688,10 @@ def coincidir_plantilla_con_gpt(origen, articulo, descripcion_ticket=""):
         if not origen_plantilla or origen_normalizado == origen_plantilla:
             plantillas_filtradas.append(plantilla)
     
+    # Si ninguna coincide con el origen del solicitante, le damos a GPT todas las opciones disponibles
     if not plantillas_filtradas:
-        print("   ⚠️ No hay plantillas que coincidan con el origen del ticket")
-        return None
+        print("   ⚠️ El origen no coincide exactamente con ninguna plantilla. Evaluando todas las plantillas disponibles...")
+        plantillas_filtradas = plantillas
     
     print(f"\n📊 PLANTILLAS DISPONIBLES PARA ANÁLISIS GPT: {len(plantillas_filtradas)}")
     
@@ -856,7 +838,7 @@ def guardar_analisis_gpt(ticket_id, plantilla_id, analisis_completo, asunto_tick
             ticket_id,
             plantilla_id,
             analisis_text[:65535],  # Limitar tamaño para TEXT
-            datetime.now()
+            obtener_datetime_cdmx()
         ))
         
         conexion.commit()
@@ -1234,7 +1216,7 @@ def guardar_asignacion(id_ticket, tecnico, grupo, plantilla, descripcion_origina
             tecnico,
             grupo[:255] if grupo else None,
             plantilla[:255] if plantilla else None,
-            datetime.now(),
+            obtener_datetime_cdmx(),
             respuesta_api_text[:65535] if respuesta_api_text else None,
             descripcion_original[:65535] if descripcion_original else None,
             descripcion_limpia[:65535] if descripcion_limpia else None,
@@ -1440,14 +1422,14 @@ def procesar_reseteo_password(id_ticket, plantilla_nombre, descripcion, articulo
                 articulo,
                 descripcion[:60000],
                 status,
-                datetime.now(),
+                obtener_datetime_cdmx(),
                 requester_name,
                 None,
                 "602",
                 grupo,
                 requester_name,
                 num,
-                datetime.now(),
+                obtener_datetime_cdmx(),
                 descripcion[:60000],
                 "Éxito" if extracted_number else "Fallido",
                 0
@@ -1471,7 +1453,7 @@ def procesar_ticket_con_tecnico_gpt(id_ticket):
     print(f"\n{'='*100}")
     print(f"🚀 PROCESANDO TICKET #{id_ticket}")
     
-    tiempo_inicio = datetime.now()
+    tiempo_inicio = obtener_datetime_cdmx()
     
     try:
         datos = servicedesk_get(f"requests/{id_ticket}")
@@ -1495,6 +1477,11 @@ def procesar_ticket_con_tecnico_gpt(id_ticket):
     if estado != "Abierta":
         print(f"⏸️ Ticket {id_ticket} omitido (Estado actual: '{estado}')")
         return {"ticket": id_ticket, "mensaje": "No está abierto", "procesado": False}
+
+    if solicitud.get("technician"):
+        tecnico_asignado = solicitud["technician"].get("name", "Desconocido")
+        print(f"⏸️ Ticket {id_ticket} omitido (Ya tiene un técnico asignado: {tecnico_asignado})")
+        return {"ticket": id_ticket, "mensaje": "Ya tiene técnico asignado", "procesado": False}
 
     # PASO 1: Buscar plantilla
     print(f"\n🔎 BUSCANDO PLANTILLA CON GPT:")
@@ -1566,7 +1553,7 @@ def procesar_ticket_con_tecnico_gpt(id_ticket):
     # Nota: Esta función ya fue modificada para aceptar tecnico=None
     respuesta = actualizar_ticket_con_tecnico(id_ticket, tecnico, plantilla)
     
-    tiempo_fin = datetime.now()
+    tiempo_fin = obtener_datetime_cdmx()
     tiempo_procesamiento = (tiempo_fin - tiempo_inicio).total_seconds()
     
     if respuesta.status_code != 200:
@@ -1618,7 +1605,7 @@ def es_tecnico_disponible_ahora(horario_tecnico):
     if not horario_tecnico:
         return False, "Sin horario configurado"
 
-    ahora = datetime.now()
+    ahora = obtener_datetime_cdmx()
     hora_actual = ahora.time()
 
     # Convertir strings o timedeltas a objetos time
@@ -1636,7 +1623,7 @@ def es_tecnico_disponible_ahora(horario_tecnico):
 
     # 2. Regla: 20 minutos antes de la SALIDA
     # Calculamos la hora límite de salida (Salida - 20 min)
-    fecha_base = datetime.today()
+    fecha_base = obtener_datetime_cdmx()
     dt_salida = datetime.combine(fecha_base, salida)
     limite_salida = (dt_salida - timedelta(minutes=20)).time()
     
@@ -1674,7 +1661,7 @@ def endpoint_procesar_todos_gpt():
     """Procesa todos los tickets usando GPT-4o"""
     print(f"\n{'='*100}")
     print(f"🚀 INICIANDO PROCESAMIENTO MASIVO DE TICKETS CON GPT-4o Prueba general")
-    print(f"   ⏰ Hora: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    print(f"   ⏰ Hora: {obtener_datetime_cdmx().strftime('%Y-%m-%d %H:%M:%S')}")
     print(f"{'='*100}")
     
     # 1. Actualizar estado de técnicos antes de empezar
@@ -1744,7 +1731,7 @@ def endpoint_actualizar_estado_tecnicos():
 if __name__ == "__main__":
     print(f"\n{'*'*100}")
     print(f"🚀 API DE ASIGNACIÓN AUTOMÁTICA INICIADA")
-    print(f"   ⏰ Hora de inicio: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    print(f"   ⏰ Hora de inicio: {obtener_datetime_cdmx().strftime('%Y-%m-%d %H:%M:%S')}")
     print(f"   ⚙️  Modo Carrusel: Basado en ACTIVO=1")
     print(f"{'*'*100}\n")
     
