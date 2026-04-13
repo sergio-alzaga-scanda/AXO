@@ -15,11 +15,12 @@ try {
         (1, 'Desbloqueo de correo'), (2, 'Reset de correo'), (3, 'Reset Success Factor')
     ");
 
-    // Filtros Inteligentes
+    // Filtros
+    $filtro_actual = $_GET['filtro'] ?? 'todos';
     $filtro_tipo = $_GET['tipo'] ?? '';
-    // Status predeterminado: Si no hay tipo, mostrar 'exitosos'. Si busca por tipo, mostrar 'todos' para que vea los errores asociados.
-    $filtro_status_raw = $_GET['status'] ?? 'default';
     
+    // Status predeterminado inteligente
+    $filtro_status_raw = $_GET['status'] ?? 'default';
     if ($filtro_status_raw === 'default') {
         $filtro_status = empty($filtro_tipo) ? 'exitosos' : 'todos';
     } else {
@@ -28,6 +29,20 @@ try {
 
     $condiciones_base = [];
     $params = [];
+
+    if ($filtro_actual === 'semana') {
+        $condiciones_base[] = "fecha_creacion BETWEEN :inicio_fecha AND :fin_fecha";
+        $params[':inicio_fecha'] = date('Y-m-d 00:00:00', strtotime('monday this week'));
+        $params[':fin_fecha'] = date('Y-m-d 23:59:59', strtotime('sunday this week'));
+    } elseif ($filtro_actual === 'mes') {
+        $condiciones_base[] = "fecha_creacion BETWEEN :inicio_fecha AND :fin_fecha";
+        $params[':inicio_fecha'] = date('Y-m-01 00:00:00');
+        $params[':fin_fecha'] = date('Y-m-t 23:59:59');
+    } elseif ($filtro_actual === 'custom' && !empty($_GET['inicio']) && !empty($_GET['fin'])) {
+        $condiciones_base[] = "fecha_creacion BETWEEN :inicio_fecha AND :fin_fecha";
+        $params[':inicio_fecha'] = $_GET['inicio'] . ' 00:00:00';
+        $params[':fin_fecha'] = $_GET['fin'] . ' 23:59:59';
+    }
 
     if (!empty($filtro_tipo)) {
         $condiciones_base[] = "tipo_solicitud = :tipo";
@@ -39,14 +54,13 @@ try {
         $donde_stats = " WHERE " . implode(" AND ", $condiciones_base);
     }
 
-    // Los Stats (tarjetas numéricas superiores) IGNORAN el filtro_status para que el usuario pueda ver 
-    // cuántos errores hay realmente y cambie el filtro si le interesa verlos.
+    // Estadísticas
     $stmtStats = $conn->prepare("
         SELECT 
             COUNT(*) as total,
-            SUM(CASE WHEN status_proceso IN ('Éxito', 'Correcto') THEN 1 ELSE 0 END) as exito,
-            SUM(CASE WHEN status_proceso NOT IN ('Éxito', 'Correcto') THEN 1 ELSE 0 END) as error
-        FROM log_tickets_teams
+            SUM(CASE WHEN status_proceso = 'Creado y cerrado automaticamente' THEN 1 ELSE 0 END) as exito,
+            SUM(CASE WHEN status_proceso = 'Generado automaticamente y resuelto por agente' THEN 1 ELSE 0 END) as error
+        FROM log_api_tickets
         $donde_stats
     ");
     $stmtStats->execute($params);
@@ -56,24 +70,23 @@ try {
     $exito = $stats['exito'] ?? 0;
     $error = $stats['error'] ?? 0;
 
-    // Registros para la tabla SÍ aplican el filtro de status
+    // Registros Filtro de Estado
     $condiciones_tabla = $condiciones_base;
     if ($filtro_status === 'exitosos') {
-        $condiciones_tabla[] = "status_proceso IN ('Éxito', 'Correcto')";
+        $condiciones_tabla[] = "status_proceso = 'Creado y cerrado automaticamente'";
     } elseif ($filtro_status === 'fracasos') {
-        $condiciones_tabla[] = "status_proceso NOT IN ('Éxito', 'Correcto')";
+        $condiciones_tabla[] = "status_proceso != 'Creado y cerrado automaticamente'";
     }
 
     $donde_tabla = "";
     if (count($condiciones_tabla) > 0) {
-        // En el select l.* usamos el alias 'l.' para las columnas de condición
         $condiciones_con_alias = array_map(function($cond) { return "l." . $cond; }, $condiciones_tabla);
         $donde_tabla = " WHERE " . implode(" AND ", $condiciones_con_alias);
     }
 
     $stmtLogs = $conn->prepare("
         SELECT l.*, COALESCE(c.nombre, l.tipo_solicitud) as tipo_solicitud_desc 
-        FROM log_tickets_teams l 
+        FROM log_api_tickets l 
         LEFT JOIN catalogo_tipo_solicitud c ON l.tipo_solicitud = c.id 
         $donde_tabla
         ORDER BY l.fecha_creacion DESC
@@ -81,17 +94,23 @@ try {
     $stmtLogs->execute($params);
     $logs = $stmtLogs->fetchAll(PDO::FETCH_ASSOC);
 
-    // Métricas por tipo de servicio
-    $stmtTipos = $conn->query("
+    // Métricas por tipo
+    $condiciones_tipos = $condiciones_base;
+    $condiciones_tipos[] = "tipo_solicitud IS NOT NULL AND tipo_solicitud != ''";
+    $condiciones_tipos_con_alias = array_map(function($cond) { return "l." . $cond; }, $condiciones_tipos);
+    $donde_tipos = " WHERE " . implode(" AND ", $condiciones_tipos_con_alias);
+
+    $stmtTipos = $conn->prepare("
         SELECT COALESCE(c.nombre, l.tipo_solicitud) as servicio, COUNT(l.id) as cantidad 
-        FROM log_tickets_teams l
+        FROM log_api_tickets l
         LEFT JOIN catalogo_tipo_solicitud c ON l.tipo_solicitud = CAST(c.id AS CHAR)
-        WHERE l.tipo_solicitud IS NOT NULL AND l.tipo_solicitud != '' 
+        $donde_tipos 
         GROUP BY 1
     ");
+    $stmtTipos->execute($params);
     $metricas_tipos = $stmtTipos->fetchAll(PDO::FETCH_ASSOC);
-
 } catch (Exception $e) {
+    if (isset($_GET['debug'])) { echo $e->getMessage(); exit; }
     $total = $exito = $error = 0;
     $logs = [];
     $metricas_tipos = [];
@@ -101,7 +120,7 @@ try {
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Reporte Bot Teams</title>
+    <title>Reporte Generador API</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
@@ -111,11 +130,10 @@ try {
         .card-stat:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important; }
         .border-primary { border-left-color: #0d6efd !important; }
         .border-success { border-left-color: #198754 !important; }
-        .border-danger { border-left-color: #dc3545 !important; }
+        .border-warning { border-left-color: #ffc107 !important; }
         
         .table-responsive { background: white; border-radius: 10px; padding: 15px; }
         .table th { background-color: #212529 !important; color: white !important; font-weight: 500; letter-spacing: 0.5px; }
-        .table tbody tr { transition: background 0.2s; }
         .badge { font-weight: 500; font-size: 0.85rem; padding: 0.4em 0.6em; }
     </style>
 </head>
@@ -149,20 +167,13 @@ try {
 
             <div class="collapse navbar-collapse ms-4" id="navbarNav">
                 <ul class="navbar-nav me-auto">
-                    <li class="nav-item"><a class="nav-link " href="dashboard.php">Técnicos <i class="bi bi-people"></i></a></li>
-                    <li class="nav-item"><a class="nav-link " href="plantillas.php">Plantillas <i class="bi bi-file-earmark-text"></i></a></li>
+                    <li class="nav-item"><a class="nav-link" href="dashboard.php">Técnicos <i class="bi bi-people"></i></a></li>
+                    <li class="nav-item"><a class="nav-link" href="plantillas.php">Plantillas <i class="bi bi-file-earmark-text"></i></a></li>
                     <li class="nav-item"><a class="nav-link " href="log_general.php">Auditoría <i class="bi bi-shield-check"></i></a></li>
-                    <li class="nav-item"><a class="nav-link " href="reportes.php">Reportes <i class="bi bi-bar-chart-line"></i></a></li>
-                    <li class="nav-item"><a class="nav-link active" href="reporte_teams.php">Bot Teams <i class="bi bi-robot"></i></a></li>
-                    <li class="nav-item"><a class="nav-link " href="reporte_automatizados.php">Automatizados <i class="bi bi-cpu"></i></a></li>
+                    <li class="nav-item"><a class="nav-link" href="reportes.php">Reportes <i class="bi bi-bar-chart-line"></i></a></li>
+                    <li class="nav-item"><a class="nav-link" href="reporte_teams.php">Bot Teams <i class="bi bi-robot"></i></a></li>
+                    <li class="nav-item"><a class="nav-link active" href="reporte_automatizados.php">Automatizados <i class="bi bi-cpu"></i></a></li>
                 </ul>
-                
-                <!-- Reloj del Sistema Global -->
-                <div class="d-flex align-items-center text-white me-4 br-print-hide">
-                    <i class="bi bi-clock me-2 text-info"></i>
-                    <span id="relojSistema" class="fw-bold" style="font-family: monospace; font-size: 1.1rem; letter-spacing: 1px;">00:00:00</span>
-                </div>
-
                 <?php
                     if(!isset($ticketsHoyBadge) && isset($conn)) {
                         try {
@@ -177,12 +188,13 @@ try {
                     </span>
                 </div>
                 <div class="d-flex text-white align-items-center border-start ps-3">
-                    <span class="me-3">Hola, <?= $_SESSION['nombre'] ?? 'Usuario' ?></span>
+                    <span class="me-3">Hola, <?= $_SESSION['nombre'] ?></span>
                     <a href="logout.php" class="btn btn-outline-light btn-sm">Salir</a>
                 </div>
             </div>
         </div>
     </nav>
+
     <script>
         // --- Integración Global Switch Servicio ---
         setTimeout(function() {
@@ -203,50 +215,44 @@ try {
                     });
                 });
             }
-
-            // --- Integración Global Reloj ---
-            if(!window.relojLoaded) {
-                window.relojLoaded = true;
-                function actualizarReloj() {
-                    const ahora = new Date();
-                    const horas = String(ahora.getHours()).padStart(2, '0');
-                    const minutos = String(ahora.getMinutes()).padStart(2, '0');
-                    const segundos = String(ahora.getSeconds()).padStart(2, '0');
-                    const spanReloj = document.getElementById('relojSistema');
-                    if(spanReloj) spanReloj.innerText = `${horas}:${minutos}:${segundos}`;
-                }
-                setInterval(actualizarReloj, 1000);
-                actualizarReloj();
-            }
         }, 100);
     </script>
 
     <div class="container-fluid px-4">
-        <div class="d-flex justify-content-between align-items-center flex-wrap mb-4 gap-3">
-            <h2 class="text-secondary fw-bold mb-0">
-                <i class="bi bi-robot text-primary me-2"></i> Peticiones Automatizadas (Teams)
+        <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
+            <h2 class="text-secondary fw-bold mb-3 mb-md-0">
+                <i class="bi bi-cpu text-info me-2"></i> Tickets Generados automáticamente
             </h2>
-            
             <form method="GET" class="d-flex flex-wrap gap-2 align-items-center bg-white p-2 rounded shadow-sm border">
-                <div>
-                    <select name="status" class="form-select text-secondary fw-bold">
-                        <option value="default" <?= $filtro_status_raw == 'default' ? 'selected' : '' ?>>Estado Predeterminado (Inteligente)</option>
+                <div class="d-flex align-items-center flex-wrap gap-2">
+                    <select name="status" class="form-select text-secondary fw-bold" style="width: auto;">
+                        <option value="default" <?= $filtro_status_raw == 'default' ? 'selected' : '' ?>>Estado Predeterminado</option>
                         <option value="exitosos" <?= $filtro_status_raw == 'exitosos' ? 'selected' : '' ?>>Sólo Exitosos</option>
-                        <option value="fracasos" <?= $filtro_status_raw == 'fracasos' ? 'selected' : '' ?>>Con Fracasos / Pendientes</option>
-                        <option value="todos" <?= $filtro_status_raw == 'todos' ? 'selected' : '' ?>>Ver Todos los Estados</option>
+                        <option value="fracasos" <?= $filtro_status_raw == 'fracasos' ? 'selected' : '' ?>>Con Errores / Mesa</option>
+                        <option value="todos" <?= $filtro_status_raw == 'todos' ? 'selected' : '' ?>>Todos</option>
                     </select>
-                </div>
-                <div>
-                    <select name="tipo" class="form-select text-secondary">
-                        <option value="">Cualquier Tipo de Servicio</option>
+
+                    <select name="tipo" class="form-select text-secondary" style="width: auto;">
+                        <option value="">Todos los Tipos</option>
                         <?php foreach($metricas_tipos as $mt): ?>
-                            <option value="<?= htmlspecialchars($mt['servicio']) ?>" <?= $filtro_tipo == $mt['servicio'] || $filtro_tipo == array_search($mt, $metricas_tipos) ? 'selected' : '' ?>>
-                                <?= htmlspecialchars($mt['servicio']) ?>
-                            </option>
+                            <option value="<?= htmlspecialchars($mt['servicio']) ?>" <?= $filtro_tipo == $mt['servicio'] ? 'selected' : '' ?>><?= htmlspecialchars($mt['servicio']) ?></option>
                         <?php endforeach; ?>
                     </select>
+
+                    <select name="filtro" class="form-select text-secondary fw-bold" onchange="toggleFechas(this.value)" style="width: auto;">
+                        <option value="todos" <?= $filtro_actual == 'todos' ? 'selected' : '' ?>>Histórico Completo</option>
+                        <option value="semana" <?= $filtro_actual == 'semana' ? 'selected' : '' ?>>Esta Semana</option>
+                        <option value="mes" <?= $filtro_actual == 'mes' ? 'selected' : '' ?>>Este Mes</option>
+                        <option value="custom" <?= $filtro_actual == 'custom' ? 'selected' : '' ?>>Por Fechas</option>
+                    </select>
                 </div>
-                <button type="submit" class="btn btn-primary"><i class="bi bi-funnel-fill"></i> Filtrar Grilla</button>
+                
+                <div id="fechas-custom" class="<?= $filtro_actual == 'custom' ? 'd-flex' : 'd-none' ?> gap-2 align-items-center">
+                    <input type="date" name="inicio" class="form-control" value="<?= htmlspecialchars($_GET['inicio'] ?? '') ?>">
+                    <span class="text-muted">a</span>
+                    <input type="date" name="fin" class="form-control" value="<?= htmlspecialchars($_GET['fin'] ?? '') ?>">
+                </div>
+                <button type="submit" class="btn btn-primary"><i class="bi bi-funnel-fill"></i> Filtrar</button>
             </form>
         </div>
 
@@ -257,10 +263,10 @@ try {
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
-                                <h6 class="text-muted text-uppercase mb-1 fw-bold" style="font-size: 0.8rem; letter-spacing: 1px;">Total Peticiones</h6>
+                                <h6 class="text-muted text-uppercase mb-1 fw-bold" style="font-size: 0.8rem; letter-spacing: 1px;">Total API POSTs</h6>
                                 <h1 class="mb-0 fw-bold text-dark display-5"><?= $total ?></h1>
                             </div>
-                            <div class="fs-1 text-primary opacity-50"><i class="bi bi-list-task"></i></div>
+                            <div class="fs-1 text-primary opacity-50"><i class="bi bi-cloud-arrow-up"></i></div>
                         </div>
                     </div>
                 </div>
@@ -270,23 +276,23 @@ try {
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
-                                <h6 class="text-muted text-uppercase mb-1 fw-bold" style="font-size: 0.8rem; letter-spacing: 1px;">Creación Exitosa</h6>
+                                <h6 class="text-muted text-uppercase mb-1 fw-bold" style="font-size: 0.8rem; letter-spacing: 1px;">Tickets Creados y cerrados</h6>
                                 <h1 class="mb-0 fw-bold text-success display-5"><?= $exito ?></h1>
                             </div>
-                            <div class="fs-1 text-success opacity-50"><i class="bi bi-check-circle"></i></div>
+                            <div class="fs-1 text-success opacity-50"><i class="bi bi-check-all"></i></div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card card-stat border-danger shadow-sm h-100">
+                <div class="card card-stat border-warning shadow-sm h-100">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
-                                <h6 class="text-muted text-uppercase mb-1 fw-bold" style="font-size: 0.8rem; letter-spacing: 1px;">Con Errores / Fallos</h6>
-                                <h1 class="mb-0 fw-bold text-danger display-5"><?= $error ?></h1>
+                                <h6 class="text-muted text-uppercase mb-1 fw-bold" style="font-size: 0.8rem; letter-spacing: 1px;">TicketsCreados</h6>
+                                <h1 class="mb-0 fw-bold text-warning display-5"><?= $error ?></h1>
                             </div>
-                            <div class="fs-1 text-danger opacity-50"><i class="bi bi-x-circle"></i></div>
+                            <div class="fs-1 text-warning opacity-50"><i class="bi bi-envelope-open"></i></div>
                         </div>
                     </div>
                 </div>
@@ -296,7 +302,7 @@ try {
         <!-- Métrica General Desglose de Servicios -->
         <?php if(!empty($metricas_tipos)): ?>
         <div class="mb-5 d-flex gap-2 flex-wrap">
-            <span class="fw-bold fs-5 me-2 text-muted">Métricas de Servicios (Teams): </span>
+            <span class="fw-bold fs-5 me-2 text-muted">Métricas de Servicios: </span>
             <?php foreach($metricas_tipos as $mt): ?>
                 <span class="badge bg-dark rounded-pill fs-6 py-2 px-3 shadow-sm border border-secondary">
                     <?= htmlspecialchars($mt['servicio']) ?>: <span class="text-info fw-bold ms-1"><?= $mt['cantidad'] ?></span>
@@ -309,17 +315,19 @@ try {
         <div class="card shadow-sm mb-5 border-0 rounded-4">
             <div class="card-body">
                 <div class="table-responsive">
-                    <table id="tablaTeams" class="table table-hover align-middle w-100">
+                    <table id="tablaAuto" class="table table-hover align-middle w-100">
                         <thead class="table-dark">
                             <tr>
                                 <th># ID</th>
                                 <th>Fecha</th>
-                                <th>Usr (Núm. Empleado)</th>
-                                <th>Correo Remitente</th>
-                                <th class="text-center">Tipo</th>
-                                <th class="text-center">Ticket Generado</th>
-                                <th class="text-center">Estado del Proceso</th>
-                                <th>Detalle / Error</th>
+                                <th>Remitente</th>
+                                <th>Usuario</th>
+                                <th class="text-center">Tipo Solicitud</th>
+                                <th class="text-center">Plantilla ID</th>
+                                <th>Descripción</th>
+                                <th class="text-center">Acción (Req)</th>
+                                <th class="text-center">TCK Servicedesk</th>
+                                <th class="text-center">Resolución</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -327,40 +335,40 @@ try {
                                 <tr>
                                     <td class="text-muted fw-bold" data-sort="<?= $log['id'] ?>">#<?= $log['id'] ?></td>
                                     <td data-sort="<?= strtotime($log['fecha_creacion']) ?>"><?= date('d/m/Y h:i A', strtotime($log['fecha_creacion'])) ?></td>
-                                    <td class="fw-bold text-primary"><?= htmlspecialchars($log['numero_usuario'] ?? 'N/A') ?></td>
                                     <td><?= htmlspecialchars($log['correo'] ?? 'N/A') ?></td>
+                                    <td class="fw-bold text-primary"><?= htmlspecialchars($log['nombre_solicitante'] ?? 'N/A') ?></td>
                                     <td class="text-center">
                                         <span class="badge bg-secondary border">
-                                            <?= htmlspecialchars($log['tipo_solicitud_desc'] ?? 'N/A') ?>
+                                            <?= htmlspecialchars($log['tipo_solicitud_desc'] ?? 'General') ?>
+                                        </span>
+                                    </td>
+                                    <td class="text-center">
+                                        <span class="badge bg-secondary">
+                                            <?= htmlspecialchars($log['id_plantilla_origen'] ?? 'None') ?>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <?= nl2br(htmlspecialchars($log['descripcion'] ?? '-')) ?>
+                                    </td>
+                                    <td class="text-center">
+                                        <span class="badge <?= ($log['accion'] === '2') ? 'bg-danger' : 'bg-info' ?>">
+                                            <?= ($log['accion'] === '2') ? 'Creado y Cerrado' : 'Abierto' ?>
                                         </span>
                                     </td>
                                     <td class="text-center">
                                         <?php if($log['ticket_creado']): ?>
                                             <span class="badge bg-primary px-3 py-2 fs-6 rounded-pill"><i class="bi bi-ticket-fill me-1"></i> <?= $log['ticket_creado'] ?></span>
                                         <?php else: ?>
-                                            <span class="text-muted">-</span>
+                                            <span class="text-muted fw-bold text-danger">Falla API</span>
                                         <?php endif; ?>
                                     </td>
                                     <td class="text-center">
-                                        <?php 
-                                            $raw_status = trim($log['status_proceso'] ?? '');
-                                            $lower_estatus = mb_strtolower($raw_status, 'UTF-8'); 
-                                        ?>
-                                        <?php if($lower_estatus === 'éxito' || $lower_estatus === 'correcto' || $lower_estatus === 'exito'): ?>
-                                            <span class="badge bg-success rounded-pill px-3"><i class="bi bi-check-circle"></i> Éxito</span>
-                                        <?php elseif($lower_estatus === 'en espera'): ?>
-                                            <span class="badge bg-warning text-dark rounded-pill px-3"><i class="bi bi-hourglass-split"></i> En Espera</span>
+                                        <?php if($log['status_proceso'] === 'Creado y cerrado automaticamente'): ?>
+                                            <span class="badge bg-success rounded-pill px-3"><i class="bi bi-check-circle"></i> Resulto Directo</span>
+                                        <?php elseif($log['status_proceso'] === 'Generado automaticamente y resuelto por agente'): ?>
+                                            <span class="badge bg-warning text-dark rounded-pill px-3"><i class="bi bi-hourglass-split"></i> Mesa de Ayuda</span>
                                         <?php else: ?>
                                             <span class="badge bg-danger rounded-pill px-3"><i class="bi bi-x-circle"></i> Error</span>
-                                        <?php endif; ?>
-                                    </td>
-                                    <td>
-                                        <?php if($log['error_detalle']): ?>
-                                            <small class="text-danger fw-bold"><i class="bi bi-exclamation-triangle"></i> <?= htmlspecialchars($log['error_detalle']) ?></small>
-                                        <?php elseif(strtolower($log['status_proceso']) === 'en espera'): ?>
-                                            <small class="text-warning text-dark fw-bold"><i class="bi bi-clock-history"></i> Pendiente de resolución...</small>
-                                        <?php else: ?>
-                                            <small class="text-success"><i class="bi bi-check2"></i> Petición Resuelta Auto.</small>
                                         <?php endif; ?>
                                     </td>
                                 </tr>
@@ -378,8 +386,16 @@ try {
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
 
     <script>
+        function toggleFechas(val) {
+            if(val === 'custom') {
+                $('#fechas-custom').removeClass('d-none').addClass('d-flex');
+            } else {
+                $('#fechas-custom').removeClass('d-flex').addClass('d-none');
+            }
+        }
+
         $(document).ready(function() {
-            $('#tablaTeams').DataTable({
+            $('#tablaAuto').DataTable({
                 language: { url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json" },
                 order: [[ 0, "desc" ]],
                 pageLength: 25,

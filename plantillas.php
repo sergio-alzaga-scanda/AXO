@@ -53,15 +53,25 @@ $plantillas = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4 shadow-sm">
         <div class="container-fluid px-4">
-            <span class="navbar-brand">Sistema AXO</span>
+            <span class="navbar-brand fw-bold">Sistema AXO</span>
             
+            <?php
+            // Consultar Estado del Servicio de manera segura si no existe (Para que funcione en todas las pestañas)
+            if (!isset($servicioActivo) && isset($conn)) {
+                try {
+                    $stmtServ = $conn->query("SELECT activo FROM configuracion_servicio WHERE id = 1");
+                    $servicioData = $stmtServ->fetch(PDO::FETCH_ASSOC);
+                    $servicioActivo = $servicioData ? $servicioData['activo'] : 0;
+                } catch(Exception $e) { $servicioActivo = 0; }
+            }
+            ?>
             <div class="d-flex align-items-center ms-3">
                 <div class="form-check form-switch text-white">
-                    <input class="form-check-input" type="checkbox" id="switchServicio" <?= $servicioActivo ? 'checked' : '' ?> style="cursor: pointer;">
-                    <label class="form-check-label ms-2" for="switchServicio" id="lblServicio">
-                        <?= $servicioActivo ? 'Servicio: ON' : 'Servicio: OFF' ?>
+                    <input class="form-check-input" type="checkbox" id="switchServicio" <?= !empty($servicioActivo) ? 'checked' : '' ?> style="cursor: pointer;">
+                    <label class="form-check-label ms-2 fw-bold" for="switchServicio" id="lblServicio" style="width: 105px;">
+                        <?= !empty($servicioActivo) ? 'Servicio: ON <i class="bi bi-robot text-success"></i>' : 'Servicio: OFF <i class="bi bi-robot text-secondary"></i>' ?>
                     </label>
                 </div>
             </div>
@@ -72,37 +82,77 @@ $plantillas = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             <div class="collapse navbar-collapse ms-4" id="navbarNav">
                 <ul class="navbar-nav me-auto">
-                    <li class="nav-item"><a class="nav-link" href="dashboard.php">Técnicos <i class="bi bi-people"></i></a></li>
+                    <li class="nav-item"><a class="nav-link " href="dashboard.php">Técnicos <i class="bi bi-people"></i></a></li>
                     <li class="nav-item"><a class="nav-link active" href="plantillas.php">Plantillas <i class="bi bi-file-earmark-text"></i></a></li>
                     <li class="nav-item"><a class="nav-link " href="log_general.php">Auditoría <i class="bi bi-shield-check"></i></a></li>
-                    <li class="nav-item"><a class="nav-link" href="reportes.php">Reportes <i class="bi bi-bar-chart-line"></i></a></li>
-                    <li class="nav-item"><a class="nav-link" href="reporte_teams.php">Bot Teams <i class="bi bi-robot"></i></a></li>
+                    <li class="nav-item"><a class="nav-link " href="reportes.php">Reportes <i class="bi bi-bar-chart-line"></i></a></li>
+                    <li class="nav-item"><a class="nav-link " href="reporte_teams.php">Bot Teams <i class="bi bi-robot"></i></a></li>
+                    <li class="nav-item"><a class="nav-link " href="reporte_automatizados.php">Automatizados <i class="bi bi-cpu"></i></a></li>
                 </ul>
                 
-                <!-- Reloj del Sistema -->
+                <!-- Reloj del Sistema Global -->
                 <div class="d-flex align-items-center text-white me-4 br-print-hide">
                     <i class="bi bi-clock me-2 text-info"></i>
                     <span id="relojSistema" class="fw-bold" style="font-family: monospace; font-size: 1.1rem; letter-spacing: 1px;">00:00:00</span>
                 </div>
-                
-                <div class="d-flex text-white me-4">
-                    <div class="border px-3 py-1 rounded me-2 text-center">
-                        <small class="d-block text-white-50" style="font-size: 0.75rem;">HOY</small>
-                        <strong><?= $ticketsHoy ?></strong> <i class="bi bi-ticket-perforated"></i>
-                    </div>
-                    <div class="border px-3 py-1 rounded text-center bg-secondary bg-opacity-25">
-                        <small class="d-block text-white-50" style="font-size: 0.75rem;">TOTAL HISTÓRICO</small>
-                        <strong><?= $ticketsTotal ?></strong> <i class="bi bi-database"></i>
-                    </div>
-                </div>
 
+                <?php
+                    if(!isset($ticketsHoyBadge) && isset($conn)) {
+                        try {
+                            $stHoyB = $conn->query("SELECT COUNT(*) as t FROM tickets_asignados WHERE fecha_asignacion >= CURDATE()");
+                            $ticketsHoyBadge = $stHoyB->fetch(PDO::FETCH_ASSOC)['t'] ?? 0;
+                        } catch(Exception $e) { $ticketsHoyBadge = 0; }
+                    }
+                ?>
+                <div class="d-flex align-items-center me-3 border-start ps-3 br-print-hide">
+                    <span class="badge bg-primary border shadow-sm px-3 py-2" style="font-size: 0.85rem;" data-bs-toggle="tooltip" title="Tickets Asignados Hoy">
+                        <i class="bi bi-ticket-detailed me-1"></i> Hoy: <?= $ticketsHoyBadge ?? 0 ?>
+                    </span>
+                </div>
                 <div class="d-flex text-white align-items-center border-start ps-3">
-                    <span class="me-3">Hola, <?= $_SESSION['nombre'] ?></span>
+                    <span class="me-3">Hola, <?= $_SESSION['nombre'] ?? 'Usuario' ?></span>
                     <a href="logout.php" class="btn btn-outline-light btn-sm">Salir</a>
                 </div>
             </div>
         </div>
     </nav>
+    <script>
+        // --- Integración Global Switch Servicio ---
+        setTimeout(function() {
+            var sw = document.getElementById('switchServicio');
+            if(sw && !window.switchServicioLoaded) {
+                window.switchServicioLoaded = true;
+                sw.addEventListener('change', function() {
+                    let estado = this.checked ? 1 : 0;
+                    let label = document.getElementById('lblServicio');
+                    fetch('cambiar_estado.php', {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                        body: 'activo=' + estado
+                    })
+                    .then(response => response.text())
+                    .then(data => {
+                        label.innerHTML = estado ? 'Servicio: ON <i class="bi bi-robot text-success"></i>' : 'Servicio: OFF <i class="bi bi-robot text-secondary"></i>';
+                    });
+                });
+            }
+
+            // --- Integración Global Reloj ---
+            if(!window.relojLoaded) {
+                window.relojLoaded = true;
+                function actualizarReloj() {
+                    const ahora = new Date();
+                    const horas = String(ahora.getHours()).padStart(2, '0');
+                    const minutos = String(ahora.getMinutes()).padStart(2, '0');
+                    const segundos = String(ahora.getSeconds()).padStart(2, '0');
+                    const spanReloj = document.getElementById('relojSistema');
+                    if(spanReloj) spanReloj.innerText = `${horas}:${minutos}:${segundos}`;
+                }
+                setInterval(actualizarReloj, 1000);
+                actualizarReloj();
+            }
+        }, 100);
+    </script>
 
     <div class="container-fluid px-4">
         <div class="d-flex justify-content-between align-items-center mb-3">

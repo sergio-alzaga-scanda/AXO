@@ -24,7 +24,7 @@ class ServiceDeskAPI {
         return $tecnico ? $tecnico['id_sistema'] : null;
     }
 
-    public function ejecutar($id_plantilla, $nombre_usuario, $descripcion_usuario, $id_empleado, $accion) {
+    public function ejecutar($id_plantilla, $nombre_usuario, $descripcion_usuario, $correo, $accion, $tipo_solicitud) {
         try {
             $plantilla_nombre = null;
             $plantilla_descripcion = "";
@@ -32,8 +32,8 @@ class ServiceDeskAPI {
             
             // Si el usuario envía la plantilla, buscamos en DB
             if ($id_plantilla) {
-                // 2. Consultar la información de la plantilla incluyendo id_grupo
-                $stmt = $this->pdo->prepare("SELECT plantilla_incidente, descripcion, id_grupo FROM plantillas_incidentes WHERE id = ?");
+                // 2. Consultar la información de la plantilla incluyendo id_grupo y clasificación
+                $stmt = $this->pdo->prepare("SELECT plantilla_incidente, descripcion, id_grupo, categoria, subcategoria, articulo, tipo_solicitud FROM plantillas_incidentes WHERE id = ?");
                 $stmt->execute([$id_plantilla]);
                 $data = $stmt->fetch(PDO::FETCH_ASSOC);
     
@@ -75,24 +75,33 @@ class ServiceDeskAPI {
             $subject_final = $plantilla_nombre ? $plantilla_nombre : "Ticket generado vía API";
 
             // 5. Preparar el JSON simplificado Base
-            $status_id = ($accion === "2") ? "3" : "1"; // 3=Resuelto/Cerrado, 1=Abierto
+            $status_id = ($accion === "2") ? "4" : "1"; // 4=Espera Visto Bueno, 1=Abierto
 
             $request_data = [
                 "subject" => $subject_final,
                 "description" => $full_description,
-                "requester" => ["id" => $id_empleado], // El solicitante real
-                "technician" => ["id" => $id_tecnico_disponible], // Técnico asignado dinámicamente
+                "requester" => ["email_id" => $correo], // El solicitante real por correo electrónico
+                "technician" => ["id" => "78545"],
                 "group" => ["id" => $id_grupo], 
                 "udf_fields" => [
                     "udf_pick_2114" => ["name" => "A PIE DE CALLE", "id" => "8428"],
                     "udf_pick_27" => ["name" => "TOMMY", "id" => "9925"]
                 ],
-                "status" => ["id" => $status_id] 
+                "status" => ["id" => $status_id]
             ];
+
+            if ($accion === "2") {
+                $request_data["is_fcr"] = true;
+            }
 
             // Si hay plantilla encontrada, la incluimos
             if ($plantilla_nombre) {
                 $request_data["template"] = ["name" => $plantilla_nombre];
+                // Forzar campos obligatorios (ServiceDesk a veces los exige si la plantilla no los auto-complementa)
+                if (!empty($data['categoria'])) { $request_data["category"] = ["name" => $data['categoria']]; }
+                if (!empty($data['subcategoria'])) { $request_data["subcategory"] = ["name" => $data['subcategoria']]; }
+                if (!empty($data['articulo'])) { $request_data["item"] = ["name" => $data['articulo']]; }
+                if (!empty($data['tipo_solicitud'])) { $request_data["request_type"] = ["name" => $data['tipo_solicitud']]; }
             }
 
             // Si se va a cerrar, anexamos el resolution
@@ -128,10 +137,32 @@ class ServiceDeskAPI {
                     $status_final = '1'; // 1 = Abierto
                 }
 
-                // 7. Registrar en tu tabla de log local
-                $log = $this->pdo->prepare("INSERT INTO tickets_automatizados (id_plantilla_origen, request_id_servicedesk, status_final) VALUES (?, ?, ?)");
-                // $id_plantilla puede ser null
-                $log->execute([$id_plantilla, $request_id, $status_final]);
+                // 7. Generar esquema local log independiente
+                $this->pdo->exec("CREATE TABLE IF NOT EXISTS log_api_tickets (
+                    id INT AUTO_INCREMENT PRIMARY KEY,
+                    id_plantilla_origen INT NULL,
+                    nombre_solicitante VARCHAR(255) NULL,
+                    descripcion TEXT NULL,
+                    correo VARCHAR(255) NULL,
+                    accion VARCHAR(50) NULL,
+                    ticket_creado VARCHAR(50) NULL,
+                    status_proceso VARCHAR(50) NULL,
+                    tipo_solicitud VARCHAR(255) NULL,
+                    fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP
+                )");
+
+                // Asegurar existencia de columna por actualizaciones
+                try {
+                    $this->pdo->exec("ALTER TABLE log_api_tickets ADD COLUMN tipo_solicitud VARCHAR(255)");
+                } catch(PDOException $e) {}
+
+                // Insertar el log híper detallado asegurando el Timezone de CDMX
+                date_default_timezone_set('America/Mexico_City');
+                $fecha_actual = date('Y-m-d H:i:s');
+                $estado_proceso = ($status_final === '2') ? 'Creado y cerrado automaticamente' : 'Generado automaticamente y resuelto por agente';
+                
+                $log = $this->pdo->prepare("INSERT INTO log_api_tickets (id_plantilla_origen, nombre_solicitante, descripcion, correo, accion, ticket_creado, status_proceso, tipo_solicitud, fecha_creacion) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                $log->execute([$id_plantilla, $nombre_usuario, $descripcion_usuario, $correo, $accion, $request_id, $estado_proceso, $tipo_solicitud, $fecha_actual]);
 
                 return [
                     "status" => "success",
@@ -179,18 +210,36 @@ class ServiceDeskAPI {
     }
 }
 
-// 8. Receptar Parámetros Dinámicos (GET o POST)
-// Ejemplo de uso: crea_tickets.php?nombre=Juan%20Perez&descripcion=No%20puedo%20entrar&id_empleado=74404&accion=1
+// 8. Receptar Parámetros Dinámicos (JSON payload, POST o GET)
+$input_json = file_get_contents('php://input');
+$data = json_decode($input_json, true) ?: [];
 
 // Hacemos id_plantilla opcional.
-$id_plantilla = $_REQUEST['id_plantilla'] ?? null;
-// El resto de parámetros...
-$nombre = $_REQUEST['nombre'] ?? 'Usuario Sistema';
-$descripcion = $_REQUEST['descripcion'] ?? 'Sin descripción adicional';
-$id_empleado = $_REQUEST['id_empleado'] ?? '74404'; // Pide default
-$accion = $_REQUEST['accion'] ?? '1'; // '2' = cerrar o '1' = abrir
+$id_plantilla = $data['id_plantilla'] ?? $_REQUEST['id_plantilla'] ?? null;
+$nombre = $data['nombre'] ?? $_REQUEST['nombre'] ?? 'Usuario Sistema';
+$descripcion = $data['descripcion'] ?? $_REQUEST['descripcion'] ?? 'Sin descripción adicional';
+$correo = $data['correo'] ?? $_REQUEST['correo'] ?? 'soporte@grupoaxo.com'; // Opcional default
+$accion = $data['accion'] ?? $data['acción'] ?? $_REQUEST['accion'] ?? $_REQUEST['acción'] ?? '1'; // '2' = cerrar o '1' = abrir
+$tipo_solicitud = $data['tipo_solicitud'] ?? $_REQUEST['tipo_solicitud'] ?? 'General'; // Clasificación opcional
+
+// Normalizar entradas de texto crudo del robot hacia IDs fijos de catálogo
+$ts_lower = mb_strtolower(trim($tipo_solicitud));
+if (strpos($ts_lower, 'restablecimiento') !== false || strpos($ts_lower, 'reset de correo') !== false || $tipo_solicitud == '2') {
+    $tipo_solicitud = 2;
+} elseif (strpos($ts_lower, 'desbloqueo de') !== false || $tipo_solicitud == '1') {
+    $tipo_solicitud = 1;
+} elseif (strpos($ts_lower, 'success') !== false || $tipo_solicitud == '3') {
+    $tipo_solicitud = 3;
+}
 
 // Ya no es forzoso el id_plantilla
 // Asumo que la variable $conn (tu conexión PDO) está definida en el archivo bd.php
 $api = new ServiceDeskAPI($conn); 
-echo json_encode($api->ejecutar($id_plantilla, $nombre, $descripcion, $id_empleado, $accion), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+echo json_encode($api->ejecutar($id_plantilla, $nombre, $descripcion, $correo, $accion, $tipo_solicitud), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+
+
+#Restablecimiento de contraseña
+
+#descripcion Tu soliciut ha sido resulta 
+
+#15240  

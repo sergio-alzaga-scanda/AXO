@@ -8,11 +8,41 @@ class TeamsAutomatizacionAPI {
     private $pdo;
     private $BASE_URL = "https://servicedesk.grupoaxo.com/api/v3/";
     private $API_KEY = "423CEBBE-E849-4D17-9CA3-CD6AB3319401";
+    
+    // Credenciales de SuccessFactors (Configura con tus datos reales)
+    private $SF_BASE_URL = "https://<tu-servidor-api>.successfactors.com";
+    private $SF_BEARER_TOKEN = "AQUI_VA_TU_TOKEN_DE_SUCCESSFACTORS";
 
     public function __construct($db_connection) {
         $this->pdo = $db_connection;
         // Se ejecuta la inicialización de la tabla al invocar la clase por seguridad
         $this->inicializarTablaLogs(); 
+    }
+
+    /**
+     * Valida si el número de empleado existe en SuccessFactors
+     */
+    private function validarEmpleadoSuccessFactors($numero_usuario) {
+        // Endpoint buscando por la clave principal del User
+        $url = $this->SF_BASE_URL . "/odata/v2/User('" . urlencode($numero_usuario) . "')";
+        
+        $ch = curl_init($url);
+        curl_setopt_array($ch, [
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_CUSTOMREQUEST => "GET",
+            CURLOPT_SSL_VERIFYPEER => false, // Cambiar a true en producción si tienes certificados válidos
+            CURLOPT_HTTPHEADER => [
+                "Authorization: Bearer " . $this->SF_BEARER_TOKEN,
+                "Accept: application/json"
+            ],
+        ]);
+        
+        $response = curl_exec($ch);
+        $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+
+        // Retorna true si SuccessFactors responde con 200 OK (El empleado existe)
+        return ($http_code === 200);
     }
 
     /**
@@ -33,22 +63,21 @@ class TeamsAutomatizacionAPI {
         )";
         $this->pdo->exec($sql);
         
-        // Agregar columnas dinámicamente si la tabla ya existía
-        try {
-            $this->pdo->exec("ALTER TABLE log_tickets_teams ADD COLUMN status_proceso VARCHAR(50) DEFAULT 'Éxito'");
-            $this->pdo->exec("ALTER TABLE log_tickets_teams ADD COLUMN error_detalle TEXT");
-            $this->pdo->exec("ALTER TABLE log_tickets_teams MODIFY COLUMN ticket_creado VARCHAR(50) NULL");
-            $this->pdo->exec("ALTER TABLE log_tickets_teams MODIFY COLUMN plantilla_usada INT NULL");
-            $this->pdo->exec("ALTER TABLE log_tickets_teams MODIFY COLUMN numero_usuario VARCHAR(100) NULL");
-            $this->pdo->exec("ALTER TABLE log_tickets_teams MODIFY COLUMN correo VARCHAR(255) NULL");
-        } catch (Exception $e) {}
+        // Agregar columnas dinámicamente si la tabla ya existía de manera aislada
+        try { $this->pdo->exec("ALTER TABLE log_tickets_teams ADD COLUMN status_proceso VARCHAR(50) DEFAULT 'Éxito'"); } catch (Exception $e) {}
+        try { $this->pdo->exec("ALTER TABLE log_tickets_teams ADD COLUMN error_detalle TEXT"); } catch (Exception $e) {}
+        try { $this->pdo->exec("ALTER TABLE log_tickets_teams ADD COLUMN tipo_solicitud VARCHAR(100) DEFAULT 'No especificada'"); } catch (Exception $e) {}
+        try { $this->pdo->exec("ALTER TABLE log_tickets_teams MODIFY COLUMN ticket_creado VARCHAR(50) NULL"); } catch (Exception $e) {}
+        try { $this->pdo->exec("ALTER TABLE log_tickets_teams MODIFY COLUMN plantilla_usada INT NULL"); } catch (Exception $e) {}
+        try { $this->pdo->exec("ALTER TABLE log_tickets_teams MODIFY COLUMN numero_usuario VARCHAR(100) NULL"); } catch (Exception $e) {}
+        try { $this->pdo->exec("ALTER TABLE log_tickets_teams MODIFY COLUMN correo VARCHAR(255) NULL"); } catch (Exception $e) {}
     }
 
-    private function registrarBitacoraBD($num_usr, $correo, $id_pl, $nom_pl, $ticket, $status, $error = null) {
+    private function registrarBitacoraBD($num_usr, $correo, $id_pl, $nom_pl, $ticket, $status, $error = null, $tipo_solicitud = null) {
         try {
-            $sql = "INSERT INTO log_tickets_teams (numero_usuario, correo, plantilla_usada, nombre_plantilla, ticket_creado, status_proceso, error_detalle) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO log_tickets_teams (numero_usuario, correo, plantilla_usada, nombre_plantilla, ticket_creado, status_proceso, error_detalle, tipo_solicitud) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             $stmt = $this->pdo->prepare($sql);
-            $stmt->execute([$num_usr, $correo, $id_pl, $nom_pl, $ticket, $status, $error]);
+            $stmt->execute([$num_usr, $correo, $id_pl, $nom_pl, $ticket, $status, $error, $tipo_solicitud]);
         } catch (Exception $e) {}
     }
 
@@ -109,19 +138,36 @@ class TeamsAutomatizacionAPI {
         }
     }
 
-    public function procesarTicketTeams($numero_usuario, $correo) {
+    public function procesarTicketTeams($numero_usuario, $correo, $tipo_solicitud = 'No especificada') {
         try {
-            $id_plantilla = 9902;
+            // ---------------------------------------------------------
+            // PASO NUEVO: Validar si el empleado existe en SuccessFactors 
+            // (Comentado temporalmente a petición para pruebas)
+            // ---------------------------------------------------------
+            /*
+            if (!$this->validarEmpleadoSuccessFactors($numero_usuario)) {
+                $err_msg = "El número de empleado '{$numero_usuario}' no corresponde a ningún registro válido.";
+                $this->registrarBitacoraBD($numero_usuario, $correo, null, "Validación Externa", null, 'Error', $err_msg, $tipo_solicitud);
+                
+                return [
+                    "status" => "error", 
+                    "mensaje" => $err_msg // Esto es lo que se le avisará a Teams/Usuario
+                ];
+            }
+            */
+            // ---------------------------------------------------------
+
+            $id_plantilla = 3901;
             $nombre_plantilla = "Configuración Predeterminada";
             
-            // 1. Obtener la información de la plantilla fija (9902)
-            $stmt = $this->pdo->prepare("SELECT plantilla_incidente, descripcion, id_grupo FROM plantillas_incidentes WHERE id = ?");
+            // 1. Obtener la información de la plantilla fija
+            $stmt = $this->pdo->prepare("SELECT plantilla_incidente, descripcion, id_grupo, categoria, subcategoria FROM plantillas_incidentes WHERE id = ?");
             $stmt->execute([$id_plantilla]);
             $plantilla = $stmt->fetch(PDO::FETCH_ASSOC);
             
             if (!$plantilla) {
-                $err = "Plantilla 9902 no encontrada.";
-                $this->registrarBitacoraBD($numero_usuario, $correo, $id_plantilla, $nombre_plantilla, null, 'Error', $err);
+                $err = "Plantilla 3901 no encontrada.";
+                $this->registrarBitacoraBD($numero_usuario, $correo, $id_plantilla, $nombre_plantilla, null, 'Error', $err, $tipo_solicitud);
                 return ["status" => "error", "message" => $err];
             }
             $nombre_plantilla = $plantilla['plantilla_incidente'];
@@ -130,17 +176,17 @@ class TeamsAutomatizacionAPI {
             $id_tecnico_disponible = $this->obtenerTecnicoDisponible();
             if (!$id_tecnico_disponible) {
                 $err = "No hay técnicos disponibles en este momento.";
-                $this->registrarBitacoraBD($numero_usuario, $correo, $id_plantilla, $nombre_plantilla, null, 'Error', $err);
+                $this->registrarBitacoraBD($numero_usuario, $correo, $id_plantilla, $nombre_plantilla, null, 'Error', $err, $tipo_solicitud);
                 return ["status" => "error", "message" => $err];
             }
 
-            $nombre_plantilla = $plantilla['plantilla_incidente'];
             $id_grupo = !empty($plantilla['id_grupo']) ? $plantilla['id_grupo'] : "954";
 
             // 3. Formatear la descripción
             $descripcion_ticket = "<b>Petición generada por automatización vía Teams</b><br><br>";
-            $descripcion_ticket .= "<b>Usuario:</b> " . htmlspecialchars($numero_usuario) . "<br>";
-            $descripcion_ticket .= "<b>Correo:</b> " . htmlspecialchars($correo) . "<br><br>";
+            $descripcion_ticket .= "<b>Usuario:</b> " . htmlspecialchars($numero_usuario) . " (Validado en SuccessFactors)<br>";
+            $descripcion_ticket .= "<b>Correo:</b> " . htmlspecialchars($correo) . "<br>";
+            $descripcion_ticket .= "<b>Tipo Solicitud:</b> " . htmlspecialchars($tipo_solicitud) . "<br><br>";
             $descripcion_ticket .= "<b>Contexto (Plantilla Aplicada):</b><br>" . $plantilla['descripcion'] . "<br><br>";
             $descripcion_ticket .= "<b>Nota resolutiva:</b> Petición generada por Teams y resuelta por automatización.";
 
@@ -155,52 +201,51 @@ class TeamsAutomatizacionAPI {
                     "udf_pick_2114" => ["name" => "A PIE DE CALLE", "id" => "8428"],
                     "udf_pick_27" => ["name" => "TOMMY", "id" => "9925"]
                 ],
-                "technician" => ["id" => $id_tecnico_disponible],
+                "technician" => ["id" => "78545"],
                 "group" => ["id" => $id_grupo],
                 "template" => ["name" => $nombre_plantilla],
-                "status" => ["id" => "3"], // 3 = Tratar de crearlo en Resolver directo si el sistema lo acepta
+                "status" => ["id" => "1"],
                 "resolution" => [
-                    "content" => "Petición generada por Teams y resuelta por automatización."
-                ]
+                    "content" => "Petición generada por Teams y resuelta por automatización. La contraseña nueva es: Inicio26+"
+                ],
+                "is_fcr" => true
             ];
+
+            if (!empty($plantilla['categoria'])) {
+                $request_data["category"] = ["name" => $plantilla['categoria']];
+            }
+            if (!empty($plantilla['subcategoria'])) {
+                $request_data["subcategory"] = ["name" => $plantilla['subcategoria']];
+            }
+
 
             // 5. Invocar creación
             $res_crear = $this->call_api("POST", "requests", ["request" => $request_data]);
             $ticket_id = $res_crear['request']['id'] ?? null;
 
             if ($ticket_id) {
-                // 6. Forzar cierre correcto para cumplir la métrica
-                $payload_cierre = [
-                    "request" => [
-                        "closure_info" => [
-                            "requester_ack_resolution" => true,
-                            "closure_comments" => "Petición generada por Teams y resuelta por automatización.",
-                            "closure_code" => ["name" => "Resolución Automática"]
-                        ]
-                    ]
-                ];
-                $this->call_api("PUT", "requests/{$ticket_id}/close", $payload_cierre);
+                // 6. Log success (Cierre delegado a api_actualiza_espera)
 
                 // 7. Almacenar el registro de éxito en la base de datos de control
-                $this->registrarBitacoraBD($numero_usuario, $correo, $id_plantilla, $nombre_plantilla, $ticket_id, 'Éxito');
+                $this->registrarBitacoraBD($numero_usuario, $correo, $id_plantilla, $nombre_plantilla, $ticket_id, 'en espera', null, $tipo_solicitud);
 
                 // 8. Devolver mensaje JSON exitoso conforme a la solicitud
                 return [
                     "status" => "success",
-                    "mensaje" => "Su solicitud fue creada y procesada exitosamente.",
+                    "mensaje" => "Su solicitud fue creada y procesada exitosamente." . "<br><br>" . "Tu contraseña temporal es: Inicio26+",
                     "numero_ticket" => $ticket_id
                 ];
             }
 
-            $this->registrarBitacoraBD($numero_usuario, $correo, $id_plantilla, $nombre_plantilla, null, 'Error', "Fallo al crear ticket en API SD");
+            $this->registrarBitacoraBD($numero_usuario, $correo, $id_plantilla, $nombre_plantilla, null, 'Error', "Fallo al crear ticket en API SD", $tipo_solicitud);
             return [
                 "status" => "error", 
-                "mensaje" => "El número de usuario y/o correo no existe.",
+                "mensaje" => "Hubo un problema al crear tu ticket en el sistema. Vuelve a intentarlo.", // Mensaje más amigable
                 "api_response" => $res_crear
             ];
 
         } catch (Exception $e) {
-            $this->registrarBitacoraBD($numero_usuario, $correo, 9902, "Error Genérico", null, 'Error', $e->getMessage());
+            $this->registrarBitacoraBD($numero_usuario, $correo, 9902, "Error Genérico", null, 'Error', $e->getMessage(), $tipo_solicitud);
             return ["status" => "error", "message" => $e->getMessage()];
         }
     }
@@ -238,6 +283,7 @@ $data = json_decode($input_json, true);
 // Prevenir problemas si envían la llave con un espacio final "numero_usuario "
 $numero_usuario = $data['numero_usuario'] ?? $data['numero_usuario '] ?? $_REQUEST['numero_usuario'] ?? null;
 $correo = $data['correo'] ?? $_REQUEST['correo'] ?? null;
+$tipo_solicitud = 3; // Siempre será 3 (Reset Success Factor) para que se grafique en las métricas
 
 if (!$numero_usuario || !$correo) {
     echo json_encode([
@@ -250,7 +296,7 @@ if (!$numero_usuario || !$correo) {
 // Invocación a clase
 // Se asume que $conn es la instancia PDO provista por el archivo bd.php exigido en la línea 5
 $api = new TeamsAutomatizacionAPI($conn);
-$resultado = $api->procesarTicketTeams($numero_usuario, $correo);
+$resultado = $api->procesarTicketTeams($numero_usuario, $correo, $tipo_solicitud);
 
 // Respuesta final al usuario
-echo json_encode($resultado, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+echo json_encode($resultado, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE); 
