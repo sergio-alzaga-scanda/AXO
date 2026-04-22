@@ -15,13 +15,54 @@ class ServiceDeskAPI {
     //12024 id de la pantilla de pruebas
     // Función adaptada de app.py para obtener el siguiente técnico disponible
     private function obtenerTecnicoDisponible() {
-        // En tu esquema original, 'tecnicos' tiene id, nombre, activo, id_sistema, etc.
-        // Aquí simplificaremos para buscar uno 'activo' = 1 (disponible ahora mismo).
-        // Podrías expandirlo para que haga el Round Robin estricto si manejas 'control_asignacion' en PHP.
-        $stmt = $this->pdo->query("SELECT id_sistema FROM tecnicos WHERE activo = 1 AND modo_asignacion = 1 ORDER BY orden_asignacion ASC LIMIT 1");
-        $tecnico = $stmt->fetch(PDO::FETCH_ASSOC);
-        
-        return $tecnico ? $tecnico['id_sistema'] : null;
+        try {
+            // 1. Array de candidatos activos y configurados en modo automático
+            $stmt = $this->pdo->query("SELECT id, id_sistema, nombre FROM tecnicos WHERE activo = 1 AND modo_asignacion = 1 ORDER BY orden_asignacion ASC, id ASC");
+            $tecnicos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            
+            if (empty($tecnicos)) return null;
+            $total_tecnicos = count($tecnicos);
+            
+            // 2. Obtener el ID del último técnico al que se le asignó (desde configuracion_asignacion id=1)
+            $stmt_config = $this->pdo->query("SELECT valor FROM configuracion_asignacion WHERE id = 1");
+            $fila_config = $stmt_config->fetch(PDO::FETCH_ASSOC);
+            $ultimo_id = $fila_config ? (int)$fila_config['valor'] : null;
+            
+            // 3. Buscar el índice por el que vamos a empezar el ciclo
+            $indice_inicio = 0;
+            if ($ultimo_id) {
+                foreach ($tecnicos as $i => $tec) {
+                    if ((int)$tec['id'] === $ultimo_id) {
+                        $indice_inicio = $i + 1; // empezamos por el SIGUIENTE
+                        break;
+                    }
+                }
+            }
+            
+            // 4. El índice actual se calcula con módulo (%) para que sea un ciclo infinito
+            $indice_actual = $indice_inicio % $total_tecnicos;
+            $tecnico_seleccionado = $tecnicos[$indice_actual];
+            
+            // 5. Guardar asignación en base de datos para que app.py y este script mantengan el puntero rotativo
+            $this->guardarUltimoTecnicoAsignado($tecnico_seleccionado['id'], $ultimo_id, $total_tecnicos);
+            
+            return $tecnico_seleccionado['id_sistema'];
+            
+        } catch (Exception $e) {
+            return null; 
+        }
+    }
+
+    private function guardarUltimoTecnicoAsignado($id_tecnico, $ultimo_id_asignado, $total_disponibles) {
+        try {
+            // Compartimos el puntero del carrusel con la BD
+            $stmt_config = $this->pdo->prepare("INSERT INTO configuracion_asignacion (id, valor) VALUES (1, ?) ON DUPLICATE KEY UPDATE valor = ?");
+            $stmt_config->execute([$id_tecnico, $id_tecnico]);
+            
+            // Bitácora idéntica al registar_control_asignacion de Python
+            $stmt_control = $this->pdo->prepare("INSERT INTO control_asignacion (id_tecnico, ultimo_id_asignado, total_disponibles, metodo) VALUES (?, ?, ?, 'carrusel')");
+            $stmt_control->execute([$id_tecnico, $ultimo_id_asignado, $total_disponibles]);
+        } catch (Exception $e) { }
     }
 
     public function ejecutar($id_plantilla, $nombre_usuario, $descripcion_usuario, $correo, $accion, $tipo_solicitud) {
@@ -81,7 +122,7 @@ class ServiceDeskAPI {
                 "subject" => $subject_final,
                 "description" => $full_description,
                 "requester" => ["email_id" => $correo], // El solicitante real por correo electrónico
-                "technician" => ["id" => "78545"],
+                "technician" => ["id" => $id_tecnico_disponible],
                 "group" => ["id" => $id_grupo], 
                 "udf_fields" => [
                     "udf_pick_2114" => ["name" => "A PIE DE CALLE", "id" => "8428"],
@@ -218,7 +259,7 @@ $data = json_decode($input_json, true) ?: [];
 $id_plantilla = $data['id_plantilla'] ?? $_REQUEST['id_plantilla'] ?? null;
 $nombre = $data['nombre'] ?? $_REQUEST['nombre'] ?? 'Usuario Sistema';
 $descripcion = $data['descripcion'] ?? $_REQUEST['descripcion'] ?? 'Sin descripción adicional';
-$correo = $data['correo'] ?? $_REQUEST['correo'] ?? 'soporte@grupoaxo.com'; // Opcional default
+$correo = $data['correo'] ?? $_REQUEST['correo'] ?? 'tester_bot@grupoaxo.com'; // Opcional default
 $accion = $data['accion'] ?? $data['acción'] ?? $_REQUEST['accion'] ?? $_REQUEST['acción'] ?? '1'; // '2' = cerrar o '1' = abrir
 $tipo_solicitud = $data['tipo_solicitud'] ?? $_REQUEST['tipo_solicitud'] ?? 'General'; // Clasificación opcional
 

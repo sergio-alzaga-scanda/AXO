@@ -41,11 +41,13 @@ try {
             $url = "https://servicedesk.grupoaxo.com/api/v3/requests/{$ticket_id}";
             $api_key = "423CEBBE-E849-4D17-9CA3-CD6AB3319401";
 
+            $password_final = !empty($log['password_temporal']) ? $log['password_temporal'] : 'Inicio_2026*!';
+
             $payload_cierre = [
                 "request" => [
                     "status" => ["id" => "4"],
                     "resolution" => [
-                        "content" => "Petición generada por Teams y resuelta exitosamente por automatización (RPA). La contraseña temporal es Inicio26+"
+                        "content" => "Petición generada por Teams y resuelta exitosamente por automatización (RPA). La contraseña temporal es {$password_final}"
                     ],
                     "is_fcr" => true
                 ]
@@ -70,7 +72,7 @@ try {
 
         // Enviar notificación de éxito
         if (!empty($log['correo'])) {
-            enviarCorreoConfirmacion($log['correo'], 1, $log['ticket_creado'] ?? 'N/A');
+            enviarCorreoConfirmacion($log['correo'], 1, $log['ticket_creado'] ?? 'N/A', $password_final);
         }
 
         // Responder con información de depuración
@@ -207,7 +209,7 @@ function guardarUltimoTecnicoAsignado($pdo, $id_tecnico, $ultimo_id_asignado, $t
     } catch (Exception $e) {}
 }
 
-function enviarCorreoConfirmacion($correo_destino, $resultado, $ticket) {
+function enviarCorreoConfirmacion($correo_destino, $resultado, $ticket, $pass_dinamica = 'Inicio_2026*!') {
     if (empty($correo_destino)) return;
     
     $url = "https://api.resend.com/emails";
@@ -218,7 +220,7 @@ function enviarCorreoConfirmacion($correo_destino, $resultado, $ticket) {
             <div style='font-family: Arial, sans-serif; color: #333;'>
                 <h2>¡Hola! Tu solicitud ha sido procesada</h2>
                 <p>Tu solicitud de reseteo de contraseña para Success Factors (Ticket: <b>{$ticket}</b>) ha sido completada exitosamente de forma automatizada.</p>
-                <br>Tu nueva <b>contraseña temporal</b> es: <strong style='font-size: 18px; color: #0d6efd;'>Inicio_2026*!</strong>
+                <br>Tu nueva <b>contraseña temporal</b> es: <strong style='font-size: 18px; color: #0d6efd;'>{$pass_dinamica}</strong>
                 <hr style='border: none; border-top: 1px solid #eee; margin: 20px 0;'>
                 <p style='font-size: 12px; color: #888;'><em>Este es un mensaje generado automáticamente, por favor no respondas a este correo.</em></p>
             </div>
@@ -229,7 +231,7 @@ function enviarCorreoConfirmacion($correo_destino, $resultado, $ticket) {
                 <h2>Actualización de tu solicitud de RPA 🤖</h2>
                 <p>Estimado usuario,</p>
                 <p>Te informamos que hemos recibido tu solicitud de reseteo de contraseña para Success Factors (Ticket: <b>{$ticket}</b>).</p>
-                <p>Durante el proceso de automatización por nuestra asistente ArIA, detectamos que los datos proporcionados no corresponden o no coinciden de forma exacta con nuestros registros en el corporativo, por lo que no fue posible procesarla automáticamente.</p>
+                <p>Durante el proceso de automatización por nuestra asistente, detectamos que los datos proporcionados no corresponden o no coinciden de forma exacta con nuestros registros en el corporativo, por lo que no fue posible procesarla automáticamente.</p>
                 <p>No te preocupes, <b>tu solicitud ha sido canalizada directamente con un agente humano especializado</b> de nuestra Mesa de Ayuda, quien se pondrá en contacto contigo a la brevedad para brindarte seguimiento personalizado y resolver tu solicitud sin que tengas que volver a levantarla.</p>
                 <p>Agradecemos tu paciencia.</p>
                 <hr style='border: none; border-top: 1px solid #eee; margin: 20px 0;'>
@@ -238,6 +240,7 @@ function enviarCorreoConfirmacion($correo_destino, $resultado, $ticket) {
         ";
     }
 
+    /*
     // --- CÓDIGO ORIGINAL RESEND API (COMENTADO A FAVOR DE OPCIÓN A) ---
     $payload = [
         "from" => "ArIA <ArIA@updates.swiftdesk.com.mx>",
@@ -260,8 +263,8 @@ function enviarCorreoConfirmacion($correo_destino, $resultado, $ticket) {
     ]);
     curl_exec($ch);
     curl_close($ch);
+    */
 
-    /*
     // --- NUEVO CÓDIGO SMTP OFICIAL GRUPO AXO (OPCIÓN A) ---
     $libs_path = __DIR__ . '/libs/PHPMailer/src';
     if(!file_exists($libs_path . '/PHPMailer.php')) {
@@ -278,14 +281,14 @@ function enviarCorreoConfirmacion($correo_destino, $resultado, $ticket) {
         $mail->isSMTP();
         $mail->Host       = 'smtp.office365.com';
         $mail->SMTPAuth   = true;
-        $mail->Username   = 'tester_bot@grupoaxo.com';
-        $mail->Password   = '4X0_2026+';
+        $mail->Username   = 'help_desk@grupoaxo.com';
+        $mail->Password   = 'H3lpD3sk69';
         $mail->SMTPSecure = \PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port       = 587;
         
         $mail->CharSet = 'UTF-8';
 
-        $mail->setFrom('tester_bot@grupoaxo.com', 'Operaciones (Grupo Axo)');
+        $mail->setFrom('help_desk@grupoaxo.com', 'Tester Bot AXO');
         $mail->addAddress($correo_destino);
 
         $mail->isHTML(true);
@@ -296,7 +299,6 @@ function enviarCorreoConfirmacion($correo_destino, $resultado, $ticket) {
     } catch (Exception $e) {
         error_log("Error enviando correo SMTP AXO Opcion A: " . $mail->ErrorInfo);
     }
-    */
 
 
 }

@@ -59,6 +59,7 @@ class TeamsAutomatizacionAPI {
             ticket_creado VARCHAR(50),
             status_proceso VARCHAR(50) DEFAULT 'Éxito',
             error_detalle TEXT,
+            password_temporal VARCHAR(255),
             fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP
         )";
         $this->pdo->exec($sql);
@@ -67,17 +68,18 @@ class TeamsAutomatizacionAPI {
         try { $this->pdo->exec("ALTER TABLE log_tickets_teams ADD COLUMN status_proceso VARCHAR(50) DEFAULT 'Éxito'"); } catch (Exception $e) {}
         try { $this->pdo->exec("ALTER TABLE log_tickets_teams ADD COLUMN error_detalle TEXT"); } catch (Exception $e) {}
         try { $this->pdo->exec("ALTER TABLE log_tickets_teams ADD COLUMN tipo_solicitud VARCHAR(100) DEFAULT 'No especificada'"); } catch (Exception $e) {}
+        try { $this->pdo->exec("ALTER TABLE log_tickets_teams ADD COLUMN password_temporal VARCHAR(255)"); } catch (Exception $e) {}
         try { $this->pdo->exec("ALTER TABLE log_tickets_teams MODIFY COLUMN ticket_creado VARCHAR(50) NULL"); } catch (Exception $e) {}
         try { $this->pdo->exec("ALTER TABLE log_tickets_teams MODIFY COLUMN plantilla_usada INT NULL"); } catch (Exception $e) {}
         try { $this->pdo->exec("ALTER TABLE log_tickets_teams MODIFY COLUMN numero_usuario VARCHAR(100) NULL"); } catch (Exception $e) {}
         try { $this->pdo->exec("ALTER TABLE log_tickets_teams MODIFY COLUMN correo VARCHAR(255) NULL"); } catch (Exception $e) {}
     }
 
-    private function registrarBitacoraBD($num_usr, $correo, $id_pl, $nom_pl, $ticket, $status, $error = null, $tipo_solicitud = null) {
+    private function registrarBitacoraBD($num_usr, $correo, $id_pl, $nom_pl, $ticket, $status, $error = null, $tipo_solicitud = null, $password = null) {
         try {
-            $sql = "INSERT INTO log_tickets_teams (numero_usuario, correo, plantilla_usada, nombre_plantilla, ticket_creado, status_proceso, error_detalle, tipo_solicitud) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO log_tickets_teams (numero_usuario, correo, plantilla_usada, nombre_plantilla, ticket_creado, status_proceso, error_detalle, tipo_solicitud, password_temporal) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             $stmt = $this->pdo->prepare($sql);
-            $stmt->execute([$num_usr, $correo, $id_pl, $nom_pl, $ticket, $status, $error, $tipo_solicitud]);
+            $stmt->execute([$num_usr, $correo, $id_pl, $nom_pl, $ticket, $status, $error, $tipo_solicitud, $password]);
         } catch (Exception $e) {}
     }
 
@@ -201,7 +203,7 @@ class TeamsAutomatizacionAPI {
                     "udf_pick_2114" => ["name" => "A PIE DE CALLE", "id" => "8428"],
                     "udf_pick_27" => ["name" => "TOMMY", "id" => "9925"]
                 ],
-                "technician" => ["id" => "78545"],
+                "technician" => ["id" => $id_tecnico_disponible],
                 "group" => ["id" => $id_grupo],
                 "template" => ["name" => $nombre_plantilla],
                 "status" => ["id" => "1"],
@@ -234,14 +236,13 @@ class TeamsAutomatizacionAPI {
 
             if ($ticket_id) {
                 // 6. Log success (Cierre delegado a api_actualiza_espera)
-
-                // 7. Almacenar el registro de éxito en la base de datos de control
-                $this->registrarBitacoraBD($numero_usuario, $correo, $id_plantilla, $nombre_plantilla, $ticket_id, 'en espera', null, $tipo_solicitud);
+                // 7. Almacenar el registro de éxito en la base de datos de control con la contraseña
+                $this->registrarBitacoraBD($numero_usuario, $correo, $id_plantilla, $nombre_plantilla, $ticket_id, 'en espera', null, $tipo_solicitud, $password);
 
                 // 8. Devolver mensaje JSON exitoso conforme a la solicitud
                 return [
                     "status" => "success",
-                    "mensaje" => "Su solicitud fue creada y procesada exitosamente." . "<br><br>" . "Tu contraseña temporal es: " . $password,
+                    "mensaje" => "Su solicitud fue creada y procesada exitosamente.",
                     "numero_ticket" => $ticket_id
                 ];
             }

@@ -58,7 +58,7 @@ try {
     $stmtStats = $conn->prepare("
         SELECT 
             COUNT(*) as total,
-            SUM(CASE WHEN status_proceso = 'Creado y cerrado automaticamente' THEN 1 ELSE 0 END) as exito,
+            SUM(CASE WHEN status_proceso IN ('Creado y cerrado automaticamente', 'Creado y en espera de visto bueno') THEN 1 ELSE 0 END) as exito,
             SUM(CASE WHEN status_proceso = 'Generado automaticamente y resuelto por agente' THEN 1 ELSE 0 END) as error
         FROM log_api_tickets
         $donde_stats
@@ -69,13 +69,18 @@ try {
     $total = $stats['total'] ?? 0;
     $exito = $stats['exito'] ?? 0;
     $error = $stats['error'] ?? 0;
+    
+    // Métricas de Eficiencia
+    $tasa_exito = $total > 0 ? round(($exito / $total) * 100, 1) : 0;
+    $ahorro_minutos = $exito * 10;
+    $ahorro_horas = round($ahorro_minutos / 60, 1);
 
     // Registros Filtro de Estado
     $condiciones_tabla = $condiciones_base;
     if ($filtro_status === 'exitosos') {
-        $condiciones_tabla[] = "status_proceso = 'Creado y cerrado automaticamente'";
+        $condiciones_tabla[] = "status_proceso IN ('Creado y cerrado automaticamente', 'Creado y en espera de visto bueno')";
     } elseif ($filtro_status === 'fracasos') {
-        $condiciones_tabla[] = "status_proceso != 'Creado y cerrado automaticamente'";
+        $condiciones_tabla[] = "status_proceso NOT IN ('Creado y cerrado automaticamente', 'Creado y en espera de visto bueno')";
     }
 
     $donde_tabla = "";
@@ -257,42 +262,58 @@ try {
         </div>
 
         <!-- Cards -->
-        <div class="row mb-5">
-            <div class="col-md-4">
+        <div class="row mb-5 g-4">
+            <div class="col-md-3">
                 <div class="card card-stat border-primary shadow-sm h-100">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
-                                <h6 class="text-muted text-uppercase mb-1 fw-bold" style="font-size: 0.8rem; letter-spacing: 1px;">Total API POSTs</h6>
-                                <h1 class="mb-0 fw-bold text-dark display-5"><?= $total ?></h1>
+                                <h6 class="text-muted text-uppercase mb-1 fw-bold" style="font-size: 0.75rem; letter-spacing: 1px;">Total API POSTs</h6>
+                                <h1 class="mb-0 fw-bold text-dark display-6"><?= $total ?></h1>
                             </div>
                             <div class="fs-1 text-primary opacity-50"><i class="bi bi-cloud-arrow-up"></i></div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="card card-stat border-success shadow-sm h-100">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
-                                <h6 class="text-muted text-uppercase mb-1 fw-bold" style="font-size: 0.8rem; letter-spacing: 1px;">Tickets Creados y cerrados</h6>
-                                <h1 class="mb-0 fw-bold text-success display-5"><?= $exito ?></h1>
+                                <h6 class="text-muted text-uppercase mb-1 fw-bold" style="font-size: 0.75rem; letter-spacing: 1px;">Automatizaciones Exitosas</h6>
+                                <h1 class="mb-0 fw-bold text-success display-6"><?= $exito ?></h1>
+                                <small class="text-muted fw-bold"><?= $tasa_exito ?>% de efectividad</small>
                             </div>
-                            <div class="fs-1 text-success opacity-50"><i class="bi bi-check-all"></i></div>
+                            <div class="fs-1 text-success opacity-50"><i class="bi bi-robot"></i></div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="card card-stat border-warning shadow-sm h-100">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
-                                <h6 class="text-muted text-uppercase mb-1 fw-bold" style="font-size: 0.8rem; letter-spacing: 1px;">TicketsCreados</h6>
-                                <h1 class="mb-0 fw-bold text-warning display-5"><?= $error ?></h1>
+                                <h6 class="text-muted text-uppercase mb-1 fw-bold" style="font-size: 0.75rem; letter-spacing: 1px;">Traspaso a Agente</h6>
+                                <h1 class="mb-0 fw-bold text-warning display-6"><?= $error ?></h1>
+                                <small class="text-muted fw-bold">Atención manual</small>
                             </div>
-                            <div class="fs-1 text-warning opacity-50"><i class="bi bi-envelope-open"></i></div>
+                            <div class="fs-1 text-warning opacity-50"><i class="bi bi-headset"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card card-stat border-info shadow-sm h-100" style="border-left-color: #0dcaf0 !important;">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="text-muted text-uppercase mb-1 fw-bold" style="font-size: 0.75rem; letter-spacing: 1px;">Ahorro de Tiempo</h6>
+                                <h1 class="mb-0 fw-bold text-info display-6"><?= $ahorro_horas ?>h</h1>
+                                <small class="text-muted fw-bold">~10 min por ticket</small>
+                            </div>
+                            <div class="fs-1 text-info opacity-50"><i class="bi bi-clock-history"></i></div>
                         </div>
                     </div>
                 </div>
@@ -301,13 +322,30 @@ try {
 
         <!-- Métrica General Desglose de Servicios -->
         <?php if(!empty($metricas_tipos)): ?>
-        <div class="mb-5 d-flex gap-2 flex-wrap">
-            <span class="fw-bold fs-5 me-2 text-muted">Métricas de Servicios: </span>
-            <?php foreach($metricas_tipos as $mt): ?>
-                <span class="badge bg-dark rounded-pill fs-6 py-2 px-3 shadow-sm border border-secondary">
-                    <?= htmlspecialchars($mt['servicio']) ?>: <span class="text-info fw-bold ms-1"><?= $mt['cantidad'] ?></span>
-                </span>
-            <?php endforeach; ?>
+        <div class="card shadow-sm mb-5 border-0 rounded-4">
+            <div class="card-body p-4">
+                <h5 class="card-title mb-4 fw-bold text-muted"><i class="bi bi-graph-up-arrow me-2 text-primary"></i>Métricas por Tipo de Servicio</h5>
+                <div class="row g-4">
+                    <?php foreach($metricas_tipos as $mt): 
+                        $porcentaje_servicio = $total > 0 ? round(($mt['cantidad'] / $total) * 100, 0) : 0;
+                    ?>
+                    <div class="col-md-4">
+                        <div class="p-3 border rounded-3 bg-light bg-opacity-50">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="fw-bold text-dark small text-uppercase"><?= htmlspecialchars($mt['servicio']) ?></span>
+                                <span class="badge bg-primary rounded-pill"><?= $mt['cantidad'] ?></span>
+                            </div>
+                            <div class="progress" style="height: 8px;">
+                                <div class="progress-bar bg-primary" role="progressbar" style="width: <?= $porcentaje_servicio ?>%" aria-valuenow="<?= $porcentaje_servicio ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <div class="text-end mt-1">
+                                <small class="text-muted fw-bold"><?= $porcentaje_servicio ?>% del total</small>
+                            </div>
+                        </div>
+                    </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
         </div>
         <?php endif; ?>
 
@@ -363,10 +401,10 @@ try {
                                         <?php endif; ?>
                                     </td>
                                     <td class="text-center">
-                                        <?php if($log['status_proceso'] === 'Creado y cerrado automaticamente'): ?>
-                                            <span class="badge bg-success rounded-pill px-3"><i class="bi bi-check-circle"></i> Resulto Directo</span>
+                                        <?php if(in_array($log['status_proceso'], ['Creado y cerrado automaticamente', 'Creado y en espera de visto bueno'])): ?>
+                                            <span class="badge bg-success rounded-pill px-3"><i class="bi bi-check-circle"></i> Resuelto Directo</span>
                                         <?php elseif($log['status_proceso'] === 'Generado automaticamente y resuelto por agente'): ?>
-                                            <span class="badge bg-warning text-dark rounded-pill px-3"><i class="bi bi-hourglass-split"></i> Mesa de Ayuda</span>
+                                            <span class="badge bg-warning text-dark rounded-pill px-3"><i class="bi bi-headset"></i> Mesa de Ayuda</span>
                                         <?php else: ?>
                                             <span class="badge bg-danger rounded-pill px-3"><i class="bi bi-x-circle"></i> Error</span>
                                         <?php endif; ?>
