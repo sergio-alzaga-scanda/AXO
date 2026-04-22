@@ -218,7 +218,7 @@ function enviarCorreoConfirmacion($correo_destino, $resultado, $ticket) {
             <div style='font-family: Arial, sans-serif; color: #333;'>
                 <h2>¡Hola! Tu solicitud ha sido procesada</h2>
                 <p>Tu solicitud de reseteo de contraseña para Success Factors (Ticket: <b>{$ticket}</b>) ha sido completada exitosamente de forma automatizada.</p>
-                <br>Tu nueva <b>contraseña temporal</b> es: <strong style='font-size: 18px; color: #0d6efd;'>Inicio26+</strong>
+                <br>Tu nueva <b>contraseña temporal</b> es: <strong style='font-size: 18px; color: #0d6efd;'>Inicio_2026*!</strong>
                 <hr style='border: none; border-top: 1px solid #eee; margin: 20px 0;'>
                 <p style='font-size: 12px; color: #888;'><em>Este es un mensaje generado automáticamente, por favor no respondas a este correo.</em></p>
             </div>
@@ -238,7 +238,6 @@ function enviarCorreoConfirmacion($correo_destino, $resultado, $ticket) {
         ";
     }
 
-    /*
     // --- CÓDIGO ORIGINAL RESEND API (COMENTADO A FAVOR DE OPCIÓN A) ---
     $payload = [
         "from" => "ArIA <ArIA@updates.swiftdesk.com.mx>",
@@ -261,8 +260,8 @@ function enviarCorreoConfirmacion($correo_destino, $resultado, $ticket) {
     ]);
     curl_exec($ch);
     curl_close($ch);
-    */
 
+    /*
     // --- NUEVO CÓDIGO SMTP OFICIAL GRUPO AXO (OPCIÓN A) ---
     $libs_path = __DIR__ . '/libs/PHPMailer/src';
     if(!file_exists($libs_path . '/PHPMailer.php')) {
@@ -297,6 +296,7 @@ function enviarCorreoConfirmacion($correo_destino, $resultado, $ticket) {
     } catch (Exception $e) {
         error_log("Error enviando correo SMTP AXO Opcion A: " . $mail->ErrorInfo);
     }
+    */
 
 
 }

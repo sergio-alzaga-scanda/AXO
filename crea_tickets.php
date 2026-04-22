@@ -132,7 +132,7 @@ class ServiceDeskAPI {
                     ];
 
                     $res_cierre = $this->call("PUT", "requests/{$request_id}/close", $payload_cierre);
-                    $status_final = '2'; // 2 = Cerrado
+                    $status_final = '4'; // 2 = Cerrado
                 } else {
                     $status_final = '1'; // 1 = Abierto
                 }
@@ -159,7 +159,7 @@ class ServiceDeskAPI {
                 // Insertar el log híper detallado asegurando el Timezone de CDMX
                 date_default_timezone_set('America/Mexico_City');
                 $fecha_actual = date('Y-m-d H:i:s');
-                $estado_proceso = ($status_final === '2') ? 'Creado y cerrado automaticamente' : 'Generado automaticamente y resuelto por agente';
+                $estado_proceso = ($status_final === '4') ? 'Creado y en espera de visto bueno' : 'Generado automaticamente y resuelto por agente';
                 
                 $log = $this->pdo->prepare("INSERT INTO log_api_tickets (id_plantilla_origen, nombre_solicitante, descripcion, correo, accion, ticket_creado, status_proceso, tipo_solicitud, fecha_creacion) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
                 $log->execute([$id_plantilla, $nombre_usuario, $descripcion_usuario, $correo, $accion, $request_id, $estado_proceso, $tipo_solicitud, $fecha_actual]);

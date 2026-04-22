@@ -20,15 +20,15 @@ try {
     $mail->isSMTP();
     $mail->Host       = 'smtp.office365.com';
     $mail->SMTPAuth   = true;
-    $mail->Username   = 'tester_bot@grupoaxo.com';
-    $mail->Password   = '4X0_2026+';
+    $mail->Username   = 'help_desk@grupoaxo.com';
+    $mail->Password   = 'H3lpD3sk69';
     $mail->SMTPSecure = \PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
     $mail->Port       = 587;
     
     $mail->CharSet = 'UTF-8';
 
     // Remitente y Destinatario
-    $mail->setFrom('tester_bot@grupoaxo.com', 'Tester Bot AXO');
+    $mail->setFrom('help_desk@grupoaxo.com', 'Tester Bot AXO');
     $mail->addAddress('sergioarmandoalzagadiaz@gmail.com');
 
     // Contenido del Correo

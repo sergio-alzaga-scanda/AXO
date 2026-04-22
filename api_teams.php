@@ -138,7 +138,7 @@ class TeamsAutomatizacionAPI {
         }
     }
 
-    public function procesarTicketTeams($numero_usuario, $correo, $tipo_solicitud = 'No especificada') {
+    public function procesarTicketTeams($numero_usuario, $correo, $tipo_solicitud = 'No especificada', $password = 'Inicio_2026*!') {
         try {
             // ---------------------------------------------------------
             // PASO NUEVO: Validar si el empleado existe en SuccessFactors 
@@ -206,7 +206,7 @@ class TeamsAutomatizacionAPI {
                 "template" => ["name" => $nombre_plantilla],
                 "status" => ["id" => "1"],
                 "resolution" => [
-                    "content" => "Petición generada por Teams y resuelta por automatización. La contraseña nueva es: Inicio26+"
+                    "content" => "Petición generada por Teams y resuelta por automatización. La contraseña nueva es: " . $password
                 ],
                 "is_fcr" => true
             ];
@@ -219,7 +219,16 @@ class TeamsAutomatizacionAPI {
             }
 
 
-            // 5. Invocar creación
+            // 5. Invocar creación — Validar que numero_usuario tenga exactamente 7 dígitos
+            if (!preg_match('/^\d{7}$/', $numero_usuario)) {
+                $err = "El número de usuario debe ser de exactamente 7 dígitos. Valor recibido: '{$numero_usuario}'.";
+                $this->registrarBitacoraBD($numero_usuario, $correo, $id_plantilla, $nombre_plantilla, null, 'Error', $err, $tipo_solicitud);
+                return [
+                    "status" => "error",
+                    "mensaje" => "El número de usuario debe ser de exactamente 7 dígitos. Por favor verifica e intenta de nuevo."
+                ];
+            }
+
             $res_crear = $this->call_api("POST", "requests", ["request" => $request_data]);
             $ticket_id = $res_crear['request']['id'] ?? null;
 
@@ -232,7 +241,7 @@ class TeamsAutomatizacionAPI {
                 // 8. Devolver mensaje JSON exitoso conforme a la solicitud
                 return [
                     "status" => "success",
-                    "mensaje" => "Su solicitud fue creada y procesada exitosamente." . "<br><br>" . "Tu contraseña temporal es: Inicio26+",
+                    "mensaje" => "Su solicitud fue creada y procesada exitosamente." . "<br><br>" . "Tu contraseña temporal es: " . $password,
                     "numero_ticket" => $ticket_id
                 ];
             }
@@ -283,6 +292,7 @@ $data = json_decode($input_json, true);
 // Prevenir problemas si envían la llave con un espacio final "numero_usuario "
 $numero_usuario = $data['numero_usuario'] ?? $data['numero_usuario '] ?? $_REQUEST['numero_usuario'] ?? null;
 $correo = $data['correo'] ?? $_REQUEST['correo'] ?? null;
+$password = $data['password'] ?? $_REQUEST['password'] ?? 'Inicio_2026*!';
 $tipo_solicitud = 3; // Siempre será 3 (Reset Success Factor) para que se grafique en las métricas
 
 if (!$numero_usuario || !$correo) {
@@ -296,7 +306,7 @@ if (!$numero_usuario || !$correo) {
 // Invocación a clase
 // Se asume que $conn es la instancia PDO provista por el archivo bd.php exigido en la línea 5
 $api = new TeamsAutomatizacionAPI($conn);
-$resultado = $api->procesarTicketTeams($numero_usuario, $correo, $tipo_solicitud);
+$resultado = $api->procesarTicketTeams($numero_usuario, $correo, $tipo_solicitud, $password);
 
 // Respuesta final al usuario
 echo json_encode($resultado, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE); 
