@@ -40,11 +40,11 @@ try {
  */
 function generarPasswordFacil() {
     $patrones = [
-        "Axo2026_Net!", "Axo2026_Sys!", "Axo2026_App!", "Axo2026_Sec!", 
-        "Axo2026_Web!", "Axo2026_Dat!", "Axo2026_Dev!", "Axo2026_Ops!",
-        "Axo2026_Inf!", "Axo2026_Sql!", "Axo2026_Svc!", "Axo2026_Iot!",
-        "Axo2026_Rpa!", "Axo2026_Bot!", "Axo2026_Api!", "Axo2026_Cpu!",
-        "Axo2026_Ram!", "Axo2026_Dns!", "Axo2026_Log!", "Axo2026_Url!"
+        "Puebla_2026!", "Oaxaca_2026*", "Sonora_2026#", "Colima_2026$", 
+        "Jalisco2026!", "Nayarit2026*", "Yucatan2026#", "Chiapas2026$",
+        "Tabasco2026!", "Morelos2026*", "Hidalgo2026#", "Mexico_2026@",
+        "Durango2026!", "Sinaloa2026*", "Tlaxcala_202!", "Zacat2026_!*",
+        "Queretaro202!", "Veracruz_202!", "Campeche_202*", "Guerrero_202#"
     ];
     
     return $patrones[array_rand($patrones)];

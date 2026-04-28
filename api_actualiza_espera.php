@@ -92,7 +92,9 @@ try {
             $tec_id_sistema = obtenerTecnicoDisponible($conn);
 
             // 1. Asignar el técnico
-            $request_data = [];
+            $request_data = [
+                "status" => ["id" => "1"]
+            ];
             if ($tec_id_sistema) {
                 $request_data['technician'] = ["id" => $tec_id_sistema];
             }

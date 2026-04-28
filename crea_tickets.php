@@ -14,6 +14,7 @@ class ServiceDeskAPI {
     }
     //12024 id de la pantilla de pruebas
     // Función adaptada de app.py para obtener el siguiente técnico disponible
+    /*
     private function obtenerTecnicoDisponible() {
         try {
             // 1. Array de candidatos activos y configurados en modo automático
@@ -64,7 +65,7 @@ class ServiceDeskAPI {
             $stmt_control->execute([$id_tecnico, $ultimo_id_asignado, $total_disponibles]);
         } catch (Exception $e) { }
     }
-
+    */
     public function ejecutar($id_plantilla, $nombre_usuario, $descripcion_usuario, $correo, $accion, $tipo_solicitud) {
         try {
             $plantilla_nombre = null;
@@ -89,16 +90,16 @@ class ServiceDeskAPI {
                 }
             }
 
-            // 3. Obtener Técnico Disponible (lógica similar a app.py)
-            $id_tecnico_disponible = $this->obtenerTecnicoDisponible();
+            // // 3. Obtener Técnico Disponible (lógica similar a app.py)
+            // $id_tecnico_disponible = $this->obtenerTecnicoDisponible();
             
-            if (!$id_tecnico_disponible) {
-                // Abortar si no hay técnico y se requería asignación
-                return [
-                    "status" => "error", 
-                    "message" => "No hay técnicos disponibles para este requerimiento en este momento. Por favor, intente más tarde."
-                ];
-            }
+            // if (!$id_tecnico_disponible) {
+            //     // Abortar si no hay técnico y se requería asignación
+            //     return [
+            //         "status" => "error", 
+            //         "message" => "No hay técnicos disponibles para este requerimiento en este momento. Por favor, intente más tarde."
+            //     ];
+            // }
 
             // 4. Preparar la Descripción Combinada
             $full_description = "<b>Solicitado por:</b> " . htmlspecialchars($nombre_usuario) . "<br><br>";
@@ -121,8 +122,8 @@ class ServiceDeskAPI {
             $request_data = [
                 "subject" => $subject_final,
                 "description" => $full_description,
-                "requester" => ["email_id" => $correo], // El solicitante real por correo electrónico
-                "technician" => ["id" => $id_tecnico_disponible],
+                "requester" => ["email_id" => 'tester_bot@grupoaxo.com'],
+                "technician" => ["id" => '78545'],
                 "group" => ["id" => $id_grupo], 
                 "udf_fields" => [
                     "udf_pick_2114" => ["name" => "A PIE DE CALLE", "id" => "8428"],
@@ -208,7 +209,7 @@ class ServiceDeskAPI {
                 return [
                     "status" => "success",
                     "servicedesk_id" => $request_id,
-                    "tecnico_asignado" => $id_tecnico_disponible,
+                    "tecnico_asignado" => '78545',
                     "message" => "Ticket " . ($accion === "2" ? "creado y cerrado" : "creado (abierto)") . " con éxito"
                 ];
             }
@@ -259,7 +260,7 @@ $data = json_decode($input_json, true) ?: [];
 $id_plantilla = $data['id_plantilla'] ?? $_REQUEST['id_plantilla'] ?? null;
 $nombre = $data['nombre'] ?? $_REQUEST['nombre'] ?? 'Usuario Sistema';
 $descripcion = $data['descripcion'] ?? $_REQUEST['descripcion'] ?? 'Sin descripción adicional';
-$correo = $data['correo'] ?? $_REQUEST['correo'] ?? 'tester_bot@grupoaxo.com'; // Opcional default
+$correo = 'tester_bot@grupoaxo.com'; // Opcional default
 $accion = $data['accion'] ?? $data['acción'] ?? $_REQUEST['accion'] ?? $_REQUEST['acción'] ?? '1'; // '2' = cerrar o '1' = abrir
 $tipo_solicitud = $data['tipo_solicitud'] ?? $_REQUEST['tipo_solicitud'] ?? 'General'; // Clasificación opcional
 

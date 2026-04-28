@@ -140,7 +140,7 @@ class TeamsAutomatizacionAPI {
         }
     }
 
-    public function procesarTicketTeams($numero_usuario, $correo, $tipo_solicitud = 'No especificada', $password = 'Inicio_2026*!') {
+    public function procesarTicketTeams($numero_usuario, $correo, $tipo_solicitud = 'No especificada', $password = null) {
         try {
             // ---------------------------------------------------------
             // PASO NUEVO: Validar si el empleado existe en SuccessFactors 
@@ -175,12 +175,13 @@ class TeamsAutomatizacionAPI {
             $nombre_plantilla = $plantilla['plantilla_incidente'];
 
             // 2. Obtener técnico disponible
-            $id_tecnico_disponible = $this->obtenerTecnicoDisponible();
-            if (!$id_tecnico_disponible) {
-                $err = "No hay técnicos disponibles en este momento.";
-                $this->registrarBitacoraBD($numero_usuario, $correo, $id_plantilla, $nombre_plantilla, null, 'Error', $err, $tipo_solicitud);
-                return ["status" => "error", "message" => $err];
-            }
+            // $id_tecnico_disponible = $this->obtenerTecnicoDisponible();
+            // if (!$id_tecnico_disponible) {
+            //     $err = "No hay técnicos disponibles en este momento.";
+            //     $this->registrarBitacoraBD($numero_usuario, $correo, $id_plantilla, $nombre_plantilla, null, 'Error', $err, $tipo_solicitud);
+            //     return ["status" => "error", "message" => $err];
+            // }
+            $id_tecnico_disponible = '78545';
 
             $id_grupo = !empty($plantilla['id_grupo']) ? $plantilla['id_grupo'] : "954";
 
@@ -206,11 +207,7 @@ class TeamsAutomatizacionAPI {
                 "technician" => ["id" => $id_tecnico_disponible],
                 "group" => ["id" => $id_grupo],
                 "template" => ["name" => $nombre_plantilla],
-                "status" => ["id" => "1"],
-                "resolution" => [
-                    "content" => "Petición generada por Teams y resuelta por automatización. La contraseña nueva es: " . $password
-                ],
-                "is_fcr" => true
+                "status" => ["id" => "1"]
             ];
 
             if (!empty($plantilla['categoria'])) {
@@ -293,7 +290,7 @@ $data = json_decode($input_json, true);
 // Prevenir problemas si envían la llave con un espacio final "numero_usuario "
 $numero_usuario = $data['numero_usuario'] ?? $data['numero_usuario '] ?? $_REQUEST['numero_usuario'] ?? null;
 $correo = $data['correo'] ?? $_REQUEST['correo'] ?? null;
-$password = $data['password'] ?? $_REQUEST['password'] ?? 'Inicio_2026*!';
+$password = $data['password'] ?? $_REQUEST['password'] ?? null; // Si es null, se guardará como tal para generarse en get_espera
 $tipo_solicitud = 3; // Siempre será 3 (Reset Success Factor) para que se grafique en las métricas
 
 if (!$numero_usuario || !$correo) {
