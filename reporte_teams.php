@@ -4,6 +4,29 @@ if (!isset($_SESSION['user_id'])) { header("Location: index.php"); exit; }
 require_once 'db.php';
 require_once 'funciones.php';
 
+// Manejo de actualización de contraseña RPA
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'update_rpa_password') {
+    $nueva_pw = $_POST['pw_rpa'] ?? '';
+    try {
+        $conn->exec("CREATE TABLE IF NOT EXISTS configuracion_rpa (id INT PRIMARY KEY, rpa_password VARCHAR(255))");
+        $stmt = $conn->prepare("INSERT INTO configuracion_rpa (id, rpa_password) VALUES (1, ?) ON DUPLICATE KEY UPDATE rpa_password = ?");
+        $stmt->execute([$nueva_pw, $nueva_pw]);
+        header("Location: reporte_teams.php?msg=rpa_pw_updated");
+        exit;
+    } catch (Exception $e) {}
+}
+
+// Obtener contraseña RPA actual
+try {
+    $conn->exec("CREATE TABLE IF NOT EXISTS configuracion_rpa (id INT PRIMARY KEY, rpa_password VARCHAR(255))");
+    $stmtRpa = $conn->query("SELECT rpa_password FROM configuracion_rpa WHERE id = 1");
+    $rpaData = $stmtRpa->fetch(PDO::FETCH_ASSOC);
+    $rpa_password_actual = $rpaData ? $rpaData['rpa_password'] : '';
+} catch (Exception $e) {
+    $rpa_password_actual = '';
+}
+
+
 // Estadísticas
 try {
     // Init Seguro de Catálogo
@@ -223,9 +246,14 @@ try {
 
     <div class="container-fluid px-4">
         <div class="d-flex justify-content-between align-items-center flex-wrap mb-4 gap-3">
-            <h2 class="text-secondary fw-bold mb-0">
-                <i class="bi bi-robot text-primary me-2"></i> Peticiones Automatizadas (Teams)
-            </h2>
+            <div class="d-flex align-items-center gap-3">
+                <h2 class="text-secondary fw-bold mb-0">
+                    <i class="bi bi-robot text-primary me-2"></i> Peticiones Automatizadas (Teams)
+                </h2>
+                <button class="btn btn-outline-dark btn-sm shadow-sm" data-bs-toggle="modal" data-bs-target="#modalRpaConfig">
+                    <i class="bi bi-key-fill text-warning"></i> Configurar Contraseña RPA
+                </button>
+            </div>
             
             <form method="GET" class="d-flex flex-wrap gap-2 align-items-center bg-white p-2 rounded shadow-sm border">
                 <div>
@@ -387,5 +415,31 @@ try {
             });
         });
     </script>
+
+    <!-- Modal RPA Password -->
+    <div class="modal fade" id="modalRpaConfig" tabindex="-1" aria-labelledby="modalRpaConfigLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header bg-dark text-white">
+            <h5 class="modal-title" id="modalRpaConfigLabel"><i class="bi bi-key-fill text-warning"></i> Contraseña Única del Robot RPA</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <form method="POST" action="reporte_teams.php">
+              <div class="modal-body">
+                <input type="hidden" name="action" value="update_rpa_password">
+                <div class="mb-3">
+                  <label for="pw_rpa" class="form-label fw-bold">Contraseña Actual del RPA</label>
+                  <input type="text" class="form-control" id="pw_rpa" name="pw_rpa" value="<?= htmlspecialchars($rpa_password_actual) ?>" placeholder="Ingresa la contraseña del bot RPA">
+                  <div class="form-text">Esta contraseña se enviará intacta a la API en el campo <code>pw_rpa</code> para que el robot la utilice. Es una contraseña única global para el bot. No afecta al password temporal de los tickets de los usuarios.</div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i> Guardar Contraseña</button>
+              </div>
+          </form>
+        </div>
+      </div>
+    </div>
 </body>
 </html>

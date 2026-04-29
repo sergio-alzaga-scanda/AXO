@@ -21,6 +21,19 @@ try {
             $registro['password_temporal'] = $nueva_pass;
         }
 
+        // Recuperar la contraseña fija del RPA
+        try {
+            $conn->exec("CREATE TABLE IF NOT EXISTS configuracion_rpa (id INT PRIMARY KEY, rpa_password VARCHAR(255))");
+            $stmtRpa = $conn->query("SELECT rpa_password FROM configuracion_rpa WHERE id = 1");
+            $rpaData = $stmtRpa->fetch(PDO::FETCH_ASSOC);
+            $pw_rpa = $rpaData ? $rpaData['rpa_password'] : '';
+        } catch (Exception $e) {
+            $pw_rpa = '';
+        }
+
+        // Agregar la contraseña única del RPA al JSON
+        $registro['pw_rpa'] = $pw_rpa;
+
         // Se devuelve la información base de datos cruda y directa sin llaves extras estructuradas
         echo json_encode($registro, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
     } else {
