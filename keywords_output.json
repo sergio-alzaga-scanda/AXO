@@ -1,0 +1,202 @@
+{
+  "Aplicaciones > SuccessFactor > Reseteo de contraseña": {
+    "palabras_clave": [
+      "contraseña",
+      "ssff",
+      "usuario",
+      "success",
+      "acceso"
+    ],
+    "volumen_tickets": 2326
+  },
+  "Aplicaciones - 2026 > SuccessFactor > Reseteo de contraseña": {
+    "palabras_clave": [
+      "contraseña",
+      "ssff",
+      "usuario",
+      "success",
+      "reseteo"
+    ],
+    "volumen_tickets": 2209
+  },
+  "Aplicaciones > APTOS WEB IM > Reseteo de contraseña": {
+    "palabras_clave": [
+      "contraseña",
+      "webim",
+      "usuario",
+      "aptos",
+      "bloqueado"
+    ],
+    "volumen_tickets": 1632
+  },
+  "Aplicaciones > SAP - WM - Dato Maestro > Dato Maestro": {
+    "palabras_clave": [
+      "materiales",
+      "base",
+      "alta",
+      "genera",
+      "ulta"
+    ],
+    "volumen_tickets": 1263
+  },
+  "Aplicaciones - 2026 > APTOS WEB IM > Reseteo de contraseña": {
+    "palabras_clave": [
+      "contraseña",
+      "webim",
+      "aptos",
+      "usuario",
+      "restablecer"
+    ],
+    "volumen_tickets": 940
+  },
+  "Aplicaciones > Proscai > Alta de usuario": {
+    "palabras_clave": [
+      "alta",
+      "usuario",
+      "proscai",
+      "accesos",
+      "aplicativos"
+    ],
+    "volumen_tickets": 932
+  },
+  "Software > Correo > Reseteo de contraseña": {
+    "palabras_clave": [
+      "contraseña",
+      "correo",
+      "cambio",
+      "acceso",
+      "cuenta"
+    ],
+    "volumen_tickets": 885
+  },
+  "No asignado > No asignado > No asignado": {
+    "palabras_clave": [
+      "accesos",
+      "correo",
+      "cuenta",
+      "dominio",
+      "electrónico"
+    ],
+    "volumen_tickets": 852
+  },
+  "Aplicaciones > APTOS MERCH > Inventario - Error, Validación y Solución": {
+    "palabras_clave": [
+      "folios",
+      "aptos",
+      "folio",
+      "reprocesar",
+      "desasignar"
+    ],
+    "volumen_tickets": 810
+  },
+  "Software - 2026 > Correo > Reseteo de contraseña": {
+    "palabras_clave": [
+      "correo",
+      "contraseña",
+      "reset",
+      "cambio",
+      "acceso"
+    ],
+    "volumen_tickets": 728
+  },
+  "Aplicaciones > APTOS RETAIL STORE > Problema con descuentos y promociones": {
+    "palabras_clave": [
+      "pasa",
+      "descuentos",
+      "descuento",
+      "promo",
+      "promocion"
+    ],
+    "volumen_tickets": 673
+  },
+  "Aplicaciones > Proscai > Baja de usuario": {
+    "palabras_clave": [
+      "baja",
+      "usuario",
+      "proscai",
+      "promoda",
+      "subgerente"
+    ],
+    "volumen_tickets": 550
+  },
+  "Axo default > Axo default > Axo default": {
+    "palabras_clave": [
+      "requerimiento",
+      "veeam",
+      "respaldo",
+      "respaldos",
+      "servidores"
+    ],
+    "volumen_tickets": 547
+  },
+  "Aplicaciones > Proscai > Monederos": {
+    "palabras_clave": [
+      "monedero",
+      "monederos",
+      "activacion",
+      "alta",
+      "vencido"
+    ],
+    "volumen_tickets": 514
+  },
+  "Seguridad TI > Servidor > Reinicio": {
+    "palabras_clave": [
+      "requerimiento",
+      "reinicio",
+      "monitoreo",
+      "febrero",
+      "servidor"
+    ],
+    "volumen_tickets": 483
+  },
+  "Aplicaciones - 2026 > SuccessFactor > Reset de contrase�a": {
+    "palabras_clave": [
+      "contraseña",
+      "ssff",
+      "usuario",
+      "success",
+      "factors"
+    ],
+    "volumen_tickets": 413
+  },
+  "Infraestructura > Accesos > Cambio": {
+    "palabras_clave": [
+      "acceso",
+      "correo",
+      "carpeta",
+      "viaje",
+      "privalia"
+    ],
+    "volumen_tickets": 408
+  },
+  "Administrativo > Solicitud > Proceso de baja": {
+    "palabras_clave": [
+      "baja",
+      "proceso",
+      "bajas",
+      "notificacion",
+      "notificación"
+    ],
+    "volumen_tickets": 404
+  },
+  "Aplicaciones > APTOS SALES AUDIT > Monederos": {
+    "palabras_clave": [
+      "monedero",
+      "saldo",
+      "card",
+      "seguimiento",
+      "gift"
+    ],
+    "volumen_tickets": 402
+  },
+  "Aplicaciones - 2026 > SAP - WM - Dato Maestro > Dato Maestro": {
+    "palabras_clave": [
+      "alta",
+      "materiales",
+      "base",
+      "genera",
+      "cambio"
+    ],
+    "volumen_tickets": 392
+  }
+}
