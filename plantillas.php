@@ -157,13 +157,18 @@ $plantillas = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <div class="container-fluid px-4">
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h2>Catálogo de Plantillas</h2>
-            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalPlantilla" onclick="limpiarFormulario()">
-                <i class="bi bi-plus-circle"></i> Nueva Plantilla
-            </button>
+            <div>
+                <button class="btn btn-info text-white me-2" onclick="verHistorial('')">
+                    <i class="bi bi-clock-history"></i> Histórico General
+                </button>
+                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalPlantilla" onclick="limpiarFormulario()">
+                    <i class="bi bi-plus-circle"></i> Nueva Plantilla
+                </button>
+            </div>
         </div>
 
         <div class="table-responsive">
-            <table class="table table-striped table-hover table-sm shadow-sm border">
+            <table id="tablaPlantillas" class="table table-striped table-hover table-sm shadow-sm border w-100">
                 <thead class="table-dark">
                     <tr>
                         <th>ID</th>
@@ -183,8 +188,9 @@ $plantillas = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <td><?= $p['tipo_solicitud'] ?></td>
                         <td><?= $p['tencifo_default'] ?></td>
                         <td>
-                            <button class="btn btn-warning btn-sm" onclick='editar(<?= json_encode($p) ?>)'><i class="bi bi-pencil"></i></button>
-                            <a href="eliminar_plantilla.php?id=<?= $p['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('¿Eliminar?')"><i class="bi bi-trash"></i></a>
+                            <button class="btn btn-info btn-sm text-white shadow-sm" onclick='verHistorial(<?= $p['id'] ?>)' data-bs-toggle="tooltip" title="Ver Historial de Versiones"><i class="bi bi-clock-history"></i></button>
+                            <button class="btn btn-warning btn-sm shadow-sm" onclick='editar(<?= json_encode($p) ?>)'><i class="bi bi-pencil"></i></button>
+                            <a href="eliminar_plantilla.php?id=<?= $p['id'] ?>" class="btn btn-danger btn-sm shadow-sm" onclick="return confirm('¿Eliminar?')"><i class="bi bi-trash"></i></a>
                         </td>
                     </tr>
                     <?php endforeach; ?>
@@ -278,8 +284,18 @@ $plantillas = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </div>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        $(document).ready(function() {
+            $('#tablaPlantillas').DataTable({
+                language: { url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json" },
+                order: [[ 0, "desc" ]]
+            });
+        });
+
          // --- Tooltips ---
         var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
         var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
@@ -339,6 +355,176 @@ $plantillas = $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
         setInterval(actualizarReloj, 1000);
         actualizarReloj();
+        
+        // --- Historial Agrupado ---
+        function verHistorial(id) {
+            const isGeneral = !id;
+            const modal = new bootstrap.Modal(document.getElementById('modalHistorial'));
+            
+            // Ajustar encabezados según si es general o específico
+            const thead = document.getElementById('historialCabecera');
+            if (isGeneral) {
+                document.getElementById('modalHistorialTitulo').innerHTML = '<i class="bi bi-clock-history text-info me-2"></i>Historial General de Plantillas';
+                thead.innerHTML = `
+                    <tr>
+                        <th>Plantilla</th>
+                        <th>Sesión (Lapso 2 Hrs)</th>
+                        <th>Modificado Por</th>
+                        <th class="text-center">Guardados</th>
+                        <th>Resumen de Cambios</th>
+                        <th class="text-center">Ver Datos Finales</th>
+                    </tr>
+                `;
+            } else {
+                document.getElementById('modalHistorialTitulo').innerHTML = '<i class="bi bi-clock-history text-info me-2"></i>Historial de Versiones (Plantilla Específica)';
+                thead.innerHTML = `
+                    <tr>
+                        <th>Sesión (Lapso 2 Hrs)</th>
+                        <th>Modificado Por</th>
+                        <th class="text-center">Guardados</th>
+                        <th>Resumen de Cambios</th>
+                        <th class="text-center">Ver Datos Finales</th>
+                    </tr>
+                `;
+            }
+
+            // Destruir DataTable previo si existe
+            if ($.fn.DataTable.isDataTable('#tablaHistorialModal')) {
+                $('#tablaHistorialModal').DataTable().clear().destroy();
+            }
+
+            const colSpan = isGeneral ? 6 : 5;
+            document.getElementById('historialCuerpo').innerHTML = `<tr><td colspan="${colSpan}" class="text-center">Cargando historial... <div class="spinner-border spinner-border-sm text-primary"></div></td></tr>`;
+            document.getElementById('filtroFechaHistorial').value = ''; // Limpiar filtro
+            modal.show();
+
+            const url = isGeneral ? 'api_historial_plantillas.php' : 'api_historial_plantillas.php?id=' + id;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    let html = '';
+                    if(data.length === 0) {
+                        html = `<tr><td colspan="${colSpan}" class="text-center text-muted">No hay versiones históricas.</td></tr>`;
+                    } else {
+                        data.forEach(item => {
+                            html += `<tr>`;
+                            if (isGeneral) {
+                                html += `<td class="fw-bold text-primary">${item.plantilla_nombre}</td>`;
+                            }
+                            html += `
+                                <td class="fw-bold" style="font-size: 0.9rem;">${item.fecha_rango}</td>
+                                <td style="font-size: 0.9rem;">${item.usuario}</td>
+                                <td class="text-center">
+                                    <span class="badge bg-secondary rounded-pill mb-1">${item.cantidad_guardados}</span>
+                                    <div class="mt-2 text-start">
+                                        ${item.detalle_guardados_html}
+                                    </div>
+                                </td>
+                                <td><small>${item.cambios_html}</small></td>
+                                <td class="text-center">
+                                    <button class="btn btn-sm btn-primary shadow-sm" onclick='verDetalleCompleto(${JSON.stringify(item.estado_final).replace(/'/g, "&#39;")})'><i class="bi bi-eye"></i></button>
+                                </td>
+                            </tr>`;
+                        });
+                    }
+                    document.getElementById('historialCuerpo').innerHTML = html;
+
+                    if(data.length > 0) {
+                        let dtHistorial = $('#tablaHistorialModal').DataTable({
+                            language: { url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json" },
+                            order: [], // Orden predeterminado desde el servidor
+                            pageLength: 10,
+                            lengthMenu: [5, 10, 25, 50],
+                            dom: '<"row mb-2"<"col-md-6"l><"col-md-6"f>>rt<"row mt-2"<"col-md-6"i><"col-md-6"p>>'
+                        });
+
+                        $('#filtroFechaHistorial').off('change').on('change', function() {
+                            let selectedDate = this.value;
+                            if (selectedDate) {
+                                let parts = selectedDate.split('-');
+                                let formattedDate = parts[2] + '/' + parts[1] + '/' + parts[0];
+                                let dateColIdx = isGeneral ? 1 : 0;
+                                dtHistorial.column(dateColIdx).search(formattedDate).draw();
+                            } else {
+                                dtHistorial.search('').columns().search('').draw();
+                            }
+                        });
+                    }
+                })
+                .catch(error => {
+                    document.getElementById('historialCuerpo').innerHTML = `<tr><td colspan="${colSpan}" class="text-center text-danger">Error al cargar el historial.</td></tr>`;
+                });
+        }
+
+        function verDetalleCompleto(item) {
+            let infoHtml = `
+                <div class="text-start" style="font-size: 0.9rem;">
+                    <p><b>Plantilla:</b> ${item.plantilla_incidente}</p>
+                    <p><b>Categoría:</b> ${item.categoria}</p>
+                    <p><b>Subcategoría:</b> ${item.subcategoria}</p>
+                    <p><b>Artículo:</b> ${item.articulo}</p>
+                    <p><b>Sitio:</b> ${item.sitio}</p>
+                    <p><b>Grupo:</b> ${item.grupo} (ID: ${item.id_grupo})</p>
+                    <p><b>Tipo Solicitud:</b> ${item.tipo_solicitud}</p>
+                    <p><b>Asignación Auto:</b> ${item.asigna_tenico == '1' ? 'Sí' : 'No'}</p>
+                    <p><b>Técnico Default:</b> ${item.tencifo_default}</p>
+                    <hr>
+                    <p class="mb-1"><b>Descripción / Palabras clave:</b></p>
+                    <div class="bg-light p-2 border rounded text-muted">${item.descripcion}</div>
+                </div>
+            `;
+            
+            Swal.fire({
+                title: 'Estado Final de la Plantilla',
+                html: infoHtml,
+                icon: 'info',
+                confirmButtonText: 'Cerrar',
+                confirmButtonColor: '#0d6efd',
+                width: '600px'
+            });
+        }
+
+        function verCambioEspecifico(hora, cambiosHtml) {
+            Swal.fire({
+                title: 'Cambio a las ' + hora,
+                html: '<div style="font-size: 0.9rem;">' + cambiosHtml + '</div>',
+                icon: 'info',
+                confirmButtonText: 'Cerrar',
+                confirmButtonColor: '#0d6efd',
+                width: '600px'
+            });
+        }
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Modal Historial -->
+    <div class="modal fade" id="modalHistorial" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title" id="modalHistorialTitulo"><i class="bi bi-clock-history text-info me-2"></i>Historial de Versiones</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-3">
+                    <div class="mb-3 d-flex align-items-center bg-light p-2 rounded border">
+                        <label class="me-2 fw-bold text-secondary"><i class="bi bi-filter"></i> Filtrar por Día:</label>
+                        <input type="date" id="filtroFechaHistorial" class="form-control form-control-sm w-auto shadow-sm">
+                        <button class="btn btn-sm btn-outline-secondary ms-2" onclick="document.getElementById('filtroFechaHistorial').value=''; $('#filtroFechaHistorial').trigger('change');" title="Limpiar filtro"><i class="bi bi-x-circle"></i> Limpiar</button>
+                    </div>
+                    <div class="table-responsive">
+                        <table id="tablaHistorialModal" class="table table-hover table-striped mb-0 w-100">
+                            <thead class="table-secondary" id="historialCabecera">
+                                <!-- Llenado por JS -->
+                            </thead>
+                            <tbody id="historialCuerpo" class="align-middle">
+                                <!-- Llenado por JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

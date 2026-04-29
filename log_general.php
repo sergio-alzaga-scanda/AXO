@@ -1,5 +1,6 @@
 <?php
 session_start();
+date_default_timezone_set('America/Mexico_City');
 if (!isset($_SESSION['user_id'])) { header("Location: index.php"); exit; }
 require_once 'db.php';
 require_once 'funciones.php';
@@ -176,7 +177,17 @@ $logs = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <tbody>
                             <?php foreach($logs as $log): ?>
                             <tr>
-                                <td><?= date('Y-m-d H:i:s', strtotime($log['fecha'] . ' -6 hours')) ?></td>
+                                <td>
+                                    <?php 
+                                        try {
+                                            $dt = new DateTime($log['fecha'], new DateTimeZone('UTC'));
+                                            $dt->setTimezone(new DateTimeZone('America/Mexico_City'));
+                                            echo $dt->format('Y-m-d H:i:s');
+                                        } catch (Exception $e) {
+                                            echo $log['fecha'];
+                                        }
+                                    ?>
+                                </td>
                                 <td class="fw-bold"><?= $log['usuario_nombre'] ?></td>
                                 <td><span class="badge bg-secondary"><?= $log['accion'] ?></span></td>
                                 <td><?= $log['descripcion'] ?></td>
