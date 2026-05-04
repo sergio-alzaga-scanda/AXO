@@ -7,6 +7,16 @@
       "success",
       "acceso"
     ],
+    "combinaciones_clave": [
+      "contraseña ssff",
+      "success factors",
+      "usuario contraseña",
+      "success factor",
+      "contraseña success",
+      "contraseña success factors",
+      "reseteo contraseña ssff",
+      "reseteo password ssff"
+    ],
     "volumen_tickets": 2326
   },
   "Aplicaciones - 2026 > SuccessFactor > Reseteo de contraseña": {
@@ -16,6 +26,16 @@
       "usuario",
       "success",
       "reseteo"
+    ],
+    "combinaciones_clave": [
+      "reseteo password",
+      "password ssff",
+      "success factors",
+      "contraseña ssff",
+      "contraseña success",
+      "reseteo password ssff",
+      "password ssff teams",
+      "contraseña success factors"
     ],
     "volumen_tickets": 2209
   },
@@ -27,6 +47,16 @@
       "aptos",
       "bloqueado"
     ],
+    "combinaciones_clave": [
+      "contraseña webim",
+      "restablecer contraseña",
+      "usuario webim",
+      "contraseña aptos",
+      "usuario bloqueado",
+      "task titled accesos",
+      "titled accesos aplicativos",
+      "accesos aplicativos been"
+    ],
     "volumen_tickets": 1632
   },
   "Aplicaciones > SAP - WM - Dato Maestro > Dato Maestro": {
@@ -36,6 +66,16 @@
       "alta",
       "genera",
       "ulta"
+    ],
+    "combinaciones_clave": [
+      "genera materiales",
+      "materiales base",
+      "borrado liverpool",
+      "base materiales",
+      "mejoral regreso",
+      "genera materiales base",
+      "mejoral regreso precios",
+      "borrado liverpool febrero"
     ],
     "volumen_tickets": 1263
   },
@@ -47,6 +87,16 @@
       "usuario",
       "restablecer"
     ],
+    "combinaciones_clave": [
+      "contraseña webim",
+      "restablecer contraseña",
+      "contraseña aptos",
+      "reset webim",
+      "webim teams",
+      "reset webim teams",
+      "reseteo password aptos",
+      "password aptos webim"
+    ],
     "volumen_tickets": 940
   },
   "Aplicaciones > Proscai > Alta de usuario": {
@@ -56,6 +106,16 @@
       "proscai",
       "accesos",
       "aplicativos"
+    ],
+    "combinaciones_clave": [
+      "alta usuario",
+      "usuario proscai",
+      "alta proscai",
+      "accesos aplicativos",
+      "alta agente",
+      "alta usuario proscai",
+      "promoda alta usuario",
+      "cambio centro costos"
     ],
     "volumen_tickets": 932
   },
@@ -67,6 +127,16 @@
       "acceso",
       "cuenta"
     ],
+    "combinaciones_clave": [
+      "contraseña correo",
+      "cambio contraseña",
+      "reset correo",
+      "restablecer contraseña",
+      "restablecimiento contraseña",
+      "cambio contraseña correo",
+      "contraseña inicio sesión",
+      "inicio sesión expirará"
+    ],
     "volumen_tickets": 885
   },
   "No asignado > No asignado > No asignado": {
@@ -76,6 +146,16 @@
       "cuenta",
       "dominio",
       "electrónico"
+    ],
+    "combinaciones_clave": [
+      "cuenta dominio",
+      "accesos cuenta",
+      "correo electrónico",
+      "dominio correo",
+      "acceso whatsapp",
+      "accesos cuenta dominio",
+      "cuenta dominio correo",
+      "dominio correo electrónico"
     ],
     "volumen_tickets": 852
   },
@@ -87,6 +167,16 @@
       "reprocesar",
       "desasignar"
     ],
+    "combinaciones_clave": [
+      "reprocesar folios",
+      "folios stock",
+      "eliminar desasignar",
+      "recibir folios",
+      "borrar asignar",
+      "eliminar desasignar folios",
+      "folios marcados borrado",
+      "recibir folios cunis"
+    ],
     "volumen_tickets": 810
   },
   "Software - 2026 > Correo > Reseteo de contraseña": {
@@ -96,6 +186,16 @@
       "reset",
       "cambio",
       "acceso"
+    ],
+    "combinaciones_clave": [
+      "reset correo",
+      "contraseña correo",
+      "cambio contraseña",
+      "reseteo contraseña",
+      "restablecer contraseña",
+      "cambio contraseña correo",
+      "restablecer contraseña correo",
+      "contraseña inicio sesión"
     ],
     "volumen_tickets": 728
   },
@@ -107,6 +207,16 @@
       "promo",
       "promocion"
     ],
+    "combinaciones_clave": [
+      "descuento empleado",
+      "pasa promoción",
+      "nike cabos",
+      "vigente nike",
+      "pasan descuentos",
+      "vigente nike cabos",
+      "dcns manual tienda",
+      "manual tienda galerias"
+    ],
     "volumen_tickets": 673
   },
   "Aplicaciones > Proscai > Baja de usuario": {
@@ -116,6 +226,16 @@
       "proscai",
       "promoda",
       "subgerente"
+    ],
+    "combinaciones_clave": [
+      "baja usuario",
+      "usuario proscai",
+      "baja proscai",
+      "promoda baja",
+      "baja clave",
+      "baja usuario proscai",
+      "promoda baja usuario",
+      "baja usuario norma"
     ],
     "volumen_tickets": 550
   },
@@ -127,6 +247,16 @@
       "respaldos",
       "servidores"
     ],
+    "combinaciones_clave": [
+      "requerimiento veeam",
+      "veeam respaldo",
+      "veeam respaldos",
+      "requerimiento administración",
+      "administración inventario",
+      "requerimiento veeam respaldo",
+      "requerimiento veeam respaldos",
+      "requerimiento administración inventario"
+    ],
     "volumen_tickets": 547
   },
   "Aplicaciones > Proscai > Monederos": {
@@ -136,6 +266,16 @@
       "activacion",
       "alta",
       "vencido"
+    ],
+    "combinaciones_clave": [
+      "activacion monederos",
+      "monedero vencido",
+      "alta monederos",
+      "activacion monedero",
+      "monedero electronico",
+      "activacion monederos electronicos",
+      "alta monederos electronicos",
+      "activacion monedero electronico"
     ],
     "volumen_tickets": 514
   },
@@ -147,6 +287,16 @@
       "febrero",
       "servidor"
     ],
+    "combinaciones_clave": [
+      "requerimiento reinicio",
+      "servicio apache",
+      "reinicio servicio",
+      "requerimiento depuración",
+      "apache prod",
+      "reinicio servicio apache",
+      "servicio apache prod",
+      "requerimiento depuración logs"
+    ],
     "volumen_tickets": 483
   },
   "Aplicaciones - 2026 > SuccessFactor > Reset de contrase�a": {
@@ -156,6 +306,16 @@
       "usuario",
       "success",
       "factors"
+    ],
+    "combinaciones_clave": [
+      "contraseña ssff",
+      "success factors",
+      "usuario ssff",
+      "success factor",
+      "restablecimiento contraseña",
+      "contraseña success factors",
+      "contraseña success factor",
+      "restablecimiento contraseña ssff"
     ],
     "volumen_tickets": 413
   },
@@ -167,6 +327,16 @@
       "viaje",
       "privalia"
     ],
+    "combinaciones_clave": [
+      "acceso carpeta",
+      "cambios jefe",
+      "jefe altas",
+      "altas bajas",
+      "baja corporativo",
+      "cambios jefe altas",
+      "jefe altas bajas",
+      "altas bajas febrero"
+    ],
     "volumen_tickets": 408
   },
   "Administrativo > Solicitud > Proceso de baja": {
@@ -176,6 +346,16 @@
       "bajas",
       "notificacion",
       "notificación"
+    ],
+    "combinaciones_clave": [
+      "proceso baja",
+      "notificacion bajas",
+      "notificación bajas",
+      "notificacion baja",
+      "baja jose",
+      "baja jose manuel",
+      "jose manuel villanueva",
+      "manuel villanueva soriano"
     ],
     "volumen_tickets": 404
   },
@@ -187,6 +367,16 @@
       "seguimiento",
       "gift"
     ],
+    "combinaciones_clave": [
+      "gift card",
+      "monedero electronico",
+      "seguimiento gift",
+      "saldo monedero",
+      "monedero electrónico",
+      "seguimiento gift card",
+      "gift card pedido",
+      "saldo reflejado monedero"
+    ],
     "volumen_tickets": 402
   },
   "Aplicaciones - 2026 > SAP - WM - Dato Maestro > Dato Maestro": {
@@ -196,6 +386,16 @@
       "base",
       "genera",
       "cambio"
+    ],
+    "combinaciones_clave": [
+      "genera materiales",
+      "materiales base",
+      "borrado liverpool",
+      "generar base",
+      "corp ulta",
+      "genera materiales base",
+      "borrado liverpool marzo",
+      "generar base materiales"
     ],
     "volumen_tickets": 392
   }

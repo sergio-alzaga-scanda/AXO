@@ -27,22 +27,51 @@ groups = df.groupby(['Categoría', 'Subcategoría', 'Artículo'])
 
 for name, group in groups:
     # Get all words in Asunto for this group
-    all_words = []
-    for asunto in group['Asunto']:
-        all_words.extend(clean_text(asunto))
+    all_unigrams = []
+    all_bigrams = []
+    all_trigrams = []
     
-    if not all_words:
+    for asunto in group['Asunto']:
+        words = clean_text(asunto)
+        if not words:
+            continue
+            
+        all_unigrams.extend(words)
+        
+        # Bigrams
+        if len(words) >= 2:
+            all_bigrams.extend([f"{w1} {w2}" for w1, w2 in zip(words[:-1], words[1:])])
+            
+        # Trigrams
+        if len(words) >= 3:
+            all_trigrams.extend([f"{w1} {w2} {w3}" for w1, w2, w3 in zip(words[:-2], words[1:-1], words[2:])])
+    
+    if not all_unigrams:
         continue
         
     # Count frequencies
-    counter = Counter(all_words)
-    # Get top 5 keywords
-    top_words = [word for word, count in counter.most_common(5) if count > 1]
+    counter_uni = Counter(all_unigrams)
+    counter_bi = Counter(all_bigrams)
+    counter_tri = Counter(all_trigrams)
     
-    if top_words:
+    # Get top 5 keywords
+    top_words = [word for word, count in counter_uni.most_common(5) if count > 1]
+    
+    # Get top 5 combinations (bigrams + trigrams)
+    top_combinations = []
+    for phrase, count in counter_bi.most_common(5):
+        if count > 1:
+            top_combinations.append(phrase)
+            
+    for phrase, count in counter_tri.most_common(3):
+        if count > 1:
+            top_combinations.append(phrase)
+    
+    if top_words or top_combinations:
         plantilla_name = f"{name[0]} > {name[1]} > {name[2]}"
         results[plantilla_name] = {
             'palabras_clave': top_words,
+            'combinaciones_clave': top_combinations,
             'volumen_tickets': len(group)
         }
 

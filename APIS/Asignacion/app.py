@@ -474,27 +474,8 @@ def analizar_con_gpt(asunto_ticket, descripcion_ticket, plantillas_disponibles):
         
         plantillas_texto = "\n".join(plantillas_info)
         
-        if asunto_es_generico:
-            system_prompt = """Eres un experto en clasificación de tickets de soporte técnico.
-            
-            IMPORTANTE: El ASUNTO es genérico.
-            Da MÁS PESO a la DESCRIPCIÓN para encontrar la plantilla correcta.
-            REGLA DE ORO: SOLO puedes seleccionar una plantilla si el CONTEXTO CENTRAL del ticket se refiere a "reset", "desbloqueo de cuenta" o "cambio de contraseña".
-            Si el ticket menciona palabras clave (por ejemplo, "webIM", "SAP", etc.) pero el problema NO es un reset, desbloqueo o cambio de contraseña, DEBES IGNORARLO y devolver null en la plantilla. Las palabras clave solo sirven para identificar de qué sistema se solicita el reseteo o desbloqueo.
-            
-            Responde ÚNICAMENTE con un JSON válido:
-            {
-                "plantilla_seleccionada": "nombre_de_la_plantilla" o null,
-                "indice_plantilla": numero_indice o null,
-                "confianza": 0-100,
-                "razon_principal": "Explicación detallada que justifique la decisión",
-                "asunto_generico": true,
-                "coincidencias_descripcion": ["palabra1", "palabra2", ...],
-                "grupo_recomendado": "nombre_del_grupo" o null
-            }"""
-        else:
-            system_prompt = """Eres un experto en clasificación de tickets de soporte técnico.
-            Da PRIORIDAD al ASUNTO (70% peso), pero también considera la descripción (30% peso).
+        system_prompt = """Eres un experto en clasificación de tickets de soporte técnico.
+            Da PRIORIDAD al ASUNTO (30% peso), pero también considera la descripción (70% peso).
             
             REGLA DE ORO: SOLO puedes seleccionar una plantilla si el CONTEXTO CENTRAL del ticket se refiere a "reset", "desbloqueo de cuenta" o "cambio de contraseña".
             Si el ticket menciona palabras clave (por ejemplo, "webIM", "SAP", etc.) pero el problema NO es un reset, desbloqueo o cambio de contraseña, DEBES IGNORARLO y devolver null en la plantilla. Las palabras clave solo sirven para identificar de qué sistema se solicita el reseteo o desbloqueo.
@@ -514,7 +495,7 @@ def analizar_con_gpt(asunto_ticket, descripcion_ticket, plantillas_disponibles):
         user_prompt = f"""TICKET A ANALIZAR:
 
 📌 **ASUNTO:** "{asunto_ticket}"
-{"⚠️ **NOTA:** Asunto genérico detectado - dar MÁS PESO a la DESCRIPCIÓN" if asunto_es_generico else ""}
+
 
 📝 **DESCRIPCIÓN:**
 {descripcion_ticket[:1500] if descripcion_ticket else "Sin descripción"}
@@ -522,7 +503,7 @@ def analizar_con_gpt(asunto_ticket, descripcion_ticket, plantillas_disponibles):
 🔍 **PLANTILLAS DISPONIBLES:**
 {plantillas_texto}
 📊 **INSTRUCCIONES DE ANÁLISIS:**
-{"1. El ASUNTO es GENÉRICO, así que ANALIZA PRINCIPALMENTE LA DESCRIPCIÓN (90% importancia)" if asunto_es_generico else "1. Analiza el ASUNTO primero (70% importancia), luego la descripción (30%)"}
+1. Analiza el ASUNTO (30% importancia) y la descripción (70% importancia).
 2. REGLA ESTRICTA: El contexto del ticket DEBE ser exclusivamente sobre "reset", "desbloqueo de cuenta" o "cambio/recuperación de contraseña".
 3. Las palabras clave de las plantillas (ej. webIM, SAP, SSFF) solo te indicarán a qué sistema pertenece el reseteo o desbloqueo.
 4. Si el ticket menciona un sistema o palabra clave pero solicita otra cosa (ej. "no funciona webIM", "error en SAP", "duda sobre SSFF"), DEBES retornar null.
@@ -575,34 +556,11 @@ def analizar_similitud_texto_con_gpt(asunto_ticket, descripcion_ticket, texto_pl
     try:
         asunto_es_generico = es_asunto_generico(asunto_ticket)
         
-        if asunto_es_generico:
-            prompt = f"""Analiza la similitud entre el ticket y la plantilla.
-
-🔥 **IMPORTANTE:** El ASUNTO es GENÉRICO ("{asunto_ticket}"), da 90% de peso a la DESCRIPCIÓN.
+        prompt = f"""Analiza la similitud entre el ticket y la plantilla.
 
 📋 **TICKET:**
-ASUNTO (genérico, 10% peso): "{asunto_ticket}"
-DESCRIPCIÓN (90% peso): {descripcion_ticket[:800] if descripcion_ticket else "Sin descripción"}
-
-📄 **PLANTILLA:**
-{texto_plantilla[:800]}
-
-Responde en formato JSON:
-{{
-    "asunto_generico": true,
-    "similitud_asunto": 0-100,
-    "similitud_descripcion": 0-100,
-    "similitud_total": 0-100,
-    "coincidencias_descripcion": ["palabra1", "palabra2", ...],
-    "contexto_compartido": true/false,
-    "explicacion": "explicación detallada"
-}}"""
-        else:
-            prompt = f"""Analiza la similitud entre el ticket y la plantilla.
-
-📋 **TICKET:**
-ASUNTO (70% peso): "{asunto_ticket}"
-DESCRIPCIÓN (30% peso): {descripcion_ticket[:800] if descripcion_ticket else "Sin descripción"}
+ASUNTO (30% peso): "{asunto_ticket}"
+DESCRIPCIÓN (70% peso): {descripcion_ticket[:800] if descripcion_ticket else "Sin descripción"}
 
 📄 **PLANTILLA:**
 {texto_plantilla[:800]}
@@ -633,14 +591,9 @@ Responde en formato JSON:
         resultado = json.loads(response.choices[0].message.content)
         
         if "similitud_total" not in resultado:
-            if resultado.get("asunto_generico"):
-                sim_asunto = resultado.get("similitud_asunto", 0)
-                sim_desc = resultado.get("similitud_descripcion", 0)
-                resultado["similitud_total"] = int((sim_asunto * 0.1) + (sim_desc * 0.9))
-            else:
-                sim_asunto = resultado.get("similitud_asunto", 0)
-                sim_desc = resultado.get("similitud_descripcion", 0)
-                resultado["similitud_total"] = int((sim_asunto * 0.7) + (sim_desc * 0.3))
+            sim_asunto = resultado.get("similitud_asunto", 0)
+            sim_desc = resultado.get("similitud_descripcion", 0)
+            resultado["similitud_total"] = int((sim_asunto * 0.3) + (sim_desc * 0.7))
         
         return resultado
         
@@ -681,10 +634,9 @@ def coincidir_plantilla_con_gpt(origen, articulo, descripcion_ticket=""):
     
     if asunto_es_generico:
         print(f"   ⚠️ ASUNTO GENÉRICO DETECTADO: '{articulo}'")
-        print(f"   📊 Se dará MÁS PESO a la DESCRIPCIÓN para el análisis (90% descripción, 10% asunto)")
     else:
         print(f"   ✅ Asunto ESPECÍFICO detectado")
-        print(f"   📊 Peso normal: 70% asunto, 30% descripción")
+    print(f"   📊 Peso: 30% asunto, 70% descripción")
     
     plantillas_filtradas = []
     for plantilla in plantillas:

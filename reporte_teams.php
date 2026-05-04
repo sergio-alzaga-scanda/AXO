@@ -274,7 +274,7 @@ try {
                         <?php endforeach; ?>
                     </select>
                 </div>
-                <button type="submit" class="btn btn-primary"><i class="bi bi-funnel-fill"></i> Filtrar Grilla</button>
+                <button type="submit" class="btn btn-primary"><i class="bi bi-funnel-fill"></i> Filtrar</button>
             </form>
         </div>
 

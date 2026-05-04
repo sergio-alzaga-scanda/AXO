@@ -177,17 +177,7 @@ $logs = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <tbody>
                             <?php foreach($logs as $log): ?>
                             <tr>
-                                <td>
-                                    <?php 
-                                        try {
-                                            $dt = new DateTime($log['fecha'], new DateTimeZone('UTC'));
-                                            $dt->setTimezone(new DateTimeZone('America/Mexico_City'));
-                                            echo $dt->format('Y-m-d H:i:s');
-                                        } catch (Exception $e) {
-                                            echo $log['fecha'];
-                                        }
-                                    ?>
-                                </td>
+                                <td><?= $log['fecha'] ?></td>
                                 <td class="fw-bold"><?= $log['usuario_nombre'] ?></td>
                                 <td><span class="badge bg-secondary"><?= $log['accion'] ?></span></td>
                                 <td><?= $log['descripcion'] ?></td>

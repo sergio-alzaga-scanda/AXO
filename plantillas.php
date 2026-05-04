@@ -372,7 +372,7 @@ $plantillas = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <th>Modificado Por</th>
                         <th class="text-center">Guardados</th>
                         <th>Resumen de Cambios</th>
-                        <th class="text-center">Ver Datos Finales</th>
+                        <th class="text-center">Ver Datos Antes del Cambio</th>
                     </tr>
                 `;
             } else {
@@ -383,7 +383,7 @@ $plantillas = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <th>Modificado Por</th>
                         <th class="text-center">Guardados</th>
                         <th>Resumen de Cambios</th>
-                        <th class="text-center">Ver Datos Finales</th>
+                        <th class="text-center">Ver Datos Antes del Cambio</th>
                     </tr>
                 `;
             }
@@ -423,7 +423,7 @@ $plantillas = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 </td>
                                 <td><small>${item.cambios_html}</small></td>
                                 <td class="text-center">
-                                    <button class="btn btn-sm btn-primary shadow-sm" onclick='verDetalleCompleto(${JSON.stringify(item.estado_final).replace(/'/g, "&#39;")})'><i class="bi bi-eye"></i></button>
+                                    <button class="btn btn-sm btn-primary shadow-sm" onclick='verDetalleCompleto(${JSON.stringify(item.estado_antes).replace(/'/g, "&#39;")})'><i class="bi bi-eye"></i></button>
                                 </td>
                             </tr>`;
                         });
@@ -458,6 +458,17 @@ $plantillas = $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
         function verDetalleCompleto(item) {
+            if (!item || Object.keys(item).length === 0) {
+                Swal.fire({
+                    title: 'Creación Inicial',
+                    text: 'No hay datos anteriores porque este registro corresponde a la creación inicial de la plantilla.',
+                    icon: 'info',
+                    confirmButtonText: 'Entendido',
+                    confirmButtonColor: '#0d6efd'
+                });
+                return;
+            }
+            
             let infoHtml = `
                 <div class="text-start" style="font-size: 0.9rem;">
                     <p><b>Plantilla:</b> ${item.plantilla_incidente}</p>
@@ -476,7 +487,7 @@ $plantillas = $stmt->fetchAll(PDO::FETCH_ASSOC);
             `;
             
             Swal.fire({
-                title: 'Estado Final de la Plantilla',
+                title: 'Datos Antes del Cambio',
                 html: infoHtml,
                 icon: 'info',
                 confirmButtonText: 'Cerrar',

@@ -204,7 +204,8 @@ try {
             'cantidad_guardados' => $g['cantidad_guardados'],
             'detalle_guardados_html' => $botones_guardados,
             'cambios_html' => "<ul class='text-start mb-0 ps-3'><li>" . implode("</li><li class='mt-2'>", $cambios) . "</li></ul>",
-            'estado_final' => $estado_final
+            'estado_final' => $estado_final,
+            'estado_antes' => $referencia_comparativa
         ];
     }
 

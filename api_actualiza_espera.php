@@ -1,4 +1,23 @@
 <?php
+die(json_encode(["status" => "DEBUG_1", "message" => "El script PHP si esta ejecutando."]));
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+// Evitar que IIS secuestre errores fatales
+register_shutdown_function(function() {
+    $error = error_get_last();
+    if ($error && in_array($error['type'], [E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR, E_USER_ERROR])) {
+        http_response_code(200);
+        header('Content-Type: application/json');
+        echo json_encode([
+            "status" => "fatal_crash",
+            "message" => "El script crasheó antes de terminar.",
+            "error_detail" => $error
+        ]);
+    }
+});
+
 // Endpoint Exclusivo para Recibir Resultado RPA e impactar BD o generar Escalación
 header("Content-Type: application/json");
 require_once __DIR__ . '/Sistema/config/bd.php'; 
@@ -9,7 +28,7 @@ $data = json_decode($input_json, true) ?: [];
 $id = $data['id'] ?? $_REQUEST['id'] ?? null;
 $resultado = $data['resultado'] ?? $_REQUEST['resultado'] ?? null;
 
-if (!$id || !$resultado) {
+if (!$id || $resultado === null) {
     echo json_encode(["status" => "error", "message" => "Faltan parámetros 'id' o 'resultado'."]);
     exit;
 }
@@ -37,11 +56,13 @@ try {
         
         // CERRAR EL TICKET ABIERTO EN LA MESA RECIEN
         $ticket_id = $log['ticket_creado'] ?? null;
+        $sd_res = null;
+        $password_final = !empty($log['password_temporal']) ? $log['password_temporal'] : 'Inicio_2026*!';
         if ($ticket_id) {
             $url = "https://servicedesk.grupoaxo.com/api/v3/requests/{$ticket_id}";
             $api_key = "423CEBBE-E849-4D17-9CA3-CD6AB3319401";
 
-            $password_final = !empty($log['password_temporal']) ? $log['password_temporal'] : 'Inicio_2026*!';
+
 
             $payload_cierre = [
                 "request" => [
@@ -78,13 +99,13 @@ try {
         // Responder con información de depuración
         echo json_encode([
             "resultado_local" => 1,
-            "sd_response" => json_decode($sd_res ?? '{}', true)
+            "sd_response" => json_decode($sd_res ?: '{}', true)
         ]);
         exit;
 
     } else if ($resultado == 2) {
         $ticket_original = $log['ticket_creado'] ?? null;
-        if ($ticket_id ?? $ticket_original) {
+        if ($ticket_original) {
             $url = "https://servicedesk.grupoaxo.com/api/v3/requests/{$ticket_original}";
             $api_key = "423CEBBE-E849-4D17-9CA3-CD6AB3319401";
 
@@ -155,11 +176,12 @@ try {
             "status" => "error",
             "message" => "El RPA reportó fallo en los datos, reasignado manual exitoso."
         ]);
+        exit;
     }
 
 } catch (\Throwable $e) {
-    // Retornar error capturado explícitamente en formato JSON en caso de fallo catastrófico (BD, Fatal, etc)
-    http_response_code(500);
+    // Cambiamos el 500 a 200 temporalmente para que IIS no secuestre la respuesta de error
+    http_response_code(200);
     echo json_encode([
         "resultado_local" => 2,
         "status" => "fatal_error",
