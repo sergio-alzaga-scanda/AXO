@@ -474,11 +474,26 @@ def analizar_con_gpt(asunto_ticket, descripcion_ticket, plantillas_disponibles):
         
         plantillas_texto = "\n".join(plantillas_info)
         
-        system_prompt = """Eres un experto en clasificación de tickets de soporte técnico.
-            Da PRIORIDAD al ASUNTO (30% peso), pero también considera la descripción (70% peso).
+        if asunto_es_generico:
+            system_prompt = """Eres un experto en clasificación de tickets de soporte técnico.
             
-            REGLA DE ORO: SOLO puedes seleccionar una plantilla si el CONTEXTO CENTRAL del ticket se refiere a "reset", "desbloqueo de cuenta" o "cambio de contraseña".
-            Si el ticket menciona palabras clave (por ejemplo, "webIM", "SAP", etc.) pero el problema NO es un reset, desbloqueo o cambio de contraseña, DEBES IGNORARLO y devolver null en la plantilla. Las palabras clave solo sirven para identificar de qué sistema se solicita el reseteo o desbloqueo.
+            IMPORTANTE: El ASUNTO es genérico.
+            Da MÁS PESO a la DESCRIPCIÓN para encontrar la plantilla correcta.
+            Solo tomaras los que sean referentes a bloqueo de cuenta, restet de cuenta y/o cambio de contraseña o algun otro sobre ese mismo contexto
+            y verifica que vayan en ese contexto 
+            Responde ÚNICAMENTE con un JSON válido:
+            {
+                "plantilla_seleccionada": "nombre_de_la_plantilla" o null,
+                "indice_plantilla": numero_indice o null,
+                "confianza": 0-100,
+                "razon_principal": "Explicación detallada que justifique la decisión",
+                "asunto_generico": true,
+                "coincidencias_descripcion": ["palabra1", "palabra2", ...],
+                "grupo_recomendado": "nombre_del_grupo" o null
+            }"""
+        else:
+            system_prompt = """Eres un experto en clasificación de tickets de soporte técnico.
+            Da PRIORIDAD al ASUNTO (70% peso), pero también considera la descripción (30% peso).
             
             Responde ÚNICAMENTE con un JSON válido:
             {
@@ -495,7 +510,7 @@ def analizar_con_gpt(asunto_ticket, descripcion_ticket, plantillas_disponibles):
         user_prompt = f"""TICKET A ANALIZAR:
 
 📌 **ASUNTO:** "{asunto_ticket}"
-
+{"⚠️ **NOTA:** Asunto genérico detectado - dar MÁS PESO a la DESCRIPCIÓN" if asunto_es_generico else ""}
 
 📝 **DESCRIPCIÓN:**
 {descripcion_ticket[:1500] if descripcion_ticket else "Sin descripción"}
@@ -503,11 +518,11 @@ def analizar_con_gpt(asunto_ticket, descripcion_ticket, plantillas_disponibles):
 🔍 **PLANTILLAS DISPONIBLES:**
 {plantillas_texto}
 📊 **INSTRUCCIONES DE ANÁLISIS:**
-1. Analiza el ASUNTO (30% importancia) y la descripción (70% importancia).
-2. REGLA ESTRICTA: El contexto del ticket DEBE ser exclusivamente sobre "reset", "desbloqueo de cuenta" o "cambio/recuperación de contraseña".
-3. Las palabras clave de las plantillas (ej. webIM, SAP, SSFF) solo te indicarán a qué sistema pertenece el reseteo o desbloqueo.
-4. Si el ticket menciona un sistema o palabra clave pero solicita otra cosa (ej. "no funciona webIM", "error en SAP", "duda sobre SSFF"), DEBES retornar null.
-5. Solo si el contexto es de reset/desbloqueo y encuentras a qué sistema se refiere, selecciona la plantilla correspondiente. Si no hay relación clara, responde con null.
+{"1. El ASUNTO es GENÉRICO, así que ANALIZA PRINCIPALMENTE LA DESCRIPCIÓN (90% importancia)" if asunto_es_generico else "1. Analiza el ASUNTO primero (70% importancia), luego la descripción (30%)"}
+2. Busca coincidencias asociativas y semánticas (ej. "SSFF" = "SuccessFactors", "contraseña" o "acceso" = "password").
+3. Presta atención especial a los requerimientos de "desbloqueo de cuenta", "reseteo de password" o "creación de usuario", enlazándolos con la plantilla del sistema correspondiente (ej. SSFF, SAP, Active Directory).
+4. Si las palabras no son idénticas pero el contexto resuelve la misma solicitud, selecciona la plantilla.
+5. Si definitivamente no hay relación con ninguna plantilla, responde con null.
 
 ¿Qué plantilla es la más adecuada? Responde ÚNICAMENTE con el formato JSON solicitado."""
 
@@ -556,11 +571,34 @@ def analizar_similitud_texto_con_gpt(asunto_ticket, descripcion_ticket, texto_pl
     try:
         asunto_es_generico = es_asunto_generico(asunto_ticket)
         
-        prompt = f"""Analiza la similitud entre el ticket y la plantilla.
+        if asunto_es_generico:
+            prompt = f"""Analiza la similitud entre el ticket y la plantilla.
+
+🔥 **IMPORTANTE:** El ASUNTO es GENÉRICO ("{asunto_ticket}"), da 90% de peso a la DESCRIPCIÓN.
 
 📋 **TICKET:**
-ASUNTO (30% peso): "{asunto_ticket}"
-DESCRIPCIÓN (70% peso): {descripcion_ticket[:800] if descripcion_ticket else "Sin descripción"}
+ASUNTO (genérico, 10% peso): "{asunto_ticket}"
+DESCRIPCIÓN (90% peso): {descripcion_ticket[:800] if descripcion_ticket else "Sin descripción"}
+
+📄 **PLANTILLA:**
+{texto_plantilla[:800]}
+
+Responde en formato JSON:
+{{
+    "asunto_generico": true,
+    "similitud_asunto": 0-100,
+    "similitud_descripcion": 0-100,
+    "similitud_total": 0-100,
+    "coincidencias_descripcion": ["palabra1", "palabra2", ...],
+    "contexto_compartido": true/false,
+    "explicacion": "explicación detallada"
+}}"""
+        else:
+            prompt = f"""Analiza la similitud entre el ticket y la plantilla.
+
+📋 **TICKET:**
+ASUNTO (70% peso): "{asunto_ticket}"
+DESCRIPCIÓN (30% peso): {descripcion_ticket[:800] if descripcion_ticket else "Sin descripción"}
 
 📄 **PLANTILLA:**
 {texto_plantilla[:800]}
@@ -591,9 +629,14 @@ Responde en formato JSON:
         resultado = json.loads(response.choices[0].message.content)
         
         if "similitud_total" not in resultado:
-            sim_asunto = resultado.get("similitud_asunto", 0)
-            sim_desc = resultado.get("similitud_descripcion", 0)
-            resultado["similitud_total"] = int((sim_asunto * 0.3) + (sim_desc * 0.7))
+            if resultado.get("asunto_generico"):
+                sim_asunto = resultado.get("similitud_asunto", 0)
+                sim_desc = resultado.get("similitud_descripcion", 0)
+                resultado["similitud_total"] = int((sim_asunto * 0.1) + (sim_desc * 0.9))
+            else:
+                sim_asunto = resultado.get("similitud_asunto", 0)
+                sim_desc = resultado.get("similitud_descripcion", 0)
+                resultado["similitud_total"] = int((sim_asunto * 0.7) + (sim_desc * 0.3))
         
         return resultado
         
@@ -634,9 +677,10 @@ def coincidir_plantilla_con_gpt(origen, articulo, descripcion_ticket=""):
     
     if asunto_es_generico:
         print(f"   ⚠️ ASUNTO GENÉRICO DETECTADO: '{articulo}'")
+        print(f"   📊 Se dará MÁS PESO a la DESCRIPCIÓN para el análisis (90% descripción, 10% asunto)")
     else:
         print(f"   ✅ Asunto ESPECÍFICO detectado")
-    print(f"   📊 Peso: 30% asunto, 70% descripción")
+        print(f"   📊 Peso normal: 70% asunto, 30% descripción")
     
     plantillas_filtradas = []
     for plantilla in plantillas:
@@ -718,56 +762,50 @@ def coincidir_plantilla_con_gpt(origen, articulo, descripcion_ticket=""):
         print(f"\n🔍 BÚSQUEDA DIRECTA EN DESCRIPCIÓN (fallback para asunto genérico):")
         
         descripcion_normalizada = descripcion_ticket.lower()
-        palabras_reset = ["reset", "desbloqueo", "contraseña", "password", "clave", "acceso", "restablecer", "cambio"]
-        es_contexto_reset = any(p in descripcion_normalizada for p in palabras_reset)
+        coincidencias_descripcion = []
         
-        if not es_contexto_reset:
-            print(f"   ⚠️ La descripción no contiene palabras de reset/desbloqueo/contraseña. Ignorando fallback.")
+        for plantilla in plantillas_filtradas:
+            palabras_clave_db = plantilla.get("palabras_clave", "")
+            if palabras_clave_db:
+                palabras_clave = [p.strip().lower() for p in palabras_clave_db.split(',') if p.strip()]
+                for palabra in palabras_clave:
+                    if palabra and len(palabra) > 3 and palabra in descripcion_normalizada:
+                        coincidencias_descripcion.append({
+                            "plantilla": plantilla,
+                            "palabra_clave": palabra,
+                            "tipo": "coincidencia_en_descripcion"
+                        })
+                        break
+        
+        if coincidencias_descripcion:
+            print(f"   ✅ Coincidencias encontradas en descripción:")
+            for coinc in coincidencias_descripcion[:3]:
+                nombre = coinc["plantilla"].get("plantilla_incidente", "Sin nombre")
+                palabra = coinc["palabra_clave"]
+                print(f"     • {nombre} → palabra clave: '{palabra}'")
+            
+            plantilla_fallback = coincidencias_descripcion[0]["plantilla"]
+            print(f"\n🔄 USANDO COINCIDENCIA EN DESCRIPCIÓN COMO FALLBACK:")
+            print(f"   ✅ Seleccionada: {plantilla_fallback.get('plantilla_incidente')}")
+            print(f"   🔑 Palabra clave encontrada: '{coincidencias_descripcion[0]['palabra_clave']}'")
+            
+            analisis_simulado = {
+                "plantilla_seleccionada": plantilla_fallback.get("plantilla_incidente"),
+                "confianza": 75,
+                "razon_principal": f"Coincidencia directa en descripción con palabra clave '{coincidencias_descripcion[0]['palabra_clave']}'",
+                "asunto_generico": True
+            }
+            
+            guardar_analisis_gpt(
+                ticket_id=None,
+                plantilla_id=plantilla_fallback.get("id"),
+                analisis_completo={"analisis_gpt": analisis_simulado},
+                asunto_ticket=articulo
+            )
+            
+            return plantilla_fallback
         else:
-            coincidencias_descripcion = []
-            
-            for plantilla in plantillas_filtradas:
-                palabras_clave_db = plantilla.get("palabras_clave", "")
-                if palabras_clave_db:
-                    palabras_clave = [p.strip().lower() for p in palabras_clave_db.split(',') if p.strip()]
-                    for palabra in palabras_clave:
-                        if palabra and len(palabra) > 3 and palabra in descripcion_normalizada:
-                            coincidencias_descripcion.append({
-                                "plantilla": plantilla,
-                                "palabra_clave": palabra,
-                                "tipo": "coincidencia_en_descripcion"
-                            })
-                            break
-            
-            if coincidencias_descripcion:
-                print(f"   ✅ Coincidencias encontradas en descripción:")
-                for coinc in coincidencias_descripcion[:3]:
-                    nombre = coinc["plantilla"].get("plantilla_incidente", "Sin nombre")
-                    palabra = coinc["palabra_clave"]
-                    print(f"     • {nombre} → palabra clave: '{palabra}'")
-                
-                plantilla_fallback = coincidencias_descripcion[0]["plantilla"]
-                print(f"\n🔄 USANDO COINCIDENCIA EN DESCRIPCIÓN COMO FALLBACK:")
-                print(f"   ✅ Seleccionada: {plantilla_fallback.get('plantilla_incidente')}")
-                print(f"   🔑 Palabra clave encontrada: '{coincidencias_descripcion[0]['palabra_clave']}'")
-                
-                analisis_simulado = {
-                    "plantilla_seleccionada": plantilla_fallback.get("plantilla_incidente"),
-                    "confianza": 75,
-                    "razon_principal": f"Coincidencia directa en descripción con palabra clave '{coincidencias_descripcion[0]['palabra_clave']}'",
-                    "asunto_generico": True
-                }
-                
-                guardar_analisis_gpt(
-                    ticket_id=None,
-                    plantilla_id=plantilla_fallback.get("id"),
-                    analisis_completo={"analisis_gpt": analisis_simulado},
-                    asunto_ticket=articulo
-                )
-                
-                return plantilla_fallback
-            else:
-                print(f"   ❌ No se encontraron coincidencias directas en la descripción")
+            print(f"   ❌ No se encontraron coincidencias directas en la descripción")
     
     print(f"\n⚠️ NO SE ENCONTRÓ NINGUNA PLANTILLA ADECUADA")
     return None

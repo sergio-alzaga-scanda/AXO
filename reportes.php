@@ -497,6 +497,9 @@ $grupoTop = count($dataGrupos) > 0 ? $dataGrupos[0]['label'] : 'N/A';
                             <th>Técnico</th>
                             <th>Grupo</th>
                             <th>Plantilla</th>
+                            <th>Descripción</th>
+                            <th>Palabras Clave</th>
+                            <th>Confianza</th>
                             <th>Fecha/Hora Asignación</th>
                         </tr>
                     </thead>
@@ -506,6 +509,24 @@ $grupoTop = count($dataGrupos) > 0 ? $dataGrupos[0]['label'] : 'N/A';
             </div>
           </div>
           <div class="modal-footer br-print-hide bg-white">
+            <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Descripción -->
+    <div class="modal fade" id="modalDescripcion" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow">
+          <div class="modal-header bg-info text-white">
+            <h5 class="modal-title"><i class="bi bi-card-text me-2"></i> Descripción del Ticket</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body p-4 bg-light">
+            <p id="contenidoDescripcion" class="text-wrap text-break mb-0" style="white-space: pre-wrap; font-size: 0.95rem; color: #333;"></p>
+          </div>
+          <div class="modal-footer bg-white">
             <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cerrar</button>
           </div>
         </div>
@@ -761,6 +782,7 @@ $grupoTop = count($dataGrupos) > 0 ? $dataGrupos[0]['label'] : 'N/A';
             }
 
             dtTicketsDia = $('#tablaTicketsDia').DataTable({
+                "pageLength": 5,
                 "language": {
                     "url": "https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json"
                 },
@@ -781,14 +803,34 @@ $grupoTop = count($dataGrupos) > 0 ? $dataGrupos[0]['label'] : 'N/A';
                         return `<span class="badge bg-secondary">${data ? data : 'N/A'}</span>`;
                     }},
                     { "data": "templete", "render": function(data) {
-                        return `<div class="d-inline-block text-truncate" style="max-width: 200px;" title="${data}">${data ? data : 'N/A'}</div>`;
+                        return `<div class="d-inline-block text-truncate" style="max-width: 150px;" title="${data}">${data ? data : 'N/A'}</div>`;
+                    }},
+                    { "data": null, "render": function(data, type, row) {
+                        return `<button class="btn btn-sm btn-outline-info btn-desc"><i class="bi bi-eye"></i> Ver</button>`;
+                    }},
+                    { "data": "palabras_clave", "render": function(data) {
+                        return `<div class="text-wrap" style="max-width: 150px; font-size: 0.8rem;">${data ? data : 'N/A'}</div>`;
+                    }},
+                    { "data": "confianza", "render": function(data) {
+                        let color = data >= 80 ? 'success' : (data >= 50 ? 'warning' : 'danger');
+                        return data ? `<span class="badge bg-${color}">${data}%</span>` : '<span class="text-muted">N/A</span>';
                     }},
                     { "data": "fecha_asignacion" }
                 ],
-                "order": [[4, "desc"]],
+                "order": [[7, "desc"]],
                 "destroy": true
             });
         }
+
+        // --- Evento para abrir Modal de Descripción ---
+        $('#tablaTicketsDia').on('click', '.btn-desc', function() {
+            let tr = $(this).closest('tr');
+            let rowData = dtTicketsDia.row(tr).data();
+            let descripcion = rowData.descripcion_limpia ? rowData.descripcion_limpia : 'Sin descripción proporcionada.';
+            $('#contenidoDescripcion').text(descripcion);
+            let modalDesc = new bootstrap.Modal(document.getElementById('modalDescripcion'));
+            modalDesc.show();
+        });
         // --- Reloj del Sistema ---
         function actualizarReloj() {
             const ahora = new Date();

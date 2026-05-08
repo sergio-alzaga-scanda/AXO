@@ -16,7 +16,7 @@ $fecha = $_GET['fecha'];
 try {
     // Obtener tickets cuyo DATE coincida con la fecha solicitada
     $stmt = $conn->prepare("
-        SELECT id_ticket, usuario_tecnico, grupo, templete, fecha_asignacion 
+        SELECT id_ticket, usuario_tecnico, grupo, templete, fecha_asignacion, descripcion_limpia, palabras_clave, confianza 
         FROM tickets_asignados 
         WHERE DATE(fecha_asignacion) = :fecha
         ORDER BY fecha_asignacion DESC
