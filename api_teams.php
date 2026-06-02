@@ -7,7 +7,7 @@ require_once __DIR__ . '/Sistema/config/bd.php';
 class TeamsAutomatizacionAPI {
     private $pdo;
     private $BASE_URL = "https://servicedesk.grupoaxo.com/api/v3/";
-    private $API_KEY = "423CEBBE-E849-4D17-9CA3-CD6AB3319401";
+    private $API_KEY = "E9E240F9-E167-4C62-89C9-3357CBEB69FB";
     
     // Credenciales de SuccessFactors (Configura con tus datos reales)
     private $SF_BASE_URL = "https://<tu-servidor-api>.successfactors.com";
@@ -186,16 +186,13 @@ class TeamsAutomatizacionAPI {
             $id_grupo = !empty($plantilla['id_grupo']) ? $plantilla['id_grupo'] : "954";
 
             // 3. Formatear la descripción
-            $descripcion_ticket = "<b>Petición generada por automatización vía Teams</b><br><br>";
-            $descripcion_ticket .= "<b>Usuario:</b> " . htmlspecialchars($numero_usuario) . " (Validado en SuccessFactors)<br>";
-            $descripcion_ticket .= "<b>Correo:</b> " . htmlspecialchars($correo) . "<br>";
-            $descripcion_ticket .= "<b>Tipo Solicitud:</b> " . htmlspecialchars($tipo_solicitud) . "<br><br>";
-            $descripcion_ticket .= "<b>Contexto (Plantilla Aplicada):</b><br>" . $plantilla['descripcion'] . "<br><br>";
-            $descripcion_ticket .= "<b>Nota resolutiva:</b> Petición generada por Teams y resuelta por automatización.";
+            $descripcion_ticket = "<b>Petición generada por automatización</b><br><br>";
+            $descripcion_ticket .= "<b>Usuario:</b> " . htmlspecialchars($numero_usuario) . " <br>";
+            // $descripcion_ticket .= "<b>Contexto (Plantilla Aplicada):</b><br>" . $plantilla['descripcion'] . "<br><br>";
 
             // 4. Preparar el Payload de Creación
             $request_data = [
-                "subject" => $nombre_plantilla . " - Ticket Vía Teams",
+                "subject" => $nombre_plantilla . " - Ticket Automatizado",
                 "description" => $descripcion_ticket,
                 "requester" => [
                     "email_id" => $correo

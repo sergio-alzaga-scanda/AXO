@@ -1,5 +1,4 @@
 <?php
-die(json_encode(["status" => "DEBUG_1", "message" => "El script PHP si esta ejecutando."]));
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -60,15 +59,15 @@ try {
         $password_final = !empty($log['password_temporal']) ? $log['password_temporal'] : 'Inicio_2026*!';
         if ($ticket_id) {
             $url = "https://servicedesk.grupoaxo.com/api/v3/requests/{$ticket_id}";
-            $api_key = "423CEBBE-E849-4D17-9CA3-CD6AB3319401";
+            $api_key = "E9E240F9-E167-4C62-89C9-3357CBEB69FB";
 
-
+            $descripcion_ticket = "<b>La contraseña temporal es {$password_final}</b><br><br>";
 
             $payload_cierre = [
                 "request" => [
                     "status" => ["id" => "4"],
                     "resolution" => [
-                        "content" => "Petición generada por Teams y resuelta exitosamente por automatización (RPA). La contraseña temporal es {$password_final}"
+                        "content" => $descripcion_ticket
                     ],
                     "is_fcr" => true
                 ]
@@ -107,7 +106,7 @@ try {
         $ticket_original = $log['ticket_creado'] ?? null;
         if ($ticket_original) {
             $url = "https://servicedesk.grupoaxo.com/api/v3/requests/{$ticket_original}";
-            $api_key = "423CEBBE-E849-4D17-9CA3-CD6AB3319401";
+            $api_key = "E9E240F9-E167-4C62-89C9-3357CBEB69FB";
 
             // Obtener técnico usando carrusel
             $tec_id_sistema = obtenerTecnicoDisponible($conn);

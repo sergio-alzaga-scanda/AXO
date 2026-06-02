@@ -7,7 +7,7 @@ require_once __DIR__ . '/Sistema/config/bd.php';
 class ServiceDeskAPI {
     private $pdo;
     private $BASE_URL = "https://servicedesk.grupoaxo.com/api/v3/";
-    private $API_KEY = "423CEBBE-E849-4D17-9CA3-CD6AB3319401";
+    private $API_KEY = "E9E240F9-E167-4C62-89C9-3357CBEB69FB";
 
     public function __construct($db_connection) {
         $this->pdo = $db_connection;
