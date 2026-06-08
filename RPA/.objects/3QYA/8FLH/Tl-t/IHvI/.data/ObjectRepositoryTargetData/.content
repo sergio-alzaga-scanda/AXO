@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ObjectRepositoryTargetData ContentHash="NaPw8jyDSkqMXejmp9gm6g" xmlns="http://schemas.uipath.com/workflow/activities/uix" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ObjectRepositoryTargetData.Data>
+    <TargetAnchorable x:Key="TargetAnchorable" BrowserURL="servicedesk.grupoaxo.com/HomePage.do" CVScreenId="8cb4f0ec-716d-4710-84be-41912b0e1f0d" CvElementArea="779, 526, 413, 53" CvType="InputBox" DesignTimeRectangle="797, 528, 397, 50" ElementType="InputBox" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl id='username' tag='INPUT' /&gt;" Guid="450da054-2ae2-41e8-b0c3-51e5ac07c238" ScopeSelectorArgument="&lt;html app='chrome.exe' title='ManageEngine ServiceDesk Plus' /&gt;" SearchSteps="Selector, CV" Version="V6" WaitForReadyArgument="Interactive">
+      <TargetAnchorable.Anchors>
+        <scg:List x:TypeArguments="ITarget" Capacity="4">
+          <Target DesignTimeRectangle="744, 528, 53, 50" FullSelectorArgument="&lt;webctrl parentid='loginFormTable' tag='SPAN' /&gt;" Guid="b82fc6c5-835f-4331-8475-1043d193f099" SearchSteps="Selector" />
+        </scg:List>
+      </TargetAnchorable.Anchors>
+      <imageRef attrName="InformativeScreenshot" originalValue="092f3dc080b78a2619b820f839685328.png" xmlns="">0f6LkZh-vikGUJUDA3IFMuQ</imageRef>
+    </TargetAnchorable>
+    <x:String x:Key="ActivityType">TypeInto</x:String>
+  </ObjectRepositoryTargetData.Data>
+</ObjectRepositoryTargetData>

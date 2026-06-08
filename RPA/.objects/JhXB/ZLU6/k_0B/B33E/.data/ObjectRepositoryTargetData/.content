@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ObjectRepositoryTargetData ContentHash="n3KE3V3Ug0msXpfVnYYIuw" Reference="RuAvTAzP2UiATw6fXaPPQw/B33EbDC4EkKvRNz_L4GTiQ" xmlns="http://schemas.uipath.com/workflow/activities/uix" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ObjectRepositoryTargetData.Data>
+    <TargetAnchorable x:Key="TargetAnchorable" BrowserURL="hcm19.sapsf.com/sf/pages/admin/password-reset" CVScreenId="dbbd1324-f786-4b05-9f8f-89074fb6d73b" CvTextArea="152, 839, 1052, 18" CvTextArgument="X La contraseña introducida no cumple con la política de contraseñas O no coincide con la contraseña confirmada. Vuelva a intentarlo." CvType="Text" DesignTimeRectangle="135, 830, 1649, 40" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl tag='UI5-MESSAGE-STRIP-XWEB-PASSWORD-RESET' /&gt;&lt;webctrl shadowhostid='' tag='DIV' innertext='Franja de mensajes de error Se puede cerrar' visibleinnertext='Franja de mensajes de error Se puede cerrar' /&gt;" Guid="035fbf4a-63df-4a54-8bdd-7fd9d4bbb966" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Restablecer contraseñas de usuarios - Centro de administración - SAP SuccessFactors' /&gt;" SearchSteps="Selector, CV" Version="V6" WaitForReadyArgument="None">
+      <TargetAnchorable.Anchors>
+        <scg:List x:TypeArguments="ITarget" Capacity="4">
+          <Target CVScreenId="dbbd1324-f786-4b05-9f8f-89074fb6d73b" CvTextArea="132, 646, 208, 22" CvTextArgument="Resultados de búsqueda" CvType="Text" DesignTimeRectangle="115, 627, 1689, 56" FuzzySelectorArgument="&lt;webctrl tag='UI5-CARD-HEADER-XWEB-PASSWORD-RESET' /&gt;&lt;webctrl shadowhostid='' matching:shadowhostid='fuzzy' fuzzylevel:shadowhostid='0.0' tag='DIV' type='' class='ui5-card-header' matching:class='fuzzy' fuzzylevel:class='0.0' aaname='' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' innertext='Resultados de búsqueda' visibleinnertext='Resultados de búsqueda' check:innerText='Resultados de búsqueda' /&gt;" Guid="3f4e458d-ec5b-4ade-8ca5-019818e39128" SearchSteps="FuzzySelector, CV" />
+        </scg:List>
+      </TargetAnchorable.Anchors>
+      <imageRef attrName="InformativeScreenshot" originalValue="ec9add192c3cff197e2f9584482c894d.jpg" xmlns="">0uejda37cy0GHYFhgPnT8WQ</imageRef>
+    </TargetAnchorable>
+    <x:String x:Key="ActivityType">CheckState</x:String>
+  </ObjectRepositoryTargetData.Data>
+</ObjectRepositoryTargetData>

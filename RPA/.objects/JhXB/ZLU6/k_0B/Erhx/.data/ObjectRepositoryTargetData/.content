@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ObjectRepositoryTargetData ContentHash="lG5KnPStnEunNijdCSJuNg" xmlns="http://schemas.uipath.com/workflow/activities/uix" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ObjectRepositoryTargetData.Data>
+    <TargetAnchorable x:Key="TargetAnchorable" BrowserURL="hcm19.sapsf.com/acme" CVScreenId="ffbb7734-d603-45c3-be66-9a93c68e9558" CvTextArea="65, 666, 1048, 18" CvTextArgument="La contraseña introducida no cumple con la política de contraseñas O no coincide con la contraseña confirmada. Vuelva a intentarlo." CvType="Text" DesignTimeRectangle="66, 667, 1555, 21" ElementType="Text" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl idx='2' tableRow='1' tag='TABLE' /&gt;&lt;webctrl tableRow='13' tag='DIV' aaname='La contraseña introducida no cumple con la política de contraseñas o no coincide con la contraseña confirmada. Vuelva a intentarlo.' innertext='La contraseña introducida no cumple con la política de contraseñas o no coincide con la contraseña confirmada. Vuelva a intentarlo.' parentclass='redAlert' visibleinnertext='La contraseña introducida no cumple con la política de contraseñas o no coincide con la contraseña confirmada. Vuelva a intentarlo.' /&gt;" Guid="a1ed34e7-2780-4201-8846-8c09c9cdd33e" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Centro de administración - SAP SuccessFactors' /&gt;" SearchSteps="Selector, CV" Version="V6" WaitForReadyArgument="None">
+      <TargetAnchorable.Anchors>
+        <scg:List x:TypeArguments="ITarget" Capacity="4">
+          <Target CVScreenId="ffbb7734-d603-45c3-be66-9a93c68e9558" CvTextArea="64, 619, 778, 26" CvTextArgument="Restablecer la contraseña de un usuario (con contraseña proporcionada)" CvType="Text" DesignTimeRectangle="66, 619, 1555, 26" ElementType="Text" FuzzySelectorArgument="&lt;webctrl tag='TABLE' /&gt;&lt;webctrl type='' tag='H2' class='reset-group-title' aaname='Restablecer la contraseña de un usuario (con contraseña proporcionada)             ' matching:class='fuzzy' fuzzylevel:class='0.0' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' check:innerText='Restablecer la contraseña de un usuario (con contraseña proporcionada)' /&gt;" Guid="7ec0cc3c-04bf-4335-9cfa-dbe40e213cc6" SearchSteps="FuzzySelector, CV" />
+        </scg:List>
+      </TargetAnchorable.Anchors>
+      <imageRef attrName="InformativeScreenshot" originalValue="d3c7290e1c48b2b920af9031c2c30aa8.jpg" xmlns="">00mOL0Vz_s0ucg47tWXec5Q</imageRef>
+    </TargetAnchorable>
+    <x:String x:Key="ActivityType">CheckState</x:String>
+  </ObjectRepositoryTargetData.Data>
+</ObjectRepositoryTargetData>

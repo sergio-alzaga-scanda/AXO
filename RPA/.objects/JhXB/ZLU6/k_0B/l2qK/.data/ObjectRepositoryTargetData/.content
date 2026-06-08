@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ObjectRepositoryTargetData ContentHash="z2_tqrs97kSwSQuwNFPNZA" xmlns="http://schemas.uipath.com/workflow/activities/uix" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ObjectRepositoryTargetData.Data>
+    <TargetAnchorable x:Key="TargetAnchorable" BrowserURL="hcm19.sapsf.com/sf/pages/admin/password-reset" CVScreenId="9ec75108-0833-4e69-a2b9-84c2ee4671c5" CvElementArea="356, 841, 599, 45" CvType="InputBox" DesignTimeRectangle="357, 842, 553, 45" ElementType="InputBox" ElementVisibilityArgument="Interactive" FuzzySelectorArgument="&lt;webctrl tag='UI5-SEARCH-XWEB-PASSWORD-RESET' /&gt;&lt;webctrl shadowhostid='' tag='INPUT' type='' class='ui5-search-field-inner-input' placeholder='Nombre de usuario' aaname='' matching:shadowhostid='fuzzy' fuzzylevel:shadowhostid='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' /&gt;" Guid="2ba5df62-8120-43bb-a57d-5496eac81fe5" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Restablecer contraseñas de usuarios - Centro de administración - SAP SuccessFactors' /&gt;" SearchSteps="FuzzySelector, CV" Version="V6" WaitForReadyArgument="Interactive">
+      <TargetAnchorable.Anchors>
+        <scg:List x:TypeArguments="ITarget" Capacity="4">
+          <Target CVScreenId="9ec75108-0833-4e69-a2b9-84c2ee4671c5" CvTextArea="185, 852, 148, 19" CvTextArgument="Nombre de usuario" CvType="Text" DesignTimeRectangle="187, 854, 148, 21" FuzzySelectorArgument="&lt;webctrl type='' class='' tag='UI5-LABEL-XWEB-PASSWORD-RESET' aaname='Nombre de usuario' matching:class='fuzzy' fuzzylevel:class='0.0' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' check:innerText='Nombre de usuario' /&gt;" Guid="efa58e32-9602-4a4b-9731-0c76dcf1e552" SearchSteps="FuzzySelector, CV" />
+        </scg:List>
+      </TargetAnchorable.Anchors>
+      <imageRef attrName="InformativeScreenshot" originalValue="3f50c3c5b1160715d698dd4207d63ca7.jpg" xmlns="">0TUWyhodSfUmQCAooKL_CSg</imageRef>
+    </TargetAnchorable>
+    <x:String x:Key="ActivityType">TypeInto</x:String>
+  </ObjectRepositoryTargetData.Data>
+</ObjectRepositoryTargetData>

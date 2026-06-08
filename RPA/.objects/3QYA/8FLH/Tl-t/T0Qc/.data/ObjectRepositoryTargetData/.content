@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ObjectRepositoryTargetData ContentHash="jk-LCutw8UOKNNh9aKB9mw" xmlns="http://schemas.uipath.com/workflow/activities/uix" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ObjectRepositoryTargetData.Data>
+    <TargetAnchorable x:Key="TargetAnchorable" BrowserURL="servicedesk.grupoaxo.com/WorkOrder.do" CVScreenId="71ef0269-7e7c-4e02-a830-b653c0921714" CvTextArea="1282, 669, 111, 16" CvTextArgument="SuccessFactor" CvType="Text" DesignTimeRectangle="1276, 665, 300, 28" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl aria-role='option' tag='DIV' /&gt;" Guid="9b8c6c61-396a-4c95-a628-bb045cf610ab" ScopeSelectorArgument="&lt;html app='chrome.exe' title='(137) ManageEngine ServiceDesk Plus' /&gt;" SearchSteps="Selector, CV" Version="V6" WaitForReadyArgument="Interactive">
+      <TargetAnchorable.Anchors>
+        <scg:List x:TypeArguments="ITarget" Capacity="4">
+          <Target CVScreenId="71ef0269-7e7c-4e02-a830-b653c0921714" CvTextArea="1119, 814, 112, 20" CvTextArgument="* Subcategoría" CvType="Text" DesignTimeRectangle="1119, 813, 113, 20" ElementType="Text" Guid="05d5e182-d07d-4f96-b36c-314bdbb6c919" SearchSteps="CV" TargetType="ComputerVisionBased" />
+        </scg:List>
+      </TargetAnchorable.Anchors>
+      <imageRef attrName="InformativeScreenshot" originalValue="2b1aeac8ccdac54785233b6cd113e937.png" xmlns="">0mlo7yBNm_EawdHfnDYYi7g</imageRef>
+    </TargetAnchorable>
+    <x:String x:Key="ActivityType">Click</x:String>
+  </ObjectRepositoryTargetData.Data>
+</ObjectRepositoryTargetData>

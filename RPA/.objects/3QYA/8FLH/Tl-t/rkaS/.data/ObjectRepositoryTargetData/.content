@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ObjectRepositoryTargetData ContentHash="NsQYeB_6ikCKOD4hqk_50A" xmlns="http://schemas.uipath.com/workflow/activities/uix" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ObjectRepositoryTargetData.Data>
+    <TargetAnchorable x:Key="TargetAnchorable" BrowserURL="servicedesk.grupoaxo.com/HomePage.do" CVScreenId="b6b12f91-7202-4dcd-8437-e356b3d8fdd8" CvElementArea="785, 601, 407, 52" CvType="InputBox" DesignTimeRectangle="797, 603, 397, 50" ElementType="InputBoxPassword" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl id='password' tag='INPUT' /&gt;" Guid="88b4e7b2-511b-4339-b4bc-e2b782bc1e60" ScopeSelectorArgument="&lt;html app='chrome.exe' title='ManageEngine ServiceDesk Plus' /&gt;" SearchSteps="Selector, CV" Version="V6" WaitForReadyArgument="Interactive">
+      <TargetAnchorable.Anchors>
+        <scg:List x:TypeArguments="ITarget" Capacity="4">
+          <Target DesignTimeRectangle="744, 603, 53, 50" FullSelectorArgument="&lt;webctrl css-selector='body&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;form&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;span' idx='2' parentid='loginFormTable' tag='SPAN' /&gt;" Guid="4ecca2e7-f013-48ce-aaa9-cdaffb470735" SearchSteps="Selector" />
+        </scg:List>
+      </TargetAnchorable.Anchors>
+      <imageRef attrName="InformativeScreenshot" originalValue="b217a21f32182ac5a3b683354c22c867.png" xmlns="">0Ld5iLcDzDUOlrcMfprX1Fg</imageRef>
+    </TargetAnchorable>
+    <x:String x:Key="ActivityType">TypeInto</x:String>
+  </ObjectRepositoryTargetData.Data>
+</ObjectRepositoryTargetData>

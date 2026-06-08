@@ -1,0 +1,13 @@
+﻿{
+  "Name": "Actualizar el estado de…",
+  "Type": "Element",
+  "Id": "vNLt9a1MAEOw597kDT4pXQ",
+  "Reference": "RuAvTAzP2UiATw6fXaPPQw/vNLt9a1MAEOw597kDT4pXQ",
+  "ParentRef": "RuAvTAzP2UiATw6fXaPPQw/Tl-t2Kd02E-O1EwXRA_HIw",
+  "Created": "2025-12-30T20:27:45.220519Z",
+  "Updated": "2025-12-30T20:27:45.220519Z",
+  "CreatedBy": [
+    "UiPath.UIAutomationCore, Version=25.10.22.0, Culture=neutral, PublicKeyToken=null",
+    "UiPath.Platform, Version=25.10.1.0, Culture=neutral, PublicKeyToken=null"
+  ]
+}

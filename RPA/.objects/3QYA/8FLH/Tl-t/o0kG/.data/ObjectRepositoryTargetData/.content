@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ObjectRepositoryTargetData ContentHash="4tWETaOXfEi7kdRxSKcw_g" xmlns="http://schemas.uipath.com/workflow/activities/uix" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ObjectRepositoryTargetData.Data>
+    <TargetAnchorable x:Key="TargetAnchorable" BrowserURL="servicedesk.grupoaxo.com/WorkOrder.do" CVScreenId="420f7166-e812-4208-866b-1b592102a90d" CvTextArea="742, 811, 95, 16" CvTextArgument="Service Desk" CvType="Text" DesignTimeRectangle="735, 807, 300, 28" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl aaname='vice Desk' aria-role='option' tag='DIV' /&gt;" Guid="dae7d9ff-f2ce-4f3c-999a-55b7c74d8a98" ScopeSelectorArgument="&lt;html app='chrome.exe' title='(137) ManageEngine ServiceDesk Plus' /&gt;" SearchSteps="Selector, CV" Version="V6" WaitForReadyArgument="Interactive">
+      <TargetAnchorable.Anchors>
+        <scg:List x:TypeArguments="ITarget" Capacity="4">
+          <Target CVScreenId="420f7166-e812-4208-866b-1b592102a90d" CvTextArea="630, 920, 61, 18" CvTextArgument="* Grupo" CvType="Text" DesignTimeRectangle="630, 920, 61, 18" ElementType="Text" Guid="0484b501-3420-426c-af9b-0caac3ea0737" SearchSteps="CV" TargetType="ComputerVisionBased" />
+        </scg:List>
+      </TargetAnchorable.Anchors>
+      <imageRef attrName="InformativeScreenshot" originalValue="9640aa635d2a685f6683e4828e29e3a0.png" xmlns="">0SAYFpJqv8Eid6IUkloxNRA</imageRef>
+    </TargetAnchorable>
+    <x:String x:Key="ActivityType">Click</x:String>
+  </ObjectRepositoryTargetData.Data>
+</ObjectRepositoryTargetData>

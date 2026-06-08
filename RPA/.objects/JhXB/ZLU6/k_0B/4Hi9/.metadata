@@ -1,0 +1,14 @@
+﻿{
+  "Name": "Restablecer contraseña …(2)",
+  "Type": "Element",
+  "TaxonomyType": "RadioButton",
+  "Id": "4Hi9Pen5EECxBU4V7vx4KQ",
+  "Reference": "RuAvTAzP2UiATw6fXaPPQw/4Hi9Pen5EECxBU4V7vx4KQ",
+  "ParentRef": "RuAvTAzP2UiATw6fXaPPQw/k_0B37MUnUiUyeTNikHM0A",
+  "Created": "2026-05-25T23:55:43.9355647Z",
+  "Updated": "2026-05-25T23:55:43.9355647Z",
+  "CreatedBy": [
+    "UiPath.UIAutomationCore, Version=25.10.30.0, Culture=neutral, PublicKeyToken=null",
+    "UiPath.Platform, Version=25.12.1.0, Culture=neutral, PublicKeyToken=null"
+  ]
+}

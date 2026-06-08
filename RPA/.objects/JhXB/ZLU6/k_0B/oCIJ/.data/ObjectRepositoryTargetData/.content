@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ObjectRepositoryTargetData ContentHash="yHBvv7TjaEGOpQ6Ad-dFeA" xmlns="http://schemas.uipath.com/workflow/activities/uix" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ObjectRepositoryTargetData.Data>
+    <TargetAnchorable x:Key="TargetAnchorable" BrowserURL="hcm19.sapsf.com/login" CVScreenId="dc9deb4b-5dd7-41ea-846b-c1fb612a5648" DesignTimeRectangle="1160, 554, 45, 44" ElementType="Button" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl ui5-role='button' /&gt;" Guid="ebe7afd6-023a-4f92-a87a-31777cd8dc3b" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Iniciar sesión: SAP SuccessFactors' /&gt;" SearchSteps="Selector" Version="V6" WaitForReadyArgument="Interactive">
+      <imageRef attrName="InformativeScreenshot" originalValue="3955ead1c74c58cd8b39ddff766d381f.png" xmlns="">0XuC7tCbdcUeF9vq95Ie5zA</imageRef>
+    </TargetAnchorable>
+    <x:String x:Key="ActivityType">Click</x:String>
+  </ObjectRepositoryTargetData.Data>
+</ObjectRepositoryTargetData>

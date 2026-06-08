@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ObjectRepositoryTargetData ContentHash="uz4JfUrR60ycPEtt3dacaA" Reference="RuAvTAzP2UiATw6fXaPPQw/MYgz_zv560ylEZX2UOXB5A" xmlns="http://schemas.uipath.com/workflow/activities/uix" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ObjectRepositoryTargetData.Data>
+    <TargetAnchorable x:Key="TargetAnchorable" BrowserURL="hcm19.sapsf.com/login" CVScreenId="4fe3283d-6898-41ba-91f5-a25eb432a193" CvElementArea="710, 772, 500, 47" CvTextArea="906, 784, 104, 20" CvTextArgument="Iniciar sesión" CvType="Button" DesignTimeRectangle="910, 937, 99, 20" ElementType="Text" ElementVisibilityArgument="Interactive" FuzzySelectorArgument="&lt;webctrl aaname='Iniciar sesión' tag='BDI' type='' class='' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' check:innerText='Iniciar sesión' /&gt;" Guid="cf3b37ef-2dd7-4f22-b47b-f2f0195e8d17" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Inicio de sesión - SAP SuccessFactors' /&gt;" SearchSteps="FuzzySelector, CV" Version="V6" WaitForReadyArgument="Interactive">
+      <TargetAnchorable.Anchors>
+        <scg:List x:TypeArguments="ITarget" Capacity="4">
+          <Target CVScreenId="4fe3283d-6898-41ba-91f5-a25eb432a193" CvElementArea="710, 772, 500, 47" CvTextArea="906, 784, 104, 20" CvTextArgument="Iniciar sesión" CvType="Button" DesignTimeRectangle="910, 926, 99, 43" ElementType="Button" FuzzySelectorArgument="&lt;webctrl innertext='Iniciar sesión' visibleinnertext='Iniciar sesión' check:innerText='Iniciar sesión' /&gt;" Guid="2b927ed2-c118-4353-b381-4b2ca248d1bf" SearchSteps="FuzzySelector, CV" />
+        </scg:List>
+      </TargetAnchorable.Anchors>
+      <imageRef attrName="InformativeScreenshot" originalValue="e54ea8b2574c1904bc7a179394a55ce0.jpg" xmlns="">0MQJVYe53RE2UkhigjcNi9w</imageRef>
+    </TargetAnchorable>
+    <x:String x:Key="ActivityType">Click</x:String>
+  </ObjectRepositoryTargetData.Data>
+</ObjectRepositoryTargetData>

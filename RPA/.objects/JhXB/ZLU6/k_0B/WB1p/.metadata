@@ -1,0 +1,14 @@
+﻿{
+  "Name": "Restablecer contraseña …",
+  "Type": "Element",
+  "TaxonomyType": "Button",
+  "Id": "WB1pCZciIkOXWo3I2HT2Xw",
+  "Reference": "RuAvTAzP2UiATw6fXaPPQw/WB1pCZciIkOXWo3I2HT2Xw",
+  "ParentRef": "RuAvTAzP2UiATw6fXaPPQw/k_0B37MUnUiUyeTNikHM0A",
+  "Created": "2025-12-31T21:51:21.9062237Z",
+  "Updated": "2025-12-31T21:51:21.9062237Z",
+  "CreatedBy": [
+    "UiPath.UIAutomationCore, Version=25.10.22.0, Culture=neutral, PublicKeyToken=null",
+    "UiPath.Platform, Version=25.10.1.0, Culture=neutral, PublicKeyToken=null"
+  ]
+}

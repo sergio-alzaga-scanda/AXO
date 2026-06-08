@@ -66,7 +66,7 @@ class ServiceDeskAPI {
         } catch (Exception $e) { }
     }
     */
-    public function ejecutar($id_plantilla, $nombre_usuario, $descripcion_usuario, $correo, $accion, $tipo_solicitud) {
+    public function ejecutar($id_plantilla, $nombre_usuario, $descripcion_usuario, $correo, $accion, $tipo_solicitud, $numero_empleado = null, $canal = null) {
         try {
             $plantilla_nombre = null;
             $plantilla_descripcion = "";
@@ -102,8 +102,14 @@ class ServiceDeskAPI {
             // }
 
             // 4. Preparar la Descripción Combinada
-            $full_description = "<b>Solicitado por:</b> " . htmlspecialchars($nombre_usuario) . "<br><br>";
-            $full_description .= "<b>Descripción del Usuario:</b><br>" . nl2br(htmlspecialchars($descripcion_usuario)) . "<br><br>";
+            $full_description = "<b>Solicitado por:</b> " . htmlspecialchars($nombre_usuario) . "<br>";
+            if (!empty($numero_empleado)) {
+                $full_description .= "<b>Número de Empleado:</b> " . htmlspecialchars($numero_empleado) . "<br>";
+            }
+            if (!empty($canal)) {
+                $full_description .= "<b>Canal de Origen:</b> " . htmlspecialchars($canal) . "<br>";
+            }
+            $full_description .= "<br><b>Descripción del Usuario:</b><br>" . nl2br(htmlspecialchars($descripcion_usuario)) . "<br><br>";
             
             if ($plantilla_descripcion) {
                 $full_description .= "<b>Descripción de la Plantilla:</b><br>" . $plantilla_descripcion;
@@ -190,6 +196,8 @@ class ServiceDeskAPI {
                     ticket_creado VARCHAR(50) NULL,
                     status_proceso VARCHAR(50) NULL,
                     tipo_solicitud VARCHAR(255) NULL,
+                    numero_empleado VARCHAR(100) NULL,
+                    canal VARCHAR(100) NULL,
                     fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP
                 )");
 
@@ -197,14 +205,23 @@ class ServiceDeskAPI {
                 try {
                     $this->pdo->exec("ALTER TABLE log_api_tickets ADD COLUMN tipo_solicitud VARCHAR(255)");
                 } catch(PDOException $e) {}
+                try {
+                    $this->pdo->exec("ALTER TABLE log_api_tickets ADD COLUMN numero_empleado VARCHAR(100)");
+                } catch(PDOException $e) {}
+                try {
+                    $this->pdo->exec("ALTER TABLE log_api_tickets ADD COLUMN canal VARCHAR(100)");
+                } catch(PDOException $e) {}
+                try {
+                    $this->pdo->exec("ALTER TABLE log_api_tickets MODIFY COLUMN canal VARCHAR(100)");
+                } catch(PDOException $e) {}
 
                 // Insertar el log híper detallado asegurando el Timezone de CDMX
                 date_default_timezone_set('America/Mexico_City');
                 $fecha_actual = date('Y-m-d H:i:s');
                 $estado_proceso = ($status_final === '4') ? 'Creado y en espera de visto bueno' : 'Generado automaticamente y resuelto por agente';
                 
-                $log = $this->pdo->prepare("INSERT INTO log_api_tickets (id_plantilla_origen, nombre_solicitante, descripcion, correo, accion, ticket_creado, status_proceso, tipo_solicitud, fecha_creacion) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                $log->execute([$id_plantilla, $nombre_usuario, $descripcion_usuario, $correo, $accion, $request_id, $estado_proceso, $tipo_solicitud, $fecha_actual]);
+                $log = $this->pdo->prepare("INSERT INTO log_api_tickets (id_plantilla_origen, nombre_solicitante, descripcion, correo, accion, ticket_creado, status_proceso, tipo_solicitud, numero_empleado, canal, fecha_creacion) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                $log->execute([$id_plantilla, $nombre_usuario, $descripcion_usuario, $correo, $accion, $request_id, $estado_proceso, $tipo_solicitud, $numero_empleado, $canal, $fecha_actual]);
 
                 return [
                     "status" => "success",
@@ -263,6 +280,23 @@ $descripcion = $data['descripcion'] ?? $_REQUEST['descripcion'] ?? 'Sin descripc
 $correo = 'tester_bot@grupoaxo.com'; // Opcional default
 $accion = $data['accion'] ?? $data['acción'] ?? $_REQUEST['accion'] ?? $_REQUEST['acción'] ?? '1'; // '2' = cerrar o '1' = abrir
 $tipo_solicitud = $data['tipo_solicitud'] ?? $_REQUEST['tipo_solicitud'] ?? 'General'; // Clasificación opcional
+$numero_empleado = $data['numero_empleado'] ?? $_REQUEST['numero_empleado'] ?? null;
+$canal = $data['canal'] ?? $_REQUEST['canal'] ?? null;
+
+// Normalizar canal (1 es Whatsapp, 2 es Teams, 3 es API)
+$canal_val = null;
+if ($canal !== null) {
+    $canal_str = strtolower(trim($canal));
+    if ($canal_str === '1' || strpos($canal_str, 'whatsapp') !== false) {
+        $canal_val = 'Whatsapp';
+    } elseif ($canal_str === '2' || strpos($canal_str, 'teams') !== false) {
+        $canal_val = 'Teams';
+    } elseif ($canal_str === '3' || strpos($canal_str, 'api') !== false) {
+        $canal_val = 'API';
+    } else {
+        $canal_val = $canal;
+    }
+}
 
 // Normalizar entradas de texto crudo del robot hacia IDs fijos de catálogo
 $ts_lower = mb_strtolower(trim($tipo_solicitud));
@@ -277,7 +311,7 @@ if (strpos($ts_lower, 'restablecimiento') !== false || strpos($ts_lower, 'reset 
 // Ya no es forzoso el id_plantilla
 // Asumo que la variable $conn (tu conexión PDO) está definida en el archivo bd.php
 $api = new ServiceDeskAPI($conn); 
-echo json_encode($api->ejecutar($id_plantilla, $nombre, $descripcion, $correo, $accion, $tipo_solicitud), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+echo json_encode($api->ejecutar($id_plantilla, $nombre, $descripcion, $correo, $accion, $tipo_solicitud, $numero_empleado, $canal_val), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 
 
 #Restablecimiento de contraseña

@@ -1,0 +1,13 @@
+﻿{
+  "Name": "Nueva contraseñaConfir…",
+  "Type": "Element",
+  "Id": "RJ_4HpXo7UyMXmjVb_uhMQ",
+  "Reference": "RuAvTAzP2UiATw6fXaPPQw/RJ_4HpXo7UyMXmjVb_uhMQ",
+  "ParentRef": "RuAvTAzP2UiATw6fXaPPQw/k_0B37MUnUiUyeTNikHM0A",
+  "Created": "2026-05-26T00:00:44.7012022Z",
+  "Updated": "2026-05-26T00:00:44.7012022Z",
+  "CreatedBy": [
+    "UiPath.UIAutomationCore, Version=25.10.30.0, Culture=neutral, PublicKeyToken=null",
+    "UiPath.Platform, Version=25.12.1.0, Culture=neutral, PublicKeyToken=null"
+  ]
+}

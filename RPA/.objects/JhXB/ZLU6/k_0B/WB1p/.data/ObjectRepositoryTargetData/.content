@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ObjectRepositoryTargetData ContentHash="JUp3M_LLhU2otx4-gHDS3g" xmlns="http://schemas.uipath.com/workflow/activities/uix" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ObjectRepositoryTargetData.Data>
+    <TargetAnchorable x:Key="TargetAnchorable" BrowserURL="hcm19.sapsf.com/acme" CVScreenId="aa27b61a-3adb-4874-ab38-715dcb75a0e3" CvElementArea="67, 981, 292, 31" CvType="InputBox" DesignTimeRectangle="70, 983, 286, 28" ElementType="Button" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl tableRow='23' tag='TABLE' /&gt;&lt;webctrl id='resetUser' tableRow='3' tag='INPUT' /&gt;" Guid="16889c97-8f66-4525-8ecc-88891ac4d260" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Centro de administración - SAP SuccessFactors' /&gt;" SearchSteps="Selector, CV" Version="V6" WaitForReadyArgument="Interactive">
+      <TargetAnchorable.Anchors>
+        <scg:List x:TypeArguments="ITarget" Capacity="4">
+          <Target DesignTimeRectangle="67, 913, 1425, 101" FuzzySelectorArgument="&lt;webctrl tag='TABLE' /&gt;&lt;webctrl type='' tag='TD' class='resetSubmit' aaname='                                                                                                                                                                                                                                                                                                                                                                                                        ' matching:class='fuzzy' fuzzylevel:class='0.0' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' check:innerText='Nueva contraseña:   &amp;#xA;Confirmar contraseña:' /&gt;" Guid="1da45ee6-c56f-435a-83f9-fd5207970bc5" SearchSteps="FuzzySelector" />
+        </scg:List>
+      </TargetAnchorable.Anchors>
+      <imageRef attrName="InformativeScreenshot" originalValue="f71b0d0254eabe447e76e76d336bce87.png" xmlns="">0uabqiy4nm0e6tQWi6daUcg</imageRef>
+    </TargetAnchorable>
+    <x:String x:Key="ActivityType">Click</x:String>
+  </ObjectRepositoryTargetData.Data>
+</ObjectRepositoryTargetData>

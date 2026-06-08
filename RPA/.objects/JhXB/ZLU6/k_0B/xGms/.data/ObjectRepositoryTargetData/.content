@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ObjectRepositoryTargetData ContentHash="Liy5GQcJ4kGnaQ52bNS5rw" xmlns="http://schemas.uipath.com/workflow/activities/uix" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ObjectRepositoryTargetData.Data>
+    <TargetAnchorable x:Key="TargetAnchorable" BrowserURL="hcm19.sapsf.com/sf/pages/admin/password-reset" CVScreenId="e2598fb2-38ff-4d9d-95b6-05af35dd2c9a" CvElementArea="353, 847, 244, 36" CvType="InputBox" DesignTimeRectangle="355, 850, 240, 32" ElementType="InputBoxPassword" ElementVisibilityArgument="Interactive" FuzzySelectorArgument="&lt;webctrl id='fbpwdrst_new_pwd' tag='UI5-INPUT-XWEB-PASSWORD-RESET' matching:id='fuzzy' fuzzylevel:id='0.0' /&gt;&lt;webctrl id='inner' shadowhostid='fbpwdrst_new_pwd' tag='INPUT' type='password' class='ui5-input-inner' aaname='' matching:id='fuzzy' fuzzylevel:id='0.0' matching:shadowhostid='fuzzy' fuzzylevel:shadowhostid='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' /&gt;" Guid="de86562e-a419-4c67-a7e9-cf300aaefab6" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Restablecer contraseñas de usuarios - Centro de administración - SAP SuccessFactors' /&gt;" SearchSteps="FuzzySelector, CV" Version="V6" WaitForReadyArgument="Interactive">
+      <TargetAnchorable.Anchors>
+        <scg:List x:TypeArguments="ITarget" Capacity="4">
+          <Target CVScreenId="e2598fb2-38ff-4d9d-95b6-05af35dd2c9a" CvTextArea="180, 854, 154, 18" CvTextArgument="Nueva contraseña:*" CvType="Text" DesignTimeRectangle="135, 855, 200, 21" FuzzySelectorArgument="&lt;webctrl class='SearchResults_passwordLabel__KiUR1' tag='UI5-LABEL-XWEB-PASSWORD-RESET' type='' aaname='Nueva contraseña:' matching:class='fuzzy' fuzzylevel:class='0.0' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' check:innerText='Nueva contraseña:' /&gt;" Guid="c6d09582-e205-4d1c-842e-6d2aab9c8f5f" SearchSteps="FuzzySelector, CV" />
+        </scg:List>
+      </TargetAnchorable.Anchors>
+      <imageRef attrName="InformativeScreenshot" originalValue="48d4743cebc672a365bfd1a105b3885d.jpg" xmlns="">0dzLQyip0bUeDfg9KeFKwgA</imageRef>
+    </TargetAnchorable>
+    <x:String x:Key="ActivityType">TypeInto</x:String>
+  </ObjectRepositoryTargetData.Data>
+</ObjectRepositoryTargetData>

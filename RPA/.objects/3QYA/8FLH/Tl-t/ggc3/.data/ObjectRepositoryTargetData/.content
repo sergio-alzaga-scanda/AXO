@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ObjectRepositoryTargetData ContentHash="6690Cj_s_0GFR0m4F9CNzQ" xmlns="http://schemas.uipath.com/workflow/activities/uix" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ObjectRepositoryTargetData.Data>
+    <TargetAnchorable x:Key="TargetAnchorable" BrowserURL="servicedesk.grupoaxo.com/WorkOrder.do" CVScreenId="1145b205-9a1b-4364-be2d-7331108bc5f2" CvElementArea="727, 646, 315, 35" CvType="InputBox" DesignTimeRectangle="730, 649, 310, 30" ElementType="Text" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl aaname='   Sin especificar   ' tag='A' /&gt;" Guid="52cfbc55-f04d-4af7-a882-c3281e70b43d" ScopeSelectorArgument="&lt;html app='chrome.exe' title='(137) ManageEngine ServiceDesk Plus' /&gt;" SearchSteps="Selector, CV" Version="V6" WaitForReadyArgument="Interactive">
+      <TargetAnchorable.Anchors>
+        <scg:List x:TypeArguments="ITarget" Capacity="4">
+          <Target CVScreenId="1145b205-9a1b-4364-be2d-7331108bc5f2" CvTextArea="554, 654, 136, 16" CvTextArgument="* Tipo de solicitud" CvType="Text" DesignTimeRectangle="529, 642, 181, 44" ElementType="Text" FuzzySelectorArgument="&lt;webctrl aaname='                                                                                      ' tag='LABEL' type='' class='fafr-label left-col control-label' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' check:innerText='* Tipo de solicitud' /&gt;" Guid="22d88e6a-608b-4dfc-b4d3-2c814e3f57b0" SearchSteps="FuzzySelector, CV" />
+        </scg:List>
+      </TargetAnchorable.Anchors>
+      <imageRef attrName="InformativeScreenshot" originalValue="76ca079a72a18cb9e07ede00154ae2ba.png" xmlns="">01Zh-QG2Rq0Cl2u0BSPzasw</imageRef>
+    </TargetAnchorable>
+    <x:String x:Key="ActivityType">Click</x:String>
+  </ObjectRepositoryTargetData.Data>
+</ObjectRepositoryTargetData>

@@ -49,9 +49,17 @@ try {
         $params[':tipo'] = $filtro_tipo;
     }
 
+    // Registros Filtro de Estado
+    $condiciones_tabla = $condiciones_base;
+    if ($filtro_status === 'exitosos') {
+        $condiciones_tabla[] = "status_proceso IN ('Creado y cerrado automaticamente', 'Creado y en espera de visto bueno')";
+    } elseif ($filtro_status === 'fracasos') {
+        $condiciones_tabla[] = "status_proceso NOT IN ('Creado y cerrado automaticamente', 'Creado y en espera de visto bueno')";
+    }
+
     $donde_stats = "";
-    if (count($condiciones_base) > 0) {
-        $donde_stats = " WHERE " . implode(" AND ", $condiciones_base);
+    if (count($condiciones_tabla) > 0) {
+        $donde_stats = " WHERE " . implode(" AND ", $condiciones_tabla);
     }
 
     // Estadísticas
@@ -59,7 +67,7 @@ try {
         SELECT 
             COUNT(*) as total,
             SUM(CASE WHEN status_proceso IN ('Creado y cerrado automaticamente', 'Creado y en espera de visto bueno') THEN 1 ELSE 0 END) as exito,
-            SUM(CASE WHEN status_proceso = 'Generado automaticamente y resuelto por agente' THEN 1 ELSE 0 END) as error
+            SUM(CASE WHEN status_proceso NOT IN ('Creado y cerrado automaticamente', 'Creado y en espera de visto bueno') OR status_proceso IS NULL THEN 1 ELSE 0 END) as error
         FROM log_api_tickets
         $donde_stats
     ");
@@ -74,14 +82,6 @@ try {
     $tasa_exito = $total > 0 ? round(($exito / $total) * 100, 1) : 0;
     $ahorro_minutos = $exito * 10;
     $ahorro_horas = round($ahorro_minutos / 60, 1);
-
-    // Registros Filtro de Estado
-    $condiciones_tabla = $condiciones_base;
-    if ($filtro_status === 'exitosos') {
-        $condiciones_tabla[] = "status_proceso IN ('Creado y cerrado automaticamente', 'Creado y en espera de visto bueno')";
-    } elseif ($filtro_status === 'fracasos') {
-        $condiciones_tabla[] = "status_proceso NOT IN ('Creado y cerrado automaticamente', 'Creado y en espera de visto bueno')";
-    }
 
     $donde_tabla = "";
     if (count($condiciones_tabla) > 0) {
@@ -100,7 +100,7 @@ try {
     $logs = $stmtLogs->fetchAll(PDO::FETCH_ASSOC);
 
     // Métricas por tipo
-    $condiciones_tipos = $condiciones_base;
+    $condiciones_tipos = $condiciones_tabla;
     $condiciones_tipos[] = "tipo_solicitud IS NOT NULL AND tipo_solicitud != ''";
     $condiciones_tipos_con_alias = array_map(function($cond) { return "l." . $cond; }, $condiciones_tipos);
     $donde_tipos = " WHERE " . implode(" AND ", $condiciones_tipos_con_alias);
@@ -114,11 +114,33 @@ try {
     ");
     $stmtTipos->execute($params);
     $metricas_tipos = $stmtTipos->fetchAll(PDO::FETCH_ASSOC);
+
+    // Métricas por canal de origen
+    $condiciones_canales = $condiciones_tabla;
+    $condiciones_canales[] = "canal IS NOT NULL AND canal != ''";
+    $condiciones_canales_con_alias = array_map(function($cond) { return "l." . $cond; }, $condiciones_canales);
+    $donde_canales = " WHERE " . implode(" AND ", $condiciones_canales_con_alias);
+
+    $stmtCanales = $conn->prepare("
+        SELECT 
+            CASE 
+                WHEN l.canal = '1' OR l.canal = '11' THEN 'Whatsapp' 
+                WHEN l.canal = '2' THEN 'Teams' 
+                ELSE l.canal 
+            END as canal_desc, 
+            COUNT(l.id) as cantidad 
+        FROM log_api_tickets l
+        $donde_canales 
+        GROUP BY 1
+    ");
+    $stmtCanales->execute($params);
+    $metricas_canales = $stmtCanales->fetchAll(PDO::FETCH_ASSOC);
 } catch (Exception $e) {
     if (isset($_GET['debug'])) { echo $e->getMessage(); exit; }
     $total = $exito = $error = 0;
     $logs = [];
     $metricas_tipos = [];
+    $metricas_canales = [];
 }
 ?>
 <!DOCTYPE html>
@@ -233,7 +255,7 @@ try {
                     <select name="status" class="form-select text-secondary fw-bold" style="width: auto;">
                         <option value="default" <?= $filtro_status_raw == 'default' ? 'selected' : '' ?>>Estado Predeterminado</option>
                         <option value="exitosos" <?= $filtro_status_raw == 'exitosos' ? 'selected' : '' ?>>Sólo Exitosos</option>
-                        <option value="fracasos" <?= $filtro_status_raw == 'fracasos' ? 'selected' : '' ?>>Con Errores / Mesa</option>
+                        <option value="fracasos" <?= $filtro_status_raw == 'fracasos' ? 'selected' : '' ?>>Traspaso a Agente / Mesa</option>
                         <option value="todos" <?= $filtro_status_raw == 'todos' ? 'selected' : '' ?>>Todos</option>
                     </select>
 
@@ -320,34 +342,87 @@ try {
             </div>
         </div>
 
-        <!-- Métrica General Desglose de Servicios -->
-        <?php if(!empty($metricas_tipos)): ?>
-        <div class="card shadow-sm mb-5 border-0 rounded-4">
-            <div class="card-body p-4">
-                <h5 class="card-title mb-4 fw-bold text-muted"><i class="bi bi-graph-up-arrow me-2 text-primary"></i>Métricas por Tipo de Servicio</h5>
-                <div class="row g-4">
-                    <?php foreach($metricas_tipos as $mt): 
-                        $porcentaje_servicio = $total > 0 ? round(($mt['cantidad'] / $total) * 100, 0) : 0;
-                    ?>
-                    <div class="col-md-4">
-                        <div class="p-3 border rounded-3 bg-light bg-opacity-50">
-                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                <span class="fw-bold text-dark small text-uppercase"><?= htmlspecialchars($mt['servicio']) ?></span>
-                                <span class="badge bg-primary rounded-pill"><?= $mt['cantidad'] ?></span>
-                            </div>
-                            <div class="progress" style="height: 8px;">
-                                <div class="progress-bar bg-primary" role="progressbar" style="width: <?= $porcentaje_servicio ?>%" aria-valuenow="<?= $porcentaje_servicio ?>" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                            <div class="text-end mt-1">
-                                <small class="text-muted fw-bold"><?= $porcentaje_servicio ?>% del total</small>
-                            </div>
+        <!-- Desglose de Métricas (Servicios y Canales) -->
+        <div class="row mb-5 g-4">
+            <!-- Servicios -->
+            <div class="col-md-6">
+                <div class="card shadow-sm border-0 rounded-4 h-100">
+                    <div class="card-body p-4">
+                        <h5 class="card-title mb-4 fw-bold text-muted"><i class="bi bi-graph-up-arrow me-2 text-primary"></i>Métricas por Tipo de Servicio</h5>
+                        <div class="row g-3">
+                            <?php if(!empty($metricas_tipos)): ?>
+                                <?php foreach($metricas_tipos as $mt): 
+                                    $porcentaje_servicio = $total > 0 ? round(($mt['cantidad'] / $total) * 100, 0) : 0;
+                                ?>
+                                <div class="col-12">
+                                    <div class="p-3 border rounded-3 bg-light bg-opacity-50">
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <span class="fw-bold text-dark small text-uppercase"><?= htmlspecialchars($mt['servicio']) ?></span>
+                                            <span class="badge bg-primary rounded-pill"><?= $mt['cantidad'] ?></span>
+                                        </div>
+                                        <div class="progress" style="height: 8px;">
+                                            <div class="progress-bar bg-primary" role="progressbar" style="width: <?= $porcentaje_servicio ?>%" aria-valuenow="<?= $porcentaje_servicio ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                        <div class="text-end mt-1">
+                                            <small class="text-muted fw-bold"><?= $porcentaje_servicio ?>% del total</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <div class="col-12 text-center text-muted py-4">No hay datos de servicios</div>
+                            <?php endif; ?>
                         </div>
                     </div>
-                    <?php endforeach; ?>
+                </div>
+            </div>
+
+            <!-- Canales -->
+            <div class="col-md-6">
+                <div class="card shadow-sm border-0 rounded-4 h-100">
+                    <div class="card-body p-4">
+                        <h5 class="card-title mb-4 fw-bold text-muted"><i class="bi bi-share-fill me-2 text-info"></i>Métricas por Canal de Origen</h5>
+                        <div class="row g-3">
+                            <?php if(!empty($metricas_canales)): ?>
+                                <?php foreach($metricas_canales as $mc): 
+                                    $canal_name = $mc['canal_desc'];
+                                    $porcentaje_canal = $total > 0 ? round(($mc['cantidad'] / $total) * 100, 0) : 0;
+                                    $canal_lower = strtolower($canal_name);
+                                    $color_class = 'bg-info';
+                                    $icon = 'chat-left-text';
+                                    if ($canal_lower === 'whatsapp') {
+                                        $color_class = 'bg-success';
+                                        $icon = 'whatsapp';
+                                    } elseif ($canal_lower === 'teams') {
+                                        $color_class = 'bg-primary';
+                                        $icon = 'microsoft-teams';
+                                    }
+                                ?>
+                                <div class="col-12">
+                                    <div class="p-3 border rounded-3 bg-light bg-opacity-50">
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <span class="fw-bold text-dark small text-uppercase">
+                                                <i class="bi bi-<?= $icon ?>"></i> <?= htmlspecialchars($canal_name) ?>
+                                            </span>
+                                            <span class="badge <?= $color_class ?> text-white rounded-pill"><?= $mc['cantidad'] ?></span>
+                                        </div>
+                                        <div class="progress" style="height: 8px;">
+                                            <div class="progress-bar <?= $color_class ?>" role="progressbar" style="width: <?= $porcentaje_canal ?>%" aria-valuenow="<?= $porcentaje_canal ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                        <div class="text-end mt-1">
+                                            <small class="text-muted fw-bold"><?= $porcentaje_canal ?>% del total</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <div class="col-12 text-center text-muted py-4">No hay datos de canales de origen</div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <?php endif; ?>
 
         <!-- Tabla -->
         <div class="card shadow-sm mb-5 border-0 rounded-4">
@@ -360,6 +435,8 @@ try {
                                 <th>Fecha</th>
                                 <th>Remitente</th>
                                 <th>Usuario</th>
+                                <th class="text-center">Núm. Empleado</th>
+                                <th class="text-center">Canal</th>
                                 <th class="text-center">Tipo Solicitud</th>
                                 <th class="text-center">Plantilla ID</th>
                                 <th>Descripción</th>
@@ -375,6 +452,31 @@ try {
                                     <td data-sort="<?= strtotime($log['fecha_creacion']) ?>"><?= date('d/m/Y h:i A', strtotime($log['fecha_creacion'])) ?></td>
                                     <td><?= htmlspecialchars($log['correo'] ?? 'N/A') ?></td>
                                     <td class="fw-bold text-primary"><?= htmlspecialchars($log['nombre_solicitante'] ?? 'N/A') ?></td>
+                                    <td class="text-center fw-bold text-secondary"><?= htmlspecialchars($log['numero_empleado'] ?? '-') ?></td>
+                                    <td class="text-center">
+                                        <?php if(!empty($log['canal'])): ?>
+                                            <?php 
+                                                $canal_name = $log['canal'];
+                                                if ($canal_name === '1' || $canal_name === '11') { $canal_name = 'Whatsapp'; }
+                                                elseif ($canal_name === '2') { $canal_name = 'Teams'; }
+                                                $canal_lower = strtolower($canal_name);
+                                                $icon = 'chat-left-text';
+                                                $badge_class = 'bg-info text-dark';
+                                                if ($canal_lower === 'whatsapp') {
+                                                    $icon = 'whatsapp';
+                                                    $badge_class = 'bg-success text-white';
+                                                } elseif ($canal_lower === 'teams') {
+                                                    $icon = 'microsoft-teams';
+                                                    $badge_class = 'bg-primary text-white';
+                                                }
+                                            ?>
+                                            <span class="badge <?= $badge_class ?> border">
+                                                <i class="bi bi-<?= $icon ?>"></i> <?= htmlspecialchars($canal_name) ?>
+                                            </span>
+                                        <?php else: ?>
+                                            <span class="text-muted">-</span>
+                                        <?php endif; ?>
+                                    </td>
                                     <td class="text-center">
                                         <span class="badge bg-secondary border">
                                             <?= htmlspecialchars($log['tipo_solicitud_desc'] ?? 'General') ?>
@@ -397,7 +499,13 @@ try {
                                         <?php if($log['ticket_creado']): ?>
                                             <span class="badge bg-primary px-3 py-2 fs-6 rounded-pill"><i class="bi bi-ticket-fill me-1"></i> <?= $log['ticket_creado'] ?></span>
                                         <?php else: ?>
-                                            <span class="text-muted fw-bold text-danger">Falla API</span>
+                                            <?php 
+                                                $err_display = 'Sin Ticket';
+                                                if (!empty($log['descripcion']) && preg_match('/Mensaje:\s*(.*)/i', $log['descripcion'], $matches)) {
+                                                    $err_display = trim($matches[1]);
+                                                }
+                                            ?>
+                                            <span class="text-muted fw-bold text-danger"><?= htmlspecialchars($err_display) ?></span>
                                         <?php endif; ?>
                                     </td>
                                     <td class="text-center">
@@ -406,7 +514,7 @@ try {
                                         <?php elseif($log['status_proceso'] === 'Generado automaticamente y resuelto por agente'): ?>
                                             <span class="badge bg-warning text-dark rounded-pill px-3"><i class="bi bi-headset"></i> Mesa de Ayuda</span>
                                         <?php else: ?>
-                                            <span class="badge bg-danger rounded-pill px-3"><i class="bi bi-x-circle"></i> Error</span>
+                                            <span class="badge bg-danger rounded-pill px-3"><i class="bi bi-headset"></i> Transferido a Agente</span>
                                         <?php endif; ?>
                                     </td>
                                 </tr>

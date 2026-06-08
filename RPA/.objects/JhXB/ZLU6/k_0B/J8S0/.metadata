@@ -1,0 +1,14 @@
+﻿{
+  "Name": "Centro de administración",
+  "Type": "Element",
+  "TaxonomyType": "Input",
+  "Id": "J8S0BeYGj0qxqt9boL3Scg",
+  "Reference": "RuAvTAzP2UiATw6fXaPPQw/J8S0BeYGj0qxqt9boL3Scg",
+  "ParentRef": "RuAvTAzP2UiATw6fXaPPQw/k_0B37MUnUiUyeTNikHM0A",
+  "Created": "2026-04-15T19:36:04.4078631Z",
+  "Updated": "2026-04-15T19:36:04.4078631Z",
+  "CreatedBy": [
+    "UiPath.UIAutomationCore, Version=25.10.22.0, Culture=neutral, PublicKeyToken=null",
+    "UiPath.Platform, Version=25.10.1.0, Culture=neutral, PublicKeyToken=null"
+  ]
+}

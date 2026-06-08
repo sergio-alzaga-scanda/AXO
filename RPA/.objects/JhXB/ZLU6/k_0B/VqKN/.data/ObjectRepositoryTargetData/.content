@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ObjectRepositoryTargetData ContentHash="TzG9C05zrk2mVWvb11gyVA" xmlns="http://schemas.uipath.com/workflow/activities/uix" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ObjectRepositoryTargetData.Data>
+    <TargetAnchorable x:Key="TargetAnchorable" BrowserURL="hcm19.sapsf.com/sf/start" CVScreenId="ab2f7952-aac4-4e8a-a79f-6629d39ae6c8" CvElementArea="687, 136, 559, 37" CvType="InputBox" DesignTimeRectangle="688, 137, 560, 36" ElementType="InputBox" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl tag='XWEB-SHELLBAR' /&gt;&lt;webctrl id='search' shadowhostid='' tag='XWEB-SHELLBAR-SEARCH-INPUT' /&gt;&lt;webctrl id='inner' shadowhostid='search' tag='INPUT' /&gt;" Guid="7aac1a8c-becb-4dd1-9755-67e0a4a3eb0c" ScopeSelectorArgument="&lt;html app='chrome.exe' title='SuccessFactors: Inicio' /&gt;" SearchSteps="Selector, CV" Version="V6" WaitForReadyArgument="Interactive">
+      <imageRef attrName="InformativeScreenshot" originalValue="841b3ca35f3412f902d757b4e84d7a3a.png" xmlns="">0eynBbr0lyUShU2QsSbICCA</imageRef>
+    </TargetAnchorable>
+    <x:String x:Key="ActivityType">Click</x:String>
+  </ObjectRepositoryTargetData.Data>
+</ObjectRepositoryTargetData>

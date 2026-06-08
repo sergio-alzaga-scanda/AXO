@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ObjectRepositoryTargetData ContentHash="pQ8lADSTM0OVyUYAYi8NlQ" xmlns="http://schemas.uipath.com/workflow/activities/uix" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ObjectRepositoryTargetData.Data>
+    <TargetAnchorable x:Key="TargetAnchorable" BrowserURL="servicedesk.grupoaxo.com/WorkOrder.do" CVScreenId="7a668ef7-9283-4227-a7d3-6adb733b5227" CvTextArea="742, 620, 135, 16" CvTextArgument="Correo Electrónico" CvType="Text" DesignTimeRectangle="735, 617, 289, 28" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl aaname='Correo Electrónico' aria-role='option' tag='DIV' /&gt;" Guid="773aa10a-ea69-4e09-a789-a86291d23ddc" ScopeSelectorArgument="&lt;html app='chrome.exe' title='(137) ManageEngine ServiceDesk Plus' /&gt;" SearchSteps="Selector, CV" Version="V6" WaitForReadyArgument="Interactive">
+      <TargetAnchorable.Anchors>
+        <scg:List x:TypeArguments="ITarget" Capacity="4">
+          <Target CVScreenId="7a668ef7-9283-4227-a7d3-6adb733b5227" CvTextArea="632, 761, 59, 15" CvTextArgument="* Modo" CvType="Text" DesignTimeRectangle="632, 761, 59, 15" ElementType="Text" Guid="e4868642-21ea-40ba-947e-2d36d6b00c7b" SearchSteps="CV" TargetType="ComputerVisionBased" />
+        </scg:List>
+      </TargetAnchorable.Anchors>
+      <imageRef attrName="InformativeScreenshot" originalValue="40b8d60844802af9fd57d747e412376d.png" xmlns="">0oyaJQ0-MaUaXtjP5WkdLeg</imageRef>
+    </TargetAnchorable>
+    <x:String x:Key="ActivityType">Click</x:String>
+  </ObjectRepositoryTargetData.Data>
+</ObjectRepositoryTargetData>

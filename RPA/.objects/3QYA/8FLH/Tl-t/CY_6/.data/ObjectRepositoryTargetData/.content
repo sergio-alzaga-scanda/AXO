@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ObjectRepositoryTargetData ContentHash="mjSVgUyN00uHExIC6W3HYg" xmlns="http://schemas.uipath.com/workflow/activities/uix" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ObjectRepositoryTargetData.Data>
+    <TargetAnchorable x:Key="TargetAnchorable" BrowserURL="servicedesk.grupoaxo.com/WorkOrder.do" CVScreenId="3ca46d2e-dcbf-4781-bc8c-9d2e805093b4" CvElementArea="683, 594, 315, 35" CvType="InputBox" DesignTimeRectangle="686, 597, 310, 30" ElementType="Text" ElementVisibilityArgument="Interactive" FuzzySelectorArgument="&lt;webctrl tag='TABLE' /&gt;&lt;webctrl aaname='   Asignado   ' type='' tag='A' class='select2-choice' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' check:innerText='Asignado' /&gt;" Guid="1f679ead-39d6-4eef-97db-6f25931e4df4" ScopeSelectorArgument="&lt;html app='chrome.exe' title='(141) ManageEngine ServiceDesk Plus' /&gt;" SearchSteps="FuzzySelector, CV" Version="V6" WaitForReadyArgument="Interactive">
+      <TargetAnchorable.Anchors>
+        <scg:List x:TypeArguments="ITarget" Capacity="4">
+          <Target CVScreenId="3ca46d2e-dcbf-4781-bc8c-9d2e805093b4" CvTextArea="407, 601, 265, 15" CvTextArgument="Actualizar el estado de la solicitud a" CvType="Text" DesignTimeRectangle="410, 599, 262, 22" ElementType="Text" FuzzySelectorArgument="&lt;webctrl tag='TABLE' /&gt;&lt;webctrl type='' isleaf='1' class='' tag='SPAN' aaname='Actualizar el estado de la solicitud a' matching:isleaf='fuzzy' fuzzylevel:isleaf='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' check:innerText='Actualizar el estado de la solicitud a' /&gt;" Guid="55a90f1a-32ae-4631-b89a-0d5cf23e207b" SearchSteps="FuzzySelector, CV" />
+        </scg:List>
+      </TargetAnchorable.Anchors>
+      <imageRef attrName="InformativeScreenshot" originalValue="d25b5dac5542fcf11852fad2eea8fc46.png" xmlns="">0_lDz_fWlSEq-BDdpd2luow</imageRef>
+    </TargetAnchorable>
+    <x:String x:Key="ActivityType">Click</x:String>
+  </ObjectRepositoryTargetData.Data>
+</ObjectRepositoryTargetData>

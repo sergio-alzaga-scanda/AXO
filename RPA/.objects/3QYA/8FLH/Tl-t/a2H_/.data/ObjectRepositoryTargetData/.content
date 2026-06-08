@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ObjectRepositoryTargetData ContentHash="zYHJdGzVnU6XoGkGJnWodw" xmlns="http://schemas.uipath.com/workflow/activities/uix" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ObjectRepositoryTargetData.Data>
+    <TargetAnchorable x:Key="TargetAnchorable" BrowserURL="servicedesk.grupoaxo.com/WorkOrder.do" CVScreenId="b20ff886-bf16-430d-ba27-97e73b6439dc" CvTextArea="1284, 702, 168, 16" CvTextArgument="Reseteo de contraseña" CvType="Text" DesignTimeRectangle="1276, 698, 300, 29" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl aria-role='option' tag='DIV' /&gt;" Guid="0998e3b4-9e33-4a2e-a14c-5454e1eb3934" ScopeSelectorArgument="&lt;html app='chrome.exe' title='(137) ManageEngine ServiceDesk Plus' /&gt;" SearchSteps="Selector, CV" Version="V6" WaitForReadyArgument="Interactive">
+      <TargetAnchorable.Anchors>
+        <scg:List x:TypeArguments="ITarget" Capacity="4">
+          <Target CVScreenId="b20ff886-bf16-430d-ba27-97e73b6439dc" CvTextArea="1159, 867, 73, 15" CvTextArgument="* Artículo" CvType="Text" DesignTimeRectangle="1159, 867, 73, 15" ElementType="Text" Guid="7f50b88f-1044-4c34-bd42-79b04a7835d9" SearchSteps="CV" TargetType="ComputerVisionBased" />
+        </scg:List>
+      </TargetAnchorable.Anchors>
+      <imageRef attrName="InformativeScreenshot" originalValue="dd8b786fd215c90dea133f656310de70.png" xmlns="">0XqJ5LBXvW02_Hn9Opu_wKQ</imageRef>
+    </TargetAnchorable>
+    <x:String x:Key="ActivityType">Click</x:String>
+  </ObjectRepositoryTargetData.Data>
+</ObjectRepositoryTargetData>

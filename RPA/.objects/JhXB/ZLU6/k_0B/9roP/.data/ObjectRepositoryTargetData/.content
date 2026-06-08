@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ObjectRepositoryTargetData ContentHash="7SChpO2nxUu74dQpllLJow" xmlns="http://schemas.uipath.com/workflow/activities/uix" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ObjectRepositoryTargetData.Data>
+    <TargetAnchorable x:Key="TargetAnchorable" BrowserURL="hcm19.sapsf.com/acme" CVScreenId="0a8084b0-5fe2-4524-a498-cd3e249b8ce2" CvElementArea="73, 887, 20, 21" CvType="RadioButton" DesignTimeRectangle="76, 890, 16, 17" ElementType="RadioButton" ElementVisibilityArgument="Interactive" FuzzySelectorArgument="&lt;webctrl tag='TABLE' /&gt;&lt;webctrl id='0115605' type='radio' tag='INPUT' class='user-ck' aaname='' matching:id='fuzzy' fuzzylevel:id='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' /&gt;" Guid="4887b963-b2f5-4bef-9dba-ff5cbabffb9a" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Centro de administración - SAP SuccessFactors' /&gt;" SearchSteps="FuzzySelector, CV" Version="V6" WaitForReadyArgument="Interactive">
+      <TargetAnchorable.Anchors>
+        <scg:List x:TypeArguments="ITarget" Capacity="4">
+          <Target DesignTimeRectangle="54, 859, 1715, 1" FullSelectorArgument="&lt;webctrl aaname=' Nombre de usuario Nombre de inicio de sesión  Apellidos División Departamento Registro Patronal Código de puesto Método de inicio de sesión' tableRow='1' tag='TABLE' /&gt;&lt;webctrl tableRow='22' tag='TD' /&gt;" Guid="d5f658da-b0cb-422f-b359-7a228f79cab8" SearchSteps="Selector" />
+          <Target CVScreenId="0a8084b0-5fe2-4524-a498-cd3e249b8ce2" CvTextArea="69, 921, 124, 15" CvTextArgument="Nueva contraseña:" CvType="Text" DesignTimeRectangle="70, 921, 128, 17" ElementType="Text" FuzzySelectorArgument="&lt;webctrl tag='TABLE' /&gt;&lt;webctrl type='' tag='LABEL' class='' aaname='Nueva contraseña:                                         ' matching:class='fuzzy' fuzzylevel:class='0.0' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' check:innerText='Nueva contraseña:' /&gt;" Guid="7e528ff8-59ec-4b56-81a1-e6b25a3bb411" SearchSteps="FuzzySelector, CV" />
+        </scg:List>
+      </TargetAnchorable.Anchors>
+      <imageRef attrName="InformativeScreenshot" originalValue="48e5881393c583393bd6a256d0571d57.png" xmlns="">0p3-VnO_VKEeWK1KPah6BYw</imageRef>
+    </TargetAnchorable>
+    <x:String x:Key="ActivityType">Click</x:String>
+  </ObjectRepositoryTargetData.Data>
+</ObjectRepositoryTargetData>

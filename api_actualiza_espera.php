@@ -263,32 +263,7 @@ function enviarCorreoConfirmacion($correo_destino, $resultado, $ticket, $pass_di
         ";
     }
 
-    /*
-    // --- CÓDIGO ORIGINAL RESEND API (COMENTADO A FAVOR DE OPCIÓN A) ---
-    $payload = [
-        "from" => "ArIA <ArIA@updates.swiftdesk.com.mx>",
-        "to" => $correo_destino,
-        "subject" => "Solicitud de reset de password para success factor",
-        "html" => $html,
-        "attachments" => []
-    ];
 
-    $ch = curl_init($url);
-    curl_setopt_array($ch, [
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_CUSTOMREQUEST => "POST",
-        CURLOPT_POSTFIELDS => json_encode($payload),
-        CURLOPT_SSL_VERIFYPEER => false,
-        CURLOPT_HTTPHEADER => [
-            "Authorization: Bearer {$token}",
-            "Content-Type: application/json"
-        ]
-    ]);
-    curl_exec($ch);
-    curl_close($ch);
-    */
-
-    // --- NUEVO CÓDIGO SMTP OFICIAL GRUPO AXO (OPCIÓN A) ---
     $libs_path = __DIR__ . '/libs/PHPMailer/src';
     if(!file_exists($libs_path . '/PHPMailer.php')) {
         error_log("Falta subir la carpeta libs/PHPMailer/src/ al servidor.");

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ObjectRepositoryTargetData ContentHash="NbsxTJyaiUuwFfCms44wxg" xmlns="http://schemas.uipath.com/workflow/activities/uix" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ObjectRepositoryTargetData.Data>
+    <TargetAnchorable x:Key="TargetAnchorable" BrowserURL="servicedesk.grupoaxo.com/WorkOrder.do" CVScreenId="7b84d1ff-7dc7-48f2-9f68-7e61e141bcab" CvElementArea="682, 755, 88, 39" CvTextArea="695, 766, 61, 16" CvTextArgument="Guardar" CvType="Button" DesignTimeRectangle="684, 758, 85, 35" ElementType="Button" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl tableRow='6' tag='TABLE' /&gt;&lt;webctrl tableRow='1' tag='BUTTON' /&gt;" Guid="5495148f-1b8f-43a0-9c16-30dfc1f84974" ScopeSelectorArgument="&lt;html app='chrome.exe' title='(141) ManageEngine ServiceDesk Plus' /&gt;" SearchSteps="Selector, CV" Version="V6" WaitForReadyArgument="Interactive">
+      <TargetAnchorable.Anchors>
+        <scg:List x:TypeArguments="ITarget" Capacity="4">
+          <Target CVScreenId="7b84d1ff-7dc7-48f2-9f68-7e61e141bcab" CvElementArea="780, 756, 247, 38" CvTextArea="794, 766, 218, 16" CvTextArgument="Guardar y añadir a soluciones" CvType="Button" DesignTimeRectangle="782, 758, 244, 35" ElementType="Button" FuzzySelectorArgument="&lt;webctrl tag='TABLE' /&gt;&lt;webctrl aaname='Guardar y añadir a soluciones' type='button' tag='BUTTON' class='btn btn-default' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' check:innerText='Guardar y añadir a soluciones' /&gt;" Guid="22f363b1-e019-4806-843c-022eb192521e" SearchSteps="FuzzySelector, CV" />
+        </scg:List>
+      </TargetAnchorable.Anchors>
+      <imageRef attrName="InformativeScreenshot" originalValue="1c593b6af0711959086aa2f0132eb1b3.png" xmlns="">0F0tBOaY8Uky_ywvRAlEedw</imageRef>
+    </TargetAnchorable>
+    <x:String x:Key="ActivityType">Click</x:String>
+  </ObjectRepositoryTargetData.Data>
+</ObjectRepositoryTargetData>

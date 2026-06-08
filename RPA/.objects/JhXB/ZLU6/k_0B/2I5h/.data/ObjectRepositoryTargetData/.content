@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ObjectRepositoryTargetData ContentHash="hhQcoZ6KskW5hu-xQvJW8Q" xmlns="http://schemas.uipath.com/workflow/activities/uix" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ObjectRepositoryTargetData.Data>
+    <TargetAnchorable x:Key="TargetAnchorable" BrowserURL="hcm19.sapsf.com/sf/start" CVScreenId="3c23441a-6002-4cdb-81cc-4239376ea769" CvTextArea="694, 147, 223, 16" CvTextArgument="Restablecer contraseñas de usuario" CvType="Text" DesignTimeRectangle="688, 137, 560, 36" ElementType="InputBox" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl tag='XWEB-SHELLBAR' /&gt;&lt;webctrl id='search' shadowhostid='' tag='XWEB-SHELLBAR-SEARCH-INPUT' /&gt;&lt;webctrl id='inner' shadowhostid='search' tag='INPUT' /&gt;" Guid="b44d86ab-fae4-4244-be7d-eff0289ac35d" ScopeSelectorArgument="&lt;html app='chrome.exe' title='SuccessFactors: Inicio' /&gt;" SearchSteps="Selector, CV" Version="V6" WaitForReadyArgument="Interactive">
+      <TargetAnchorable.Anchors>
+        <scg:List x:TypeArguments="ITarget" Capacity="4">
+          <Target CVScreenId="3c23441a-6002-4cdb-81cc-4239376ea769" CvTextArea="172, 146, 182, 17" CvTextArgument="AXD Inicio" CvType="Text" DesignTimeRectangle="56, 129, 624, 52" FuzzySelectorArgument="&lt;webctrl tag='XWEB-SHELLBAR' /&gt;&lt;webctrl id='shellbar' shadowhostid='' tag='UI5-SHELLBAR-SF-HEADER' matching:id='fuzzy' fuzzylevel:id='0.0' matching:shadowhostid='fuzzy' fuzzylevel:shadowhostid='0.0' /&gt;&lt;webctrl shadowhostid='shellbar' tag='DIV' type='' class='ui5-shellbar-overflow-container ui5-shellbar-overflow-container-left' aaname='    ' matching:shadowhostid='fuzzy' fuzzylevel:shadowhostid='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' check:innerText='Inicio&amp;#xA;Inicio' /&gt;" Guid="10709139-484b-421c-bf16-3cab73c7a224" SearchSteps="FuzzySelector, CV" />
+        </scg:List>
+      </TargetAnchorable.Anchors>
+      <imageRef attrName="InformativeScreenshot" originalValue="1c059053409e84f5049fdbaddb2b799a.png" xmlns="">0P20w9_YtcUKP9t-1_PxKVw</imageRef>
+    </TargetAnchorable>
+    <x:String x:Key="ActivityType">KeyboardShortcut</x:String>
+  </ObjectRepositoryTargetData.Data>
+</ObjectRepositoryTargetData>

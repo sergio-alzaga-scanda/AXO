@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ObjectRepositoryTargetData ContentHash="8JvvkYfRfUe98zdw1Rivdg" xmlns="http://schemas.uipath.com/workflow/activities/uix" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ObjectRepositoryTargetData.Data>
+    <TargetAnchorable x:Key="TargetAnchorable" BrowserURL="servicedesk.grupoaxo.com/WorkOrder.do" CVScreenId="88ad6ebd-044e-498f-87b4-16a7c8dc1efe" CvElementArea="865, 954, 104, 39" CvTextArea="877, 964, 77, 16" CvTextArgument="Actualizar" CvType="Button" DesignTimeRectangle="867, 956, 100, 36" ElementType="Button" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl aaname='Actualizar' css-selector='body&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;button' tag='BUTTON' /&gt;" Guid="8f8527c1-c825-494f-ae13-2cd7f333d200" ScopeSelectorArgument="&lt;html app='chrome.exe' title='(141) ManageEngine ServiceDesk Plus' /&gt;" SearchSteps="Selector, CV" Version="V6" WaitForReadyArgument="Interactive">
+      <TargetAnchorable.Anchors>
+        <scg:List x:TypeArguments="ITarget" Capacity="4">
+          <Target CVScreenId="88ad6ebd-044e-498f-87b4-16a7c8dc1efe" CvElementArea="978, 954, 94, 39" CvTextArea="991, 964, 66, 16" CvTextArgument="Cancelar" CvType="Button" DesignTimeRectangle="980, 956, 91, 36" ElementType="Button" FuzzySelectorArgument="&lt;webctrl aaname='Cancelar' type='' isleaf='1' tag='BUTTON' class='dialog-cancel btn btn-default' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' matching:isleaf='fuzzy' fuzzylevel:isleaf='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' check:innerText='Cancelar' /&gt;" Guid="cf988126-cdc5-4d88-9a67-dd0dc3b5a779" SearchSteps="FuzzySelector, CV" />
+        </scg:List>
+      </TargetAnchorable.Anchors>
+      <imageRef attrName="InformativeScreenshot" originalValue="7e0d8d437c875e583a9e35c3a947d15b.png" xmlns="">0kaAaUsuBiUeXMIYBvEuWFQ</imageRef>
+    </TargetAnchorable>
+    <x:String x:Key="ActivityType">Click</x:String>
+  </ObjectRepositoryTargetData.Data>
+</ObjectRepositoryTargetData>

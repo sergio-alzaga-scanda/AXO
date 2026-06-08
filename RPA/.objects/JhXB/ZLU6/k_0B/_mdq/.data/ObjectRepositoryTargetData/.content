@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ObjectRepositoryTargetData ContentHash="NUltK8Vft0CLcwyG9tJtug" xmlns="http://schemas.uipath.com/workflow/activities/uix" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ObjectRepositoryTargetData.Data>
+    <TargetAnchorable x:Key="TargetAnchorable" BrowserURL="hcm19.sapsf.com/sf/start" DesignTimeRectangle="688, 137, 560, 36" ElementType="InputBox" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl tag='XWEB-SHELLBAR' /&gt;&lt;webctrl id='search' shadowhostid='' tag='XWEB-SHELLBAR-SEARCH-INPUT' /&gt;&lt;webctrl id='inner' shadowhostid='search' tag='INPUT' /&gt;" Guid="e05325f2-34f6-44cc-b552-1c772f17ba5a" ScopeSelectorArgument="&lt;html app='chrome.exe' title='SuccessFactors: Inicio' /&gt;" SearchSteps="Selector" Version="V6" WaitForReadyArgument="Interactive">
+      <imageRef attrName="InformativeScreenshot" originalValue="3da253be749b26c858a02477212a1b1d.png" xmlns="">0DwmLbcQYxkudX2Q7PYMolQ</imageRef>
+    </TargetAnchorable>
+    <x:String x:Key="ActivityType">InjectJsScript</x:String>
+  </ObjectRepositoryTargetData.Data>
+</ObjectRepositoryTargetData>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ObjectRepositoryTargetData ContentHash="Dzx7JtCXDk-2e-KNE5gFlw" xmlns="http://schemas.uipath.com/workflow/activities/uix" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ObjectRepositoryTargetData.Data>
+    <TargetAnchorable x:Key="TargetAnchorable" BrowserURL="hcm19.sapsf.com/sf/pages/admin/password-reset" CVScreenId="e2598fb2-38ff-4d9d-95b6-05af35dd2c9a" CvElementArea="353, 902, 243, 36" CvType="InputBox" DesignTimeRectangle="355, 905, 240, 32" ElementType="InputBoxPassword" ElementVisibilityArgument="Interactive" FuzzySelectorArgument="&lt;webctrl id='fbpwdrst_confirm_pwd' tag='UI5-INPUT-XWEB-PASSWORD-RESET' matching:id='fuzzy' fuzzylevel:id='0.0' /&gt;&lt;webctrl id='inner' shadowhostid='fbpwdrst_confirm_pwd' tag='INPUT' type='password' class='ui5-input-inner' aaname='' matching:id='fuzzy' fuzzylevel:id='0.0' matching:shadowhostid='fuzzy' fuzzylevel:shadowhostid='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' /&gt;" Guid="14db204c-e7e9-497e-b269-52cf7bbddfdc" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Restablecer contraseñas de usuarios - Centro de administración - SAP SuccessFactors' /&gt;" SearchSteps="FuzzySelector, CV" Version="V6" WaitForReadyArgument="Interactive">
+      <TargetAnchorable.Anchors>
+        <scg:List x:TypeArguments="ITarget" Capacity="4">
+          <Target CVScreenId="e2598fb2-38ff-4d9d-95b6-05af35dd2c9a" CvTextArea="152, 909, 182, 18" CvTextArgument="Confirmar contraseña:*" CvType="Text" DesignTimeRectangle="135, 910, 200, 21" FuzzySelectorArgument="&lt;webctrl class='SearchResults_passwordLabel__KiUR1' type='' tag='UI5-LABEL-XWEB-PASSWORD-RESET' aaname='Confirmar contraseña:' matching:class='fuzzy' fuzzylevel:class='0.0' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' check:innerText='Confirmar contraseña:' /&gt;" Guid="9e98854a-e249-4057-917b-cf111cb279e5" SearchSteps="FuzzySelector, CV" />
+        </scg:List>
+      </TargetAnchorable.Anchors>
+      <imageRef attrName="InformativeScreenshot" originalValue="d5e5f6910ca8fb9446ae136602663d7c.jpg" xmlns="">0YcLDEKLkgUKzYX4r0rcgDQ</imageRef>
+    </TargetAnchorable>
+    <x:String x:Key="ActivityType">TypeInto</x:String>
+  </ObjectRepositoryTargetData.Data>
+</ObjectRepositoryTargetData>

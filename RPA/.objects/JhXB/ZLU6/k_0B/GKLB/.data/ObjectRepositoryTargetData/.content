@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ObjectRepositoryTargetData ContentHash="mcmr4_8A_E2wkLXhE-v1Dw" xmlns="http://schemas.uipath.com/workflow/activities/uix" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ObjectRepositoryTargetData.Data>
+    <TargetAnchorable x:Key="TargetAnchorable" BrowserURL="hcm19.sapsf.com/acme" CVScreenId="8ddc2341-7ef0-4f5c-85af-9b592ec24df8" CvTextArea="702, 182, 281, 16" CvTextArgument="Restablecer contraseñas de usuarios" CvType="Text" DesignTimeRectangle="688, 173, 560, 36" ElementType="ListItem" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl tag='XWEB-SHELLBAR' /&gt;&lt;webctrl shadowhostid='' tag='UI5-SUGGESTION-ITEM-CUSTOM-SF-HEADER' /&gt;&lt;webctrl shadowhostid='' tag='LI' /&gt;" Guid="b22eac32-7cfa-43da-8ba8-561753cef312" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Centro de administración - SAP SuccessFactors' /&gt;" SearchSteps="Selector, CV" Version="V6" WaitForReadyArgument="Interactive">
+      <TargetAnchorable.Anchors>
+        <scg:List x:TypeArguments="ITarget" Capacity="4">
+          <Target CVScreenId="8ddc2341-7ef0-4f5c-85af-9b592ec24df8" CvTextArea="702, 182, 281, 16" CvTextArgument="Restablecer contraseñas de usuarios" CvType="Text" DesignTimeRectangle="704, 182, 278, 17" FuzzySelectorArgument="&lt;webctrl tag='XWEB-SHELLBAR' /&gt;&lt;webctrl shadowhostid='' tag='B' type='' class='' aaname='Restablecer contraseñas de usuarios' matching:shadowhostid='fuzzy' fuzzylevel:shadowhostid='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' check:innerText='Restablecer contraseñas de usuarios' /&gt;" Guid="62c763b6-3c21-4533-ae6f-f9fb34edf82a" SearchSteps="FuzzySelector, CV" />
+        </scg:List>
+      </TargetAnchorable.Anchors>
+      <imageRef attrName="InformativeScreenshot" originalValue="5673f9e49b1852c3d0c102478d8f31de.png" xmlns="">0jYNCBU544kijkLx9ngVdGw</imageRef>
+    </TargetAnchorable>
+    <x:String x:Key="ActivityType">Click</x:String>
+  </ObjectRepositoryTargetData.Data>
+</ObjectRepositoryTargetData>

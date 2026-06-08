@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ObjectRepositoryTargetData ContentHash="_aV3JPpXJUa6s2loAwjvVA" xmlns="http://schemas.uipath.com/workflow/activities/uix" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ObjectRepositoryTargetData.Data>
+    <TargetAnchorable x:Key="TargetAnchorable" BrowserURL="servicedesk.grupoaxo.com/WorkOrder.do" CVScreenId="c25751fb-f2e8-4f87-89d6-e939892697b3" CvTextArea="742, 879, 107, 18" CvTextArgument="Requerimiento" CvType="Text" DesignTimeRectangle="735, 874, 289, 29" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl aaname='Requerimiento' aria-role='option' tag='DIV' /&gt;" Guid="8f0c5813-f446-4271-b58c-52b714d1eb74" ScopeSelectorArgument="&lt;html app='chrome.exe' title='(137) ManageEngine ServiceDesk Plus' /&gt;" SearchSteps="Selector, CV" Version="V6" WaitForReadyArgument="Interactive">
+      <TargetAnchorable.Anchors>
+        <scg:List x:TypeArguments="ITarget" Capacity="4">
+          <Target CVScreenId="c25751fb-f2e8-4f87-89d6-e939892697b3" CvTextArea="554, 654, 136, 20" CvTextArgument="* Tipo de solicitud" CvType="Text" DesignTimeRectangle="554, 653, 136, 20" ElementType="Text" Guid="f285eea2-852b-47be-bd57-35cff99cc20a" SearchSteps="CV" TargetType="ComputerVisionBased" />
+        </scg:List>
+      </TargetAnchorable.Anchors>
+      <imageRef attrName="InformativeScreenshot" originalValue="6ca53bd3869f8d1bb7b8830a0896b73b.png" xmlns="">0OVzaSYSOQ0u3IVA9U1IBGg</imageRef>
+    </TargetAnchorable>
+    <x:String x:Key="ActivityType">Click</x:String>
+  </ObjectRepositoryTargetData.Data>
+</ObjectRepositoryTargetData>

@@ -1,0 +1,14 @@
+﻿{
+  "Name": "La contraseña introduci…",
+  "Type": "Element",
+  "TaxonomyType": "Label",
+  "Id": "Erhxh5nCKUSBUEtsg6MsBA",
+  "Reference": "RuAvTAzP2UiATw6fXaPPQw/Erhxh5nCKUSBUEtsg6MsBA",
+  "ParentRef": "RuAvTAzP2UiATw6fXaPPQw/k_0B37MUnUiUyeTNikHM0A",
+  "Created": "2026-04-21T22:38:43.0382814Z",
+  "Updated": "2026-04-21T22:38:43.0382814Z",
+  "CreatedBy": [
+    "UiPath.UIAutomationCore, Version=25.10.30.0, Culture=neutral, PublicKeyToken=null",
+    "UiPath.Platform, Version=25.12.1.0, Culture=neutral, PublicKeyToken=null"
+  ]
+}

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ObjectRepositoryTargetData ContentHash="ZNyj6F2unEiMDKKBiACu_A" xmlns="http://schemas.uipath.com/workflow/activities/uix" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ObjectRepositoryTargetData.Data>
+    <TargetAnchorable x:Key="TargetAnchorable" BrowserURL="hcm19.sapsf.com/acme" CVScreenId="d269400a-283c-4603-a346-294e6fe4d27f" CvElementArea="370, 978, 146, 32" CvTextArea="380, 982, 124, 19" CvTextArgument="Buscar usuarios" CvType="Button" DesignTimeRectangle="372, 980, 142, 28" ElementType="Button" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl tableRow='13' tag='TABLE' /&gt;&lt;webctrl tableRow='8' tag='INPUT' type='submit' /&gt;" Guid="ac06058d-92c0-4493-a5ba-90203bd2e3c4" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Centro de administración - SAP SuccessFactors' /&gt;" SearchSteps="Selector, CV" Version="V6" WaitForReadyArgument="Interactive">
+      <TargetAnchorable.Anchors>
+        <scg:List x:TypeArguments="ITarget" Capacity="4">
+          <Target CVScreenId="d269400a-283c-4603-a346-294e6fe4d27f" CvTextArea="69, 985, 57, 16" CvTextArgument="Utilizar:" CvType="Text" DesignTimeRectangle="66, 975, 98, 38" FuzzySelectorArgument="&lt;webctrl tag='TABLE' /&gt;&lt;webctrl type='' tag='TD' class='' aaname='' matching:class='fuzzy' fuzzylevel:class='0.0' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' check:innerText='Utilizar:' /&gt;" Guid="e5cd3087-785e-43a3-8fbe-5ada17295fa1" SearchSteps="FuzzySelector, CV" />
+        </scg:List>
+      </TargetAnchorable.Anchors>
+      <imageRef attrName="InformativeScreenshot" originalValue="0a850831ca6387f60de160cb971e57d1.jpg" xmlns="">0nPnMUQLWPk2GqlmJ-UWi7Q</imageRef>
+    </TargetAnchorable>
+    <x:String x:Key="ActivityType">Click</x:String>
+  </ObjectRepositoryTargetData.Data>
+</ObjectRepositoryTargetData>

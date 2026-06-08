@@ -1,0 +1,13 @@
+﻿{
+  "Name": "Nombre de usuario Nombr…",
+  "Type": "Element",
+  "Id": "n-2eApy6MUe4QIoYML_9dQ",
+  "Reference": "RuAvTAzP2UiATw6fXaPPQw/n-2eApy6MUe4QIoYML_9dQ",
+  "ParentRef": "RuAvTAzP2UiATw6fXaPPQw/k_0B37MUnUiUyeTNikHM0A",
+  "Created": "2025-12-30T03:30:44.4864321Z",
+  "Updated": "2025-12-30T03:30:44.4864321Z",
+  "CreatedBy": [
+    "UiPath.UIAutomationCore, Version=25.10.22.0, Culture=neutral, PublicKeyToken=null",
+    "UiPath.Platform, Version=25.10.1.0, Culture=neutral, PublicKeyToken=null"
+  ]
+}

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ObjectRepositoryTargetData ContentHash="iNXl0eFYd0O3piiei5RnJQ" xmlns="http://schemas.uipath.com/workflow/activities/uix" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ObjectRepositoryTargetData.Data>
+    <TargetAnchorable x:Key="TargetAnchorable" BrowserURL="servicedesk.grupoaxo.com/WorkOrder.do" CVScreenId="894a3cac-ae11-4582-b408-e27d0953a993" CvElementArea="1275, 513, 302, 37" CvType="InputBox" DesignTimeRectangle="1276, 515, 300, 34" ElementType="InputBox" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl aria-role='combobox' css-selector='body&amp;gt;div&amp;gt;div&amp;gt;input' idx='8' tag='INPUT' type='text' /&gt;" Guid="eacea125-5481-4d45-9884-be902d59c100" ScopeSelectorArgument="&lt;html app='chrome.exe' title='(137) ManageEngine ServiceDesk Plus' /&gt;" SearchSteps="Selector, CV" Version="V6" WaitForReadyArgument="Interactive">
+      <TargetAnchorable.Anchors>
+        <scg:List x:TypeArguments="ITarget" Capacity="4">
+          <Target CVScreenId="894a3cac-ae11-4582-b408-e27d0953a993" CvTextArea="1119, 814, 112, 20" CvTextArgument="* Subcategoría" CvType="Text" DesignTimeRectangle="1119, 813, 113, 20" ElementType="Text" Guid="42a187fe-265a-4eb2-b30c-7d1bb49dd65d" SearchSteps="CV" TargetType="ComputerVisionBased" />
+        </scg:List>
+      </TargetAnchorable.Anchors>
+      <imageRef attrName="InformativeScreenshot" originalValue="8a702ec8e3eef8d5af5dd7bcdf73797b.png" xmlns="">0MtrEf0MuSUGNIopWtxLo5A</imageRef>
+    </TargetAnchorable>
+    <x:String x:Key="ActivityType">TypeInto</x:String>
+  </ObjectRepositoryTargetData.Data>
+</ObjectRepositoryTargetData>

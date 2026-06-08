@@ -26,24 +26,28 @@ $fecha_fin = isset($_GET['fecha_fin']) ? $_GET['fecha_fin'] : date('Y-m-d');
 // Condición base para los queries (rango inclusivo por día completo)
 $condicion_fecha = "fecha_asignacion >= :inicio AND fecha_asignacion <= :fin_completo";
 
-// --- Consultas para Estadísticas ---
-
-// Tickets Hoy
-$ticketsHoy = $ticketsHoyNavbar;
-
-// Tickets esta semana
-$stmtSemana = $conn->query("SELECT COUNT(*) as total FROM tickets_asignados WHERE YEARWEEK(fecha_asignacion, 1) = YEARWEEK(CURDATE(), 1)");
-$ticketsSemana = $stmtSemana->fetch(PDO::FETCH_ASSOC)['total'];
-
-// Tickets este mes
-$stmtMes = $conn->query("SELECT COUNT(*) as total FROM tickets_asignados WHERE MONTH(fecha_asignacion) = MONTH(CURDATE()) AND YEAR(fecha_asignacion) = YEAR(CURDATE())");
-$ticketsMes = $stmtMes->fetch(PDO::FETCH_ASSOC)['total'];
-
 // Preparar parámetros comunes
 $params = [
     ':inicio' => $fecha_inicio . ' 00:00:00',
     ':fin_completo' => $fecha_fin . ' 23:59:59'
 ];
+
+// --- Consultas para Estadísticas ---
+
+// Tickets Hoy
+$stmtHoy = $conn->prepare("SELECT COUNT(*) as total FROM tickets_asignados WHERE $condicion_fecha AND fecha_asignacion >= CURDATE()");
+$stmtHoy->execute($params);
+$ticketsHoy = $stmtHoy->fetch(PDO::FETCH_ASSOC)['total'];
+
+// Tickets esta semana
+$stmtSemana = $conn->prepare("SELECT COUNT(*) as total FROM tickets_asignados WHERE $condicion_fecha AND YEARWEEK(fecha_asignacion, 1) = YEARWEEK(CURDATE(), 1)");
+$stmtSemana->execute($params);
+$ticketsSemana = $stmtSemana->fetch(PDO::FETCH_ASSOC)['total'];
+
+// Tickets este mes
+$stmtMes = $conn->prepare("SELECT COUNT(*) as total FROM tickets_asignados WHERE $condicion_fecha AND MONTH(fecha_asignacion) = MONTH(CURDATE()) AND YEAR(fecha_asignacion) = YEAR(CURDATE())");
+$stmtMes->execute($params);
+$ticketsMes = $stmtMes->fetch(PDO::FETCH_ASSOC)['total'];
 
 // Tickets por técnico (Pie)
 $stmtTecnicos = $conn->prepare("SELECT usuario_tecnico as label, COUNT(*) as total FROM tickets_asignados WHERE $condicion_fecha AND usuario_tecnico IS NOT NULL AND usuario_tecnico != '' GROUP BY usuario_tecnico ORDER BY total DESC");
@@ -65,8 +69,9 @@ $stmtGrupos = $conn->prepare("SELECT grupo as label, COUNT(*) as total FROM tick
 $stmtGrupos->execute($params);
 $dataGrupos = $stmtGrupos->fetchAll(PDO::FETCH_ASSOC);
 
-// --- Tickets por mes (Año actual) ---
-$stmtMeses = $conn->query("SELECT MONTH(fecha_asignacion) as mes, COUNT(*) as total FROM tickets_asignados WHERE YEAR(fecha_asignacion) = YEAR(CURDATE()) GROUP BY MONTH(fecha_asignacion) ORDER BY mes ASC");
+// --- Tickets por mes (Rango seleccionado) ---
+$stmtMeses = $conn->prepare("SELECT MONTH(fecha_asignacion) as mes, COUNT(*) as total FROM tickets_asignados WHERE $condicion_fecha GROUP BY MONTH(fecha_asignacion) ORDER BY mes ASC");
+$stmtMeses->execute($params);
 $dataMesesRaw = $stmtMeses->fetchAll(PDO::FETCH_ASSOC);
 
 $nombresMeses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
@@ -79,9 +84,17 @@ for ($i = 1; $i <= 12; $i++) {
             break;
         }
     }
-    // Agregar 217 extras a Enero (mes 1)
+    // Agregar 217 extras a Enero (mes 1) si intersecta con el rango
     if ($i === 1) {
-        $total += 217;
+        $current_year = date('Y');
+        $inicio_enero = strtotime("$current_year-01-01 00:00:00");
+        $fin_enero = strtotime("$current_year-01-31 23:59:59");
+        $filtro_inicio_ts = strtotime($fecha_inicio . ' 00:00:00');
+        $filtro_fin_ts = strtotime($fecha_fin . ' 23:59:59');
+        
+        if ($filtro_inicio_ts <= $fin_enero && $filtro_fin_ts >= $inicio_enero) {
+            $total += 217;
+        }
     }
     $dataMeses[] = [
         'label' => $nombresMeses[$i - 1],
@@ -340,8 +353,8 @@ $grupoTop = count($dataGrupos) > 0 ? $dataGrupos[0]['label'] : 'N/A';
             <div class="col-md-3">
                 <div class="card text-white bg-dark bg-gradient shadow rounded-4 border-0 h-100">
                     <div class="card-body position-relative overflow-hidden p-4">
-                        <h6 class="card-title text-uppercase fw-semibold mb-1 opacity-75">Total Histórico</h6>
-                        <h2 class="display-5 fw-bold mb-0"><?= $ticketsTotalNavbar ?></h2>
+                        <h6 class="card-title text-uppercase fw-semibold mb-1 opacity-75">Total en Rango</h6>
+                        <h2 class="display-5 fw-bold mb-0"><?= $ticketsTotalRango ?></h2>
                         <i class="bi bi-database position-absolute top-50 start-100 translate-middle opacity-25" style="font-size: 6rem; margin-left: -30px;"></i>
                     </div>
                 </div>

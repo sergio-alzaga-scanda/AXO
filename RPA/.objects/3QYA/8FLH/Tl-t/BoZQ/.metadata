@@ -1,0 +1,14 @@
+﻿{
+  "Name": " Grupo(3)",
+  "Type": "Element",
+  "TaxonomyType": "Input",
+  "Id": "BoZQScu-Y0m1WHp3ZepC2A",
+  "Reference": "RuAvTAzP2UiATw6fXaPPQw/BoZQScu-Y0m1WHp3ZepC2A",
+  "ParentRef": "RuAvTAzP2UiATw6fXaPPQw/Tl-t2Kd02E-O1EwXRA_HIw",
+  "Created": "2026-01-06T20:47:12.1472438Z",
+  "Updated": "2026-01-06T20:47:12.1472438Z",
+  "CreatedBy": [
+    "UiPath.UIAutomationCore, Version=25.10.22.0, Culture=neutral, PublicKeyToken=null",
+    "UiPath.Platform, Version=25.10.1.0, Culture=neutral, PublicKeyToken=null"
+  ]
+}

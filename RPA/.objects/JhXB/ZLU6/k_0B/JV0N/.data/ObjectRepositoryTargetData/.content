@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ObjectRepositoryTargetData ContentHash="viq39Z69kECcmC0EVFdm9g" xmlns="http://schemas.uipath.com/workflow/activities/uix" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ObjectRepositoryTargetData.Data>
+    <TargetAnchorable x:Key="TargetAnchorable" BrowserURL="hcm19.sapsf.com/sf/start" CVScreenId="93dad3e7-200a-4dee-b8ed-3ecd6ab9965d" CvElementArea="1078, 168, 504, 48" CvType="InputBox" DesignTimeRectangle="1082, 170, 500, 45" ElementType="InputBox" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl tag='XWEB-SHELLBAR' /&gt;&lt;webctrl id='search' shadowhostid='' tag='XWEB-SHELLBAR-SEARCH-INPUT' /&gt;&lt;webctrl id='inner' shadowhostid='search' tag='INPUT' /&gt;" Guid="a666748d-6db4-40ea-adc0-2076a411f98d" ScopeSelectorArgument="&lt;html app='chrome.exe' title='SuccessFactors: Inicio' /&gt;" SearchSteps="Selector, CV" Version="V6" WaitForReadyArgument="Interactive">
+      <TargetAnchorable.Anchors>
+        <scg:List x:TypeArguments="ITarget" Capacity="4">
+          <Target DesignTimeRectangle="521, 160, 1346, 65" FullSelectorArgument="&lt;webctrl tag='XWEB-SHELLBAR' /&gt;&lt;webctrl id='shellbar' shadowhostid='' tag='UI5-SHELLBAR-SF-HEADER' /&gt;&lt;webctrl aaname='     ' shadowhostid='shellbar' tag='DIV' /&gt;" Guid="4beaedc9-55f2-4b93-b388-5ac8c4479499" SearchSteps="Selector" />
+        </scg:List>
+      </TargetAnchorable.Anchors>
+      <imageRef attrName="InformativeScreenshot" originalValue="3bb77ab73864b988cca02b715aa21646.png" xmlns="">0NK-VKWwb8Eu5_Orx5Eb4-A</imageRef>
+    </TargetAnchorable>
+    <x:String x:Key="ActivityType">TypeInto</x:String>
+  </ObjectRepositoryTargetData.Data>
+</ObjectRepositoryTargetData>

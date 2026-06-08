@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ObjectRepositoryTargetData ContentHash="ZWWjr9y7JE-WIKPeiyIlaw" xmlns="http://schemas.uipath.com/workflow/activities/uix" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ObjectRepositoryTargetData.Data>
+    <TargetAnchorable x:Key="TargetAnchorable" BrowserURL="servicedesk.grupoaxo.com/HomePage.do" CVScreenId="859a58ce-cb2b-4145-b802-fea15b7986c5" CvElementArea="743, 790, 451, 55" CvTextArea="916, 807, 104, 17" CvTextArgument="Iniciar sesión" CvType="Button" DesignTimeRectangle="744, 792, 450, 53" ElementType="Button" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl id='loginSDPage' tag='BUTTON' /&gt;" Guid="3553f522-9852-47e3-ad3e-48518d98f417" ScopeSelectorArgument="&lt;html app='chrome.exe' title='ManageEngine ServiceDesk Plus' /&gt;" SearchSteps="Selector, CV" Version="V6" WaitForReadyArgument="Interactive">
+      <TargetAnchorable.Anchors>
+        <scg:List x:TypeArguments="ITarget" Capacity="4">
+          <Target CVScreenId="859a58ce-cb2b-4145-b802-fea15b7986c5" CvElementArea="741, 754, 20, 19" CvTextArea="770, 754, 139, 17" CvTextArgument="Recordar sesión" CvType="CheckBox" DesignTimeRectangle="744, 730, 450, 62" ElementType="CheckBox" FuzzySelectorArgument="&lt;webctrl id='keepme' tag='DIV' type='' class='pb10 pt15' aaname='  &amp;#x9;      &amp;#x9;' matching:id='fuzzy' fuzzylevel:id='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' check:innerText='Recordar sesión' /&gt;" Guid="f0c10975-9fe9-4e08-a9c9-b3c8f4e8b87f" SearchSteps="FuzzySelector, CV" />
+        </scg:List>
+      </TargetAnchorable.Anchors>
+      <imageRef attrName="InformativeScreenshot" originalValue="57aedf86a3f9921fcc7f30906ee4b2a1.png" xmlns="">03Zd_Tah6ZkuiK1mKe2vuhg</imageRef>
+    </TargetAnchorable>
+    <x:String x:Key="ActivityType">Click</x:String>
+  </ObjectRepositoryTargetData.Data>
+</ObjectRepositoryTargetData>

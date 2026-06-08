@@ -1,0 +1,13 @@
+﻿{
+  "Name": " Categoría",
+  "Type": "Element",
+  "Id": "4bzppvS5QUWUOHR6HSyYtg",
+  "Reference": "RuAvTAzP2UiATw6fXaPPQw/4bzppvS5QUWUOHR6HSyYtg",
+  "ParentRef": "RuAvTAzP2UiATw6fXaPPQw/Tl-t2Kd02E-O1EwXRA_HIw",
+  "Created": "2026-01-06T20:26:58.7412437Z",
+  "Updated": "2026-01-06T20:26:58.7412437Z",
+  "CreatedBy": [
+    "UiPath.UIAutomationCore, Version=25.10.22.0, Culture=neutral, PublicKeyToken=null",
+    "UiPath.Platform, Version=25.10.1.0, Culture=neutral, PublicKeyToken=null"
+  ]
+}

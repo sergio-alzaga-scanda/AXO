@@ -1,0 +1,14 @@
+﻿{
+  "Name": "Nueva contraseña(1)",
+  "Type": "Element",
+  "TaxonomyType": "Password",
+  "Id": "xGmsz2sq30OdANVAO9ZzBg",
+  "Reference": "RuAvTAzP2UiATw6fXaPPQw/xGmsz2sq30OdANVAO9ZzBg",
+  "ParentRef": "RuAvTAzP2UiATw6fXaPPQw/k_0B37MUnUiUyeTNikHM0A",
+  "Created": "2026-05-25T23:56:53.3842348Z",
+  "Updated": "2026-05-25T23:56:53.3842348Z",
+  "CreatedBy": [
+    "UiPath.UIAutomationCore, Version=25.10.30.0, Culture=neutral, PublicKeyToken=null",
+    "UiPath.Platform, Version=25.12.1.0, Culture=neutral, PublicKeyToken=null"
+  ]
+}

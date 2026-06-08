@@ -1,0 +1,14 @@
+﻿{
+  "Name": "Actualizar el estado de…(2)",
+  "Type": "Element",
+  "TaxonomyType": "Input",
+  "Id": "oQyPtfu3ukGhkaeDw4oDuA",
+  "Reference": "RuAvTAzP2UiATw6fXaPPQw/oQyPtfu3ukGhkaeDw4oDuA",
+  "ParentRef": "RuAvTAzP2UiATw6fXaPPQw/Tl-t2Kd02E-O1EwXRA_HIw",
+  "Created": "2025-12-30T21:18:46.6027874Z",
+  "Updated": "2025-12-30T21:18:46.6027874Z",
+  "CreatedBy": [
+    "UiPath.UIAutomationCore, Version=25.10.22.0, Culture=neutral, PublicKeyToken=null",
+    "UiPath.Platform, Version=25.10.1.0, Culture=neutral, PublicKeyToken=null"
+  ]
+}

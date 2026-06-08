@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ObjectRepositoryTargetData ContentHash="Lvz3XQWHqkmGPa5w9EOJSQ" xmlns="http://schemas.uipath.com/workflow/activities/uix" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ObjectRepositoryTargetData.Data>
+    <TargetAnchorable x:Key="TargetAnchorable" BrowserURL="servicedesk.grupoaxo.com/WorkOrder.do" CVScreenId="f357358e-5f86-4bed-8573-d9a5177f966a" CvElementArea="689, 630, 303, 36" CvType="InputBox" DesignTimeRectangle="691, 632, 300, 34" ElementType="InputBox" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl aria-role='combobox' css-selector='body&amp;gt;div&amp;gt;div&amp;gt;input' tag='INPUT' type='text' /&gt;" Guid="943bb368-66fc-44ed-862a-8a87e18a5632" ScopeSelectorArgument="&lt;html app='chrome.exe' title='(141) ManageEngine ServiceDesk Plus' /&gt;" SearchSteps="Selector, CV" Version="V6" WaitForReadyArgument="Interactive">
+      <TargetAnchorable.Anchors>
+        <scg:List x:TypeArguments="ITarget" Capacity="4">
+          <Target CVScreenId="f357358e-5f86-4bed-8573-d9a5177f966a" CvTextArea="407, 601, 265, 15" CvTextArgument="Actualizar el estado de la solicitud a" CvType="Text" DesignTimeRectangle="407, 601, 265, 16" ElementType="Text" Guid="cd5f9d25-775b-4c72-9e0d-85eb93fe64ae" SearchSteps="CV" TargetType="ComputerVisionBased" />
+        </scg:List>
+      </TargetAnchorable.Anchors>
+      <imageRef attrName="InformativeScreenshot" originalValue="9f8ed5008381d4700dbec60c89109dae.png" xmlns="">0T-k3gZ4NRUCt7G0gkOAjdw</imageRef>
+    </TargetAnchorable>
+    <x:String x:Key="ActivityType">TypeInto</x:String>
+  </ObjectRepositoryTargetData.Data>
+</ObjectRepositoryTargetData>

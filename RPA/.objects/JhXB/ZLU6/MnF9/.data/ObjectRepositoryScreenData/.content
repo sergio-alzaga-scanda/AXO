@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ObjectRepositoryScreenData ContentHash="oVkhD5UeBUebokkgVuU0Fg" xmlns="http://schemas.uipath.com/workflow/activities/uix" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ObjectRepositoryScreenData.Data>
+    <TargetApp x:Key="TargetApp" Area="0, 0, 0, 0" Selector="&lt;html app='chrome.exe' title='SuccessFactors: Inicio' /&gt;" Url="hcm19.sapsf.com/sf/start" />
+  </ObjectRepositoryScreenData.Data>
+</ObjectRepositoryScreenData>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ObjectRepositoryTargetData ContentHash="4jYwmGEpAEWglHNOmnLjZg" xmlns="http://schemas.uipath.com/workflow/activities/uix" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ObjectRepositoryTargetData.Data>
+    <TargetAnchorable x:Key="TargetAnchorable" BrowserURL="hcm19.sapsf.com/sf/start" CVScreenId="96d9cfdc-d839-4a41-ac7e-79388bb8aad8" CvTextArea="703, 263, 266, 16" CvTextArgument="Restablecer contraseñas de usuarios" CvType="Text" DesignTimeRectangle="704, 263, 264, 17" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl tag='XWEB-SHELLBAR' /&gt;&lt;webctrl css-selector='div&amp;gt;div&amp;gt;ui5-shellbar-sf-header&amp;gt;xweb-shellbar-search-input&amp;gt;ui5-suggestion-item-group-sf-header&amp;gt;ui5-suggestion-item-custom-sf-header&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;span&amp;gt;span' idx='2' shadowhostid='' tag='SPAN' /&gt;" Guid="1fc65aae-a12f-47ce-81a9-2b3c0f732674" ScopeSelectorArgument="&lt;html app='chrome.exe' title='SuccessFactors: Inicio' /&gt;" SearchSteps="Selector, CV" Version="V6" WaitForReadyArgument="Interactive">
+      <TargetAnchorable.Anchors>
+        <scg:List x:TypeArguments="ITarget" Capacity="4">
+          <Target CVScreenId="96d9cfdc-d839-4a41-ac7e-79388bb8aad8" CvTextArea="703, 226, 221, 16" CvTextArgument="Restablecer cuenta de usuario" CvType="Text" DesignTimeRectangle="704, 226, 219, 17" FuzzySelectorArgument="&lt;webctrl tag='XWEB-SHELLBAR' /&gt;&lt;webctrl aaname='Restablecer cuenta de ' shadowhostid='' tag='SPAN' type='' class='' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' matching:shadowhostid='fuzzy' fuzzylevel:shadowhostid='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' check:innerText='Restablecer cuenta de usuario' /&gt;" Guid="341ef935-8a68-44b0-9c82-5c8431acc504" SearchSteps="FuzzySelector, CV" />
+        </scg:List>
+      </TargetAnchorable.Anchors>
+      <imageRef attrName="InformativeScreenshot" originalValue="3e3ffaaf1a4bc465acb385b82e82a635.png" xmlns="">0D7Q9MaIGZ0-apjLvVmwGwQ</imageRef>
+    </TargetAnchorable>
+    <x:String x:Key="ActivityType">Click</x:String>
+  </ObjectRepositoryTargetData.Data>
+</ObjectRepositoryTargetData>

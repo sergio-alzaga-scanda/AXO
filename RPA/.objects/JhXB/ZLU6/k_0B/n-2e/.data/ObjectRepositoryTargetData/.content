@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ObjectRepositoryTargetData ContentHash="_q3Tx9ZmxE-7Viy6Bmmunw" xmlns="http://schemas.uipath.com/workflow/activities/uix" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ObjectRepositoryTargetData.Data>
+    <TargetAnchorable x:Key="TargetAnchorable" BrowserURL="hcm19.sapsf.com/acme" CVScreenId="ca83418d-9723-4279-a0bf-1e058ca17933" CvTextArea="800, 864, 103, 18" CvTextArgument="Departamento" CvType="Text" DesignTimeRectangle="798, 861, 415, 23" ElementType="Text" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl tableRow='23' tag='TABLE' /&gt;&lt;webctrl aaname='Departamento                                     ' colName='Departamento                                     ' innertext='Departamento                                     ' parentclass='spacerPadding' /&gt;" Guid="e7166532-38f0-4821-8858-153414962b82" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Centro de administración - SAP SuccessFactors' /&gt;" SearchSteps="Selector, CV" Version="V6" WaitForReadyArgument="None">
+      <TargetAnchorable.Anchors>
+        <scg:List x:TypeArguments="ITarget" Capacity="4">
+          <Target CVScreenId="ca83418d-9723-4279-a0bf-1e058ca17933" CvTextArea="594, 864, 60, 15" CvTextArgument="División" CvType="Text" DesignTimeRectangle="593, 861, 205, 23" ElementType="Text" FuzzySelectorArgument="&lt;webctrl tag='TABLE' /&gt;&lt;webctrl aaname='División                                     ' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' type='' tag='TH' class='' matching:class='fuzzy' fuzzylevel:class='0.0' colName='División                                     ' innertext='División                                     ' check:innerText='División' /&gt;" Guid="00ea1db9-4263-4a9f-81c2-3a24dd0bbe55" SearchSteps="FuzzySelector, CV" />
+        </scg:List>
+      </TargetAnchorable.Anchors>
+      <imageRef attrName="InformativeScreenshot" originalValue="27a846eea678f779937c3e6cbb9211d3.jpg" xmlns="">090-nWb6ucU6wFSSOaSGjlg</imageRef>
+    </TargetAnchorable>
+    <x:String x:Key="ActivityType">CheckState</x:String>
+  </ObjectRepositoryTargetData.Data>
+</ObjectRepositoryTargetData>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ObjectRepositoryTargetData ContentHash="0CSsDuUfskaWHAWqamSXng" xmlns="http://schemas.uipath.com/workflow/activities/uix" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ObjectRepositoryTargetData.Data>
+    <TargetAnchorable x:Key="TargetAnchorable" BrowserURL="hcm19.sapsf.com/sf/start" CVScreenId="274ba0bb-bf33-4687-a536-2fe3ce8c2db8" CvTextArea="703, 263, 266, 16" CvTextArgument="Restablecer contraseñas de usuarios" CvType="Text" DesignTimeRectangle="704, 263, 264, 17" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl tag='XWEB-SHELLBAR' /&gt;&lt;webctrl css-selector='div&amp;gt;div&amp;gt;ui5-shellbar-sf-header&amp;gt;xweb-shellbar-search-input&amp;gt;ui5-suggestion-item-group-sf-header&amp;gt;ui5-suggestion-item-custom-sf-header&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;span&amp;gt;span' idx='2' shadowhostid='' tag='SPAN' /&gt;" Guid="2d250117-e3a6-48ed-87e9-f8d2611d34dd" ScopeSelectorArgument="&lt;html app='chrome.exe' title='SuccessFactors: Inicio' /&gt;" SearchSteps="Selector, CV" Version="V6" WaitForReadyArgument="Interactive">
+      <TargetAnchorable.Anchors>
+        <scg:List x:TypeArguments="ITarget" Capacity="4">
+          <Target CVScreenId="274ba0bb-bf33-4687-a536-2fe3ce8c2db8" CvTextArea="703, 263, 266, 16" CvTextArgument="Restablecer contraseñas de usuarios" CvType="Text" DesignTimeRectangle="688, 254, 622, 36" ElementType="ListItem" FullSelectorArgument="&lt;webctrl tag='XWEB-SHELLBAR' /&gt;&lt;webctrl idx='2' shadowhostid='' tag='UI5-SUGGESTION-ITEM-CUSTOM-SF-HEADER' /&gt;&lt;webctrl shadowhostid='' tag='LI' /&gt;" Guid="f092e368-44f8-4955-b8aa-6099b0e7f362" SearchSteps="Selector, CV" />
+        </scg:List>
+      </TargetAnchorable.Anchors>
+      <imageRef attrName="InformativeScreenshot" originalValue="5209c8d720cb0e6da41d7ace66489942.png" xmlns="">0mJxswhfU7UKfGLIR7pncsg</imageRef>
+    </TargetAnchorable>
+    <x:String x:Key="ActivityType">None</x:String>
+  </ObjectRepositoryTargetData.Data>
+</ObjectRepositoryTargetData>

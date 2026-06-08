@@ -1,0 +1,14 @@
+﻿{
+  "Name": "Actualizar",
+  "Type": "Element",
+  "TaxonomyType": "Button",
+  "Id": "h9F-RNkiVUKzQOCWvuiCAA",
+  "Reference": "RuAvTAzP2UiATw6fXaPPQw/h9F-RNkiVUKzQOCWvuiCAA",
+  "ParentRef": "RuAvTAzP2UiATw6fXaPPQw/Tl-t2Kd02E-O1EwXRA_HIw",
+  "Created": "2025-12-30T21:25:10.8813811Z",
+  "Updated": "2025-12-30T21:25:10.8813811Z",
+  "CreatedBy": [
+    "UiPath.UIAutomationCore, Version=25.10.22.0, Culture=neutral, PublicKeyToken=null",
+    "UiPath.Platform, Version=25.10.1.0, Culture=neutral, PublicKeyToken=null"
+  ]
+}

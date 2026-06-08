@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ObjectRepositoryTargetData ContentHash="c3DYi0IFoECIrkpGE6NLmA" xmlns="http://schemas.uipath.com/workflow/activities/uix" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ObjectRepositoryTargetData.Data>
+    <TargetAnchorable x:Key="TargetAnchorable" BrowserURL="hcm19.sapsf.com/acme" CVScreenId="f6bee7a9-4ce3-4ccc-b795-ef3a370bff4d" CvElementArea="687, 136, 559, 38" CvType="InputBox" DesignTimeRectangle="687, 136, 560, 38" ElementType="InputBox" ElementVisibilityArgument="Interactive" Guid="f1c9ee44-eb0f-4913-abe5-6a278da9d208" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Centro de administración - SAP SuccessFactors' /&gt;" SearchSteps="CV" TargetType="ComputerVisionBased" Version="V6" WaitForReadyArgument="Interactive">
+      <TargetAnchorable.Anchors>
+        <scg:List x:TypeArguments="ITarget" Capacity="4">
+          <Target DesignTimeRectangle="158, 136, 1817, 24" ElementType="Text" FuzzySelectorArgument="&lt;webctrl tag='TABLE' /&gt;&lt;webctrl type='' tag='H1' class='paneBodyTitle sfObjectPageTitle documentHeader globalContentBackground globalContentForeground' aaname='Centro de administración ' matching:class='fuzzy' fuzzylevel:class='0.0' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' check:innerText='Centro de administración' /&gt;" Guid="fede06ed-3da5-48c1-9514-8120fc803e51" SearchSteps="FuzzySelector" />
+        </scg:List>
+      </TargetAnchorable.Anchors>
+      <imageRef attrName="InformativeScreenshot" originalValue="15b60b254587d710556c57f82bd2421f.png" xmlns="">0n2v4WZdhbE6qMHUd7zWLvw</imageRef>
+    </TargetAnchorable>
+    <x:String x:Key="ActivityType">KeyboardShortcut</x:String>
+  </ObjectRepositoryTargetData.Data>
+</ObjectRepositoryTargetData>

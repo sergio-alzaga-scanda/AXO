@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ObjectRepositoryTargetData ContentHash="U-aLSZACdEiTZW_oXxuHyA" xmlns="http://schemas.uipath.com/workflow/activities/uix" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ObjectRepositoryTargetData.Data>
+    <TargetAnchorable x:Key="TargetAnchorable" BrowserURL="hcm19.sapsf.com/sf/pages/admin/password-reset" CVScreenId="0fd92f2b-ab4f-4b43-b8a2-6f2e4bd80cc5" CvElementArea="165, 774, 28, 28" CvType="RadioButton" DesignTimeRectangle="160, 768, 40, 40" ElementType="RadioButton" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl tag='UI5-RADIO-BUTTON-XWEB-PASSWORD-RESET' /&gt;&lt;webctrl shadowhostid='' tag='DIV' /&gt;" Guid="0f8cd105-5956-441d-9f3d-56b8b6ffddb7" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Restablecer contraseñas de usuarios - Centro de administración - SAP SuccessFactors' /&gt;" SearchSteps="Selector, CV" Version="V6" WaitForReadyArgument="None">
+      <TargetAnchorable.Anchors>
+        <scg:List x:TypeArguments="ITarget" Capacity="4">
+          <Target CVScreenId="0fd92f2b-ab4f-4b43-b8a2-6f2e4bd80cc5" CvElementArea="131, 958, 312, 36" CvTextArea="142, 965, 290, 20" CvTextArgument="Restablecer contraseña de usuario" CvType="Button" DesignTimeRectangle="135, 961, 306, 32" FuzzySelectorArgument="&lt;webctrl type='Button' aaname='Restablecer contraseña de usuario' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' innertext='Restablecer contraseña de usuario' visibleinnertext='Restablecer contraseña de usuario' check:innerText='Restablecer contraseña de usuario' /&gt;" Guid="c0f85da7-1bc6-42d3-b7be-6f17e24eada1" SearchSteps="FuzzySelector, CV" />
+        </scg:List>
+      </TargetAnchorable.Anchors>
+      <imageRef attrName="InformativeScreenshot" originalValue="aeaaea174e8de1f8dc9fbd8c98a1093f.jpg" xmlns="">01ratuLe8u0mONAYaNU-Edw</imageRef>
+    </TargetAnchorable>
+    <x:String x:Key="ActivityType">Click</x:String>
+  </ObjectRepositoryTargetData.Data>
+</ObjectRepositoryTargetData>

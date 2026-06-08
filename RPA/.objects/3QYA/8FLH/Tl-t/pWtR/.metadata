@@ -1,0 +1,13 @@
+﻿{
+  "Name": " Tipo de solicitud",
+  "Type": "Element",
+  "Id": "pWtRbqmC60CCE-qCi4Gl4A",
+  "Reference": "RuAvTAzP2UiATw6fXaPPQw/pWtRbqmC60CCE-qCi4Gl4A",
+  "ParentRef": "RuAvTAzP2UiATw6fXaPPQw/Tl-t2Kd02E-O1EwXRA_HIw",
+  "Created": "2026-01-06T20:17:12.1748472Z",
+  "Updated": "2026-01-06T20:17:12.1748472Z",
+  "CreatedBy": [
+    "UiPath.UIAutomationCore, Version=25.10.22.0, Culture=neutral, PublicKeyToken=null",
+    "UiPath.Platform, Version=25.10.1.0, Culture=neutral, PublicKeyToken=null"
+  ]
+}

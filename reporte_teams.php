@@ -57,18 +57,32 @@ try {
         $params[':tipo'] = $filtro_tipo;
     }
 
-    $donde_stats = "";
-    if (count($condiciones_base) > 0) {
-        $donde_stats = " WHERE " . implode(" AND ", $condiciones_base);
+    // Registros para la tabla SÍ aplican el filtro de status
+    $condiciones_tabla = $condiciones_base;
+    if ($filtro_status === 'exitosos') {
+        $condiciones_tabla[] = "status_proceso IN ('Éxito', 'Correcto')";
+    } elseif ($filtro_status === 'transferidos') {
+        $condiciones_tabla[] = "error_detalle = 'Falló el RPA porque los datos no corresponden. Se asignó la atención manual.'";
+    } elseif ($filtro_status === 'errores_usuario') {
+        $condiciones_tabla[] = "status_proceso = 'Error' AND (error_detalle IS NULL OR error_detalle != 'Falló el RPA porque los datos no corresponden. Se asignó la atención manual.')";
+    } elseif ($filtro_status === 'en_espera') {
+        $condiciones_tabla[] = "status_proceso = 'en espera'";
+    } elseif ($filtro_status === 'fracasos') {
+        $condiciones_tabla[] = "status_proceso NOT IN ('Éxito', 'Correcto')";
     }
 
-    // Los Stats (tarjetas numéricas superiores) IGNORAN el filtro_status para que el usuario pueda ver 
-    // cuántos errores hay realmente y cambie el filtro si le interesa verlos.
+    $donde_stats = "";
+    if (count($condiciones_tabla) > 0) {
+        $donde_stats = " WHERE " . implode(" AND ", $condiciones_tabla);
+    }
+
+    // Los Stats (tarjetas numéricas superiores) respectan el filtro_status
     $stmtStats = $conn->prepare("
         SELECT 
             COUNT(*) as total,
             SUM(CASE WHEN status_proceso IN ('Éxito', 'Correcto') THEN 1 ELSE 0 END) as exito,
-            SUM(CASE WHEN status_proceso NOT IN ('Éxito', 'Correcto') THEN 1 ELSE 0 END) as error
+            SUM(CASE WHEN error_detalle = 'Falló el RPA porque los datos no corresponden. Se asignó la atención manual.' THEN 1 ELSE 0 END) as transferido,
+            SUM(CASE WHEN status_proceso NOT IN ('Éxito', 'Correcto') AND status_proceso != 'en espera' AND (error_detalle IS NULL OR error_detalle != 'Falló el RPA porque los datos no corresponden. Se asignó la atención manual.') THEN 1 ELSE 0 END) as error_usr
         FROM log_tickets_teams
         $donde_stats
     ");
@@ -77,15 +91,8 @@ try {
 
     $total = $stats['total'] ?? 0;
     $exito = $stats['exito'] ?? 0;
-    $error = $stats['error'] ?? 0;
-
-    // Registros para la tabla SÍ aplican el filtro de status
-    $condiciones_tabla = $condiciones_base;
-    if ($filtro_status === 'exitosos') {
-        $condiciones_tabla[] = "status_proceso IN ('Éxito', 'Correcto')";
-    } elseif ($filtro_status === 'fracasos') {
-        $condiciones_tabla[] = "status_proceso NOT IN ('Éxito', 'Correcto')";
-    }
+    $transferido = $stats['transferido'] ?? 0;
+    $error_usr = $stats['error_usr'] ?? 0;
 
     $donde_tabla = "";
     if (count($condiciones_tabla) > 0) {
@@ -105,19 +112,48 @@ try {
     $logs = $stmtLogs->fetchAll(PDO::FETCH_ASSOC);
 
     // Métricas por tipo de servicio
-    $stmtTipos = $conn->query("
+    $condiciones_tipos = $condiciones_tabla;
+    $condiciones_tipos[] = "tipo_solicitud IS NOT NULL AND tipo_solicitud != ''";
+    $condiciones_tipos_con_alias = array_map(function($cond) { return "l." . $cond; }, $condiciones_tipos);
+    $donde_tipos = " WHERE " . implode(" AND ", $condiciones_tipos_con_alias);
+
+    $stmtTipos = $conn->prepare("
         SELECT COALESCE(c.nombre, l.tipo_solicitud) as servicio, COUNT(l.id) as cantidad 
         FROM log_tickets_teams l
         LEFT JOIN catalogo_tipo_solicitud c ON l.tipo_solicitud = CAST(c.id AS CHAR)
-        WHERE l.tipo_solicitud IS NOT NULL AND l.tipo_solicitud != '' 
+        $donde_tipos 
         GROUP BY 1
     ");
+    $stmtTipos->execute($params);
     $metricas_tipos = $stmtTipos->fetchAll(PDO::FETCH_ASSOC);
 
+    // Métricas por canal de origen
+    $condiciones_canales = $condiciones_tabla;
+    $condiciones_canales[] = "canal IS NOT NULL AND canal != ''";
+    $condiciones_canales_con_alias = array_map(function($cond) { return "l." . $cond; }, $condiciones_canales);
+    $donde_canales = " WHERE " . implode(" AND ", $condiciones_canales_con_alias);
+
+    $stmtCanales = $conn->prepare("
+        SELECT 
+            CASE 
+                WHEN l.canal = '1' OR l.canal = '11' THEN 'Whatsapp' 
+                WHEN l.canal = '2' THEN 'Teams' 
+                WHEN l.canal = '3' THEN 'API'
+                ELSE l.canal 
+            END as canal_desc, 
+            COUNT(l.id) as cantidad 
+        FROM log_tickets_teams l
+        $donde_canales 
+        GROUP BY 1
+    ");
+    $stmtCanales->execute($params);
+    $metricas_canales = $stmtCanales->fetchAll(PDO::FETCH_ASSOC);
+
 } catch (Exception $e) {
-    $total = $exito = $error = 0;
+    $total = $exito = $transferido = $error_usr = 0;
     $logs = [];
     $metricas_tipos = [];
+    $metricas_canales = [];
 }
 ?>
 <!DOCTYPE html>
@@ -134,6 +170,7 @@ try {
         .card-stat:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important; }
         .border-primary { border-left-color: #0d6efd !important; }
         .border-success { border-left-color: #198754 !important; }
+        .border-warning { border-left-color: #ffc107 !important; }
         .border-danger { border-left-color: #dc3545 !important; }
         
         .table-responsive { background: white; border-radius: 10px; padding: 15px; }
@@ -260,7 +297,10 @@ try {
                     <select name="status" class="form-select text-secondary fw-bold">
                         <option value="default" <?= $filtro_status_raw == 'default' ? 'selected' : '' ?>>Estado Predeterminado (Inteligente)</option>
                         <option value="exitosos" <?= $filtro_status_raw == 'exitosos' ? 'selected' : '' ?>>Sólo Exitosos</option>
-                        <option value="fracasos" <?= $filtro_status_raw == 'fracasos' ? 'selected' : '' ?>>Con Fracasos / Pendientes</option>
+                        <option value="transferidos" <?= $filtro_status_raw == 'transferidos' ? 'selected' : '' ?>>Sólo Transferidos a Agente</option>
+                        <option value="errores_usuario" <?= $filtro_status_raw == 'errores_usuario' ? 'selected' : '' ?>>Sólo Errores de Usuario</option>
+                        <option value="en_espera" <?= $filtro_status_raw == 'en_espera' ? 'selected' : '' ?>>Sólo Pendientes (En Espera)</option>
+                        <option value="fracasos" <?= $filtro_status_raw == 'fracasos' ? 'selected' : '' ?>>Cualquier Fallo (Traspaso / Error)</option>
                         <option value="todos" <?= $filtro_status_raw == 'todos' ? 'selected' : '' ?>>Ver Todos los Estados</option>
                     </select>
                 </div>
@@ -279,8 +319,8 @@ try {
         </div>
 
         <!-- Cards -->
-        <div class="row mb-5">
-            <div class="col-md-4">
+        <div class="row mb-5 g-3">
+            <div class="col-md-3">
                 <div class="card card-stat border-primary shadow-sm h-100">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center">
@@ -293,7 +333,7 @@ try {
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="card card-stat border-success shadow-sm h-100">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center">
@@ -306,32 +346,76 @@ try {
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
+                <div class="card card-stat border-warning shadow-sm h-100">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="text-muted text-uppercase mb-1 fw-bold" style="font-size: 0.8rem; letter-spacing: 1px;">Traspaso a Agente</h6>
+                                <h1 class="mb-0 fw-bold text-warning display-5"><?= $transferido ?></h1>
+                                <small class="text-muted fw-bold">Atención manual</small>
+                            </div>
+                            <div class="fs-1 text-warning opacity-50"><i class="bi bi-headset"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
                 <div class="card card-stat border-danger shadow-sm h-100">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
-                                <h6 class="text-muted text-uppercase mb-1 fw-bold" style="font-size: 0.8rem; letter-spacing: 1px;">Con Errores / Fallos</h6>
-                                <h1 class="mb-0 fw-bold text-danger display-5"><?= $error ?></h1>
+                                <h6 class="text-muted text-uppercase mb-1 fw-bold" style="font-size: 0.8rem; letter-spacing: 1px;">Errores de Creación</h6>
+                                <h1 class="mb-0 fw-bold text-danger display-5"><?= $error_usr ?></h1>
+                                <small class="text-muted fw-bold">Datos inválidos / otros</small>
                             </div>
-                            <div class="fs-1 text-danger opacity-50"><i class="bi bi-x-circle"></i></div>
+                            <div class="fs-1 text-danger opacity-50"><i class="bi bi-exclamation-triangle"></i></div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Métrica General Desglose de Servicios -->
-        <?php if(!empty($metricas_tipos)): ?>
-        <div class="mb-5 d-flex gap-2 flex-wrap">
-            <span class="fw-bold fs-5 me-2 text-muted">Métricas de Servicios (Teams): </span>
-            <?php foreach($metricas_tipos as $mt): ?>
-                <span class="badge bg-dark rounded-pill fs-6 py-2 px-3 shadow-sm border border-secondary">
-                    <?= htmlspecialchars($mt['servicio']) ?>: <span class="text-info fw-bold ms-1"><?= $mt['cantidad'] ?></span>
-                </span>
-            <?php endforeach; ?>
+        <!-- Métrica General Desglose de Servicios y Canales -->
+        <div class="d-flex flex-column gap-3 mb-5 bg-white p-4 rounded-4 shadow-sm border">
+            <?php if(!empty($metricas_tipos)): ?>
+            <div class="d-flex gap-2 flex-wrap align-items-center">
+                <span class="fw-bold fs-5 me-2 text-secondary"><i class="bi bi-graph-up-arrow me-1"></i> Servicios: </span>
+                <?php foreach($metricas_tipos as $mt): ?>
+                    <span class="badge bg-dark rounded-pill fs-6 py-2 px-3 shadow-sm border border-secondary">
+                        <?= htmlspecialchars($mt['servicio']) ?>: <span class="text-info fw-bold ms-1"><?= $mt['cantidad'] ?></span>
+                    </span>
+                <?php endforeach; ?>
+            </div>
+            <?php endif; ?>
+
+            <?php if(!empty($metricas_canales)): ?>
+            <div class="d-flex gap-2 flex-wrap align-items-center">
+                <span class="fw-bold fs-5 me-2 text-secondary"><i class="bi bi-share-fill me-1"></i> Canales de Origen: </span>
+                <?php foreach($metricas_canales as $mc): ?>
+                    <?php 
+                        $canal_name = $mc['canal_desc'];
+                        $canal_lower = strtolower($canal_name);
+                        $badge_class = 'bg-info text-dark';
+                        $icon = 'chat-left-text';
+                        if ($canal_lower === 'whatsapp') {
+                            $badge_class = 'bg-success text-white';
+                            $icon = 'whatsapp';
+                        } elseif ($canal_lower === 'teams') {
+                            $badge_class = 'bg-primary text-white';
+                            $icon = 'microsoft-teams';
+                        } elseif ($canal_lower === 'api') {
+                            $badge_class = 'bg-secondary text-white';
+                            $icon = 'code-slash';
+                        }
+                    ?>
+                    <span class="badge <?= $badge_class ?> rounded-pill fs-6 py-2 px-3 shadow border">
+                        <i class="bi bi-<?= $icon ?>"></i> <?= htmlspecialchars($canal_name) ?>: <span class="fw-bold ms-1"><?= $mc['cantidad'] ?></span>
+                    </span>
+                <?php endforeach; ?>
+            </div>
+            <?php endif; ?>
         </div>
-        <?php endif; ?>
 
         <!-- Tabla -->
         <div class="card shadow-sm mb-5 border-0 rounded-4">
@@ -344,10 +428,11 @@ try {
                                 <th>Fecha</th>
                                 <th>Usr (Núm. Empleado)</th>
                                 <th>Correo Remitente</th>
+                                <th class="text-center">Canal</th>
                                 <th class="text-center">Tipo</th>
                                 <th class="text-center">Ticket Generado</th>
                                 <th class="text-center">Estado del Proceso</th>
-                                <th>Detalle / Error</th>
+                                <th>Detalle de Atención</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -357,6 +442,34 @@ try {
                                     <td data-sort="<?= strtotime($log['fecha_creacion']) ?>"><?= date('d/m/Y h:i A', strtotime($log['fecha_creacion'])) ?></td>
                                     <td class="fw-bold text-primary"><?= htmlspecialchars($log['numero_usuario'] ?? 'N/A') ?></td>
                                     <td><?= htmlspecialchars($log['correo'] ?? 'N/A') ?></td>
+                                    <td class="text-center">
+                                        <?php if(!empty($log['canal'])): ?>
+                                            <?php 
+                                                $canal_name = $log['canal'];
+                                                if ($canal_name === '1' || $canal_name === '11') { $canal_name = 'Whatsapp'; }
+                                                elseif ($canal_name === '2') { $canal_name = 'Teams'; }
+                                                elseif ($canal_name === '3') { $canal_name = 'API'; }
+                                                $canal_lower = strtolower($canal_name);
+                                                $icon = 'chat-left-text';
+                                                $badge_class = 'bg-info text-dark';
+                                                if ($canal_lower === 'whatsapp') {
+                                                    $icon = 'whatsapp';
+                                                    $badge_class = 'bg-success text-white';
+                                                } elseif ($canal_lower === 'teams') {
+                                                    $icon = 'microsoft-teams';
+                                                    $badge_class = 'bg-primary text-white';
+                                                } elseif ($canal_lower === 'api') {
+                                                    $icon = 'code-slash';
+                                                    $badge_class = 'bg-secondary text-white';
+                                                }
+                                            ?>
+                                            <span class="badge <?= $badge_class ?> border">
+                                                <i class="bi bi-<?= $icon ?>"></i> <?= htmlspecialchars($canal_name) ?>
+                                            </span>
+                                        <?php else: ?>
+                                            <span class="text-muted">-</span>
+                                        <?php endif; ?>
+                                    </td>
                                     <td class="text-center">
                                         <span class="badge bg-secondary border">
                                             <?= htmlspecialchars($log['tipo_solicitud_desc'] ?? 'N/A') ?>
@@ -373,13 +486,16 @@ try {
                                         <?php 
                                             $raw_status = trim($log['status_proceso'] ?? '');
                                             $lower_estatus = mb_strtolower($raw_status, 'UTF-8'); 
+                                            $error_det = trim($log['error_detalle'] ?? '');
                                         ?>
                                         <?php if($lower_estatus === 'éxito' || $lower_estatus === 'correcto' || $lower_estatus === 'exito'): ?>
                                             <span class="badge bg-success rounded-pill px-3"><i class="bi bi-check-circle"></i> Éxito</span>
                                         <?php elseif($lower_estatus === 'en espera'): ?>
                                             <span class="badge bg-warning text-dark rounded-pill px-3"><i class="bi bi-hourglass-split"></i> En Espera</span>
+                                        <?php elseif($error_det === 'Falló el RPA porque los datos no corresponden. Se asignó la atención manual.'): ?>
+                                            <span class="badge bg-warning text-dark rounded-pill px-3"><i class="bi bi-headset"></i> Transferido con un agente</span>
                                         <?php else: ?>
-                                            <span class="badge bg-danger rounded-pill px-3"><i class="bi bi-x-circle"></i> Error</span>
+                                            <span class="badge bg-danger rounded-pill px-3"><i class="bi bi-exclamation-triangle"></i> Error</span>
                                         <?php endif; ?>
                                     </td>
                                     <td>

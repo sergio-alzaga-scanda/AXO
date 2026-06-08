@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ObjectRepositoryTargetData ContentHash="6K725WY8jEiP7RypzX5m7Q" xmlns="http://schemas.uipath.com/workflow/activities/uix" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ObjectRepositoryTargetData.Data>
+    <TargetAnchorable x:Key="TargetAnchorable" BrowserURL="hcm19.sapsf.com/login" DesignTimeRectangle="710, 920, 500, 55" ElementType="Button" ElementVisibilityArgument="Interactive" FuzzySelectorArgument="&lt;webctrl aaname='Iniciar sesión' innertext='Iniciar sesión' /&gt;" Guid="e5e20b3c-f39b-45c3-b931-41f966aaf589" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Inicio de sesión - SAP SuccessFactors' /&gt;" SearchSteps="FuzzySelector" Version="V6" WaitForReadyArgument="None">
+      <TargetAnchorable.Anchors>
+        <scg:List x:TypeArguments="ITarget" Capacity="4">
+          <Target CVScreenId="be6108fb-afff-4536-b311-201f6ba5aecb" DesignTimeRectangle="1011, 861, 178, 21" ElementType="Text" FullSelectorArgument="&lt;webctrl id='forgotPasswordLink' /&gt;" Guid="0ff92e98-a837-4bc0-8f6e-c755e566bc74" SearchSteps="Selector" />
+        </scg:List>
+      </TargetAnchorable.Anchors>
+      <imageRef attrName="InformativeScreenshot" originalValue="59aaaea18aad9a8e9549e9ee4aa09f73.jpg" xmlns="">0ql6iIwZ8dkSseKV1aUDKYA</imageRef>
+    </TargetAnchorable>
+    <x:String x:Key="ActivityType">Click</x:String>
+  </ObjectRepositoryTargetData.Data>
+</ObjectRepositoryTargetData>

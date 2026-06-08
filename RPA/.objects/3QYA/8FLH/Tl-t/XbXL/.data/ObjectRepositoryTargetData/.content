@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ObjectRepositoryTargetData ContentHash="SFFeVMBc_kWBLiIjyE44tw" xmlns="http://schemas.uipath.com/workflow/activities/uix" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ObjectRepositoryTargetData.Data>
+    <TargetAnchorable x:Key="TargetAnchorable" BrowserURL="servicedesk.grupoaxo.com/WorkOrder.do" CVScreenId="67382850-266e-4a36-b726-9c42552685cf" CvTextArea="762, 662, 251, 18" CvTextArgument="Edwin Efred Serafin Medrano (MX)" CvType="Text" DesignTimeRectangle="735, 658, 289, 29" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl aria-role='option' idx='2' tag='DIV' /&gt;" Guid="8ec05059-77dd-4159-8d82-91230c5ea7b9" ScopeSelectorArgument="&lt;html app='chrome.exe' title='(141) ManageEngine ServiceDesk Plus' /&gt;" SearchSteps="Selector, CV" Version="V6" WaitForReadyArgument="Interactive">
+      <TargetAnchorable.Anchors>
+        <scg:List x:TypeArguments="ITarget" Capacity="4">
+          <Target CVScreenId="67382850-266e-4a36-b726-9c42552685cf" CvElementArea="733, 572, 303, 37" CvType="InputBox" DesignTimeRectangle="735, 575, 300, 34" ElementType="InputBox" FullSelectorArgument="&lt;webctrl aria-role='combobox' css-selector='body&amp;gt;div&amp;gt;div&amp;gt;input' idx='2' tag='INPUT' type='text' /&gt;" Guid="87c2b0bb-524a-42d0-be9f-e9da905fff84" SearchSteps="Selector, CV" />
+        </scg:List>
+      </TargetAnchorable.Anchors>
+      <imageRef attrName="InformativeScreenshot" originalValue="ad49b724fcff16b208cc6104b8e97a33.png" xmlns="">0BlRlzmODrkCnmVYQw1enrQ</imageRef>
+    </TargetAnchorable>
+    <x:String x:Key="ActivityType">Click</x:String>
+  </ObjectRepositoryTargetData.Data>
+</ObjectRepositoryTargetData>

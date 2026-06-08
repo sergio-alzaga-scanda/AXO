@@ -1,0 +1,14 @@
+﻿{
+  "Name": "TD",
+  "Type": "Element",
+  "TaxonomyType": "RadioButton",
+  "Id": "9roPphmP20q2gZf_dOTS5w",
+  "Reference": "RuAvTAzP2UiATw6fXaPPQw/9roPphmP20q2gZf_dOTS5w",
+  "ParentRef": "RuAvTAzP2UiATw6fXaPPQw/k_0B37MUnUiUyeTNikHM0A",
+  "Created": "2025-12-30T15:53:41.835753Z",
+  "Updated": "2025-12-30T15:53:41.835753Z",
+  "CreatedBy": [
+    "UiPath.UIAutomationCore, Version=25.10.22.0, Culture=neutral, PublicKeyToken=null",
+    "UiPath.Platform, Version=25.10.1.0, Culture=neutral, PublicKeyToken=null"
+  ]
+}

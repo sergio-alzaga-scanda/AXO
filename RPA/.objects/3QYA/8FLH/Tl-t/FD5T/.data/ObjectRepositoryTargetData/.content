@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ObjectRepositoryTargetData ContentHash="MLAIBxsexEePI-gXEeUelQ" xmlns="http://schemas.uipath.com/workflow/activities/uix" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ObjectRepositoryTargetData.Data>
+    <TargetAnchorable x:Key="TargetAnchorable" BrowserURL="servicedesk.grupoaxo.com/WorkOrder.do" CVScreenId="743917a6-3b29-4afa-ac03-2ecb7bee32d4" CvElementArea="523, 610, 1090, 327" CvType="InputBox" DesignTimeRectangle="531, 626, 1083, 312" ElementType="InputBox" ElementVisibilityArgument="Interactive" FuzzySelectorArgument="&lt;webctrl aria-label='Área del editor de texto' tag='IFRAME' matching:aria-label='fuzzy' fuzzylevel:aria-label='0.0' /&gt;&lt;webctrl tag='BODY' type='' class='ze_body' aaname='' matching:class='fuzzy' fuzzylevel:class='0.0' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' /&gt;" Guid="5abc6b6b-6900-4647-93d0-2180192b9dea" ScopeSelectorArgument="&lt;html app='chrome.exe' title='(141) ManageEngine ServiceDesk Plus' /&gt;" SearchSteps="FuzzySelector, CV" Version="V6" WaitForReadyArgument="Interactive">
+      <TargetAnchorable.Anchors>
+        <scg:List x:TypeArguments="ITarget" Capacity="4">
+          <Target CVScreenId="743917a6-3b29-4afa-ac03-2ecb7bee32d4" CvElementArea="865, 954, 104, 39" CvTextArea="877, 964, 77, 16" CvTextArgument="Actualizar" CvType="Button" DesignTimeRectangle="867, 956, 100, 36" ElementType="Button" FuzzySelectorArgument="&lt;webctrl aaname='Actualizar' type='' tag='BUTTON' class='dialog-save btn btn-primary' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' check:innerText='Actualizar' /&gt;" Guid="93ed0f49-9978-4698-8671-867bf843e556" SearchSteps="FuzzySelector, CV" />
+        </scg:List>
+      </TargetAnchorable.Anchors>
+      <imageRef attrName="InformativeScreenshot" originalValue="3592a16a426c697144d3b3709d6b068f.png" xmlns="">0SK3Opgwi10-B9paRkYJJZQ</imageRef>
+    </TargetAnchorable>
+    <x:String x:Key="ActivityType">TypeInto</x:String>
+  </ObjectRepositoryTargetData.Data>
+</ObjectRepositoryTargetData>

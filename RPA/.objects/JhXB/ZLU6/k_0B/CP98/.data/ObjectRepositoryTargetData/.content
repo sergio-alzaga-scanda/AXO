@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ObjectRepositoryTargetData ContentHash="8mvCPoysI0am6xNIC-Zu9g" xmlns="http://schemas.uipath.com/workflow/activities/uix" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ObjectRepositoryTargetData.Data>
+    <TargetAnchorable x:Key="TargetAnchorable" BrowserURL="hcm19.sapsf.com/sf/start" CVScreenId="42f0232c-6f76-4e0a-a1e7-d7e9a4c0608c" CvTextArea="694, 148, 230, 14" CvTextArgument="Restablecer contraseñas de usuarios" CvType="Text" DesignTimeRectangle="688, 137, 560, 36" ElementType="InputBox" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl tag='XWEB-SHELLBAR' /&gt;&lt;webctrl id='search' shadowhostid='' tag='XWEB-SHELLBAR-SEARCH-INPUT' /&gt;&lt;webctrl id='inner' shadowhostid='search' tag='INPUT' /&gt;" Guid="fec693d6-cec4-4b71-b7d5-b134d3d80fc8" IsResponsive="True" ScopeSelectorArgument="&lt;html app='chrome.exe' title='SuccessFactors: Inicio' /&gt;" SearchSteps="Selector, CV" Version="V6" WaitForReadyArgument="Interactive">
+      <TargetAnchorable.Anchors>
+        <scg:List x:TypeArguments="ITarget" Capacity="4">
+          <Target CVScreenId="42f0232c-6f76-4e0a-a1e7-d7e9a4c0608c" CvTextArea="310, 146, 44, 16" CvTextArgument="Inicio" CvType="Text" DesignTimeRectangle="312, 146, 41, 18" ElementType="Text" FuzzySelectorArgument="&lt;webctrl tag='XWEB-SHELLBAR' /&gt;&lt;webctrl id='shellbar' shadowhostid='' tag='UI5-SHELLBAR-SF-HEADER' matching:id='fuzzy' fuzzylevel:id='0.0' matching:shadowhostid='fuzzy' fuzzylevel:shadowhostid='0.0' /&gt;&lt;webctrl aaname='Inicio' shadowhostid='shellbar' tag='DIV' type='' class='ui5-shellbar-menu-button-title' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' matching:shadowhostid='fuzzy' fuzzylevel:shadowhostid='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' check:innerText='Inicio' /&gt;" Guid="a9b10aa8-6b95-4e76-a720-dc21d695d27f" SearchSteps="FuzzySelector, CV" />
+        </scg:List>
+      </TargetAnchorable.Anchors>
+      <imageRef attrName="InformativeScreenshot" originalValue="00a62fc7ff9db1eb00b0337db1ebd885.png" xmlns="">0dD5d30DFQkefzTpjsu9x8g</imageRef>
+    </TargetAnchorable>
+    <x:String x:Key="ActivityType">TypeInto</x:String>
+  </ObjectRepositoryTargetData.Data>
+</ObjectRepositoryTargetData>

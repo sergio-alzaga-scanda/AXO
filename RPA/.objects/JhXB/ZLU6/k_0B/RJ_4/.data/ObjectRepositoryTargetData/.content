@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ObjectRepositoryTargetData ContentHash="ZdDmMA8sVkurYLcVI5kfwA" xmlns="http://schemas.uipath.com/workflow/activities/uix" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ObjectRepositoryTargetData.Data>
+    <TargetAnchorable x:Key="TargetAnchorable" BrowserURL="hcm19.sapsf.com/sf/pages/admin/password-reset" CVScreenId="29461cd7-63f3-4507-b25a-e45744711798" CvElementArea="131, 958, 312, 36" CvTextArea="142, 965, 290, 20" CvTextArgument="Restablecer contraseña de usuario" CvType="Button" DesignTimeRectangle="135, 961, 306, 32" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl aaname='Restablecer contraseña de usuario' innertext='Restablecer contraseña de usuario' visibleinnertext='Restablecer contraseña de usuario' /&gt;" Guid="9057d05a-8f94-4508-bb14-03b34e87671f" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Restablecer contraseñas de usuarios - Centro de administración - SAP SuccessFactors' /&gt;" SearchSteps="Selector, CV" Version="V6" WaitForReadyArgument="None">
+      <TargetAnchorable.Anchors>
+        <scg:List x:TypeArguments="ITarget" Capacity="4">
+          <Target DesignTimeRectangle="135, 846, 1649, 95" FuzzySelectorArgument="&lt;webctrl type='' parentid='content' matching:parentid='fuzzy' fuzzylevel:parentid='0.0' tag='DIV' class='_flexBox_11fgm_1 _flexBoxDirectionColumn_11fgm_58 _justifyContentStart_11fgm_11 _alignItemsStretch_11fgm_45 _flexWrapNoWrap_11fgm_74 SearchResults_passwordFields__9GcsH' matching:class='fuzzy' fuzzylevel:class='0.0' aaname='' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' innertext='Nueva contraseña:Confirmar contraseña:' visibleinnertext='Nueva contraseña:&amp;#xA;Confirmar contraseña:' check:innerText='Nueva contraseña:&amp;#xA;Confirmar contraseña:' /&gt;" Guid="3539efbb-b865-40ec-80be-2c86ce2eb8c0" SearchSteps="FuzzySelector" />
+        </scg:List>
+      </TargetAnchorable.Anchors>
+      <imageRef attrName="InformativeScreenshot" originalValue="0669eb2751be82eb75e49ba56df42bb8.jpg" xmlns="">0IzHArsmBZkyzWY_2L3zy0A</imageRef>
+    </TargetAnchorable>
+    <x:String x:Key="ActivityType">Click</x:String>
+  </ObjectRepositoryTargetData.Data>
+</ObjectRepositoryTargetData>

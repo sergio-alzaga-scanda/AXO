@@ -1,0 +1,13 @@
+﻿{
+  "Name": "Restablecer cuenta de u…(1)",
+  "Type": "Element",
+  "Id": "PFS709eahkqCzBELWLE_Dg",
+  "Reference": "RuAvTAzP2UiATw6fXaPPQw/PFS709eahkqCzBELWLE_Dg",
+  "ParentRef": "RuAvTAzP2UiATw6fXaPPQw/k_0B37MUnUiUyeTNikHM0A",
+  "Created": "2026-04-15T21:12:50.3673633Z",
+  "Updated": "2026-04-15T21:12:50.3673633Z",
+  "CreatedBy": [
+    "UiPath.UIAutomationCore, Version=25.10.22.0, Culture=neutral, PublicKeyToken=null",
+    "UiPath.Platform, Version=25.10.1.0, Culture=neutral, PublicKeyToken=null"
+  ]
+}

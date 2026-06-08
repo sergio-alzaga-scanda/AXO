@@ -69,17 +69,18 @@ class TeamsAutomatizacionAPI {
         try { $this->pdo->exec("ALTER TABLE log_tickets_teams ADD COLUMN error_detalle TEXT"); } catch (Exception $e) {}
         try { $this->pdo->exec("ALTER TABLE log_tickets_teams ADD COLUMN tipo_solicitud VARCHAR(100) DEFAULT 'No especificada'"); } catch (Exception $e) {}
         try { $this->pdo->exec("ALTER TABLE log_tickets_teams ADD COLUMN password_temporal VARCHAR(255)"); } catch (Exception $e) {}
+        try { $this->pdo->exec("ALTER TABLE log_tickets_teams ADD COLUMN canal VARCHAR(100) DEFAULT NULL"); } catch (Exception $e) {}
         try { $this->pdo->exec("ALTER TABLE log_tickets_teams MODIFY COLUMN ticket_creado VARCHAR(50) NULL"); } catch (Exception $e) {}
         try { $this->pdo->exec("ALTER TABLE log_tickets_teams MODIFY COLUMN plantilla_usada INT NULL"); } catch (Exception $e) {}
         try { $this->pdo->exec("ALTER TABLE log_tickets_teams MODIFY COLUMN numero_usuario VARCHAR(100) NULL"); } catch (Exception $e) {}
         try { $this->pdo->exec("ALTER TABLE log_tickets_teams MODIFY COLUMN correo VARCHAR(255) NULL"); } catch (Exception $e) {}
     }
 
-    private function registrarBitacoraBD($num_usr, $correo, $id_pl, $nom_pl, $ticket, $status, $error = null, $tipo_solicitud = null, $password = null) {
+    private function registrarBitacoraBD($num_usr, $correo, $id_pl, $nom_pl, $ticket, $status, $error = null, $tipo_solicitud = null, $password = null, $canal = null) {
         try {
-            $sql = "INSERT INTO log_tickets_teams (numero_usuario, correo, plantilla_usada, nombre_plantilla, ticket_creado, status_proceso, error_detalle, tipo_solicitud, password_temporal) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO log_tickets_teams (numero_usuario, correo, plantilla_usada, nombre_plantilla, ticket_creado, status_proceso, error_detalle, tipo_solicitud, password_temporal, canal) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             $stmt = $this->pdo->prepare($sql);
-            $stmt->execute([$num_usr, $correo, $id_pl, $nom_pl, $ticket, $status, $error, $tipo_solicitud, $password]);
+            $stmt->execute([$num_usr, $correo, $id_pl, $nom_pl, $ticket, $status, $error, $tipo_solicitud, $password, $canal]);
         } catch (Exception $e) {}
     }
 
@@ -140,7 +141,7 @@ class TeamsAutomatizacionAPI {
         }
     }
 
-    public function procesarTicketTeams($numero_usuario, $correo, $tipo_solicitud = 'No especificada', $password = null) {
+    public function procesarTicketTeams($numero_usuario, $correo, $tipo_solicitud = 'No especificada', $password = null, $canal = null) {
         try {
             // ---------------------------------------------------------
             // PASO NUEVO: Validar si el empleado existe en SuccessFactors 
@@ -149,7 +150,7 @@ class TeamsAutomatizacionAPI {
             /*
             if (!$this->validarEmpleadoSuccessFactors($numero_usuario)) {
                 $err_msg = "El número de empleado '{$numero_usuario}' no corresponde a ningún registro válido.";
-                $this->registrarBitacoraBD($numero_usuario, $correo, null, "Validación Externa", null, 'Error', $err_msg, $tipo_solicitud);
+                $this->registrarBitacoraBD($numero_usuario, $correo, null, "Validación Externa", null, 'Error', $err_msg, $tipo_solicitud, null, $canal);
                 
                 return [
                     "status" => "error", 
@@ -169,7 +170,7 @@ class TeamsAutomatizacionAPI {
             
             if (!$plantilla) {
                 $err = "Plantilla 3901 no encontrada.";
-                $this->registrarBitacoraBD($numero_usuario, $correo, $id_plantilla, $nombre_plantilla, null, 'Error', $err, $tipo_solicitud);
+                $this->registrarBitacoraBD($numero_usuario, $correo, $id_plantilla, $nombre_plantilla, null, 'Error', $err, $tipo_solicitud, null, $canal);
                 return ["status" => "error", "message" => $err];
             }
             $nombre_plantilla = $plantilla['plantilla_incidente'];
@@ -178,7 +179,7 @@ class TeamsAutomatizacionAPI {
             // $id_tecnico_disponible = $this->obtenerTecnicoDisponible();
             // if (!$id_tecnico_disponible) {
             //     $err = "No hay técnicos disponibles en este momento.";
-            //     $this->registrarBitacoraBD($numero_usuario, $correo, $id_plantilla, $nombre_plantilla, null, 'Error', $err, $tipo_solicitud);
+            //     $this->registrarBitacoraBD($numero_usuario, $correo, $id_plantilla, $nombre_plantilla, null, 'Error', $err, $tipo_solicitud, null, $canal);
             //     return ["status" => "error", "message" => $err];
             // }
             $id_tecnico_disponible = '78545';
@@ -186,8 +187,11 @@ class TeamsAutomatizacionAPI {
             $id_grupo = !empty($plantilla['id_grupo']) ? $plantilla['id_grupo'] : "954";
 
             // 3. Formatear la descripción
-            $descripcion_ticket = "<b>Petición generada por automatización</b><br><br>";
-            $descripcion_ticket .= "<b>Usuario:</b> " . htmlspecialchars($numero_usuario) . " <br>";
+            $descripcion_ticket = "<b>Petición generada por automatización</b><br>";
+            if (!empty($canal)) {
+                $descripcion_ticket .= "<b>Canal de Origen:</b> " . htmlspecialchars($canal) . "<br>";
+            }
+            $descripcion_ticket .= "<br><b>Usuario:</b> " . htmlspecialchars($numero_usuario) . " <br>";
             // $descripcion_ticket .= "<b>Contexto (Plantilla Aplicada):</b><br>" . $plantilla['descripcion'] . "<br><br>";
 
             // 4. Preparar el Payload de Creación
@@ -218,7 +222,7 @@ class TeamsAutomatizacionAPI {
             // 5. Invocar creación — Validar que numero_usuario tenga exactamente 7 dígitos
             if (!preg_match('/^\d{7}$/', $numero_usuario)) {
                 $err = "El número de usuario debe ser de exactamente 7 dígitos. Valor recibido: '{$numero_usuario}'.";
-                $this->registrarBitacoraBD($numero_usuario, $correo, $id_plantilla, $nombre_plantilla, null, 'Error', $err, $tipo_solicitud);
+                $this->registrarBitacoraBD($numero_usuario, $correo, $id_plantilla, $nombre_plantilla, null, 'Error', $err, $tipo_solicitud, null, $canal);
                 return [
                     "status" => "error",
                     "mensaje" => "El número de usuario debe ser de exactamente 7 dígitos. Por favor verifica e intenta de nuevo."
@@ -231,7 +235,7 @@ class TeamsAutomatizacionAPI {
             if ($ticket_id) {
                 // 6. Log success (Cierre delegado a api_actualiza_espera)
                 // 7. Almacenar el registro de éxito en la base de datos de control con la contraseña
-                $this->registrarBitacoraBD($numero_usuario, $correo, $id_plantilla, $nombre_plantilla, $ticket_id, 'en espera', null, $tipo_solicitud, $password);
+                $this->registrarBitacoraBD($numero_usuario, $correo, $id_plantilla, $nombre_plantilla, $ticket_id, 'en espera', null, $tipo_solicitud, $password, $canal);
 
                 // 8. Devolver mensaje JSON exitoso conforme a la solicitud
                 return [
@@ -241,7 +245,7 @@ class TeamsAutomatizacionAPI {
                 ];
             }
 
-            $this->registrarBitacoraBD($numero_usuario, $correo, $id_plantilla, $nombre_plantilla, null, 'Error', "Fallo al crear ticket en API SD", $tipo_solicitud);
+            $this->registrarBitacoraBD($numero_usuario, $correo, $id_plantilla, $nombre_plantilla, null, 'Error', "Fallo al crear ticket en API SD", $tipo_solicitud, null, $canal);
             return [
                 "status" => "error", 
                 "mensaje" => "Hubo un problema al crear tu ticket en el sistema. Vuelve a intentarlo.", // Mensaje más amigable
@@ -249,7 +253,7 @@ class TeamsAutomatizacionAPI {
             ];
 
         } catch (Exception $e) {
-            $this->registrarBitacoraBD($numero_usuario, $correo, 9902, "Error Genérico", null, 'Error', $e->getMessage(), $tipo_solicitud);
+            $this->registrarBitacoraBD($numero_usuario, $correo, 9902, "Error Genérico", null, 'Error', $e->getMessage(), $tipo_solicitud, null, $canal);
             return ["status" => "error", "message" => $e->getMessage()];
         }
     }
@@ -282,13 +286,29 @@ class TeamsAutomatizacionAPI {
 
 // Validación de entrada para la API (Se espera recibir un JSON crudo desde Teams)
 $input_json = file_get_contents('php://input');
-$data = json_decode($input_json, true);
+$data = json_decode($input_json, true) ?: [];
 
 // Prevenir problemas si envían la llave con un espacio final "numero_usuario "
 $numero_usuario = $data['numero_usuario'] ?? $data['numero_usuario '] ?? $_REQUEST['numero_usuario'] ?? null;
 $correo = $data['correo'] ?? $_REQUEST['correo'] ?? null;
 $password = $data['password'] ?? $_REQUEST['password'] ?? null; // Si es null, se guardará como tal para generarse en get_espera
 $tipo_solicitud = 3; // Siempre será 3 (Reset Success Factor) para que se grafique en las métricas
+$canal = $data['canal'] ?? $_REQUEST['canal'] ?? null;
+
+// Normalizar canal (1 es Whatsapp, 2 es Teams, 3 es API)
+$canal_val = null;
+if ($canal !== null) {
+    $canal_str = strtolower(trim($canal));
+    if ($canal_str === '1' || strpos($canal_str, 'whatsapp') !== false) {
+        $canal_val = 'Whatsapp';
+    } elseif ($canal_str === '2' || strpos($canal_str, 'teams') !== false) {
+        $canal_val = 'Teams';
+    } elseif ($canal_str === '3' || strpos($canal_str, 'api') !== false) {
+        $canal_val = 'API';
+    } else {
+        $canal_val = $canal;
+    }
+}
 
 if (!$numero_usuario || !$correo) {
     echo json_encode([
@@ -301,7 +321,7 @@ if (!$numero_usuario || !$correo) {
 // Invocación a clase
 // Se asume que $conn es la instancia PDO provista por el archivo bd.php exigido en la línea 5
 $api = new TeamsAutomatizacionAPI($conn);
-$resultado = $api->procesarTicketTeams($numero_usuario, $correo, $tipo_solicitud, $password);
+$resultado = $api->procesarTicketTeams($numero_usuario, $correo, $tipo_solicitud, $password, $canal_val);
 
 // Respuesta final al usuario
 echo json_encode($resultado, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE); 

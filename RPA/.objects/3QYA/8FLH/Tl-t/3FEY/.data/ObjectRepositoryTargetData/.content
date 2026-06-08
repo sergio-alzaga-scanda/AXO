@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ObjectRepositoryTargetData ContentHash="EPiJSyaxWUmHAZchRGzJ8w" xmlns="http://schemas.uipath.com/workflow/activities/uix" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ObjectRepositoryTargetData.Data>
+    <TargetAnchorable x:Key="TargetAnchorable" BrowserURL="servicedesk.grupoaxo.com/WorkOrder.do" CVScreenId="96b2cc65-103b-413e-a097-26a6efbdeb99" CvElementArea="1615, 367, 21, 21" CvType="CloseButton" DesignTimeRectangle="1613, 366, 25, 25" ElementType="Button" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl class='ui-dialog-titlebar-close' tag='BUTTON' type='button' /&gt;" Guid="3e1356eb-d737-4dc9-b0b7-ee0f3f90c2b3" ScopeSelectorArgument="&lt;html app='chrome.exe' title='(141) ManageEngine ServiceDesk Plus' /&gt;" SearchSteps="Selector, CV" Version="V6" WaitForReadyArgument="Interactive">
+      <TargetAnchorable.Anchors>
+        <scg:List x:TypeArguments="ITarget" Capacity="4">
+          <Target CVScreenId="96b2cc65-103b-413e-a097-26a6efbdeb99" CvTextArea="556, 442, 435, 17" CvTextArgument="! Complete los campos obligatorios - Resolución, Técnico" CvType="Text" DesignTimeRectangle="529, 428, 1109, 49" FuzzySelectorArgument="&lt;webctrl type='' class='alert alert-dismissible icon alert-warning animclass disp-h' tag='DIV' aaname='' matching:class='fuzzy' fuzzylevel:class='0.0' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' check:innerText='Complete los campos obligatorios - Resolución, Técnico' /&gt;" Guid="9f3065b0-c392-4237-871f-bdeabedb9dbf" SearchSteps="FuzzySelector, CV" />
+        </scg:List>
+      </TargetAnchorable.Anchors>
+      <imageRef attrName="InformativeScreenshot" originalValue="c0886e680843f588a54fe9b98a3a8818.png" xmlns="">0BBSDh4mQr0ifINESqHOXXA</imageRef>
+    </TargetAnchorable>
+    <x:String x:Key="ActivityType">Click</x:String>
+  </ObjectRepositoryTargetData.Data>
+</ObjectRepositoryTargetData>

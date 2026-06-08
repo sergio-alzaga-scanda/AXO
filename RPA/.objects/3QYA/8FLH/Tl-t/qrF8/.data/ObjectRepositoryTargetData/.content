@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ObjectRepositoryTargetData ContentHash="CDuJu0jRQE--LWwFULgdeg" xmlns="http://schemas.uipath.com/workflow/activities/uix" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ObjectRepositoryTargetData.Data>
+    <TargetAnchorable x:Key="TargetAnchorable" BrowserURL="servicedesk.grupoaxo.com/WorkOrder.do" CVScreenId="245eedf9-7dab-45eb-8ab0-5312f4d4b92e" CvElementArea="727, 912, 316, 31" CvType="InputBox" DesignTimeRectangle="740, 915, 267, 30" ElementType="Text" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl aaname='No asignado' tag='SPAN' /&gt;" Guid="a8018b0a-f383-4bdd-b892-156a9d20c8cf" ScopeSelectorArgument="&lt;html app='chrome.exe' title='(137) ManageEngine ServiceDesk Plus' /&gt;" SearchSteps="Selector, CV" Version="V6" WaitForReadyArgument="Interactive">
+      <TargetAnchorable.Anchors>
+        <scg:List x:TypeArguments="ITarget" Capacity="4">
+          <Target CVScreenId="245eedf9-7dab-45eb-8ab0-5312f4d4b92e" CvTextArea="645, 920, 46, 18" CvTextArgument="Grupo" CvType="Text" DesignTimeRectangle="647, 918, 44, 22" ElementType="Text" FuzzySelectorArgument="&lt;webctrl aaname='                                                 Grupo                                             ' tag='SPAN' type='' class='' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' check:innerText='Grupo' /&gt;" Guid="79cd6bbe-56d8-4f64-b947-6211b4ce7711" SearchSteps="FuzzySelector, CV" />
+        </scg:List>
+      </TargetAnchorable.Anchors>
+      <imageRef attrName="InformativeScreenshot" originalValue="9f40bb9ec5be8943f08784e07b4b9d4f.png" xmlns="">0jIy6Q2fZ3UGZAwXOnoBXdA</imageRef>
+    </TargetAnchorable>
+    <x:String x:Key="ActivityType">Click</x:String>
+  </ObjectRepositoryTargetData.Data>
+</ObjectRepositoryTargetData>

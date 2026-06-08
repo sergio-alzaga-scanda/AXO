@@ -1,0 +1,14 @@
+﻿{
+  "Name": " Artículo(2)",
+  "Type": "Element",
+  "TaxonomyType": "Input",
+  "Id": "fAV7JS1mWEqNXhfMuBax0g",
+  "Reference": "RuAvTAzP2UiATw6fXaPPQw/fAV7JS1mWEqNXhfMuBax0g",
+  "ParentRef": "RuAvTAzP2UiATw6fXaPPQw/Tl-t2Kd02E-O1EwXRA_HIw",
+  "Created": "2026-01-06T21:35:22.2112121Z",
+  "Updated": "2026-01-06T21:35:22.2112121Z",
+  "CreatedBy": [
+    "UiPath.UIAutomationCore, Version=25.10.22.0, Culture=neutral, PublicKeyToken=null",
+    "UiPath.Platform, Version=25.10.1.0, Culture=neutral, PublicKeyToken=null"
+  ]
+}

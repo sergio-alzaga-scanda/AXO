@@ -1,0 +1,13 @@
+﻿{
+  "Name": " Artículo(1)",
+  "Type": "Element",
+  "Id": "a2H_JHNwN0mTDyzPdmZhHw",
+  "Reference": "RuAvTAzP2UiATw6fXaPPQw/a2H_JHNwN0mTDyzPdmZhHw",
+  "ParentRef": "RuAvTAzP2UiATw6fXaPPQw/Tl-t2Kd02E-O1EwXRA_HIw",
+  "Created": "2026-01-06T20:32:59.5337882Z",
+  "Updated": "2026-01-06T20:32:59.5337882Z",
+  "CreatedBy": [
+    "UiPath.UIAutomationCore, Version=25.10.22.0, Culture=neutral, PublicKeyToken=null",
+    "UiPath.Platform, Version=25.10.1.0, Culture=neutral, PublicKeyToken=null"
+  ]
+}
