@@ -1,0 +1,13 @@
+﻿{
+  "Name": "Chrome Iniciar sesión SAP SuccessFactors",
+  "Type": "Screen",
+  "Id": "dm1VHwhyL0qdGwWrB5lR6w",
+  "Reference": "TjVIUNzZOE6u008eXZrzcQ/dm1VHwhyL0qdGwWrB5lR6w",
+  "ParentRef": "TjVIUNzZOE6u008eXZrzcQ/I_n8AH_sMUuGiYBXQAT26Q",
+  "Created": "2026-06-05T23:06:26.695614Z",
+  "Updated": "2026-06-05T23:06:26.695614Z",
+  "CreatedBy": [
+    "UiPath.UIAutomationCore, Version=25.10.31.0, Culture=neutral, PublicKeyToken=null",
+    "UiPath.Platform, Version=25.12.1.0, Culture=neutral, PublicKeyToken=null"
+  ]
+}

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ObjectRepositoryTargetData ContentHash="R_sY2C0AE0O1N-NyMuBbOQ" xmlns="http://schemas.uipath.com/workflow/activities/uix" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ObjectRepositoryTargetData.Data>
+    <TargetAnchorable x:Key="TargetAnchorable" BrowserURL="hcm19.sapsf.com/login" DesignTimeRectangle="772, 730, 392, 36" ElementType="InputBoxPassword" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl ui5-label='Contraseña' /&gt;" Guid="cfc9feb3-9652-4e88-b85a-64babde71261" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Iniciar sesión: SAP SuccessFactors' /&gt;" SearchSteps="Selector" Version="V6" WaitForReadyArgument="Interactive">
+      <imageRef attrName="InformativeScreenshot" originalValue="3a9e06adb024d61244e99654e170f897.jpg" xmlns="">01B8yvvEAYU6IkbBHRt7CCg</imageRef>
+    </TargetAnchorable>
+    <x:String x:Key="ActivityType">TypeInto</x:String>
+  </ObjectRepositoryTargetData.Data>
+</ObjectRepositoryTargetData>

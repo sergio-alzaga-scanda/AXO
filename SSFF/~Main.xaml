@@ -1,0 +1,676 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="Main" VisualBasic.Settings="{x:Null}" sap2010:WorkflowViewState.IdRef="ActivityBuilder_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Drawing;assembly=System.Drawing.Common" xmlns:sd1="clr-namespace:System.Drawing;assembly=System.Drawing.Primitives" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:uix="http://schemas.uipath.com/workflow/activities/uix" xmlns:umam="clr-namespace:UiPath.MicrosoftOffice365.Activities.Mail;assembly=UiPath.MicrosoftOffice365.Activities" xmlns:umame="clr-namespace:UiPath.MicrosoftOffice365.Activities.Mail.Enums;assembly=UiPath.MicrosoftOffice365.Activities" xmlns:umamm="clr-namespace:UiPath.MicrosoftOffice365.Activities.Mail.Models;assembly=UiPath.MicrosoftOffice365.Activities" xmlns:upr="clr-namespace:UiPath.Platform.ResourceHandling;assembly=UiPath.Platform" xmlns:usau="clr-namespace:UiPath.Shared.Activities.Utils;assembly=UiPath.MicrosoftOffice365.Activities" xmlns:uwavsdb="clr-namespace:UiPath.Web.Activities.ViewModels.SWEntities.DeserializeJSON7e44ed.Bundle;assembly=DeserializeJSON7e44e.NXIaZ1zTdJD1VMQ4I2HjR7K1" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>UiPath.UIAutomationNext.Enums</x:String>
+      <x:String>UiPath.UIAutomationCore.Contracts</x:String>
+      <x:String>UiPath.UIAutomationNext.Models</x:String>
+      <x:String>UiPath.UIAutomationNext.Activities</x:String>
+      <x:String>UiPath.Shared.Activities</x:String>
+      <x:String>UiPath.Platform.ObjectLibrary</x:String>
+      <x:String>UiPath.Platform.SyncObjects</x:String>
+      <x:String>System.Reflection</x:String>
+      <x:String>UiPath.Core.Activities.Orchestrator</x:String>
+      <x:String>UiPath.Web</x:String>
+      <x:String>UiPath.Platform.ResourceHandling</x:String>
+      <x:String>System.Security</x:String>
+      <x:String>UiPath.Web.Activities</x:String>
+      <x:String>System.Linq.Expressions</x:String>
+      <x:String>UiPath.Web.Activities.JSON.Models</x:String>
+      <x:String>Newtonsoft.Json.Linq</x:String>
+      <x:String>Newtonsoft.Json</x:String>
+      <x:String>System.Dynamic</x:String>
+      <x:String>System.ComponentModel</x:String>
+      <x:String>System.Collections.Specialized</x:String>
+      <x:String>UiPath.Web.Activities.ViewModels.SWEntities.DeserializeJSON7e44ed.Bundle</x:String>
+      <x:String>UiPath.Web.Activities.ViewModels</x:String>
+      <x:String>System.Numerics</x:String>
+      <x:String>UiPath.UIAutomationNext.Contracts</x:String>
+      <x:String>GlobalVariablesNamespace</x:String>
+      <x:String>GlobalConstantsNamespace</x:String>
+      <x:String>UiPath.UIAutomationNext.Models.CV</x:String>
+      <x:String>UiPath.Web.Activities.Http.Models</x:String>
+      <x:String>System.Net</x:String>
+      <x:String>UiPath.Web.Activities.Http</x:String>
+      <x:String>UiPath.Sdk.Activities</x:String>
+      <x:String>UiPath.Sdk.Activities.DependencyInjection.Contracts</x:String>
+      <x:String>UiPath.Sdk.Activities.DependencyInjection</x:String>
+      <x:String>UiPath.MicrosoftOffice365.Activities.Mail.Models</x:String>
+      <x:String>UiPath.MicrosoftOffice365.Activities.Mail.Enums</x:String>
+      <x:String>UiPath.Shared.Activities.Utils</x:String>
+      <x:String>UiPath.MicrosoftOffice365.Activities.Mail</x:String>
+      <x:String>UiPath.Shared.Activities.ConnectionService.Contracts</x:String>
+      <x:String>UiPath.MicrosoftOffice365.Activities</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.TypeConverter</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.Common</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Drawing.Common</AssemblyReference>
+      <AssemblyReference>System.Drawing.Primitives</AssemblyReference>
+      <AssemblyReference>System.Linq</AssemblyReference>
+      <AssemblyReference>System.Net.Mail</AssemblyReference>
+      <AssemblyReference>System.ObjectModel</AssemblyReference>
+      <AssemblyReference>System.Private.CoreLib</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>UiPath.Studio.Constants</AssemblyReference>
+      <AssemblyReference>System.Private.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.Private.DataContractSerialization</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization.Formatters</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization.Primitives</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationNext</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationNext.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.OCR.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Platform</AssemblyReference>
+      <AssemblyReference>System.Reflection.DispatchProxy</AssemblyReference>
+      <AssemblyReference>System.Reflection.TypeExtensions</AssemblyReference>
+      <AssemblyReference>System.Reflection.Metadata</AssemblyReference>
+      <AssemblyReference>System.Reflection.MetadataLoadContext</AssemblyReference>
+      <AssemblyReference>UiPath.Web</AssemblyReference>
+      <AssemblyReference>System.Security.Permissions</AssemblyReference>
+      <AssemblyReference>System.Runtime.InteropServices</AssemblyReference>
+      <AssemblyReference>UiPath.Web.Activities</AssemblyReference>
+      <AssemblyReference>System.Console</AssemblyReference>
+      <AssemblyReference>System.Configuration.ConfigurationManager</AssemblyReference>
+      <AssemblyReference>System.ComponentModel</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>System.Private.Uri</AssemblyReference>
+      <AssemblyReference>System.Collections</AssemblyReference>
+      <AssemblyReference>System.Linq.Async</AssemblyReference>
+      <AssemblyReference>System.Collections.NonGeneric</AssemblyReference>
+      <AssemblyReference>System.Linq.Expressions</AssemblyReference>
+      <AssemblyReference>Newtonsoft.Json</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.EventBasedAsync</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Primitives</AssemblyReference>
+      <AssemblyReference>System.Collections.Specialized</AssemblyReference>
+      <AssemblyReference>DeserializeJSON7e44e.NXIaZ1zTdJD1VMQ4I2HjR7K1</AssemblyReference>
+      <AssemblyReference>UiPath.Web.Activities.ViewModels</AssemblyReference>
+      <AssemblyReference>System.Runtime.Numerics</AssemblyReference>
+      <AssemblyReference>System.Net.WebClient</AssemblyReference>
+      <AssemblyReference>System.Net.Primitives</AssemblyReference>
+      <AssemblyReference>System.Net.HttpListener</AssemblyReference>
+      <AssemblyReference>System.Net.WebProxy</AssemblyReference>
+      <AssemblyReference>System.Net.NameResolution</AssemblyReference>
+      <AssemblyReference>System.Net.WebHeaderCollection</AssemblyReference>
+      <AssemblyReference>System.Net.Requests</AssemblyReference>
+      <AssemblyReference>System.Net.ServicePoint</AssemblyReference>
+      <AssemblyReference>UiPath.Workflow</AssemblyReference>
+      <AssemblyReference>UiPath.MicrosoftOffice365.Activities</AssemblyReference>
+      <AssemblyReference>System.Memory.Data</AssemblyReference>
+      <AssemblyReference>GlobalVariablesJqzj1h7bj8</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="Main Sequence" sap:VirtualizedContainerService.HintSize="1301,4734" sap2010:WorkflowViewState.IdRef="Sequence_2">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" Name="info_peticion" />
+      <Variable x:TypeArguments="uwavsdb:DeserializeJSON7e44ed" Name="info" />
+      <Variable x:TypeArguments="x:String" Name="contra_temporal" />
+      <Variable x:TypeArguments="x:String" Name="id" />
+      <Variable x:TypeArguments="x:String" Name="correo" />
+      <Variable x:TypeArguments="x:String" Name="numero_usuario" />
+      <Variable x:TypeArguments="x:String" Name="usuario" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <Sequence DisplayName="Recupera información (info.)" sap:VirtualizedContainerService.HintSize="522,412" sap2010:WorkflowViewState.IdRef="Sequence_3">
+      <Sequence.Variables>
+        <Variable x:TypeArguments="upr:ILocalResource" Name="prueba" />
+      </Sequence.Variables>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <ui:HttpClient Body="{x:Null}" ClientCertificate="{x:Null}" ClientCertificatePassword="{x:Null}" ConsumerKey="{x:Null}" ConsumerSecret="{x:Null}" ContinueOnError="{x:Null}" FileAttachments="{x:Null}" OAuth1Token="{x:Null}" OAuth1TokenSecret="{x:Null}" OAuth2Token="{x:Null}" Password="{x:Null}" ResourcePath="{x:Null}" ResponseAttachment="{x:Null}" ResponseHeaders="{x:Null}" SecureClientCertificatePassword="{x:Null}" SecurePassword="{x:Null}" StatusCode="{x:Null}" Username="{x:Null}" AcceptFormat="ANY" AuthenticationType="None" BodyFormat="application/xml" DisplayName="Http client" EnableSSLVerification="True" EndPoint="https://proyectos.kenos-atom.com/axo/api_get_espera.php" sap:VirtualizedContainerService.HintSize="416,102" sap2010:WorkflowViewState.IdRef="HttpClient_1" Method="GET" Result="[info_peticion]" TimeoutMS="6000">
+        <ui:HttpClient.Attachments>
+          <scg:Dictionary x:TypeArguments="x:String, InArgument(x:String)" />
+        </ui:HttpClient.Attachments>
+        <ui:HttpClient.Cookies>
+          <scg:Dictionary x:TypeArguments="x:String, InArgument(x:String)" />
+        </ui:HttpClient.Cookies>
+        <ui:HttpClient.Headers>
+          <scg:Dictionary x:TypeArguments="x:String, InArgument(x:String)" />
+        </ui:HttpClient.Headers>
+        <ui:HttpClient.Parameters>
+          <scg:Dictionary x:TypeArguments="x:String, InArgument(x:String)" />
+        </ui:HttpClient.Parameters>
+        <ui:HttpClient.UrlSegments>
+          <scg:Dictionary x:TypeArguments="x:String, InArgument(x:String)" />
+        </ui:HttpClient.UrlSegments>
+      </ui:HttpClient>
+      <ui:DeserializeJson x:TypeArguments="uwavsdb:DeserializeJSON7e44ed" Settings="{x:Null}" DisplayName="Deserialize JSON" sap:VirtualizedContainerService.HintSize="416,218" sap2010:WorkflowViewState.IdRef="DeserializeJson`1_1" JsonObject="[info]" JsonSample="{}{&#xA;    &quot;id&quot;: 151,&#xA;    &quot;numero_usuario&quot;: &quot;1234568&quot;,&#xA;    &quot;correo&quot;: &quot;oldnavypuntosur@grupoaxo.com&quot;,&#xA;    &quot;plantilla_usada&quot;: 3901,&#xA;    &quot;nombre_plantilla&quot;: &quot;Reseteo de Password SSFF&quot;,&#xA;    &quot;ticket_creado&quot;: &quot;1239835&quot;,&#xA;    &quot;fecha_creacion&quot;: &quot;2026-06-05 17:10:35&quot;,&#xA;    &quot;status_proceso&quot;: &quot;en espera&quot;,&#xA;    &quot;error_detalle&quot;: null,&#xA;    &quot;tipo_solicitud&quot;: &quot;3&quot;,&#xA;    &quot;password_temporal&quot;: &quot;Sinaloa2026*&quot;,&#xA;    &quot;canal&quot;: &quot;API&quot;,&#xA;    &quot;pw_rpa&quot;: &quot;Amarillo.26+&quot;&#xA;}" JsonString="[info_peticion]" />
+    </Sequence>
+    <Sequence DisplayName="asignar variables" sap:VirtualizedContainerService.HintSize="522,767" sap2010:WorkflowViewState.IdRef="Sequence_4">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <Assign sap:VirtualizedContainerService.HintSize="434,114" sap2010:WorkflowViewState.IdRef="Assign_5">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[id]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[info.id.ToString()]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign sap:VirtualizedContainerService.HintSize="434,114" sap2010:WorkflowViewState.IdRef="Assign_1">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[usuario]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">SOPORTE</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign sap:VirtualizedContainerService.HintSize="434,114" sap2010:WorkflowViewState.IdRef="Assign_2">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[contrasena]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[info.pw_5F_rpa]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign sap:VirtualizedContainerService.HintSize="434,114" sap2010:WorkflowViewState.IdRef="Assign_3">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[numero_usuario]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[info.numero_5F_usuario]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign sap:VirtualizedContainerService.HintSize="434,114" sap2010:WorkflowViewState.IdRef="Assign_4">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[correo]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[info.correo]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign sap:VirtualizedContainerService.HintSize="434,105" sap2010:WorkflowViewState.IdRef="Assign_6">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[contra_temporal]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[info.password_5F_temporal]</InArgument>
+        </Assign.Value>
+      </Assign>
+    </Sequence>
+    <uix:NApplicationCard AttachMode="ByInstance" CloseMode="[UiPath.UIAutomationNext.Enums.NAppCloseMode.Always]" DisplayName="Chrome Iniciar sesión SAP SuccessFactors" HealingAgentBehavior="Job" sap:VirtualizedContainerService.HintSize="522,3532" sap2010:WorkflowViewState.IdRef="NApplicationCard_1" InteractionMode="DebuggerApi" ScopeGuid="a9b3dfb7-f1d7-4d17-9f09-ee2e93c3606b" Version="V2">
+      <uix:NApplicationCard.Body>
+        <ActivityAction x:TypeArguments="x:Object">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="x:Object" Name="WSSessionData" />
+          </ActivityAction.Argument>
+          <Sequence DisplayName="Hacer" sap:VirtualizedContainerService.HintSize="520,3343" sap2010:WorkflowViewState.IdRef="Sequence_1">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <Sequence DisplayName="Inicio de Sesion" sap:VirtualizedContainerService.HintSize="486,57" sap2010:WorkflowViewState.IdRef="Sequence_5">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <uix:NClick ActivateBefore="True" ClickType="Single" DisplayName="Click 'sap.m.Input __input1'" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="416,189" sap2010:WorkflowViewState.IdRef="NClick_1" InteractionMode="Simulate" KeyModifiers="None" MouseButton="Left" ScopeIdentifier="a9b3dfb7-f1d7-4d17-9f09-ee2e93c3606b" Version="V5">
+                <uix:NClick.Target>
+                  <uix:TargetAnchorable BrowserURL="hcm19.sapsf.com/login" ContentHash="CzT4-2wbxk6wvzIivHOyqQ" DesignTimeRectangle="772, 650, 392, 36" ElementType="InputBox" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl ui5-label='Nombre de usuario' /&gt;" Guid="b724a7be-e16a-41e3-9b14-434005f37323" InformativeScreenshot="c83451e9f30f0da91f649b1d4e3435f2.jpg" Reference="TjVIUNzZOE6u008eXZrzcQ/MROyEL4UeUKADSWjDccLOA" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Iniciar sesión: SAP SuccessFactors' /&gt;" SearchSteps="Selector" Version="V6" WaitForReadyArgument="Interactive" />
+                </uix:NClick.Target>
+              </uix:NClick>
+              <uix:NTypeInto ActivateBefore="True" ClickBeforeMode="Single" ClipboardMode="Never" DisplayName="Type Into 'sap.m.Input __input1(1)'" EmptyFieldMode="SingleLine" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="416,240" sap2010:WorkflowViewState.IdRef="NTypeInto_1" InteractionMode="DebuggerApi" ScopeIdentifier="a9b3dfb7-f1d7-4d17-9f09-ee2e93c3606b" Text="[usuario]" Version="V5">
+                <uix:NTypeInto.Target>
+                  <uix:TargetAnchorable BrowserURL="hcm19.sapsf.com/login" ContentHash="RorqOPyrzkK35mz_NDb-zQ" DesignTimeRectangle="772, 650, 392, 36" ElementType="InputBox" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl ui5-label='Nombre de usuario' /&gt;" Guid="04263cc8-c776-4df9-baf2-86bb784aced7" InformativeScreenshot="c83451e9f30f0da91f649b1d4e3435f2.jpg" Reference="TjVIUNzZOE6u008eXZrzcQ/VfZMirSRnkCdGPTcsRrGnA" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Iniciar sesión: SAP SuccessFactors' /&gt;" SearchSteps="Selector" Version="V6" WaitForReadyArgument="Interactive" />
+                </uix:NTypeInto.Target>
+                <uix:NTypeInto.VerifyOptions>
+                  <uix:VerifyExecutionTypeIntoOptions Mode="Appears">
+                    <uix:VerifyExecutionTypeIntoOptions.Retry>
+                      <InArgument x:TypeArguments="x:Boolean" />
+                    </uix:VerifyExecutionTypeIntoOptions.Retry>
+                    <uix:VerifyExecutionTypeIntoOptions.Timeout>
+                      <InArgument x:TypeArguments="x:Double" />
+                    </uix:VerifyExecutionTypeIntoOptions.Timeout>
+                  </uix:VerifyExecutionTypeIntoOptions>
+                </uix:NTypeInto.VerifyOptions>
+              </uix:NTypeInto>
+              <uix:NTypeInto ActivateBefore="True" ClickBeforeMode="Single" ClipboardMode="Never" DisplayName="Type Into 'sap.m.Input __input2'" EmptyFieldMode="SingleLine" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="416,240" sap2010:WorkflowViewState.IdRef="NTypeInto_2" InteractionMode="DebuggerApi" ScopeIdentifier="a9b3dfb7-f1d7-4d17-9f09-ee2e93c3606b" Text="[contrasena.ToString]" Version="V5">
+                <uix:NTypeInto.Target>
+                  <uix:TargetAnchorable BrowserURL="hcm19.sapsf.com/login" ContentHash="R_sY2C0AE0O1N-NyMuBbOQ" DesignTimeRectangle="772, 730, 392, 36" ElementType="InputBoxPassword" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl ui5-label='Contraseña' /&gt;" Guid="cfc9feb3-9652-4e88-b85a-64babde71261" InformativeScreenshot="3a9e06adb024d61244e99654e170f897.jpg" Reference="TjVIUNzZOE6u008eXZrzcQ/HQdzrcgkb0m4uJhTumM21Q" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Iniciar sesión: SAP SuccessFactors' /&gt;" SearchSteps="Selector" Version="V6" WaitForReadyArgument="Interactive" />
+                </uix:NTypeInto.Target>
+                <uix:NTypeInto.VerifyOptions>
+                  <uix:VerifyExecutionTypeIntoOptions Mode="Appears">
+                    <uix:VerifyExecutionTypeIntoOptions.Retry>
+                      <InArgument x:TypeArguments="x:Boolean" />
+                    </uix:VerifyExecutionTypeIntoOptions.Retry>
+                    <uix:VerifyExecutionTypeIntoOptions.Timeout>
+                      <InArgument x:TypeArguments="x:Double" />
+                    </uix:VerifyExecutionTypeIntoOptions.Timeout>
+                  </uix:VerifyExecutionTypeIntoOptions>
+                </uix:NTypeInto.VerifyOptions>
+              </uix:NTypeInto>
+              <uix:NKeyboardShortcuts ActivateBefore="True" ClickBeforeMode="None" DisplayName="Keyboard Shortcuts" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="416,244" sap2010:WorkflowViewState.IdRef="NKeyboardShortcuts_1" InteractionMode="DebuggerApi" ScopeIdentifier="a9b3dfb7-f1d7-4d17-9f09-ee2e93c3606b" Shortcuts="[d(hk)][k(Enter)][u(hk)]" Version="V5" />
+            </Sequence>
+            <Sequence DisplayName="Busqueda" sap:VirtualizedContainerService.HintSize="486,3226" sap2010:WorkflowViewState.IdRef="Sequence_6">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <uix:NTypeInto ActivateBefore="True" ClickBeforeMode="Single" ClipboardMode="Never" DisplayName="Type Into 'INPUT inner'" EmptyFieldMode="SingleLine" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="452,240" sap2010:WorkflowViewState.IdRef="NTypeInto_3" InteractionMode="DebuggerApi" ScopeIdentifier="a9b3dfb7-f1d7-4d17-9f09-ee2e93c3606b" Text="Restablecer contraseñas de usuarios" Version="V5">
+                <uix:NTypeInto.Target>
+                  <uix:TargetAnchorable BrowserURL="hcm19.sapsf.com/sf/start" ContentHash="W6eRk4pvkEy_KrAha-_RBw" DesignTimeRectangle="688, 193, 560, 36" ElementType="InputBox" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl tag='XWEB-SHELLBAR' /&gt;&lt;webctrl id='search' shadowhostid='' tag='XWEB-SHELLBAR-SEARCH-INPUT' /&gt;&lt;webctrl id='inner' shadowhostid='search' tag='INPUT' /&gt;" Guid="c7322bb4-7a3e-4b1c-9d61-ccda681a1191" InformativeScreenshot="3fc038b640ff92b23385332147af758f.jpg" Reference="TjVIUNzZOE6u008eXZrzcQ/ABzxhlTvqka5U3G-dBD1Yg" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Inicio - SAP SuccessFactors' /&gt;" SearchSteps="Selector" Version="V6" WaitForReadyArgument="Interactive" />
+                </uix:NTypeInto.Target>
+                <uix:NTypeInto.VerifyOptions>
+                  <uix:VerifyExecutionTypeIntoOptions Mode="Appears">
+                    <uix:VerifyExecutionTypeIntoOptions.Retry>
+                      <InArgument x:TypeArguments="x:Boolean" />
+                    </uix:VerifyExecutionTypeIntoOptions.Retry>
+                    <uix:VerifyExecutionTypeIntoOptions.Timeout>
+                      <InArgument x:TypeArguments="x:Double" />
+                    </uix:VerifyExecutionTypeIntoOptions.Timeout>
+                  </uix:VerifyExecutionTypeIntoOptions>
+                </uix:NTypeInto.VerifyOptions>
+              </uix:NTypeInto>
+              <uix:NKeyboardShortcuts ActivateBefore="True" ClickBeforeMode="None" DisplayName="Keyboard Shortcuts" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="452,253" sap2010:WorkflowViewState.IdRef="NKeyboardShortcuts_2" InteractionMode="DebuggerApi" ScopeIdentifier="a9b3dfb7-f1d7-4d17-9f09-ee2e93c3606b" Shortcuts="[d(hk)][k(Enter)][u(hk)]" Version="V5" />
+              <uix:NTypeInto ActivateBefore="True" ClickBeforeMode="Single" ClipboardMode="Never" DisplayName="Type Into 'INPUT inner(1)'" EmptyFieldMode="SingleLine" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="452,240" sap2010:WorkflowViewState.IdRef="NTypeInto_4" InteractionMode="DebuggerApi" ScopeIdentifier="a9b3dfb7-f1d7-4d17-9f09-ee2e93c3606b" Text="[numero_usuario.ToString()]" Version="V5">
+                <uix:NTypeInto.Target>
+                  <uix:TargetAnchorable BrowserURL="hcm19.sapsf.com/sf/pages/admin/password-reset" ContentHash="SYnKGKzDjUGuGlyAQQh2Ig" DesignTimeRectangle="1404, 622, 407, 26" ElementType="InputBox" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl idx='3' tag='UI5-INPUT-XWEB-PASSWORD-RESET' /&gt;&lt;webctrl id='inner' shadowhostid='' tag='INPUT' /&gt;" Guid="aa0137d0-dea5-4ab5-a914-056477c5cb20" InformativeScreenshot="b4e0c734593d2be5c2dfe1caa4ec40c5.jpg" Reference="TjVIUNzZOE6u008eXZrzcQ/eBVePDZLC0q76kAzRUWnGw" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Restablecer contraseñas de usuarios - Centro de administración - SAP SuccessFactors' /&gt;" SearchSteps="Selector" Version="V6" WaitForReadyArgument="Interactive" />
+                </uix:NTypeInto.Target>
+                <uix:NTypeInto.VerifyOptions>
+                  <uix:VerifyExecutionTypeIntoOptions Mode="Appears">
+                    <uix:VerifyExecutionTypeIntoOptions.Retry>
+                      <InArgument x:TypeArguments="x:Boolean" />
+                    </uix:VerifyExecutionTypeIntoOptions.Retry>
+                    <uix:VerifyExecutionTypeIntoOptions.Timeout>
+                      <InArgument x:TypeArguments="x:Double" />
+                    </uix:VerifyExecutionTypeIntoOptions.Timeout>
+                  </uix:VerifyExecutionTypeIntoOptions>
+                </uix:NTypeInto.VerifyOptions>
+              </uix:NTypeInto>
+              <uix:NCheckState DisplayName="Comprobar el estado de la aplicación 'email'" HealingAgentBehavior="Disabled" sap:VirtualizedContainerService.HintSize="452,2410" sap2010:WorkflowViewState.IdRef="NCheckState_1" ScopeIdentifier="a9b3dfb7-f1d7-4d17-9f09-ee2e93c3606b" Timeout="5" Version="V5">
+                <uix:NCheckState.IfExists>
+                  <Sequence DisplayName="El objetivo aparece." sap:VirtualizedContainerService.HintSize="450,1734" sap2010:WorkflowViewState.IdRef="Sequence_7">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <uix:NClick ActivateBefore="True" ClickType="Single" DisplayName="Click 'email(1)'" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="416,189" sap2010:WorkflowViewState.IdRef="NClick_4" InteractionMode="DebuggerApi" KeyModifiers="None" MouseButton="Left" ScopeIdentifier="a9b3dfb7-f1d7-4d17-9f09-ee2e93c3606b" Version="V5">
+                      <uix:NClick.Target>
+                        <uix:TargetAnchorable BrowserURL="hcm19.sapsf.com/sf/pages/admin/password-reset" ContentHash="SLuOaYxF1E6zytilkQfeBg" DesignTimeRectangle="1420, 648, 376, 32" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl tag='UI5-SUGGESTION-ITEM-XWEB-PASSWORD-RESET' /&gt;&lt;webctrl id='content' shadowhostid='' tag='DIV' /&gt;" Guid="9fe9e5eb-afa6-4980-8237-d66049018e14" InformativeScreenshot="5f02bbab1c89867f86a224f982d84a0f.jpg" Reference="TjVIUNzZOE6u008eXZrzcQ/JwVT5j7g9UebwvLMl61Xlg" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Restablecer contraseñas de usuarios - Centro de administración - SAP SuccessFactors' /&gt;" SearchSteps="Selector" Version="V6" WaitForReadyArgument="Interactive" />
+                      </uix:NClick.Target>
+                    </uix:NClick>
+                    <uix:NClick ActivateBefore="True" ClickType="Single" DisplayName="Click 'DIV'" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="416,189" sap2010:WorkflowViewState.IdRef="NClick_8" InteractionMode="SameAsCard" KeyModifiers="None" MouseButton="Left" ScopeIdentifier="a9b3dfb7-f1d7-4d17-9f09-ee2e93c3606b" Version="V5">
+                      <uix:NClick.Target>
+                        <uix:TargetAnchorable BrowserURL="hcm19.sapsf.com/sf/pages/admin/password-reset" ContentHash="mO-BTUaaskWSeULvnJwslg" DesignTimeRectangle="129, 816, 32, 32" ElementType="RadioButton" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl tag='UI5-RADIO-BUTTON-XWEB-PASSWORD-RESET' /&gt;&lt;webctrl shadowhostid='' tag='DIV' /&gt;" Guid="f78fb185-71dd-418e-a2b9-d3217b2ab31a" InformativeScreenshot="c5a9c6ca570dea3800ad558c45326c65.jpg" Reference="TjVIUNzZOE6u008eXZrzcQ/Kc_ImSmp-E-4-ubojT9Uqw" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Restablecer contraseñas de usuarios - Centro de administración - SAP SuccessFactors' /&gt;" SearchSteps="Selector" Version="V6" WaitForReadyArgument="Interactive" />
+                      </uix:NClick.Target>
+                    </uix:NClick>
+                    <uix:NTypeInto ActivateBefore="True" ClickBeforeMode="Single" ClipboardMode="Never" DisplayName="Type Into 'INPUT inner(2)'" EmptyFieldMode="SingleLine" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="416,240" sap2010:WorkflowViewState.IdRef="NTypeInto_5" InteractionMode="DebuggerApi" ScopeIdentifier="a9b3dfb7-f1d7-4d17-9f09-ee2e93c3606b" Text="[contra_temporal]" Version="V5">
+                      <uix:NTypeInto.Target>
+                        <uix:TargetAnchorable BrowserURL="hcm19.sapsf.com/sf/pages/admin/password-reset" ContentHash="aW0ZWagG90OR6dN9DlAn3A" DesignTimeRectangle="285, 888, 192, 26" ElementType="InputBoxPassword" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl id='fbpwdrst_new_pwd' tag='UI5-INPUT-XWEB-PASSWORD-RESET' /&gt;&lt;webctrl id='inner' shadowhostid='fbpwdrst_new_pwd' tag='INPUT' /&gt;" Guid="2fd9a863-8e04-4600-b773-9fa4b601ebf8" InformativeScreenshot="6bde387984ebb1d2c129e89fa3e1bcc9.jpg" Reference="TjVIUNzZOE6u008eXZrzcQ/jytl-Y4GVk2GY5ZOAfL8aA" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Restablecer contraseñas de usuarios - Centro de administración - SAP SuccessFactors' /&gt;" SearchSteps="Selector" Version="V6" WaitForReadyArgument="Interactive" />
+                      </uix:NTypeInto.Target>
+                      <uix:NTypeInto.VerifyOptions>
+                        <uix:VerifyExecutionTypeIntoOptions Mode="Appears">
+                          <uix:VerifyExecutionTypeIntoOptions.Retry>
+                            <InArgument x:TypeArguments="x:Boolean" />
+                          </uix:VerifyExecutionTypeIntoOptions.Retry>
+                          <uix:VerifyExecutionTypeIntoOptions.Timeout>
+                            <InArgument x:TypeArguments="x:Double" />
+                          </uix:VerifyExecutionTypeIntoOptions.Timeout>
+                        </uix:VerifyExecutionTypeIntoOptions>
+                      </uix:NTypeInto.VerifyOptions>
+                    </uix:NTypeInto>
+                    <uix:NTypeInto ActivateBefore="True" ClickBeforeMode="Single" ClipboardMode="Never" DisplayName="Type Into 'INPUT inner(4)'" EmptyFieldMode="SingleLine" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="416,240" sap2010:WorkflowViewState.IdRef="NTypeInto_6" InteractionMode="DebuggerApi" ScopeIdentifier="a9b3dfb7-f1d7-4d17-9f09-ee2e93c3606b" Text="[contra_temporal]" Version="V5">
+                      <uix:NTypeInto.Target>
+                        <uix:TargetAnchorable BrowserURL="hcm19.sapsf.com/sf/pages/admin/password-reset" ContentHash="eaW_oj8jCki81EeeCvuGcw" DesignTimeRectangle="285, 932, 192, 26" ElementType="InputBoxPassword" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl id='fbpwdrst_confirm_pwd' tag='UI5-INPUT-XWEB-PASSWORD-RESET' /&gt;&lt;webctrl id='inner' shadowhostid='fbpwdrst_confirm_pwd' tag='INPUT' /&gt;" Guid="22f9a542-4a51-4edd-999b-5a233ac59ab0" InformativeScreenshot="8b191ebca336195b46b218b499ecafb5.jpg" Reference="TjVIUNzZOE6u008eXZrzcQ/Y3_EafUIkEyQ2w2W44ew7A" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Restablecer contraseñas de usuarios - Centro de administración - SAP SuccessFactors' /&gt;" SearchSteps="Selector" Version="V6" WaitForReadyArgument="Interactive" />
+                      </uix:NTypeInto.Target>
+                      <uix:NTypeInto.VerifyOptions>
+                        <uix:VerifyExecutionTypeIntoOptions Mode="Appears">
+                          <uix:VerifyExecutionTypeIntoOptions.Retry>
+                            <InArgument x:TypeArguments="x:Boolean" />
+                          </uix:VerifyExecutionTypeIntoOptions.Retry>
+                          <uix:VerifyExecutionTypeIntoOptions.Timeout>
+                            <InArgument x:TypeArguments="x:Double" />
+                          </uix:VerifyExecutionTypeIntoOptions.Timeout>
+                        </uix:VerifyExecutionTypeIntoOptions>
+                      </uix:NTypeInto.VerifyOptions>
+                    </uix:NTypeInto>
+                    <uix:NClick ActivateBefore="True" ClickType="Single" DisplayName="Click 'Restablecer contraseña …'" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="416,189" sap2010:WorkflowViewState.IdRef="NClick_5" InteractionMode="DebuggerApi" KeyModifiers="None" MouseButton="Left" ScopeIdentifier="a9b3dfb7-f1d7-4d17-9f09-ee2e93c3606b" Version="V5">
+                      <uix:NClick.Target>
+                        <uix:TargetAnchorable BrowserURL="hcm19.sapsf.com/sf/pages/admin/password-reset" ContentHash="dTYZUg1k8Uu8ZhryXH5aMQ" DesignTimeRectangle="109, 977, 245, 26" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl id='fbpwdrst_reset_user' tag='UI5-BUTTON-XWEB-PASSWORD-RESET' /&gt;" Guid="0139182e-e3c4-4dff-9fe9-c8b0c541c40f" InformativeScreenshot="1b700b7849526bee238176d6fe2e9a2c.jpg" Reference="TjVIUNzZOE6u008eXZrzcQ/jpI4lBZbnUq1t9MU_xxvLA" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Restablecer contraseñas de usuarios - Centro de administración - SAP SuccessFactors' /&gt;" SearchSteps="Selector" Version="V6" WaitForReadyArgument="Interactive" />
+                      </uix:NClick.Target>
+                    </uix:NClick>
+                    <ui:HttpClient Body="{x:Null}" ClientCertificate="{x:Null}" ClientCertificatePassword="{x:Null}" ConsumerKey="{x:Null}" ConsumerSecret="{x:Null}" ContinueOnError="{x:Null}" FileAttachments="{x:Null}" OAuth1Token="{x:Null}" OAuth1TokenSecret="{x:Null}" OAuth2Token="{x:Null}" Password="{x:Null}" ResourcePath="{x:Null}" ResponseAttachment="{x:Null}" ResponseHeaders="{x:Null}" SecureClientCertificatePassword="{x:Null}" SecurePassword="{x:Null}" StatusCode="{x:Null}" Username="{x:Null}" AcceptFormat="ANY" AuthenticationType="None" BodyFormat="application/xml" DisplayName="Http client" EnableSSLVerification="True" EndPoint="https://proyectos.kenos-atom.com/axo/api_actualiza_espera.php" sap:VirtualizedContainerService.HintSize="416,102" sap2010:WorkflowViewState.IdRef="HttpClient_2" Method="GET" Result="[info_peticion]" TimeoutMS="10000">
+                      <ui:HttpClient.Attachments>
+                        <scg:Dictionary x:TypeArguments="x:String, InArgument(x:String)" />
+                      </ui:HttpClient.Attachments>
+                      <ui:HttpClient.Cookies>
+                        <scg:Dictionary x:TypeArguments="x:String, InArgument(x:String)" />
+                      </ui:HttpClient.Cookies>
+                      <ui:HttpClient.Headers>
+                        <scg:Dictionary x:TypeArguments="x:String, InArgument(x:String)" />
+                      </ui:HttpClient.Headers>
+                      <ui:HttpClient.Parameters>
+                        <InArgument x:TypeArguments="x:String" x:Key="id">[info.id.ToString]</InArgument>
+                        <InArgument x:TypeArguments="x:String" x:Key="resultado">1</InArgument>
+                      </ui:HttpClient.Parameters>
+                      <ui:HttpClient.UrlSegments>
+                        <scg:Dictionary x:TypeArguments="x:String, InArgument(x:String)" />
+                      </ui:HttpClient.UrlSegments>
+                    </ui:HttpClient>
+                    <umam:SendMailConnections ArgumentAttachmentPaths="{x:Null}" AttachmentList="{x:Null}" AttachmentPaths="{x:Null}" Attachments="{x:Null}" Bcc="{x:Null}" Cc="{x:Null}" ConnectionAccountName="{x:Null}" ContinueOnError="{x:Null}" MailboxBackup="{x:Reference __ReferenceID1}" ReplyTo="{x:Null}" SensitivityLabelId="{x:Null}" TextBody="{x:Null}" AttachmentInputMode="Existing" AuthScopesInvalid="False" Body="[string.Format(&quot;&lt;P&gt;&lt;SPAN&gt;&lt;STRONG&gt;&lt;EM&gt;&amp;quot;&#xA;            &#xA;                &amp;#161;Hola! Tu solicitud ha sido procesada&#xA;                Tu solicitud de reseteo de contrase&amp;#241;a para Success Factors (Ticket: {$ticket}) ha sido completada exitosamente de forma automatizada.&#xA;                Tu nueva contrase&amp;#241;a temporal es: {$pass_dinamica}&#xA;                &#xA;                Este es un mensaje generado autom&amp;#225;ticamente, por favor no respondas a este correo.&#xA;            &#xA;        &amp;quot;&lt;/EM&gt;&lt;/STRONG&gt;&lt;/SPAN&gt;&lt;/P&gt;&quot;)]" ConnectionId="47851499-13f0-4b36-9449-ee5c4b829a38" DisplayName="Enviar correo electrónico" sap:VirtualizedContainerService.HintSize="416,525" sap2010:WorkflowViewState.IdRef="SendMailConnections_2" Importance="Normal" InputType="HTML" IsDeliveryReceiptRequested="False" IsReadReceiptRequested="False" SaveAsDraft="True" Subject="Solicitud de reset de password para success factor" To="[New String() {&quot;sergioarmandoalzagadiaz@gmail.com&quot;}]" UseConnectionService="True" UseSharedMailbox="False">
+                      <umam:SendMailConnections.AttachmentsBackup>
+                        <usau:BackupSlot x:TypeArguments="umame:AttachmentInputMode" StoredValue="Existing">
+                          <usau:BackupSlot.BackupValues>
+                            <scg:Dictionary x:TypeArguments="umame:AttachmentInputMode, scg:List(x:Object)" />
+                          </usau:BackupSlot.BackupValues>
+                        </usau:BackupSlot>
+                      </umam:SendMailConnections.AttachmentsBackup>
+                      <umam:SendMailConnections.InputTypeBackup>
+                        <usau:BackupSlot x:TypeArguments="umame:BodyInputType" StoredValue="HTML">
+                          <usau:BackupSlot.BackupValues>
+                            <scg:Dictionary x:TypeArguments="umame:BodyInputType, scg:List(x:Object)" />
+                          </usau:BackupSlot.BackupValues>
+                        </usau:BackupSlot>
+                      </umam:SendMailConnections.InputTypeBackup>
+                      <umam:SendMailConnections.Mailbox>
+                        <InArgument x:TypeArguments="x:String" x:Name="__ReferenceID0" />
+                      </umam:SendMailConnections.Mailbox>
+                      <umam:SendMailConnections.MailboxArg>
+                        <umamm:MailboxArgument SharedMailbox="{x:Reference __ReferenceID0}" UseSharedMailbox="False">
+                          <umamm:MailboxArgument.Backup>
+                            <usau:BackupSlot x:TypeArguments="umame:MailboxSelectionMode" x:Name="__ReferenceID1" StoredValue="NoMailbox">
+                              <usau:BackupSlot.BackupValues>
+                                <scg:Dictionary x:TypeArguments="umame:MailboxSelectionMode, scg:List(x:Object)" />
+                              </usau:BackupSlot.BackupValues>
+                            </usau:BackupSlot>
+                          </umamm:MailboxArgument.Backup>
+                        </umamm:MailboxArgument>
+                      </umam:SendMailConnections.MailboxArg>
+                    </umam:SendMailConnections>
+                  </Sequence>
+                </uix:NCheckState.IfExists>
+                <uix:NCheckState.IfNotExists>
+                  <Sequence DisplayName="El objetivo no aparece." sap:VirtualizedContainerService.HintSize="450,348" sap2010:WorkflowViewState.IdRef="Sequence_8">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <uix:NTypeInto ActivateBefore="True" ClickBeforeMode="Single" ClipboardMode="Never" DisplayName="Type Into 'email(2)'" EmptyFieldMode="SingleLine" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="416,240" sap2010:WorkflowViewState.IdRef="NTypeInto_7" InteractionMode="DebuggerApi" ScopeIdentifier="a9b3dfb7-f1d7-4d17-9f09-ee2e93c3606b" Text="[correo]" Version="V5">
+                      <uix:NTypeInto.Target>
+                        <uix:TargetAnchorable BrowserURL="hcm19.sapsf.com/sf/pages/admin/password-reset" ContentHash="PhvYDNIDXka-QdkP5TQhig" DesignTimeRectangle="1392, 557, 404, 26" ElementType="InputBox" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl idx='3' tag='UI5-INPUT-XWEB-PASSWORD-RESET' /&gt;&lt;webctrl id='inner' shadowhostid='' tag='INPUT' /&gt;" Guid="537669ee-f817-4fd2-9ff7-c1ef2aa79f28" InformativeScreenshot="36015caa30f02ad3d0b397ad88935b0f.jpg" Reference="TjVIUNzZOE6u008eXZrzcQ/opiPIntu10uBhEwRBBElmg" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Restablecer contraseñas de usuarios - Centro de administración - SAP SuccessFactors' /&gt;" SearchSteps="Selector" Version="V6" WaitForReadyArgument="Interactive" />
+                      </uix:NTypeInto.Target>
+                      <uix:NTypeInto.VerifyOptions>
+                        <uix:VerifyExecutionTypeIntoOptions Mode="Appears">
+                          <uix:VerifyExecutionTypeIntoOptions.Retry>
+                            <InArgument x:TypeArguments="x:Boolean" />
+                          </uix:VerifyExecutionTypeIntoOptions.Retry>
+                          <uix:VerifyExecutionTypeIntoOptions.Timeout>
+                            <InArgument x:TypeArguments="x:Double" />
+                          </uix:VerifyExecutionTypeIntoOptions.Timeout>
+                        </uix:VerifyExecutionTypeIntoOptions>
+                      </uix:NTypeInto.VerifyOptions>
+                    </uix:NTypeInto>
+                    <uix:NCheckState DisplayName="Busqueda por correo" HealingAgentBehavior="Disabled" sap:VirtualizedContainerService.HintSize="416,48" sap2010:WorkflowViewState.IdRef="NCheckState_2" ScopeIdentifier="a9b3dfb7-f1d7-4d17-9f09-ee2e93c3606b" Timeout="3" Version="V5">
+                      <uix:NCheckState.IfExists>
+                        <Sequence DisplayName="El objetivo aparece." sap:VirtualizedContainerService.HintSize="450,25" sap2010:WorkflowViewState.IdRef="Sequence_9">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <uix:NClick ActivateBefore="True" ClickType="Single" DisplayName="revision de correo" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="416,189" sap2010:WorkflowViewState.IdRef="NClick_6" InteractionMode="Simulate" KeyModifiers="None" MouseButton="Left" ScopeIdentifier="a9b3dfb7-f1d7-4d17-9f09-ee2e93c3606b" Version="V5">
+                            <uix:NClick.Target>
+                              <uix:TargetAnchorable BrowserURL="hcm19.sapsf.com/sf/pages/admin/password-reset" ContentHash="SLuOaYxF1E6zytilkQfeBg" DesignTimeRectangle="1420, 648, 376, 32" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl tag='UI5-SUGGESTION-ITEM-XWEB-PASSWORD-RESET' /&gt;&lt;webctrl id='content' shadowhostid='' tag='DIV' /&gt;" Guid="9fe9e5eb-afa6-4980-8237-d66049018e14" InformativeScreenshot="5f02bbab1c89867f86a224f982d84a0f.jpg" Reference="TjVIUNzZOE6u008eXZrzcQ/JwVT5j7g9UebwvLMl61Xlg" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Restablecer contraseñas de usuarios - Centro de administración - SAP SuccessFactors' /&gt;" SearchSteps="Selector" Version="V6" WaitForReadyArgument="Interactive" />
+                            </uix:NClick.Target>
+                          </uix:NClick>
+                          <uix:NClick ActivateBefore="True" ClickType="Single" DisplayName="Click 'DIV'" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="416,189" sap2010:WorkflowViewState.IdRef="NClick_9" InteractionMode="SameAsCard" KeyModifiers="None" MouseButton="Left" ScopeIdentifier="a9b3dfb7-f1d7-4d17-9f09-ee2e93c3606b" Version="V5">
+                            <uix:NClick.Target>
+                              <uix:TargetAnchorable BrowserURL="hcm19.sapsf.com/sf/pages/admin/password-reset" ContentHash="mO-BTUaaskWSeULvnJwslg" DesignTimeRectangle="129, 816, 32, 32" ElementType="RadioButton" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl tag='UI5-RADIO-BUTTON-XWEB-PASSWORD-RESET' /&gt;&lt;webctrl shadowhostid='' tag='DIV' /&gt;" Guid="f78fb185-71dd-418e-a2b9-d3217b2ab31a" InformativeScreenshot="c5a9c6ca570dea3800ad558c45326c65.jpg" Reference="TjVIUNzZOE6u008eXZrzcQ/Kc_ImSmp-E-4-ubojT9Uqw" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Restablecer contraseñas de usuarios - Centro de administración - SAP SuccessFactors' /&gt;" SearchSteps="Selector" Version="V6" WaitForReadyArgument="Interactive" />
+                            </uix:NClick.Target>
+                          </uix:NClick>
+                          <uix:NTypeInto ActivateBefore="True" ClickBeforeMode="Single" ClipboardMode="Never" DisplayName="Type Into 'INPUT inner(2)'" EmptyFieldMode="SingleLine" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="416,240" sap2010:WorkflowViewState.IdRef="NTypeInto_8" InteractionMode="DebuggerApi" ScopeIdentifier="a9b3dfb7-f1d7-4d17-9f09-ee2e93c3606b" Text="[contra_temporal]" Version="V5">
+                            <uix:NTypeInto.Target>
+                              <uix:TargetAnchorable BrowserURL="hcm19.sapsf.com/sf/pages/admin/password-reset" ContentHash="aW0ZWagG90OR6dN9DlAn3A" DesignTimeRectangle="285, 888, 192, 26" ElementType="InputBoxPassword" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl id='fbpwdrst_new_pwd' tag='UI5-INPUT-XWEB-PASSWORD-RESET' /&gt;&lt;webctrl id='inner' shadowhostid='fbpwdrst_new_pwd' tag='INPUT' /&gt;" Guid="2fd9a863-8e04-4600-b773-9fa4b601ebf8" InformativeScreenshot="6bde387984ebb1d2c129e89fa3e1bcc9.jpg" Reference="TjVIUNzZOE6u008eXZrzcQ/jytl-Y4GVk2GY5ZOAfL8aA" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Restablecer contraseñas de usuarios - Centro de administración - SAP SuccessFactors' /&gt;" SearchSteps="Selector" Version="V6" WaitForReadyArgument="Interactive" />
+                            </uix:NTypeInto.Target>
+                            <uix:NTypeInto.VerifyOptions>
+                              <uix:VerifyExecutionTypeIntoOptions Mode="Appears">
+                                <uix:VerifyExecutionTypeIntoOptions.Retry>
+                                  <InArgument x:TypeArguments="x:Boolean" />
+                                </uix:VerifyExecutionTypeIntoOptions.Retry>
+                                <uix:VerifyExecutionTypeIntoOptions.Timeout>
+                                  <InArgument x:TypeArguments="x:Double" />
+                                </uix:VerifyExecutionTypeIntoOptions.Timeout>
+                              </uix:VerifyExecutionTypeIntoOptions>
+                            </uix:NTypeInto.VerifyOptions>
+                          </uix:NTypeInto>
+                          <uix:NTypeInto ActivateBefore="True" ClickBeforeMode="Single" ClipboardMode="Never" DisplayName="Type Into 'INPUT inner(3)'" EmptyFieldMode="SingleLine" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="416,240" sap2010:WorkflowViewState.IdRef="NTypeInto_9" InteractionMode="DebuggerApi" ScopeIdentifier="a9b3dfb7-f1d7-4d17-9f09-ee2e93c3606b" Text="[contra_temporal]" Version="V5">
+                            <uix:NTypeInto.Target>
+                              <uix:TargetAnchorable BrowserURL="hcm19.sapsf.com/sf/pages/admin/password-reset" ContentHash="4FPAFpZYZkeyb_K6iPwjaA" DesignTimeRectangle="285, 932, 192, 26" ElementType="InputBoxPassword" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl id='fbpwdrst_confirm_pwd' tag='UI5-INPUT-XWEB-PASSWORD-RESET' /&gt;&lt;webctrl id='inner' shadowhostid='fbpwdrst_confirm_pwd' tag='INPUT' /&gt;" Guid="d4bcec6b-5454-4b75-9cfc-4dd5014705b2" InformativeScreenshot="8b191ebca336195b46b218b499ecafb5.jpg" Reference="TjVIUNzZOE6u008eXZrzcQ/GP76MWkTCk2l32xchk0VaA" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Restablecer contraseñas de usuarios - Centro de administración - SAP SuccessFactors' /&gt;" SearchSteps="Selector" Version="V6" WaitForReadyArgument="Interactive" />
+                            </uix:NTypeInto.Target>
+                            <uix:NTypeInto.VerifyOptions>
+                              <uix:VerifyExecutionTypeIntoOptions Mode="Appears">
+                                <uix:VerifyExecutionTypeIntoOptions.Retry>
+                                  <InArgument x:TypeArguments="x:Boolean" />
+                                </uix:VerifyExecutionTypeIntoOptions.Retry>
+                                <uix:VerifyExecutionTypeIntoOptions.Timeout>
+                                  <InArgument x:TypeArguments="x:Double" />
+                                </uix:VerifyExecutionTypeIntoOptions.Timeout>
+                              </uix:VerifyExecutionTypeIntoOptions>
+                            </uix:NTypeInto.VerifyOptions>
+                          </uix:NTypeInto>
+                          <uix:NClick ActivateBefore="True" ClickType="Single" DisplayName="Click 'Restablecer contraseña …'" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="416,189" sap2010:WorkflowViewState.IdRef="NClick_7" InteractionMode="DebuggerApi" KeyModifiers="None" MouseButton="Left" ScopeIdentifier="a9b3dfb7-f1d7-4d17-9f09-ee2e93c3606b" Version="V5">
+                            <uix:NClick.Target>
+                              <uix:TargetAnchorable BrowserURL="hcm19.sapsf.com/sf/pages/admin/password-reset" ContentHash="dTYZUg1k8Uu8ZhryXH5aMQ" DesignTimeRectangle="109, 977, 245, 26" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl id='fbpwdrst_reset_user' tag='UI5-BUTTON-XWEB-PASSWORD-RESET' /&gt;" Guid="0139182e-e3c4-4dff-9fe9-c8b0c541c40f" InformativeScreenshot="1b700b7849526bee238176d6fe2e9a2c.jpg" Reference="TjVIUNzZOE6u008eXZrzcQ/jpI4lBZbnUq1t9MU_xxvLA" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Restablecer contraseñas de usuarios - Centro de administración - SAP SuccessFactors' /&gt;" SearchSteps="Selector" Version="V6" WaitForReadyArgument="Interactive" />
+                            </uix:NClick.Target>
+                          </uix:NClick>
+                          <ui:HttpClient Body="{x:Null}" ClientCertificate="{x:Null}" ClientCertificatePassword="{x:Null}" ConsumerKey="{x:Null}" ConsumerSecret="{x:Null}" ContinueOnError="{x:Null}" FileAttachments="{x:Null}" OAuth1Token="{x:Null}" OAuth1TokenSecret="{x:Null}" OAuth2Token="{x:Null}" Password="{x:Null}" ResourcePath="{x:Null}" ResponseAttachment="{x:Null}" ResponseHeaders="{x:Null}" SecureClientCertificatePassword="{x:Null}" SecurePassword="{x:Null}" StatusCode="{x:Null}" Username="{x:Null}" AcceptFormat="ANY" AuthenticationType="None" BodyFormat="application/xml" DisplayName="Http client" EnableSSLVerification="True" EndPoint="https://proyectos.kenos-atom.com/axo/api_actualiza_espera.php" sap:VirtualizedContainerService.HintSize="416,102" sap2010:WorkflowViewState.IdRef="HttpClient_3" Method="GET" Result="[info_peticion]" TimeoutMS="10000">
+                            <ui:HttpClient.Attachments>
+                              <scg:Dictionary x:TypeArguments="x:String, InArgument(x:String)" />
+                            </ui:HttpClient.Attachments>
+                            <ui:HttpClient.Cookies>
+                              <scg:Dictionary x:TypeArguments="x:String, InArgument(x:String)" />
+                            </ui:HttpClient.Cookies>
+                            <ui:HttpClient.Headers>
+                              <scg:Dictionary x:TypeArguments="x:String, InArgument(x:String)" />
+                            </ui:HttpClient.Headers>
+                            <ui:HttpClient.Parameters>
+                              <InArgument x:TypeArguments="x:String" x:Key="id">[info.id.ToString]</InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="resultado">1</InArgument>
+                            </ui:HttpClient.Parameters>
+                            <ui:HttpClient.UrlSegments>
+                              <scg:Dictionary x:TypeArguments="x:String, InArgument(x:String)" />
+                            </ui:HttpClient.UrlSegments>
+                          </ui:HttpClient>
+                          <umam:SendMailConnections ArgumentAttachmentPaths="{x:Null}" AttachmentList="{x:Null}" AttachmentPaths="{x:Null}" Attachments="{x:Null}" Bcc="{x:Null}" Cc="{x:Null}" ConnectionAccountName="{x:Null}" ContinueOnError="{x:Null}" MailboxBackup="{x:Reference __ReferenceID3}" ReplyTo="{x:Null}" SensitivityLabelId="{x:Null}" TextBody="{x:Null}" AttachmentInputMode="Existing" AuthScopesInvalid="False" Body="[string.Format(&quot;&lt;P&gt;&lt;SPAN&gt;&lt;STRONG&gt;&lt;EM&gt;&amp;quot;&#xA;            &#xA;                &amp;#161;Hola! Tu solicitud ha sido procesada&#xA;                Tu solicitud de reseteo de contrase&amp;#241;a para Success Factors (Ticket: {$ticket}) ha sido completada exitosamente de forma automatizada.&#xA;                Tu nueva contrase&amp;#241;a temporal es: {$pass_dinamica}&#xA;                &#xA;                Este es un mensaje generado autom&amp;#225;ticamente, por favor no respondas a este correo.&#xA;            &#xA;        &amp;quot;&lt;/EM&gt;&lt;/STRONG&gt;&lt;/SPAN&gt;&lt;/P&gt;&quot;)]" ConnectionId="47851499-13f0-4b36-9449-ee5c4b829a38" DisplayName="Enviar correo electrónico" sap:VirtualizedContainerService.HintSize="416,546" sap2010:WorkflowViewState.IdRef="SendMailConnections_3" Importance="Normal" InputType="HTML" IsDeliveryReceiptRequested="False" IsReadReceiptRequested="False" SaveAsDraft="True" Subject="Solicitud de reset de password para success factor" To="[New String() {&quot;sergioarmandoalzagadiaz@gmail.com&quot;}]" UseConnectionService="True" UseSharedMailbox="False">
+                            <umam:SendMailConnections.AttachmentsBackup>
+                              <usau:BackupSlot x:TypeArguments="umame:AttachmentInputMode" StoredValue="Existing">
+                                <usau:BackupSlot.BackupValues>
+                                  <scg:Dictionary x:TypeArguments="umame:AttachmentInputMode, scg:List(x:Object)" />
+                                </usau:BackupSlot.BackupValues>
+                              </usau:BackupSlot>
+                            </umam:SendMailConnections.AttachmentsBackup>
+                            <umam:SendMailConnections.InputTypeBackup>
+                              <usau:BackupSlot x:TypeArguments="umame:BodyInputType" StoredValue="HTML">
+                                <usau:BackupSlot.BackupValues>
+                                  <scg:Dictionary x:TypeArguments="umame:BodyInputType, scg:List(x:Object)" />
+                                </usau:BackupSlot.BackupValues>
+                              </usau:BackupSlot>
+                            </umam:SendMailConnections.InputTypeBackup>
+                            <umam:SendMailConnections.Mailbox>
+                              <InArgument x:TypeArguments="x:String" x:Name="__ReferenceID2" />
+                            </umam:SendMailConnections.Mailbox>
+                            <umam:SendMailConnections.MailboxArg>
+                              <umamm:MailboxArgument SharedMailbox="{x:Reference __ReferenceID2}" UseSharedMailbox="False">
+                                <umamm:MailboxArgument.Backup>
+                                  <usau:BackupSlot x:TypeArguments="umame:MailboxSelectionMode" x:Name="__ReferenceID3" StoredValue="NoMailbox">
+                                    <usau:BackupSlot.BackupValues>
+                                      <scg:Dictionary x:TypeArguments="umame:MailboxSelectionMode, scg:List(x:Object)" />
+                                    </usau:BackupSlot.BackupValues>
+                                  </usau:BackupSlot>
+                                </umamm:MailboxArgument.Backup>
+                              </umamm:MailboxArgument>
+                            </umam:SendMailConnections.MailboxArg>
+                          </umam:SendMailConnections>
+                        </Sequence>
+                      </uix:NCheckState.IfExists>
+                      <uix:NCheckState.IfNotExists>
+                        <Sequence DisplayName="El objetivo no aparece." sap:VirtualizedContainerService.HintSize="450,708" sap2010:WorkflowViewState.IdRef="Sequence_10">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <ui:HttpClient Body="{x:Null}" ClientCertificate="{x:Null}" ClientCertificatePassword="{x:Null}" ConsumerKey="{x:Null}" ConsumerSecret="{x:Null}" ContinueOnError="{x:Null}" FileAttachments="{x:Null}" OAuth1Token="{x:Null}" OAuth1TokenSecret="{x:Null}" OAuth2Token="{x:Null}" Password="{x:Null}" ResourcePath="{x:Null}" ResponseAttachment="{x:Null}" ResponseHeaders="{x:Null}" SecureClientCertificatePassword="{x:Null}" SecurePassword="{x:Null}" StatusCode="{x:Null}" Username="{x:Null}" AcceptFormat="ANY" AuthenticationType="None" BodyFormat="application/xml" DisplayName="Http client" EnableSSLVerification="True" EndPoint="https://proyectos.kenos-atom.com/axo/api_actualiza_espera.php" sap:VirtualizedContainerService.HintSize="416,102" sap2010:WorkflowViewState.IdRef="HttpClient_4" Method="GET" Result="[info_peticion]" TimeoutMS="10000">
+                            <ui:HttpClient.Attachments>
+                              <scg:Dictionary x:TypeArguments="x:String, InArgument(x:String)" />
+                            </ui:HttpClient.Attachments>
+                            <ui:HttpClient.Cookies>
+                              <scg:Dictionary x:TypeArguments="x:String, InArgument(x:String)" />
+                            </ui:HttpClient.Cookies>
+                            <ui:HttpClient.Headers>
+                              <scg:Dictionary x:TypeArguments="x:String, InArgument(x:String)" />
+                            </ui:HttpClient.Headers>
+                            <ui:HttpClient.Parameters>
+                              <InArgument x:TypeArguments="x:String" x:Key="id">[info.id.ToString]</InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="resultado">2</InArgument>
+                            </ui:HttpClient.Parameters>
+                            <ui:HttpClient.UrlSegments>
+                              <scg:Dictionary x:TypeArguments="x:String, InArgument(x:String)" />
+                            </ui:HttpClient.UrlSegments>
+                          </ui:HttpClient>
+                          <umam:SendMailConnections ArgumentAttachmentPaths="{x:Null}" AttachmentList="{x:Null}" AttachmentPaths="{x:Null}" Attachments="{x:Null}" Bcc="{x:Null}" Cc="{x:Null}" ConnectionAccountName="{x:Null}" ContinueOnError="{x:Null}" MailboxBackup="{x:Reference __ReferenceID5}" ReplyTo="{x:Null}" SensitivityLabelId="{x:Null}" TextBody="{x:Null}" AttachmentInputMode="Existing" AuthScopesInvalid="False" Body="[string.Format(&quot;&lt;P&gt;&lt;SPAN&gt;&lt;EM&gt;&#xA;                Actualizaci&amp;#243;n de tu solicitud de RPA &amp;#129302;&#xA;                Estimado usuario,&#xA;                Te informamos que hemos recibido tu solicitud de reseteo de contrase&amp;#241;a para Success Factors (Ticket: {$ticket}).&#xA;                Durante el proceso de automatizaci&amp;#243;n por nuestra asistente, detectamos que los datos proporcionados no corresponden o no coinciden de forma exacta con nuestros registros en el corporativo, por lo que no fue posible procesarla autom&amp;#225;ticamente.&#xA;                No te preocupes, tu solicitud ha sido canalizada directamente con un agente humano especializado de nuestra Mesa de Ayuda, quien se pondr&amp;#225; en contacto contigo a la brevedad para brindarte seguimiento personalizado y resolver tu solicitud sin que tengas que volver a levantarla.&#xA;                Agradecemos tu paciencia.&#xA;                &#xA;                Este es un mensaje generado autom&amp;#225;ticamente, por favor no respondas a este correo.&#xA;            &lt;/EM&gt;&lt;/SPAN&gt;&lt;/P&gt;&quot;)]" ConnectionId="47851499-13f0-4b36-9449-ee5c4b829a38" DisplayName="Enviar correo electrónico" sap:VirtualizedContainerService.HintSize="416,546" sap2010:WorkflowViewState.IdRef="SendMailConnections_4" Importance="Normal" InputType="HTML" IsDeliveryReceiptRequested="False" IsReadReceiptRequested="False" SaveAsDraft="True" Subject="Solicitud de reset de password para success factor" To="[New String() {&quot;sergioarmandoalzagadiaz@gmail.com&quot;}]" UseConnectionService="True" UseSharedMailbox="False">
+                            <umam:SendMailConnections.AttachmentsBackup>
+                              <usau:BackupSlot x:TypeArguments="umame:AttachmentInputMode" StoredValue="Existing">
+                                <usau:BackupSlot.BackupValues>
+                                  <scg:Dictionary x:TypeArguments="umame:AttachmentInputMode, scg:List(x:Object)" />
+                                </usau:BackupSlot.BackupValues>
+                              </usau:BackupSlot>
+                            </umam:SendMailConnections.AttachmentsBackup>
+                            <umam:SendMailConnections.InputTypeBackup>
+                              <usau:BackupSlot x:TypeArguments="umame:BodyInputType" StoredValue="HTML">
+                                <usau:BackupSlot.BackupValues>
+                                  <scg:Dictionary x:TypeArguments="umame:BodyInputType, scg:List(x:Object)" />
+                                </usau:BackupSlot.BackupValues>
+                              </usau:BackupSlot>
+                            </umam:SendMailConnections.InputTypeBackup>
+                            <umam:SendMailConnections.Mailbox>
+                              <InArgument x:TypeArguments="x:String" x:Name="__ReferenceID4" />
+                            </umam:SendMailConnections.Mailbox>
+                            <umam:SendMailConnections.MailboxArg>
+                              <umamm:MailboxArgument SharedMailbox="{x:Reference __ReferenceID4}" UseSharedMailbox="False">
+                                <umamm:MailboxArgument.Backup>
+                                  <usau:BackupSlot x:TypeArguments="umame:MailboxSelectionMode" x:Name="__ReferenceID5" StoredValue="NoMailbox">
+                                    <usau:BackupSlot.BackupValues>
+                                      <scg:Dictionary x:TypeArguments="umame:MailboxSelectionMode, scg:List(x:Object)" />
+                                    </usau:BackupSlot.BackupValues>
+                                  </usau:BackupSlot>
+                                </umamm:MailboxArgument.Backup>
+                              </umamm:MailboxArgument>
+                            </umam:SendMailConnections.MailboxArg>
+                          </umam:SendMailConnections>
+                        </Sequence>
+                      </uix:NCheckState.IfNotExists>
+                      <uix:NCheckState.Target>
+                        <uix:TargetAnchorable BrowserURL="hcm19.sapsf.com/sf/pages/admin/password-reset" ContentHash="HxwSWxgG6UK6YdsxTE1VoQ" DesignTimeRectangle="1392, 583, 404, 32" ElementType="ListItem" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl tag='UI5-SUGGESTION-ITEM-XWEB-PASSWORD-RESET' /&gt;&lt;webctrl shadowhostid='' tag='LI' /&gt;" Guid="f3b25a17-6f25-4d57-8ff5-ae12eb7d5af6" InformativeScreenshot="d1ac69601ce2deb7c189c25f116c06b4.jpg" Reference="TjVIUNzZOE6u008eXZrzcQ/JnQPjI58y0OHKG-StzyyDw" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Restablecer contraseñas de usuarios - Centro de administración - SAP SuccessFactors' /&gt;" SearchSteps="Selector" Version="V6" WaitForReadyArgument="Interactive" />
+                      </uix:NCheckState.Target>
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                    </uix:NCheckState>
+                  </Sequence>
+                </uix:NCheckState.IfNotExists>
+                <uix:NCheckState.Target>
+                  <uix:TargetAnchorable BrowserURL="hcm19.sapsf.com/sf/pages/admin/password-reset" ContentHash="1ig_n5fGz0mcDJcfVoyBCg" DesignTimeRectangle="1404, 648, 408, 32" ElementType="ListItem" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl tag='UI5-SUGGESTION-ITEM-XWEB-PASSWORD-RESET' /&gt;&lt;webctrl shadowhostid='' tag='LI' /&gt;" Guid="f8315d5b-b6f4-4d94-b868-93e57dcedc94" InformativeScreenshot="6481fe0f6ce9d470ce38068d0ae432c2.jpg" Reference="TjVIUNzZOE6u008eXZrzcQ/6ZAIySVcykqoJicJaB_3uA" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Restablecer contraseñas de usuarios - Centro de administración - SAP SuccessFactors' /&gt;" SearchSteps="Selector" Version="V6" WaitForReadyArgument="Interactive" />
+                </uix:NCheckState.Target>
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+              </uix:NCheckState>
+            </Sequence>
+          </Sequence>
+        </ActivityAction>
+      </uix:NApplicationCard.Body>
+      <uix:NApplicationCard.OCREngine>
+        <ActivityFunc x:TypeArguments="sd:Image, scg:IEnumerable(scg:KeyValuePair(sd1:Rectangle, x:String))">
+          <ActivityFunc.Argument>
+            <DelegateInArgument x:TypeArguments="sd:Image" Name="Image" />
+          </ActivityFunc.Argument>
+        </ActivityFunc>
+      </uix:NApplicationCard.OCREngine>
+      <uix:NApplicationCard.TargetApp>
+        <uix:TargetApp Area="-8, -8, 1936, 1048" BrowserType="Chrome" ContentHash="PKAU-B2fXUC77gHRIklCgQ" IconBase64="iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAXvSURBVGhD7VVZUJNXFEbccMMFl7AE60Od1k6d6YOtfelDO7V7tdPqg31h02q1LkM7MoMjtNKOLaHitGpdWoGWxQFGwQXtECKGAAqyL0KgIQSIBBOSWkipek/n3P+/f/4bAnXBp/7fzDfn3nO+852by50fPz8FChQoUKBAgYL/MSZddJomFTlNky4OmjxrGaXaoLCW6rKcpBdzUl709O6Ve8r3TDPqPB4/f9k8vyJXgt/kAjtILEQ6PHuu5iAY/UXK8jRKuUIH+DOtGCXvApm3TONfINP5oODjkHrEeWn0LzA1zwZTc20wJdcGuMY4JbdfWOfZCK3LKWqniHXUynqonuZRmz+AUaSwxn7BA/UDQj/NizPFPZstzWK6PBuZnNsvHB4xLasPpmdZYVqWleB6mrAWctlWItSYpo/mqCb7FqH1bEHPaqKX5ImRz8m8cCb6Mcrq1Ndr/lRB7zk8IiDNAjPSLRCQ3kNU2b0QW+WEjI5hyOgYotxf74LXL9sAdcjp6T0kIN0C09Ms8OK5fogx2CWuuTxAa5RpFliebyUxBodQL7PDJramWhvgPOYr9aE/3QtzuHpGzynu8IiZJ7pg5sku8kWFAwZH7sNYwFrSjUFgeoz1t0c4jXPkPgSnm2HmCRPlmvO3CCfwgVKrG57Jtoi+ZjJD9JbPQQb8bB59eMSsI53k6yqHt69PfKK1AepnH+mEFb+avcsUb53tBayj7s0zvd5ln8Af/vJpC+2bjf6HO2HW4U6g8UgnmXW0w/fhEc/98oe3H5zvuAPfVAzA4RoH6C1DNGd2/QNzUttgzqF2EnioHX5rdnm3Uegtw1QXmNoGb+dZuBp6ZDY7JU85rlqGBH+xl63nHGrj37w3Np7hh+i7h2CuphUCNa1krqYFAjUt8PxxIyXmGfEwYyH8h5u0/53TXVxe8G6h/ejndPNPNvzHdiL4t0BgSisJTGkd++YZPs7v5kwQmY2DsPJoG8w70ER4NtLcxnz++TT0u7l9XHEf6uDdLBOX15v/kjznH2iiezlWHr0JmMfeeQea/vvwiGWaZuJ03+OMGHDAp4UWeCq5CRYkNZCgpHpYkFQPmXV2TvfK8XaQe+i77lDdexmdnA7zQUkNMD+pgaCn2cl/BJbhnP10xvjPRo6FCTUQX9TDGXnDPDgC28+aISixhrxwsJmrNVqHISihBspMf3L5908ZYe0pI5dDn2+vWOGnShv3g1ltYWItLEqsffDDIxbFV5PFe6th3ck2MDv4G/FG/IVu2J7HP4tjhluA/ViT4zttL6w9eZPLjYfP8k2wKL76wZ6NHEv2XIPFe64TjMh1x1pJTpUNuu1/e8+gt9bYy39BXk1tpH1PJ1RzeZf7HnxwrJXL+YJr+C7sLTSDKu7aw908w5LYSqL6vAIoY4UYLO6TL/NfKF9wue+CodMF3Y7RP9i7Hw9r6HBR5ly3wb4CEyzfWwWq2MqHv3mG4N0GWPVVNRwv7YNV+28A7pGq3QZ4LbmOO8DDwvuvaDC6QLVL8FbtKifBdF3+aDfPELKjDDRFnvfb2DMElxpuw6UGO72xiYTB6AScF7yjDEJ2GCBkZ9mj3zzDS/uuQ7ed/44/CCx2N3x4sB4Scjsg5YKZxo9S68Fye2yv8nYnhG7TU4Zsu/p4N8/w7G4DOaHtGX9w2yClHKfLrRC65SoJ3VoKYVtLIXSLwJRz/H9fOdAjdEsp9kzM4RFhm3TAuF5TC4k5RkgpNMH3hSZIyDHC6rhKot6sg/XJtbTO4oqdegjbrAOshW26Qth6dVyFoEmpI+s1tWSDpg42YJ+mFt74sgpCN+sm7vAIdXQJqGNKICxGiHQdXULEKOWEvY4gPTkd1TK9oNH66NcJMVr3+G/eG2FRWqKOKiHqaC3QGKWFcLr2RA9LCM3J82w9Ssv8BE911BM4PCI8shjUkcWAkRH36kgtESLLaQmNEcUkPFIr1eU1nlqPV5T2yRweER5RbFoaoTVhDI/4XYzjEbVML3CpT420n9g3r0CBAgUKFChQoEDCv2G5UmHdPrCDAAAAAElFTkSuQmCC" InformativeScreenshot="76fb134bc03df34a70f6b88e5a6fec9e.jpg" Reference="TjVIUNzZOE6u008eXZrzcQ/dm1VHwhyL0qdGwWrB5lR6w" Selector="&lt;html app='chrome.exe' title='Iniciar sesión: SAP SuccessFactors' /&gt;" Url="https://hcm19.sapsf.com/login#/login" Version="V3">
+          <uix:TargetApp.Arguments>
+            <InArgument x:TypeArguments="x:String" />
+          </uix:TargetApp.Arguments>
+          <uix:TargetApp.WorkingDirectory>
+            <InArgument x:TypeArguments="x:String" />
+          </uix:TargetApp.WorkingDirectory>
+        </uix:TargetApp>
+      </uix:NApplicationCard.TargetApp>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </uix:NApplicationCard>
+  </Sequence>
+</Activity>

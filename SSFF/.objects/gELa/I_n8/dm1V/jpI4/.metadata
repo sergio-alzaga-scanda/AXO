@@ -1,0 +1,13 @@
+﻿{
+  "Name": "Restablecer contraseña …",
+  "Type": "Element",
+  "Id": "jpI4lBZbnUq1t9MU_xxvLA",
+  "Reference": "TjVIUNzZOE6u008eXZrzcQ/jpI4lBZbnUq1t9MU_xxvLA",
+  "ParentRef": "TjVIUNzZOE6u008eXZrzcQ/dm1VHwhyL0qdGwWrB5lR6w",
+  "Created": "2026-06-06T00:02:20.518726Z",
+  "Updated": "2026-06-06T00:02:20.518726Z",
+  "CreatedBy": [
+    "UiPath.UIAutomationCore, Version=25.10.31.0, Culture=neutral, PublicKeyToken=null",
+    "UiPath.Platform, Version=25.12.1.0, Culture=neutral, PublicKeyToken=null"
+  ]
+}

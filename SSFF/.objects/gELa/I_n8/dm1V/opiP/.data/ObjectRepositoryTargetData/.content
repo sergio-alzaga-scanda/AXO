@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ObjectRepositoryTargetData ContentHash="PhvYDNIDXka-QdkP5TQhig" xmlns="http://schemas.uipath.com/workflow/activities/uix" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ObjectRepositoryTargetData.Data>
+    <TargetAnchorable x:Key="TargetAnchorable" BrowserURL="hcm19.sapsf.com/sf/pages/admin/password-reset" DesignTimeRectangle="1392, 557, 404, 26" ElementType="InputBox" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl idx='3' tag='UI5-INPUT-XWEB-PASSWORD-RESET' /&gt;&lt;webctrl id='inner' shadowhostid='' tag='INPUT' /&gt;" Guid="537669ee-f817-4fd2-9ff7-c1ef2aa79f28" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Restablecer contraseñas de usuarios - Centro de administración - SAP SuccessFactors' /&gt;" SearchSteps="Selector" Version="V6" WaitForReadyArgument="Interactive">
+      <imageRef attrName="InformativeScreenshot" originalValue="36015caa30f02ad3d0b397ad88935b0f.jpg" xmlns="">0CCzCxuuF5EGNK45N8DQclw</imageRef>
+    </TargetAnchorable>
+    <x:String x:Key="ActivityType">TypeInto</x:String>
+  </ObjectRepositoryTargetData.Data>
+</ObjectRepositoryTargetData>

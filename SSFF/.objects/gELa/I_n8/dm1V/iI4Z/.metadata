@@ -1,0 +1,14 @@
+﻿{
+  "Name": "Iniciar sesión",
+  "Type": "Element",
+  "TaxonomyType": "Button",
+  "Id": "iI4Z1A1GN06_O_U035ajWQ",
+  "Reference": "TjVIUNzZOE6u008eXZrzcQ/iI4Z1A1GN06_O_U035ajWQ",
+  "ParentRef": "TjVIUNzZOE6u008eXZrzcQ/dm1VHwhyL0qdGwWrB5lR6w",
+  "Created": "2026-06-05T23:25:15.6931477Z",
+  "Updated": "2026-06-05T23:25:15.6931477Z",
+  "CreatedBy": [
+    "UiPath.UIAutomationCore, Version=25.10.31.0, Culture=neutral, PublicKeyToken=null",
+    "UiPath.Platform, Version=25.12.1.0, Culture=neutral, PublicKeyToken=null"
+  ]
+}

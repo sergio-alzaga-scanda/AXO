@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ObjectRepositoryTargetData ContentHash="W6eRk4pvkEy_KrAha-_RBw" xmlns="http://schemas.uipath.com/workflow/activities/uix" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ObjectRepositoryTargetData.Data>
+    <TargetAnchorable x:Key="TargetAnchorable" BrowserURL="hcm19.sapsf.com/sf/start" DesignTimeRectangle="688, 193, 560, 36" ElementType="InputBox" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl tag='XWEB-SHELLBAR' /&gt;&lt;webctrl id='search' shadowhostid='' tag='XWEB-SHELLBAR-SEARCH-INPUT' /&gt;&lt;webctrl id='inner' shadowhostid='search' tag='INPUT' /&gt;" Guid="c7322bb4-7a3e-4b1c-9d61-ccda681a1191" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Inicio - SAP SuccessFactors' /&gt;" SearchSteps="Selector" Version="V6" WaitForReadyArgument="Interactive">
+      <imageRef attrName="InformativeScreenshot" originalValue="3fc038b640ff92b23385332147af758f.jpg" xmlns="">0VHiV5xbEmEKfaewSVMQ7-g</imageRef>
+    </TargetAnchorable>
+    <x:String x:Key="ActivityType">TypeInto</x:String>
+  </ObjectRepositoryTargetData.Data>
+</ObjectRepositoryTargetData>
