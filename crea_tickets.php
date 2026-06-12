@@ -277,7 +277,7 @@ $data = json_decode($input_json, true) ?: [];
 $id_plantilla = $data['id_plantilla'] ?? $_REQUEST['id_plantilla'] ?? null;
 $nombre = $data['nombre'] ?? $_REQUEST['nombre'] ?? 'Usuario Sistema';
 $descripcion = $data['descripcion'] ?? $_REQUEST['descripcion'] ?? 'Sin descripción adicional';
-$correo = 'tester_bot@grupoaxo.com'; // Opcional default
+$correo = $data['correo'] ?? $_REQUEST['correo'] ?? 'tester_bot@grupoaxo.com'; // Opcional default
 $accion = $data['accion'] ?? $data['acción'] ?? $_REQUEST['accion'] ?? $_REQUEST['acción'] ?? '1'; // '2' = cerrar o '1' = abrir
 $tipo_solicitud = $data['tipo_solicitud'] ?? $_REQUEST['tipo_solicitud'] ?? 'General'; // Clasificación opcional
 $numero_empleado = $data['numero_empleado'] ?? $_REQUEST['numero_empleado'] ?? null;

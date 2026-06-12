@@ -49,12 +49,47 @@ try {
         $filtro_status = $filtro_status_raw;
     }
 
+    // Filtros de Fecha
+    $filtro_fecha = $_GET['fecha_filtro'] ?? 'todos';
+    $fecha_inicio = $_GET['fecha_inicio'] ?? date('Y-m-d', strtotime('-7 days'));
+    $fecha_fin = $_GET['fecha_fin'] ?? date('Y-m-d');
+
     $condiciones_base = [];
     $params = [];
 
     if (!empty($filtro_tipo)) {
         $condiciones_base[] = "tipo_solicitud = :tipo";
         $params[':tipo'] = $filtro_tipo;
+    }
+
+    if ($filtro_fecha === 'semana') {
+        $d = new DateTime();
+        $d->setISODate((int)$d->format('o'), (int)$d->format('W'), 1); // Monday
+        $fi = $d->format('Y-m-d') . ' 00:00:00';
+        $d->modify('+6 days'); // Sunday
+        $ff = $d->format('Y-m-d') . ' 23:59:59';
+        
+        $condiciones_base[] = "fecha_creacion >= :fecha_ini";
+        $condiciones_base[] = "fecha_creacion <= :fecha_fin";
+        $params[':fecha_ini'] = $fi;
+        $params[':fecha_fin'] = $ff;
+    } elseif ($filtro_fecha === 'mes') {
+        $fi = date('Y-m-01') . ' 00:00:00';
+        $ff = date('Y-m-t') . ' 23:59:59';
+        
+        $condiciones_base[] = "fecha_creacion >= :fecha_ini";
+        $condiciones_base[] = "fecha_creacion <= :fecha_fin";
+        $params[':fecha_ini'] = $fi;
+        $params[':fecha_fin'] = $ff;
+    } elseif ($filtro_fecha === 'rango') {
+        if (!empty($fecha_inicio)) {
+            $condiciones_base[] = "fecha_creacion >= :fecha_ini";
+            $params[':fecha_ini'] = $fecha_inicio . ' 00:00:00';
+        }
+        if (!empty($fecha_fin)) {
+            $condiciones_base[] = "fecha_creacion <= :fecha_fin";
+            $params[':fecha_fin'] = $fecha_fin . ' 23:59:59';
+        }
     }
 
     // Registros para la tabla SÍ aplican el filtro de status
@@ -164,6 +199,7 @@ try {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap5.min.css">
     <style>
         body { background-color: #f8f9fa; }
         .card-stat { border-left: 5px solid; transition: all 0.3s ease; border-radius: 10px; }
@@ -314,7 +350,21 @@ try {
                         <?php endforeach; ?>
                     </select>
                 </div>
+                <div>
+                    <select name="fecha_filtro" id="fecha_filtro" class="form-select text-secondary">
+                        <option value="todos" <?= $filtro_fecha == 'todos' ? 'selected' : '' ?>>Todas las fechas</option>
+                        <option value="semana" <?= $filtro_fecha == 'semana' ? 'selected' : '' ?>>Esta semana</option>
+                        <option value="mes" <?= $filtro_fecha == 'mes' ? 'selected' : '' ?>>Este mes</option>
+                        <option value="rango" <?= $filtro_fecha == 'rango' ? 'selected' : '' ?>>Rango de fechas</option>
+                    </select>
+                </div>
+                <div id="rango_fechas_container" class="d-none gap-2 align-items-center">
+                    <input type="date" name="fecha_inicio" id="fecha_inicio" class="form-control text-secondary" value="<?= htmlspecialchars($fecha_inicio) ?>">
+                    <span class="text-secondary">a</span>
+                    <input type="date" name="fecha_fin" id="fecha_fin" class="form-control text-secondary" value="<?= htmlspecialchars($fecha_fin) ?>">
+                </div>
                 <button type="submit" class="btn btn-primary"><i class="bi bi-funnel-fill"></i> Filtrar</button>
+                <a href="reporte_teams.php" class="btn btn-outline-secondary"><i class="bi bi-x-circle"></i> Limpiar</a>
             </form>
         </div>
 
@@ -517,9 +567,13 @@ try {
     </div>
 
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
         $(document).ready(function() {
@@ -527,8 +581,26 @@ try {
                 language: { url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json" },
                 order: [[ 0, "desc" ]],
                 pageLength: 25,
-                dom: '<"d-flex justify-content-between align-items-center mb-3"lf>rt<"d-flex justify-content-between align-items-center mt-3"ip>'
+                dom: '<"d-flex justify-content-between align-items-center mb-3"lBf>rt<"d-flex justify-content-between align-items-center mt-3"ip>',
+                buttons: [
+                    {
+                        extend: 'excelHtml5',
+                        text: '<i class="bi bi-file-earmark-excel"></i> Exportar a Excel',
+                        className: 'btn btn-success btn-sm'
+                    }
+                ]
             });
+
+            // Lógica para mostrar/ocultar rango de fechas
+            function toggleFechaRango() {
+                if ($('#fecha_filtro').val() === 'rango') {
+                    $('#rango_fechas_container').removeClass('d-none').addClass('d-flex');
+                } else {
+                    $('#rango_fechas_container').removeClass('d-flex').addClass('d-none');
+                }
+            }
+            $('#fecha_filtro').on('change', toggleFechaRango);
+            toggleFechaRango(); // Inicializar al cargar la página
         });
     </script>
 
