@@ -21,7 +21,7 @@ def obtener_datetime_cdmx():
 
 
 BASE_URL = "https://servicedesk.grupoaxo.com/api/v3/"
-API_KEY = "E9E240F9-E167-4C62-89C9-3357CBEB69FB"
+API_KEY = "AC68C793-F6BC-48C0-9E5F-7CD30E91925F"
 
 # ===================================================================
 # CONFIGURACIÓN GPT-4o

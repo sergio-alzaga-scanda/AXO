@@ -59,7 +59,7 @@ try {
         $password_final = !empty($log['password_temporal']) ? $log['password_temporal'] : 'Inicio_2026*!';
         if ($ticket_id) {
             $url = "https://servicedesk.grupoaxo.com/api/v3/requests/{$ticket_id}";
-            $api_key = "E9E240F9-E167-4C62-89C9-3357CBEB69FB";
+            $api_key = "AC68C793-F6BC-48C0-9E5F-7CD30E91925F";
 
             $descripcion_ticket = "<b>La contraseña temporal es {$password_final}</b><br><br>";
 
@@ -106,7 +106,7 @@ try {
         $ticket_original = $log['ticket_creado'] ?? null;
         if ($ticket_original) {
             $url = "https://servicedesk.grupoaxo.com/api/v3/requests/{$ticket_original}";
-            $api_key = "E9E240F9-E167-4C62-89C9-3357CBEB69FB";
+            $api_key = "AC68C793-F6BC-48C0-9E5F-7CD30E91925F";
 
             // Obtener técnico usando carrusel
             $tec_id_sistema = obtenerTecnicoDisponible($conn);

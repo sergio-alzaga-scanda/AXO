@@ -4,7 +4,7 @@ require_once __DIR__ . '/Sistema/config/bd.php';
 
 class ServiceDeskCierre {
     private $pdo;
-    private $API_KEY = "E9E240F9-E167-4C62-89C9-3357CBEB69FB";
+    private $API_KEY = "AC68C793-F6BC-48C0-9E5F-7CD30E91925F";
     // ID obtenido de tu ticket de ejemplo: "74406"
     private $TECHNICIAN_ID = "74406"; 
 

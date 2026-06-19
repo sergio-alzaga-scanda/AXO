@@ -41,7 +41,7 @@ try {
     // Filtros Inteligentes
     $filtro_tipo = $_GET['tipo'] ?? '';
     // Status predeterminado: Si no hay tipo, mostrar 'exitosos'. Si busca por tipo, mostrar 'todos' para que vea los errores asociados.
-    $filtro_status_raw = $_GET['status'] ?? 'default';
+    $filtro_status_raw = $_GET['status'] ?? 'todos';
     
     if ($filtro_status_raw === 'default') {
         $filtro_status = empty($filtro_tipo) ? 'exitosos' : 'todos';

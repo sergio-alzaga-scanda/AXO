@@ -7,7 +7,7 @@ require_once __DIR__ . '/Sistema/config/bd.php';
 class TeamsAutomatizacionAPI {
     private $pdo;
     private $BASE_URL = "https://servicedesk.grupoaxo.com/api/v3/";
-    private $API_KEY = "E9E240F9-E167-4C62-89C9-3357CBEB69FB";
+    private $API_KEY = "AC68C793-F6BC-48C0-9E5F-7CD30E91925F";
     
     // Credenciales de SuccessFactors (Configura con tus datos reales)
     private $SF_BASE_URL = "https://<tu-servidor-api>.successfactors.com";

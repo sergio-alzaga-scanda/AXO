@@ -6,6 +6,35 @@ require_once 'funciones.php';
 
 // Estadísticas
 try {
+    // Sincronización de numero_empleado desde API externa
+    try {
+        $api_url = "https://proyectos.kenos-atom.com/ad_axo/api/V1/Request/GetLastRequest";
+        $ch = curl_init($api_url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 5); // 5 segundos max para no alentar la pagina
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        $response = curl_exec($ch);
+        $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+
+        if ($http_code === 200 && $response) {
+            $api_data = json_decode($response, true);
+            if (isset($api_data['isCorrect']) && $api_data['isCorrect'] === true && !empty($api_data['data'])) {
+                $stmtUpdateEmp = $conn->prepare("UPDATE log_api_tickets SET numero_empleado = :num WHERE correo = :correo AND (numero_empleado IS NULL OR numero_empleado = '')");
+                foreach ($api_data['data'] as $req) {
+                    if (!empty($req['userName']) && !empty($req['dataValidation'])) {
+                        $stmtUpdateEmp->execute([
+                            ':num' => $req['dataValidation'],
+                            ':correo' => $req['userName']
+                        ]);
+                    }
+                }
+            }
+        }
+    } catch (Exception $e) {
+        // Ignorar errores de la API externa para que el reporte siga funcionando
+    }
+
     // Init Seguro de Catálogo
     $conn->exec("CREATE TABLE IF NOT EXISTS catalogo_tipo_solicitud (
         id INT PRIMARY KEY,
@@ -20,7 +49,7 @@ try {
     $filtro_tipo = $_GET['tipo'] ?? '';
     
     // Status predeterminado inteligente
-    $filtro_status_raw = $_GET['status'] ?? 'default';
+    $filtro_status_raw = $_GET['status'] ?? 'todos';
     if ($filtro_status_raw === 'default') {
         $filtro_status = empty($filtro_tipo) ? 'exitosos' : 'todos';
     } else {
